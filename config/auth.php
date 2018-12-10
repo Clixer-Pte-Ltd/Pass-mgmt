@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults
@@ -14,7 +13,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'backpack',
         'passwords' => 'users',
     ],
 
@@ -98,5 +97,4 @@ return [
             'expire' => 60,
         ],
     ],
-
 ];

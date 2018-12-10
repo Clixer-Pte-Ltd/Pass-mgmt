@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use Backpack\Base\app\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Validator;
 
 class RegisterController extends Controller
 {
+    protected $data = []; // the information we send to the view
+
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -20,17 +21,7 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
-
-    use RegistersUsers {
-        register as registration;
-    }
-
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
+    use RegistersUsers;
 
     /**
      * Create a new controller instance.
@@ -39,43 +30,87 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $guard = backpack_guard_name();
+
+        $this->middleware("guest:$guard");
+
+        // Where to redirect users after login / registration.
+        $this->redirectTo = property_exists($this, 'redirectTo') ? $this->redirectTo
+            : config('backpack.base.route_prefix', 'dashboard');
     }
 
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param array $data
+     *
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
     {
+        $user_model_fqn = config('backpack.base.user_model_fqn');
+        $user = new $user_model_fqn();
+        $users_table = $user->getTable();
+        $email_validation = backpack_authentication_column() == 'email' ? 'email|' : '';
+
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'name' => 'required|max:255',
+            backpack_authentication_column() => 'required|' . $email_validation . 'max:255|unique:' . $users_table,
+            'password' => 'required|min:6|confirmed',
         ]);
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
-     * @return \App\User
+     * @param array $data
+     *
+     * @return User
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user_model_fqn = config('backpack.base.user_model_fqn');
+        $user = new $user_model_fqn();
+
+        return $user->create([
             'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            backpack_authentication_column() => $data[backpack_authentication_column()],
+            'password' => bcrypt($data['password']),
             'google2fa_secret' => $data['google2fa_secret'],
         ]);
     }
 
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        // if registration is closed, deny access
+        if (!config('backpack.base.registration_open')) {
+            abort(403, trans('backpack::base.registration_closed'));
+        }
+
+        $this->data['title'] = trans('backpack::base.register'); // set the page title
+
+        return view('backpack::auth.register', $this->data);
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function register(Request $request)
     {
-        //Validate the incoming request using the already included validator method
+        // if registration is closed, deny access
+        if (!config('backpack.base.registration_open')) {
+            abort(403, trans('backpack::base.registration_closed'));
+        }
+
         $this->validator($request->all())->validate();
 
         // Initialise the 2FA class
@@ -100,6 +135,10 @@ class RegisterController extends Controller
 
         // Pass the QR barcode image to our view
         return view('google2fa.register', ['QR_Image' => $QR_Image, 'secret' => $registration_data['google2fa_secret']]);
+
+        // $this->guard()->login($this->create($request->all()));
+
+        // return redirect($this->redirectPath());
     }
 
     public function completeRegistration(Request $request)
@@ -107,7 +146,18 @@ class RegisterController extends Controller
         // add the session data back to the request input
         $request->merge(session('registration_data'));
 
-        // Call the default laravel authentication
-        return $this->registration($request);
+        $this->guard()->login($this->create($request->all()));
+
+        return redirect($this->redirectPath());
+    }
+
+    /**
+     * Get the guard to be used during registration.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        return backpack_auth();
     }
 }

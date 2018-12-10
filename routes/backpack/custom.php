@@ -7,9 +7,9 @@
 // Routes you generate using Backpack\Generators will be placed here.
 
 Route::group([
-    'prefix'     => config('backpack.base.route_prefix', 'admin'),
-    'middleware' => ['web', config('backpack.base.middleware_key', 'admin')],
-    'namespace'  => 'App\Http\Controllers\Admin',
+    'prefix' => config('backpack.base.route_prefix', 'admin'),
+    'middleware' => ['web', config('backpack.base.middleware_key', 'admin'), '2fa'],
+    'namespace' => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
     CRUD::resource('tenant', 'TenantCrudController');
 }); // this should be the absolute last line of this file
