@@ -18,7 +18,7 @@
 @if ($crud->hasAccess('list'))
 	<a href="{{ starts_with(URL::previous(), url($crud->route)) ? URL::previous() : url($crud->route) }}" class="hidden-print"><i class="fa fa-angle-double-left"></i> {{ trans('backpack::crud.back_to_all') }} <span>{{ $crud->entity_name_plural }}</span></a>
 
-	<a href="javascript: window.print();" class="pull-right hidden-print"><i class="fa fa-print"></i></a>
+	<!-- <a href="javascript: window.print();" class="pull-right hidden-print"><i class="fa fa-print"></i></a> -->
 @endif
 <div class="row">
 	<div class="{{ $crud->getShowContentClass() }}">
@@ -98,7 +98,7 @@
                         <td>{{ $account->email }}</td>
                         <td>{{ $account->phone }}</td>
                         <td>
-                        <a href="javascript:void(0)" onclick="deleteEntry(this)" data-route="{{ route('crud.user.destroy', [$account->id]) }}" class="btn btn-xs btn-default" data-button-type="delete"><i class="fa fa-trash"></i> Delete</a>
+                        <a href="javascript:void(0)" onclick="deleteEntry(this)" data-route="{{ route('crud.user.destroy', [$account->id]) }}" class="btn btn-xs btn-danger" data-button-type="delete"><i class="fa fa-trash"></i> Delete</a>
                         </td>
                     </tr>
                     @endforeach
