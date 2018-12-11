@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
 class Tenant extends Model
 {
@@ -38,6 +39,11 @@ class Tenant extends Model
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function accounts()
+    {
+        return $this->hasMany(User::class);
     }
 
     /*
