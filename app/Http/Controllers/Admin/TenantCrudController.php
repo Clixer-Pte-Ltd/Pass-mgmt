@@ -114,11 +114,11 @@ class TenantCrudController extends CrudController
     {
         $content = parent::show($id);
         $this->crud->removeColumn('role_id');
-        $this->crud->addButtonFromView('line', 'add_staff', 'add_staff', 'end');
+        $this->crud->addButtonFromView('line', 'add_account', 'add_account', 'end');
         return $content;
     }
 
-    public function newStaff($id)
+    public function newAccount($id)
     {
         session()->put('tenant', $id);
 

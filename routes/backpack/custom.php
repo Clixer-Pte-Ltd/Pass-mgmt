@@ -12,5 +12,5 @@ Route::group([
     'namespace' => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
     CRUD::resource('tenant', 'TenantCrudController');
-    Route::get('tenant/{id}/staff/create', 'TenantCrudController@newStaff');
+    Route::get('tenant/{id}/account/create', 'TenantCrudController@newAccount')->name('admin.tenant.account.create');
 }); // this should be the absolute last line of this file
