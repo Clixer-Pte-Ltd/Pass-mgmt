@@ -4,15 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 // VALIDATION: change the requests to match your own file names if you need form validation
-use App\Http\Requests\TenantRequest as StoreRequest;
-use App\Http\Requests\TenantRequest as UpdateRequest;
+use App\Http\Requests\SubConstructorRequest as StoreRequest;
+use App\Http\Requests\SubConstructorRequest as UpdateRequest;
 
 /**
- * Class TenantCrudController
+ * Class SubConstructorCrudController
  * @package App\Http\Controllers\Admin
  * @property-read CrudPanel $crud
  */
-class TenantCrudController extends CrudController
+class SubConstructorCrudController extends CrudController
 {
     public function setup()
     {
@@ -21,9 +21,9 @@ class TenantCrudController extends CrudController
         | CrudPanel Basic Information
         |--------------------------------------------------------------------------
         */
-        $this->crud->setModel('App\Models\Tenant');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/tenant');
-        $this->crud->setEntityNameStrings('tenant', 'tenants');
+        $this->crud->setModel('App\Models\SubConstructor');
+        $this->crud->setRoute(config('backpack.base.route_prefix') . '/sub-constructor');
+        $this->crud->setEntityNameStrings('Sub Constructor', 'Sub Constructors');
         $this->crud->allowAccess('show');
 
         /*
@@ -82,12 +82,21 @@ class TenantCrudController extends CrudController
             'model' => "App\Models\Role", // foreign key model,
         ]);
 
-        // add asterisk for fields that are required in TenantRequest
+        $this->crud->addField([  // Select2
+            'label' => 'Tenant',
+            'type' => 'select2',
+            'name' => 'tenant_id', // the db column for the foreign key
+            'entity' => 'tenant', // the method that defines the relationship in your Model
+            'attribute' => 'name', // foreign key attribute that is shown to user
+            'model' => "App\Models\Tenant", // foreign key model,
+        ]);
+
+        // add asterisk for fields that are required in SubConstructorRequest
         $this->crud->setRequiredFields(StoreRequest::class, 'create');
         $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
 
         // Overwrite view
-        $this->crud->setShowView('crud::tenant.show');
+        $this->crud->setShowView('crud::sub-constructor.show');
     }
 
     public function store(StoreRequest $request)
@@ -96,9 +105,8 @@ class TenantCrudController extends CrudController
         $redirect_location = parent::storeCrud($request);
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
-        session()->put('tenant', $this->crud->entry->id);
-        session()->forget('sub_constructor');
-
+        session()->put('sub_constructor', $this->crud->entry->id);
+        session()->forget('tenant');
         return redirect()->route('backpack.auth.register');
     }
 
@@ -115,14 +123,20 @@ class TenantCrudController extends CrudController
     {
         $content = parent::show($id);
         $this->crud->removeColumn('role_id');
+        $this->crud->removeColumn('tenant_id');
+        $this->crud->addColumn([  // Select2
+            'name' => 'tenant.name',
+            'label' => 'Tenant',
+            'type' => 'text'
+        ]);
         $this->crud->addButtonFromView('line', 'add_account', 'add_account', 'end');
         return $content;
     }
 
     public function newAccount($id)
     {
-        session()->put('tenant', $id);
-        session()->forget('sub_constructor');
+        session()->forget('tenant');
+        session()->put('sub_constructor', $id);
 
         return redirect()->route('backpack.auth.register');
     }

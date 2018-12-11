@@ -11,3 +11,4 @@
     </ul>
   </li>
 <li><a href='{{ backpack_url('tenant') }}'><i class='fa fa-tag'></i> <span>Tenants</span></a></li>
+<li><a href='{{ backpack_url('sub-constructor') }}'><i class='fa fa-tag'></i> <span>Sub Constructors</span></a></li>

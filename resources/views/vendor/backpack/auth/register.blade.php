@@ -6,7 +6,7 @@
             <h3 class="text-center m-b-20">{{ trans('backpack::base.register') }}</h3>
             <div class="box">
                 <div class="box-body">
-                    <form class="col-md-12 p-t-10" role="form" method="POST" action="{{ route('backpack.auth.register') }}">
+                    <form class="col-md-12 p-t-10" role="form" method="POST" action="{{ route('backpack.auth.register.post') }}">
                         {!! csrf_field() !!}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -83,6 +83,10 @@
                             <input type="hidden" name="tenant_id" value="{{ session()->get('tenant') }}">
                         @endif
 
+                        @if(session()->has('sub_constructor'))
+                            <input type="hidden" name="sub_constructor_id" value="{{ session()->get('sub_constructor') }}">
+                        @endif
+
                         <div class="form-group">
                             <div>
                                 <button type="submit" class="btn btn-block btn-primary">
@@ -93,7 +97,7 @@
                     </form>
                 </div>
             </div>
-            @if(!session()->has('tenant'))
+            @if(!session()->has('tenant') && !session()->has('sub_constructor'))
                 <div class="text-center m-t-10"><a href="{{ route('backpack.auth.login') }}">{{ trans('backpack::base.login') }}</a></div>
             @endif
         </div>

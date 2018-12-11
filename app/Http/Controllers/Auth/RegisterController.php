@@ -80,6 +80,7 @@ class RegisterController extends Controller
             'google2fa_secret' => $data['google2fa_secret'],
             'phone' => isset($data['phone']) ? $data['phone'] : null,
             'tenant_id' => isset($data['tenant_id']) ? $data['tenant_id'] : null,
+            'sub_constructor_id' => isset($data['sub_constructor_id']) ? $data['sub_constructor_id'] : null,
         ]);
     }
 
@@ -156,6 +157,13 @@ class RegisterController extends Controller
             $user->assignRole('tenant');
             session()->forget('tenant');
             return redirect()->route('crud.tenant.show', [$id]);
+        }
+
+        if (session()->has('sub_constructor')) {
+            $id = session()->get('sub_constructor');
+            $user->assignRole('sub constructor');
+            session()->forget('sub_constructor');
+            return redirect()->route('crud.sub-constructor.show', [$id]);
         }
 
         $this->guard()->login($user);

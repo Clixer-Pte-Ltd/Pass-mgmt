@@ -13,4 +13,6 @@ Route::group([
 ], function () { // custom admin routes
     CRUD::resource('tenant', 'TenantCrudController');
     Route::get('tenant/{id}/account/create', 'TenantCrudController@newAccount')->name('admin.tenant.account.create');
+    CRUD::resource('sub-constructor', 'SubConstructorCrudController');
+    Route::get('sub-constructor/{id}/account/create', 'SubConstructorCrudController@newAccount')->name('admin.sub-constructor.account.create');
 }); // this should be the absolute last line of this file
