@@ -23,7 +23,10 @@ Route::group(
         'prefix' => config('backpack.base.route_prefix'),
     ],
     function () {
+        // Registration Routes...
+        Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('backpack.auth.register');
         Route::post('register', 'Auth\RegisterController@register');
+
         Route::get('logout', 'Auth\LoginController@logout')->name('backpack.auth.logout');
         Route::post('logout', 'Auth\LoginController@logout');
         // if not otherwise configured, setup the dashboard routes
