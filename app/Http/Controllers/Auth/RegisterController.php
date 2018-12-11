@@ -32,7 +32,7 @@ class RegisterController extends Controller
     {
         $guard = backpack_guard_name();
 
-        $this->middleware("guest:$guard");
+        // $this->middleware("guest:$guard");
 
         // Where to redirect users after login / registration.
         $this->redirectTo = property_exists($this, 'redirectTo') ? $this->redirectTo
@@ -57,6 +57,7 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             backpack_authentication_column() => 'required|' . $email_validation . 'max:255|unique:' . $users_table,
             'password' => 'required|min:6|confirmed',
+            'phone' => 'required'
         ]);
     }
 
@@ -77,6 +78,8 @@ class RegisterController extends Controller
             backpack_authentication_column() => $data[backpack_authentication_column()],
             'password' => bcrypt($data['password']),
             'google2fa_secret' => $data['google2fa_secret'],
+            'phone' => isset($data['phone']) ? $data['phone'] : null,
+            'tenant_id' => isset($data['tenant_id']) ? $data['tenant_id'] : null,
         ]);
     }
 
@@ -146,7 +149,14 @@ class RegisterController extends Controller
         // add the session data back to the request input
         $request->merge(session('registration_data'));
 
-        $this->guard()->login($this->create($request->all()));
+        $create = $this->create($request->all());
+
+        if (session()->has('tenant')) {
+            session()->forget('tenant');
+            return redirect()->route('crud.tenant.index');
+        }
+
+        $this->guard()->login($create);
 
         return redirect($this->redirectPath());
     }
