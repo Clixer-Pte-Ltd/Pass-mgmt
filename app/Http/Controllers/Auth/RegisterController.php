@@ -149,14 +149,16 @@ class RegisterController extends Controller
         // add the session data back to the request input
         $request->merge(session('registration_data'));
 
-        $create = $this->create($request->all());
+        $user = $this->create($request->all());
 
         if (session()->has('tenant')) {
+            $id = session()->get('tenant');
+            $user->assignRole('tenant');
             session()->forget('tenant');
-            return redirect()->route('crud.tenant.index');
+            return redirect()->route('crud.tenant.show', [$id]);
         }
 
-        $this->guard()->login($create);
+        $this->guard()->login($user);
 
         return redirect($this->redirectPath());
     }
