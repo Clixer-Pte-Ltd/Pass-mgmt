@@ -24,6 +24,7 @@ class TenantCrudController extends CrudController
         $this->crud->setModel('App\Models\Tenant');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/tenant');
         $this->crud->setEntityNameStrings('tenant', 'tenants');
+        $this->crud->allowAccess('show');
 
         /*
         |--------------------------------------------------------------------------
@@ -78,12 +79,15 @@ class TenantCrudController extends CrudController
             'name' => 'role_id', // the db column for the foreign key
             'entity' => 'role', // the method that defines the relationship in your Model
             'attribute' => 'name', // foreign key attribute that is shown to user
-            'model' => "App\Models\Role", // foreign key model
+            'model' => "App\Models\Role", // foreign key model,
         ]);
 
         // add asterisk for fields that are required in TenantRequest
         $this->crud->setRequiredFields(StoreRequest::class, 'create');
         $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
+
+        // Overwrite view
+        $this->crud->setShowView('crud::tenant.show');
     }
 
     public function store(StoreRequest $request)
@@ -104,5 +108,20 @@ class TenantCrudController extends CrudController
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
         return $redirect_location;
+    }
+
+    public function show($id)
+    {
+        $content = parent::show($id);
+        $this->crud->removeColumn('role_id');
+        $this->crud->addButtonFromView('line', 'add_staff', 'add_staff', 'end');
+        return $content;
+    }
+
+    public function newStaff($id)
+    {
+        session()->put('tenant', $id);
+
+        return redirect()->route('backpack.auth.register');
     }
 }
