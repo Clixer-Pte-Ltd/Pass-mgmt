@@ -38,6 +38,9 @@ class User extends Authenticatable
 
     public function getGoogle2faSecretAttribute($value)
     {
+        if (!$value) {
+            return $value;
+        }
         return decrypt($value);
     }
 }

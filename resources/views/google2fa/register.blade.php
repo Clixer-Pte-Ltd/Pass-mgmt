@@ -14,7 +14,15 @@
                     </div>
                     <p>You must set up your Google Authenticator app before continuing. You will be unable to login otherwise</p>
                     <div>
-                        <a href="/complete-registration"><button class="btn-primary">Complete Registration</button></a>
+                        @if(session()->has('tenant_2fa'))
+                            <a href="{{ route('crud.tenant.show', [session()->get('tenant_2fa')]) }}"><button class="btn-primary">Complete Registration</button></a>
+                        @else
+                            @if(session()->has('sub_constructor_2fa'))
+                                <a href="{{ route('crud.sub-constructor.show', [session()->get('sub_constructor_2fa')]) }}"><button class="btn-primary">Complete Registration</button></a>
+                            @else
+                                <a href="/complete-registration"><button class="btn-primary">Complete Registration</button></a>
+                            @endif
+                        @endif
                     </div>
                 </div>
             </div>

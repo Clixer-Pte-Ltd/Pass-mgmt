@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\User;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 // VALIDATION: change the requests to match your own file names if you need form validation
 use App\Http\Requests\StoreSubConstructorRequest as StoreRequest;
@@ -112,6 +113,10 @@ class SubConstructorCrudController extends CrudController
 
     public function show($id)
     {
+        //Reset for 2fa setup
+        session()->forget('tenant_2fa');
+        session()->forget('sub_constructor_2fa');
+
         $content = parent::show($id);
         $this->crud->removeColumn('role_id');
         $this->crud->removeColumn('tenant_id');
@@ -130,5 +135,34 @@ class SubConstructorCrudController extends CrudController
         session()->put('sub_constructor', $id);
 
         return redirect()->route('backpack.auth.register');
+    }
+
+    public function account2fa($sub_constructor_id, $id)
+    {
+        session()->put('sub_constructor_2fa', $sub_constructor_id);
+        session()->forget('tenant_2fa');
+
+        $account = User::findOrFail($id);
+        // Initialise the 2FA class
+        $google2fa = app('pragmarx.google2fa');
+
+        // Add the secret key to the registration data
+        if (!$account->google2fa_secret) {
+            $account->google2fa_secret = $google2fa->generateSecretKey();
+            $account->save();
+        }
+
+        $registration_data['google2fa_secret'] = $account->google2fa_secret;
+
+        // Generate the QR image. This is the image the user will scan with their app
+        // to set up two factor authentication
+        $QR_Image = $google2fa->getQRCodeInline(
+            config('app.name'),
+            $account->email,
+            $registration_data['google2fa_secret']
+        );
+
+        // Pass the QR barcode image to our view
+        return view('google2fa.register', ['QR_Image' => $QR_Image, 'secret' => $registration_data['google2fa_secret']]);
     }
 }
