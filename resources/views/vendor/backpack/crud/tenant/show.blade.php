@@ -21,7 +21,7 @@
 	<!-- <a href="javascript: window.print();" class="pull-right hidden-print"><i class="fa fa-print"></i></a> -->
 @endif
 <div class="row">
-	<div class="{{ $crud->getShowContentClass() }}">
+	<div class="col-md-12">
 
 	<!-- Default box -->
 	  <div class="m-t-20">
