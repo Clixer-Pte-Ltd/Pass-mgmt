@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
-class SubConstructorRequest extends FormRequest
+class StoreSubConstructorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +25,11 @@ class SubConstructorRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'name' => 'required',
+            'uen' => 'required|unique:tenants,uen|unique:sub_constructors,uen',
+            'tenancy_start_date' => 'required|date',
+            'tenancy_end_date' => 'required|date|after:today|after:tenancy_start_date',
+            'tenant_id' => 'required'
         ];
     }
 

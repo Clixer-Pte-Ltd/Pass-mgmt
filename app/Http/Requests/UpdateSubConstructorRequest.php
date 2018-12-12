@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TenantRequest extends FormRequest
+class UpdateSubConstructorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,14 @@ class TenantRequest extends FormRequest
      */
     public function rules()
     {
+        $except = request()->get('id');
+
         return [
             'name' => 'required',
-            'uen' => 'required',
-            'tenancy_start_date' => 'required',
-            'tenancy_end_date' => 'required',
+            'uen' => "required|unique:tenants,uen|unique:sub_constructors,uen,{$except}",
+            'tenancy_start_date' => 'required|date',
+            'tenancy_end_date' => 'required|date|after:today|after:tenancy_start_date',
+            'tenant_id' => 'required'
         ];
     }
 
