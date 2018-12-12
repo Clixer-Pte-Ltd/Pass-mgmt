@@ -46,6 +46,11 @@ class Tenant extends Model
         return $this->hasMany(User::class);
     }
 
+    public function subContructors()
+    {
+        return $this->hasMany(SubConstructor::class);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

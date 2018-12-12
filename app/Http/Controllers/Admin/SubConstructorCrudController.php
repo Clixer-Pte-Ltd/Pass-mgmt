@@ -41,13 +41,13 @@ class SubConstructorCrudController extends CrudController
             'name' => 'tenancy_start_date', // The db column name
             'label' => 'Tenancy Start Date', // Table column heading
             'type' => 'date',
-            'format' => 'd/m/Y', // use something else than the base.default_date_format config value
+            'format' => DATE_FORMAT, // use something else than the base.default_date_format config value
         ]);
         $this->crud->addColumn([
             'name' => 'tenancy_end_date', // The db column name
             'label' => 'Tenancy End Date', // Table column heading
             'type' => 'date',
-            'format' => 'd/m/Y', // use something else than the base.default_date_format config value
+            'format' => DATE_FORMAT, // use something else than the base.default_date_format config value
         ]);
 
         $this->crud->addField([
@@ -74,14 +74,23 @@ class SubConstructorCrudController extends CrudController
             'label' => 'Tenancy End Date'
         ]);
 
-        $this->crud->addField([  // Select2
-            'label' => 'Tenant',
-            'type' => 'select2',
-            'name' => 'tenant_id', // the db column for the foreign key
-            'entity' => 'tenant', // the method that defines the relationship in your Model
-            'attribute' => 'name', // foreign key attribute that is shown to user
-            'model' => "App\Models\Tenant", // foreign key model,
-        ]);
+        if (session()->has(SESS_TENANT_SUB_CONSTRUCTOR)) {
+            $this->crud->addField([
+                'label' => 'Tenant',
+                'name' => 'tenant_id',
+                'type' => 'hidden',
+                'value' => session()->get(SESS_TENANT_SUB_CONSTRUCTOR)
+            ]);
+        } else {
+            $this->crud->addField([  // Select2
+                'label' => 'Tenant',
+                'type' => 'select2',
+                'name' => 'tenant_id', // the db column for the foreign key
+                'entity' => 'tenant', // the method that defines the relationship in your Model
+                'attribute' => 'name', // foreign key attribute that is shown to user
+                'model' => "App\Models\Tenant", // foreign key model,
+            ]);
+        }
 
         // add asterisk for fields that are required in SubConstructorRequest
         $this->crud->setRequiredFields(StoreRequest::class, 'create');
@@ -89,6 +98,15 @@ class SubConstructorCrudController extends CrudController
 
         // Overwrite view
         $this->crud->setShowView('crud::sub-constructor.show');
+        $this->crud->setCreateView('crud::sub-constructor.create');
+        $this->crud->setEditView('crud::sub-constructor.edit');
+    }
+
+    public function index()
+    {
+        $content = parent::index();
+        session()->forget(SESS_TENANT_SUB_CONSTRUCTOR);
+        return $content;
     }
 
     public function store(StoreRequest $request)

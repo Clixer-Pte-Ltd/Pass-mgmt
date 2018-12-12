@@ -41,13 +41,13 @@ class TenantCrudController extends CrudController
             'name' => 'tenancy_start_date', // The db column name
             'label' => 'Tenancy Start Date', // Table column heading
             'type' => 'date',
-            'format' => 'd/m/Y', // use something else than the base.default_date_format config value
+            'format' => DATE_FORMAT, // use something else than the base.default_date_format config value
         ]);
         $this->crud->addColumn([
             'name' => 'tenancy_end_date', // The db column name
             'label' => 'Tenancy End Date', // Table column heading
             'type' => 'date',
-            'format' => 'd/m/Y', // use something else than the base.default_date_format config value
+            'format' => DATE_FORMAT, // use something else than the base.default_date_format config value
         ]);
 
         $this->crud->addField([
@@ -109,9 +109,12 @@ class TenantCrudController extends CrudController
         session()->forget('tenant_2fa');
         session()->forget('sub_constructor_2fa');
 
+        session()->put(SESS_TENANT_SUB_CONSTRUCTOR, $id);
+
         $content = parent::show($id);
         $this->crud->removeColumn('role_id');
         $this->crud->addButtonFromView('line', 'add_account', 'add_account', 'end');
+        $this->crud->addButtonFromView('line', 'add_sub_constructor', 'add_sub_constructor', 'end');
         return $content;
     }
 
@@ -121,6 +124,11 @@ class TenantCrudController extends CrudController
         session()->forget('sub_constructor');
 
         return redirect()->route('backpack.auth.register');
+    }
+
+    public function newSubConstructor($id)
+    {
+        return redirect()->route('crud.sub-constructor.create');
     }
 
     public function account2fa($tenant_id, $id)
