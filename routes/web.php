@@ -41,5 +41,5 @@ Route::group(
 );
 
 Route::post('/2fa', function () {
-    return redirect(URL()->previous());
+    return redirect()->route('backpack.dashboard');
 })->name('2fa')->middleware('2fa');
