@@ -166,7 +166,7 @@ class RegisterController extends Controller
             return redirect()->route('crud.sub-constructor.show', [$id]);
         }
 
-        $user->assignRole(ADMIN_ROLE);
+        $user->assignRole(AIRPORT_TEAM_ROLE);
         $this->guard()->login($user);
 
         return redirect($this->redirectPath());
