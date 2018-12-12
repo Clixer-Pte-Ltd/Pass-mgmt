@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
 class TenantRequest extends FormRequest
@@ -26,7 +25,10 @@ class TenantRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'name' => 'required',
+            'uen' => 'required',
+            'tenancy_start_date' => 'required',
+            'tenancy_end_date' => 'required',
         ];
     }
 

@@ -19,7 +19,7 @@ class CreateTenantsTable extends Migration
             $table->string('uen');
             $table->date('tenancy_start_date');
             $table->date('tenancy_end_date');
-            $table->unsignedInteger('role_id');
+            $table->unsignedInteger('role_id')->default(TENANT_ROLE_ID);
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
             $table->timestamps();
         });

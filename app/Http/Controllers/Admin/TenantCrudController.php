@@ -73,15 +73,6 @@ class TenantCrudController extends CrudController
             'label' => 'Tenancy End Date'
         ]);
 
-        $this->crud->addField([  // Select2
-            'label' => 'Role',
-            'type' => 'select2',
-            'name' => 'role_id', // the db column for the foreign key
-            'entity' => 'role', // the method that defines the relationship in your Model
-            'attribute' => 'name', // foreign key attribute that is shown to user
-            'model' => "App\Models\Role", // foreign key model,
-        ]);
-
         // add asterisk for fields that are required in TenantRequest
         $this->crud->setRequiredFields(StoreRequest::class, 'create');
         $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
