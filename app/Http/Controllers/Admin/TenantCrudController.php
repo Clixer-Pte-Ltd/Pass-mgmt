@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\User;
-use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Illuminate\Http\Request;
 // VALIDATION: change the requests to match your own file names if you need form validation
+use Maatwebsite\Excel\Excel;
+use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Http\Requests\StoreTenantRequest as StoreRequest;
 use App\Http\Requests\UpdateTenantRequest as UpdateRequest;
+use App\Imports\TenantsImport;
 
 /**
  * Class TenantCrudController
@@ -80,6 +83,13 @@ class TenantCrudController extends CrudController
 
         // Overwrite view
         $this->crud->setShowView('crud::tenant.show');
+    }
+
+    public function index()
+    {
+        $content = parent::index();
+        $this->crud->addButtonFromView('top', 'import_tenants', 'import_tenants', 'end');
+        return $content;
     }
 
     public function store(StoreRequest $request)
@@ -158,5 +168,18 @@ class TenantCrudController extends CrudController
 
         // Pass the QR barcode image to our view
         return view('google2fa.register', ['QR_Image' => $QR_Image, 'secret' => $registration_data['google2fa_secret']]);
+    }
+
+    public function import(Request $request, Excel $excel)
+    {
+        $excel->import(new TenantsImport, $request->file('import_file'));
+
+        return redirect()->route('crud.tenant.index');
+    }
+
+    public function importDemo()
+    {
+        $file = public_path() . '/exports/tenants.xlsx';
+        return response()->download($file);
     }
 }

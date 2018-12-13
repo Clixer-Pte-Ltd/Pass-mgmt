@@ -16,7 +16,7 @@ class CreateTenantsTable extends Migration
         Schema::create('tenants', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('uen');
+            $table->string('uen')->unique();
             $table->date('tenancy_start_date');
             $table->date('tenancy_end_date');
             $table->unsignedInteger('role_id')->default(TENANT_ROLE_ID);
