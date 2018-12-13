@@ -12,3 +12,5 @@ define('SUB_CONSTRUCTOR_ROLE_ID', '4');
 define('DATE_FORMAT', 'd/m/Y');
 
 define('SESS_TENANT_SUB_CONSTRUCTOR', 'tenant_sub_constructor');
+
+define('DEFAULT_PASSWORD', '123456');

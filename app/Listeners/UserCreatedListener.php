@@ -2,6 +2,8 @@
 
 namespace App\Listeners;
 
+use App\Events\TenantAccountImported;
+
 class UserCreatedListener
 {
     /**
@@ -25,6 +27,7 @@ class UserCreatedListener
         $user = $event->model;
         if (isset($user->tenant_id) && !$user->hasRole(TENANT_ROLE)) {
             $user->assignRole(TENANT_ROLE);
+            event(new TenantAccountImported($user));
         }
         if (isset($user->sub_constructor_id) && !$user->hasRole(SUB_CONSTRUCTOR_ROLE)) {
             $user->assignRole(SUB_CONSTRUCTOR_ROLE);

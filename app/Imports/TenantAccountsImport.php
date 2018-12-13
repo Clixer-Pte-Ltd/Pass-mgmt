@@ -25,7 +25,7 @@ class TenantAccountsImport implements ToModel, WithHeadingRow, WithValidation, S
     public function model(array $row)
     {
         try {
-            $password = str_random(8);
+            $password = DEFAULT_PASSWORD;
             $google2fa_secret = app('pragmarx.google2fa')->generateSecretKey();
             $uen = $row['company_uen'];
             $id = Tenant::where('uen', $uen)->first()->id;
@@ -33,7 +33,7 @@ class TenantAccountsImport implements ToModel, WithHeadingRow, WithValidation, S
                 'name' => $row['name'],
                 'email' => $row['email'],
                 'phone' => $row['phone'],
-                'password' => $password,
+                'password' => \Hash::make($password),
                 'google2fa_secret' => $google2fa_secret,
                 'tenant_id' => $id
             ]);

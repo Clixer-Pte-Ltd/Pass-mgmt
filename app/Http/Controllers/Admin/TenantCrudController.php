@@ -176,6 +176,8 @@ class TenantCrudController extends CrudController
     {
         $excel->import(new TenantsImport, $request->file('import_file'));
 
+        \Alert::success('Import successful.')->flash();
+
         return redirect()->route('crud.tenant.index');
     }
 
@@ -188,6 +190,8 @@ class TenantCrudController extends CrudController
     public function importAccount(Request $request, Excel $excel)
     {
         $excel->import(new TenantAccountsImport, $request->file('import_file'));
+
+        \Alert::success('Import successful. Email will be sent out to imported accounts soon...')->flash();
 
         return redirect()->route('crud.tenant.index');
     }
