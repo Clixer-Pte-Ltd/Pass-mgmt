@@ -17,6 +17,8 @@ Route::group([
     Route::get('tenant/{tenant_id}/account/{id}/2fa/config', 'TenantCrudController@account2fa')->name('admin.tenant.account.2fa');
     Route::post('tenant/import', 'TenantCrudController@import')->name('admin.tenant.import');
     Route::get('tenant/import/demo', 'TenantCrudController@importDemo')->name('admin.tenant.import.demo');
+    Route::post('tenant/account/import', 'TenantCrudController@importAccount')->name('admin.tenant.account.import');
+    Route::get('tenant/account/import/demo', 'TenantCrudController@importAccountDemo')->name('admin.tenant.account.import.demo');
     CRUD::resource('sub-constructor', 'SubConstructorCrudController');
     Route::get('sub-constructor/{id}/account/create', 'SubConstructorCrudController@newAccount')->name('admin.sub-constructor.account.create');
     Route::get('sub-constructor/{sub_constructor_id}/account/{id}/2fa/config', 'SubConstructorCrudController@account2fa')->name('admin.sub-constructor.account.2fa');

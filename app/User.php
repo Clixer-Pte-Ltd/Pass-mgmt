@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\UserCreated;
 use Backpack\CRUD\CrudTrait;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
@@ -29,6 +30,10 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password', 'remember_token', 'google2fa_secret'
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => UserCreated::class,
     ];
 
     public function setGoogle2faSecretAttribute($value)

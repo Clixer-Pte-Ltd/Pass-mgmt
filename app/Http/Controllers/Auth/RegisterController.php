@@ -154,19 +154,16 @@ class RegisterController extends Controller
 
         if (session()->has('tenant')) {
             $id = session()->get('tenant');
-            $user->assignRole(TENANT_ROLE);
             session()->forget('tenant');
             return redirect()->route('crud.tenant.show', [$id]);
         }
 
         if (session()->has('sub_constructor')) {
             $id = session()->get('sub_constructor');
-            $user->assignRole(SUB_CONSTRUCTOR_ROLE);
             session()->forget('sub_constructor');
             return redirect()->route('crud.sub-constructor.show', [$id]);
         }
 
-        $user->assignRole(AIRPORT_TEAM_ROLE);
         $this->guard()->login($user);
 
         return redirect($this->redirectPath());

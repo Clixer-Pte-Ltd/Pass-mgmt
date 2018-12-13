@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
-use App\User;
+use App\Models\BackpackUser as User;
 
 class Tenant extends Model
 {

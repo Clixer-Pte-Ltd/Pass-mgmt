@@ -88,7 +88,7 @@
 <div class="row">
 	<div class="col-md-6">
 		<div class="box no-padding no-border">
-			<h4 class="text-center">Accounts</h4>
+			<h4 class="text-center"><i class="fa fa-user"></i> Accounts</h4>
 			<table class="table table-striped table-bordered" id="tenant_account">
 				<thead>
 					<tr>
@@ -116,7 +116,7 @@
 	</div>
 	<div class="col-md-6">
 		<div class="box no-padding no-border">
-			<h4 class="text-center">Sub Constructors</h4>
+			<h4 class="text-center"><i class="fa fa-building"></i> Sub Constructors</h4>
 			<table class="table table-striped table-bordered" id="tenant_account">
 				<thead>
 					<tr>

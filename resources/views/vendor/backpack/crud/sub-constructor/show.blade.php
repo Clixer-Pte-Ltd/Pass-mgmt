@@ -85,7 +85,7 @@
         </div><!-- /.box-body -->
         
         <div class="box no-padding no-border">
-            <h4 class="text-center">Accounts</h4>
+            <h4 class="text-center"><i class="fa fa-user"></i> Accounts</h4>
             <table class="table table-striped table-bordered" id="tenant_account">
                 <thead>
                     <tr>

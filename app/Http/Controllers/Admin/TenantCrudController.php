@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\User;
+use App\Models\BackpackUser as User;
 use Illuminate\Http\Request;
 // VALIDATION: change the requests to match your own file names if you need form validation
 use Maatwebsite\Excel\Excel;
@@ -10,6 +10,7 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Http\Requests\StoreTenantRequest as StoreRequest;
 use App\Http\Requests\UpdateTenantRequest as UpdateRequest;
 use App\Imports\TenantsImport;
+use App\Imports\TenantAccountsImport;
 
 /**
  * Class TenantCrudController
@@ -89,6 +90,7 @@ class TenantCrudController extends CrudController
     {
         $content = parent::index();
         $this->crud->addButtonFromView('top', 'import_tenants', 'import_tenants', 'end');
+        $this->crud->addButtonFromView('top', 'import_tenant_accounts', 'import_tenant_accounts', 'end');
         return $content;
     }
 
@@ -180,6 +182,19 @@ class TenantCrudController extends CrudController
     public function importDemo()
     {
         $file = public_path() . '/exports/tenants.xlsx';
+        return response()->download($file);
+    }
+
+    public function importAccount(Request $request, Excel $excel)
+    {
+        $excel->import(new TenantAccountsImport, $request->file('import_file'));
+
+        return redirect()->route('crud.tenant.index');
+    }
+
+    public function importAccountDemo()
+    {
+        $file = public_path() . '/exports/accounts.xlsx';
         return response()->download($file);
     }
 }
