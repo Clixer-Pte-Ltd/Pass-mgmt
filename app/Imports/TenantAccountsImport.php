@@ -31,7 +31,8 @@ class TenantAccountsImport implements ToModel, WithHeadingRow, WithValidation, S
                 'phone' => $row['phone'],
                 'password' => \Hash::make($password),
                 'google2fa_secret' => $google2fa_secret,
-                'tenant_id' => $id
+                'tenant_id' => $id,
+                'is_imported' => true,
             ]);
         } catch (\Exception $ex) {
             return null;

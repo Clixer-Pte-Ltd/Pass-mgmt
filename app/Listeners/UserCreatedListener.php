@@ -27,11 +27,15 @@ class UserCreatedListener
         $user = $event->model;
         if (isset($user->tenant_id) && !$user->hasRole(TENANT_ROLE)) {
             $user->assignRole(TENANT_ROLE);
-            event(new AccountImported($user));
+            if ($user->is_imported) {
+                event(new AccountImported($user));
+            }
         }
         if (isset($user->sub_constructor_id) && !$user->hasRole(SUB_CONSTRUCTOR_ROLE)) {
             $user->assignRole(SUB_CONSTRUCTOR_ROLE);
-            event(new AccountImported($user));
+            if ($user->is_imported) {
+                event(new AccountImported($user));
+            }
         }
         if (!isset($user->tenant_id) && !isset($user->sub_constructor_id)) {
             $user->assignRole(AIRPORT_TEAM_ROLE);

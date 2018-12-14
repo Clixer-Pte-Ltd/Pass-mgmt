@@ -31,7 +31,8 @@ class SubContructorAccountsImport implements ToModel, WithHeadingRow, WithValida
                 'phone' => $row['phone'],
                 'password' => \Hash::make($password),
                 'google2fa_secret' => $google2fa_secret,
-                'sub_constructor_id' => $id
+                'sub_constructor_id' => $id,
+                'is_imported' => true,
             ]);
         } catch (\Exception $ex) {
             return null;
