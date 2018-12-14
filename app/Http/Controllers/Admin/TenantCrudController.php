@@ -198,7 +198,7 @@ class TenantCrudController extends CrudController
 
     public function importAccountDemo()
     {
-        $file = public_path() . '/exports/accounts.xlsx';
+        $file = public_path() . '/exports/tenant_accounts.xlsx';
         return response()->download($file);
     }
 }

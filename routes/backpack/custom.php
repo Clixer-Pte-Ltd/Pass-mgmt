@@ -19,7 +19,13 @@ Route::group([
     Route::get('tenant/import/demo', 'TenantCrudController@importDemo')->name('admin.tenant.import.demo');
     Route::post('tenant/account/import', 'TenantCrudController@importAccount')->name('admin.tenant.account.import');
     Route::get('tenant/account/import/demo', 'TenantCrudController@importAccountDemo')->name('admin.tenant.account.import.demo');
+
+    // Sub-Constructors
     CRUD::resource('sub-constructor', 'SubConstructorCrudController');
     Route::get('sub-constructor/{id}/account/create', 'SubConstructorCrudController@newAccount')->name('admin.sub-constructor.account.create');
     Route::get('sub-constructor/{sub_constructor_id}/account/{id}/2fa/config', 'SubConstructorCrudController@account2fa')->name('admin.sub-constructor.account.2fa');
+    Route::post('sub-constructor/import', 'SubConstructorCrudController@import')->name('admin.sub-constructor.import');
+    Route::get('sub-constructor/import/demo', 'SubConstructorCrudController@importDemo')->name('admin.sub-constructor.import.demo');
+    Route::post('sub-constructor/account/import', 'SubConstructorCrudController@importAccount')->name('admin.sub-constructor.account.import');
+    Route::get('sub-constructor/account/import/demo', 'SubConstructorCrudController@importAccountDemo')->name('admin.sub-constructor.account.import.demo');
 }); // this should be the absolute last line of this file

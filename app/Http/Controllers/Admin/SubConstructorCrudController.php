@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\BackpackUser as User;
-use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Illuminate\Http\Request;
+use Maatwebsite\Excel\Excel;
 // VALIDATION: change the requests to match your own file names if you need form validation
+use App\Models\BackpackUser as User;
+use App\Imports\SubContructorsImport;
+use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Http\Requests\StoreSubConstructorRequest as StoreRequest;
 use App\Http\Requests\UpdateSubConstructorRequest as UpdateRequest;
+use App\Imports\SubContructorAccountsImport;
 
 /**
  * Class SubConstructorCrudController
@@ -106,6 +110,9 @@ class SubConstructorCrudController extends CrudController
     {
         $content = parent::index();
         session()->forget(SESS_TENANT_SUB_CONSTRUCTOR);
+        $this->crud->addButtonFromView('top', 'import_sub_constructors', 'import_sub_constructors', 'end');
+        $this->crud->addButtonFromView('top', 'import_sub_constructor_accounts', 'import_sub_constructor_accounts', 'end');
+
         return $content;
     }
 
@@ -182,5 +189,35 @@ class SubConstructorCrudController extends CrudController
 
         // Pass the QR barcode image to our view
         return view('google2fa.register', ['QR_Image' => $QR_Image, 'secret' => $registration_data['google2fa_secret']]);
+    }
+
+    public function import(Request $request, Excel $excel)
+    {
+        $excel->import(new SubContructorsImport, $request->file('import_file'));
+
+        \Alert::success('Import successful.')->flash();
+
+        return redirect()->route('crud.sub-constructor.index');
+    }
+
+    public function importDemo()
+    {
+        $file = public_path() . '/exports/sub-constructors.xlsx';
+        return response()->download($file);
+    }
+
+    public function importAccount(Request $request, Excel $excel)
+    {
+        $excel->import(new SubContructorAccountsImport, $request->file('import_file'));
+
+        \Alert::success('Import successful. Email will be sent out to imported accounts soon...')->flash();
+
+        return redirect()->route('crud.sub-constructor.index');
+    }
+
+    public function importAccountDemo()
+    {
+        $file = public_path() . '/exports/sub_constructor_accounts.xlsx';
+        return response()->download($file);
     }
 }

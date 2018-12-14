@@ -3,13 +3,13 @@
 namespace App\Providers;
 
 use App\Events\UserCreated;
+use App\Events\AccountImported;
 use Illuminate\Support\Facades\Event;
+use App\Listeners\UserCreatedListener;
 use Illuminate\Auth\Events\Registered;
+use App\Listeners\AccountInfoNotification;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use App\Listeners\UserCreatedListener;
-use App\Events\TenantAccountImported;
-use App\Listeners\AccountInfoNotification;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -25,7 +25,7 @@ class EventServiceProvider extends ServiceProvider
         UserCreated::class => [
             UserCreatedListener::class,
         ],
-        TenantAccountImported::class => [
+        AccountImported::class => [
             AccountInfoNotification::class
         ]
     ];
