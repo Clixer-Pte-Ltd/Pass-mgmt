@@ -16,11 +16,15 @@
 
 @section('content')
 @if ($crud->hasAccess('list'))
-    @if(session()->has(SESS_TENANT_SUB_CONSTRUCTOR))
-        <a href="{{ route('crud.tenant.show', [session()->get(SESS_TENANT_SUB_CONSTRUCTOR)]) }}" class="hidden-print"><i class="fa fa-angle-double-left"></i> Back</a>
-    @else
-	    <a href="{{ starts_with(URL::previous(), url($crud->route)) ? URL::previous() : url($crud->route) }}" class="hidden-print"><i class="fa fa-angle-double-left"></i> {{ trans('backpack::crud.back_to_all') }} <span>{{ $crud->entity_name_plural }}</span></a>
-    @endif
+		@if(session()->has(SESS_TENANT_MY_COMPANY))
+				<a href="{{ route('admin.tenant.my-company') }}" class="hidden-print"><i class="fa fa-angle-double-left"></i> Back</a>
+		@else
+				@if(session()->has(SESS_TENANT_SUB_CONSTRUCTOR))
+						<a href="{{ route('crud.tenant.show', [session()->get(SESS_TENANT_SUB_CONSTRUCTOR)]) }}" class="hidden-print"><i class="fa fa-angle-double-left"></i> Back</a>
+				@else
+					<a href="{{ starts_with(URL::previous(), url($crud->route)) ? URL::previous() : url($crud->route) }}" class="hidden-print"><i class="fa fa-angle-double-left"></i> {{ trans('backpack::crud.back_to_all') }} <span>{{ $crud->entity_name_plural }}</span></a>
+				@endif
+		@endif
 @endif
 <div class="row m-t-20">
 	<div class="{{ $crud->getCreateContentClass() }}">
@@ -46,12 +50,16 @@
 		      @endif
 		    </div><!-- /.box-body -->
 		    <div class="">
-                @if(session()->has(SESS_TENANT_SUB_CONSTRUCTOR))
+                @if(session()->has(SESS_TENANT_SUB_CONSTRUCTOR) || (session()->has(SESS_TENANT_MY_COMPANY)))
                     <button type="submit" class="btn btn-success">
                         <span class="fa fa-save" role="presentation" aria-hidden="true"></span> &nbsp;
                         <span>Save</span>
-                    </button>
-                    <a href="{{ route('crud.tenant.show', [session()->get(SESS_TENANT_SUB_CONSTRUCTOR)]) }}" class="btn btn-default"><span class="fa fa-ban"></span> &nbsp;{{ trans('backpack::crud.cancel') }}</a>
+										</button>
+										@if(session()->has(SESS_TENANT_MY_COMPANY))
+												<a href="{{ route('admin.tenant.my-company') }}" class="btn btn-default"><span class="fa fa-ban"></span> &nbsp;{{ trans('backpack::crud.cancel') }}</a>
+										@else
+												<a href="{{ route('crud.tenant.show', [session()->get(SESS_TENANT_SUB_CONSTRUCTOR)]) }}" class="btn btn-default"><span class="fa fa-ban"></span> &nbsp;{{ trans('backpack::crud.cancel') }}</a>
+										@endif
                 @else
                     @include('crud::inc.form_save_buttons')
                 @endif

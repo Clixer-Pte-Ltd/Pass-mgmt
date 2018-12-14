@@ -78,12 +78,12 @@ class SubConstructorCrudController extends CrudController
             'label' => 'Tenancy End Date'
         ]);
 
-        if (session()->has(SESS_TENANT_SUB_CONSTRUCTOR)) {
+        if (session()->has(SESS_TENANT_SUB_CONSTRUCTOR) || session()->has(SESS_TENANT_MY_COMPANY)) {
             $this->crud->addField([
                 'label' => 'Tenant',
                 'name' => 'tenant_id',
                 'type' => 'hidden',
-                'value' => session()->get(SESS_TENANT_SUB_CONSTRUCTOR)
+                'value' => session()->get(SESS_TENANT_MY_COMPANY) ?: session()->get(SESS_TENANT_SUB_CONSTRUCTOR)
             ]);
         } else {
             $this->crud->addField([  // Select2
@@ -139,8 +139,8 @@ class SubConstructorCrudController extends CrudController
     public function show($id)
     {
         //Reset for 2fa setup
-        session()->forget('tenant_2fa');
-        session()->forget('sub_constructor_2fa');
+        session()->forget(SESS_TENANT_2FA);
+        session()->forget(SESS_SUB_CONSTRUCTOR_2FA);
 
         $content = parent::show($id);
         $this->crud->removeColumn('role_id');
@@ -156,16 +156,16 @@ class SubConstructorCrudController extends CrudController
 
     public function newAccount($id)
     {
-        session()->forget('tenant');
-        session()->put('sub_constructor', $id);
+        session()->forget(SESS_NEW_ACC_FROM_TENANT);
+        session()->put(SESS_NEW_ACC_FROM_SUB_CONSTRUCTOR, $id);
 
         return redirect()->route('backpack.auth.register');
     }
 
     public function account2fa($sub_constructor_id, $id)
     {
-        session()->put('sub_constructor_2fa', $sub_constructor_id);
-        session()->forget('tenant_2fa');
+        session()->put(SESS_SUB_CONSTRUCTOR_2FA, $sub_constructor_id);
+        session()->forget(SESS_TENANT_2FA);
 
         $account = User::findOrFail($id);
         // Initialise the 2FA class

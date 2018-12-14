@@ -84,6 +84,7 @@ class TenantCrudController extends CrudController
 
         // Overwrite view
         $this->crud->setShowView('crud::tenant.show');
+        $this->crud->setEditView('crud::tenant.edit');
     }
 
     public function index()
@@ -118,8 +119,8 @@ class TenantCrudController extends CrudController
     public function show($id)
     {
         //Reset for 2fa setup
-        session()->forget('tenant_2fa');
-        session()->forget('sub_constructor_2fa');
+        session()->forget(SESS_TENANT_2FA);
+        session()->forget(SESS_SUB_CONSTRUCTOR_2FA);
 
         session()->put(SESS_TENANT_SUB_CONSTRUCTOR, $id);
 
@@ -132,8 +133,8 @@ class TenantCrudController extends CrudController
 
     public function newAccount($id)
     {
-        session()->put('tenant', $id);
-        session()->forget('sub_constructor');
+        session()->put(SESS_NEW_ACC_FROM_TENANT, $id);
+        session()->forget(SESS_NEW_ACC_FROM_SUB_CONSTRUCTOR);
 
         return redirect()->route('backpack.auth.register');
     }
@@ -145,8 +146,8 @@ class TenantCrudController extends CrudController
 
     public function account2fa($tenant_id, $id)
     {
-        session()->put('tenant_2fa', $tenant_id);
-        session()->forget('sub_constructor_2fa');
+        session()->put(SESS_TENANT_2FA, $tenant_id);
+        session()->forget(SESS_SUB_CONSTRUCTOR_2FA);
 
         $account = User::findOrFail($id);
         // Initialise the 2FA class

@@ -152,15 +152,19 @@ class RegisterController extends Controller
 
         $user = $this->create($request->all());
 
-        if (session()->has('tenant')) {
-            $id = session()->get('tenant');
-            session()->forget('tenant');
+        if (session()->has(SESS_NEW_ACC_FROM_TENANT)) {
+            $id = session()->get(SESS_NEW_ACC_FROM_TENANT);
+            session()->forget(SESS_NEW_ACC_FROM_TENANT);
+            
+            if (session()->has(SESS_TENANT_MY_COMPANY)) {
+                return redirect()->route('admin.tenant.my-company');
+            }
             return redirect()->route('crud.tenant.show', [$id]);
         }
 
-        if (session()->has('sub_constructor')) {
-            $id = session()->get('sub_constructor');
-            session()->forget('sub_constructor');
+        if (session()->has(SESS_NEW_ACC_FROM_SUB_CONSTRUCTOR)) {
+            $id = session()->get(SESS_NEW_ACC_FROM_SUB_CONSTRUCTOR);
+            session()->forget(SESS_NEW_ACC_FROM_SUB_CONSTRUCTOR);
             return redirect()->route('crud.sub-constructor.show', [$id]);
         }
 

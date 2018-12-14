@@ -28,4 +28,7 @@ Route::group([
     Route::get('sub-constructor/import/demo', 'SubConstructorCrudController@importDemo')->name('admin.sub-constructor.import.demo');
     Route::post('sub-constructor/account/import', 'SubConstructorCrudController@importAccount')->name('admin.sub-constructor.account.import');
     Route::get('sub-constructor/account/import/demo', 'SubConstructorCrudController@importAccountDemo')->name('admin.sub-constructor.account.import.demo');
+
+    // Tenant Portal
+    Route::get('profile/t/my-company', 'TenantPortalController@my_company')->name('admin.tenant.my-company');
 }); // this should be the absolute last line of this file

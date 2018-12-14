@@ -16,3 +16,8 @@
     </ul>
   </li>
 @endif
+
+<!-- Tenant Portal -->
+@if(auth()->user()->hasRole(TENANT_ROLE))
+  <li><a href='{{ route("admin.tenant.my-company") }}'><i class='fa fa-building'></i> <span>My Company</span></a></li>
+@endif

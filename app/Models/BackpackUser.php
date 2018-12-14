@@ -33,4 +33,9 @@ class BackpackUser extends User
     {
         return $this->email;
     }
+
+    public function tenant()
+    {
+        return $this->belongsTo(Tenant::class);
+    }
 }
