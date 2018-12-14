@@ -62,6 +62,8 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         '2fa' => \PragmaRX\Google2FALaravel\Middleware::class,
         'adminOrTeam' => \App\Http\Middleware\AdminOrTeam::class,
+        'companyOwner' => \App\Http\Middleware\CompanyOwner::class,
+        'notForTenant' => \App\Http\Middleware\NotForTenant::class,
     ];
 
     /**

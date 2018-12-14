@@ -38,4 +38,9 @@ class BackpackUser extends User
     {
         return $this->belongsTo(Tenant::class);
     }
+
+    public function subConstructor()
+    {
+        return $this->belongsTo(SubConstructor::class);
+    }
 }

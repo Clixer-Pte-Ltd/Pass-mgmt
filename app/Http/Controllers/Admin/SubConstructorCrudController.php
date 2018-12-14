@@ -23,6 +23,8 @@ class SubConstructorCrudController extends CrudController
     {
         parent::__construct();
         $this->middleware('adminOrTeam')->only('index');
+        $this->middleware('companyOwner')->only('show', 'edit');
+        $this->middleware('notForTenant')->only('edit');
     }
 
     public function setup()
@@ -156,6 +158,11 @@ class SubConstructorCrudController extends CrudController
             'label' => 'Tenant',
             'type' => 'text'
         ]);
+
+        if (backpack_user()->hasRole(TENANT_ROLE)) {
+            $this->crud->removeButtonFromStack('update', 'line');
+        }
+
         $this->crud->addButtonFromView('line', 'add_account', 'add_account', 'end');
         return $content;
     }

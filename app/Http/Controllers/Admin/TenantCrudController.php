@@ -23,6 +23,7 @@ class TenantCrudController extends CrudController
     {
         parent::__construct();
         $this->middleware('adminOrTeam')->only('index');
+        $this->middleware('companyOwner')->only(['show', 'edit']);
     }
 
     public function setup()
