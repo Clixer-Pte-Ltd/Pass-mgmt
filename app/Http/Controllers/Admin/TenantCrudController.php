@@ -19,6 +19,12 @@ use App\Imports\TenantAccountsImport;
  */
 class TenantCrudController extends CrudController
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->middleware('adminOrTeam')->only('index');
+    }
+
     public function setup()
     {
         /*

@@ -19,6 +19,12 @@ use App\Imports\SubContructorAccountsImport;
  */
 class SubConstructorCrudController extends CrudController
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->middleware('adminOrTeam')->only('index');
+    }
+
     public function setup()
     {
         /*
