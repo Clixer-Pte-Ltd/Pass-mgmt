@@ -20,10 +20,7 @@ class CreatePassHoldersTable extends Migration
             $table->date('pass_expiry_date');
             $table->unsignedInteger('country_id');
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
-            $table->unsignedInteger('tenant_id')->nullable();
-            $table->foreign('tenant_id')->references('id')->on('tenants')->onDelete('cascade');
-            $table->unsignedInteger('sub_constructor_id')->nullable();
-            $table->foreign('sub_constructor_id')->references('id')->on('sub_constructors')->onDelete('cascade');
+            $table->unsignedInteger('company_uen')->nullable();
             $table->string('ru_name');
             $table->string('ru_email');
             $table->string('as_name');

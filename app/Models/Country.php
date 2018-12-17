@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\BackpackUser as User;
+use Backpack\CRUD\CrudTrait;
 
-class Tenant extends Model
+class Country extends Model
 {
     use CrudTrait;
 
@@ -16,11 +15,11 @@ class Tenant extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'tenants';
+    protected $table = 'countries';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
-    // protected $guarded = ['id'];
-    protected $fillable = ['name', 'uen', 'tenancy_start_date', 'tenancy_end_date', 'role_id'];
+    protected $guarded = ['id'];
+    // protected $fillable = [];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -35,26 +34,6 @@ class Tenant extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-
-    public function role()
-    {
-        return $this->belongsTo(Role::class);
-    }
-
-    public function accounts()
-    {
-        return $this->hasMany(User::class);
-    }
-
-    public function subContructors()
-    {
-        return $this->hasMany(SubConstructor::class);
-    }
-
-    public function passHolders()
-    {
-        return $this->hasMany(PassHolder::class, 'uen', 'company_uen');
-    }
 
     /*
     |--------------------------------------------------------------------------
