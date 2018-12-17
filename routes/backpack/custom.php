@@ -31,4 +31,8 @@ Route::group([
 
     // Tenant Portal
     Route::get('profile/t/my-company', 'TenantPortalController@my_company')->name('admin.tenant.my-company');
+
+    //Pass Holders
+    CRUD::resource('zone', 'ZoneCrudController');
+    CRUD::resource('pass-holder', 'PassHolderCrudController');
 }); // this should be the absolute last line of this file

@@ -2,9 +2,23 @@
 <li><a href="{{ backpack_url('dashboard') }}"><i class="fa fa-dashboard"></i> <span>{{ trans('backpack::base.dashboard') }}</span></a></li>
 <!-- <li><a href="{{ backpack_url('elfinder') }}"><i class="fa fa-files-o"></i> <span>{{ trans('backpack::crud.file_manager') }}</span></a></li> -->
 @if(auth()->user()->hasAnyRole([ADMIN_ROLE, AIRPORT_TEAM_ROLE]))
-<li><a href='{{ backpack_url('tenant') }}'><i class='fa fa-list'></i> <span>Tenants</span></a></li>
-<li><a href='{{ backpack_url('sub-constructor') }}'><i class='fa fa-building'></i> <span>Sub Constructors</span></a></li>
+<li class="treeview">
+    <a href="#"><i class="fa fa-university"></i> <span>Companies Management</span> <i class="fa fa-angle-left pull-right"></i></a>
+    <ul class="treeview-menu">
+      <li><a href='{{ backpack_url('tenant') }}'><i class='fa fa-list'></i> <span>Tenants</span></a></li>
+      <li><a href='{{ backpack_url('sub-constructor') }}'><i class='fa fa-building'></i> <span>Sub Constructors</span></a></li>
+    </ul>
+</li>
+<li class="treeview">
+    <a href="#"><i class="fa fa-folder-open"></i> <span>Pass Holders Management</span> <i class="fa fa-angle-left pull-right"></i></a>
+    <ul class="treeview-menu">
+      <li><a href='{{ backpack_url('pass-holder') }}'><i class='fa fa-credit-card'></i> <span>Pass Holders</span></a></li>
+      <li><a href='{{ backpack_url('zone') }}'><i class='fa fa-th-list'></i> <span>Zones</span></a></li>
+    </ul>
+</li>
+
 @endif
+
 @if(auth()->user()->hasRole(ADMIN_ROLE))
 <!-- Users, Roles Permissions -->
 <li class="treeview">
