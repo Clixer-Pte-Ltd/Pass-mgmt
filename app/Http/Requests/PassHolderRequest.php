@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PassHolderRequest extends FormRequest
@@ -26,7 +25,15 @@ class PassHolderRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'applicant_name' => 'required',
+            'nric' => 'required',
+            'pass_expiry_date' => 'required|date',
+            'country_id' => 'required',
+            'company_uen' => 'required',
+            'ru_name' => 'required',
+            'ru_email' => 'required|email',
+            'as_name' => 'required',
+            'as_email' => 'required|email',
         ];
     }
 
