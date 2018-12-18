@@ -31,9 +31,9 @@ class PassHolderRequest extends FormRequest
             'country_id' => 'required',
             'company_uen' => 'required',
             'ru_name' => 'required',
-            'ru_email' => 'required|email',
+            'ru_email' => 'required',
             'as_name' => 'required',
-            'as_email' => 'required|email',
+            'as_email' => 'required',
         ];
     }
 

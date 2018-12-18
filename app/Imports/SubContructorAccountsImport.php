@@ -3,15 +3,16 @@
 namespace App\Imports;
 
 use App\Models\BackpackUser;
+use App\Models\SubConstructor;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Validators\Failure;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
-use App\Models\SubConstructor;
+use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
-class SubContructorAccountsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnError, SkipsOnFailure
+class SubContructorAccountsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnError, SkipsOnFailure, WithMultipleSheets
 {
     /**
     * @param array $row
@@ -45,6 +46,14 @@ class SubContructorAccountsImport implements ToModel, WithHeadingRow, WithValida
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'phone' => 'required|digits:8',
+        ];
+    }
+
+    public function sheets(): array
+    {
+        return [
+            // Select by sheet index
+            0 => new SubContructorAccountsImport(),
         ];
     }
 

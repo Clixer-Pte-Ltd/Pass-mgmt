@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Backpack\CRUD\CrudTrait;
+use App\Events\PassHolderCreated;
 use Illuminate\Database\Eloquent\Model;
 
 class PassHolder extends Model
@@ -22,6 +23,10 @@ class PassHolder extends Model
     protected $fillable = ['applicant_name', 'nric', 'pass_expiry_date', 'country_id', 'company_uen', 'ru_name', 'ru_email', 'as_name', 'as_email'];
     // protected $hidden = [];
     // protected $dates = [];
+
+    protected $dispatchesEvents = [
+        'created' => PassHolderCreated::class,
+    ];
 
     /*
     |--------------------------------------------------------------------------

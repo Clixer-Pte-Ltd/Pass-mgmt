@@ -11,8 +11,9 @@ use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
+use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
-class SubContructorsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnError, SkipsOnFailure
+class SubContructorsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnError, SkipsOnFailure, WithMultipleSheets
 {
     /**
     * @param array $row
@@ -42,6 +43,14 @@ class SubContructorsImport implements ToModel, WithHeadingRow, WithValidation, S
             'uen' => 'required|unique:tenants,uen|unique:sub_constructors,uen',
             'tenancy_start_date' => 'required',
             'tenancy_end_date' => 'required',
+        ];
+    }
+
+    public function sheets(): array
+    {
+        return [
+            // Select by sheet index
+            0 => new SubContructorsImport(),
         ];
     }
 

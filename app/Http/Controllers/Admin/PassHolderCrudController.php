@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Illuminate\Http\Request;
 // VALIDATION: change the requests to match your own file names if you need form validation
+use Maatwebsite\Excel\Excel;
+use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Http\Requests\PassHolderRequest as StoreRequest;
 use App\Http\Requests\PassHolderRequest as UpdateRequest;
+use App\Imports\PassHoldersImport;
 
 /**
  * Class PassHolderCrudController
@@ -108,7 +111,7 @@ class PassHolderCrudController extends CrudController
 
         $this->crud->addField([
             'name' => 'ru_email',
-            'type' => 'email',
+            'type' => 'text',
             'label' => 'RU Email'
         ]);
 
@@ -120,7 +123,7 @@ class PassHolderCrudController extends CrudController
 
         $this->crud->addField([
             'name' => 'as_email',
-            'type' => 'email',
+            'type' => 'text',
             'label' => 'AS Email'
         ]);
 
@@ -140,6 +143,13 @@ class PassHolderCrudController extends CrudController
         $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
     }
 
+    public function index()
+    {
+        $content = parent::index();
+        $this->crud->addButtonFromView('top', 'import_pass_holders', 'import_pass_holders', 'end');
+        return $content;
+    }
+
     public function store(StoreRequest $request)
     {
         // your additional operations before save here
@@ -156,5 +166,20 @@ class PassHolderCrudController extends CrudController
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
         return $redirect_location;
+    }
+
+    public function import(Request $request, Excel $excel)
+    {
+        $excel->import(new PassHoldersImport, $request->file('import_file'));
+
+        \Alert::success('Import successful.')->flash();
+
+        return redirect()->route('crud.pass-holder.index');
+    }
+
+    public function importDemo()
+    {
+        $file = public_path() . '/exports/pass-holders.xlsx';
+        return response()->download($file);
     }
 }

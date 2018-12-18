@@ -35,4 +35,6 @@ Route::group([
     //Pass Holders
     CRUD::resource('zone', 'ZoneCrudController');
     CRUD::resource('pass-holder', 'PassHolderCrudController');
+    Route::post('pass-holder/import', 'PassHolderCrudController@import')->name('admin.pass-holder.import');
+    Route::get('pass-holder/import/demo', 'PassHolderCrudController@importDemo')->name('admin.pass-holder.import.demo');
 }); // this should be the absolute last line of this file

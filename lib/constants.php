@@ -18,4 +18,6 @@ define('SESS_SUB_CONSTRUCTOR_2FA', 'sub_constructor_2fa');
 define('SESS_TENANT_SUB_CONSTRUCTOR', 'tenant_sub_constructor');
 define('SESS_TENANT_MY_COMPANY', 'tenant_my_company');
 
+define('SESS_ZONES', 'zones');
+
 define('DEFAULT_PASSWORD', '123456');

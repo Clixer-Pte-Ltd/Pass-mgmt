@@ -10,8 +10,9 @@ use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
+use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
-class TenantAccountsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnError, SkipsOnFailure
+class TenantAccountsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnError, SkipsOnFailure, WithMultipleSheets
 {
     /**
     * @param array $row
@@ -45,6 +46,14 @@ class TenantAccountsImport implements ToModel, WithHeadingRow, WithValidation, S
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'phone' => 'required|digits:8',
+        ];
+    }
+
+    public function sheets(): array
+    {
+        return [
+            // Select by sheet index
+            0 => new TenantAccountsImport(),
         ];
     }
 

@@ -10,6 +10,8 @@ use Illuminate\Auth\Events\Registered;
 use App\Listeners\AccountInfoNotification;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use App\Events\PassHolderCreated;
+use App\Listeners\AddZoneToNewlyPassHolder;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         AccountImported::class => [
             AccountInfoNotification::class
+        ],
+        PassHolderCreated::class => [
+            AddZoneToNewlyPassHolder::class
         ]
     ];
 
