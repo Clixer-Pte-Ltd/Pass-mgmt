@@ -3,6 +3,8 @@
 namespace App\Listeners;
 
 use App\Events\AccountImported;
+use App\Mail\WelcomeMail;
+use App\Jobs\ProcessSendMail;
 
 class UserCreatedListener
 {
@@ -37,6 +39,7 @@ class UserCreatedListener
             if ($user->is_imported) {
                 event(new AccountImported($user));
             } else {
+                ProcessSendMail::dispatch($user, new WelcomeMail($user));
             }
         }
     }
@@ -48,6 +51,7 @@ class UserCreatedListener
             if ($user->is_imported) {
                 event(new AccountImported($user));
             } else {
+                ProcessSendMail::dispatch($user, new WelcomeMail($user));
             }
         }
     }
