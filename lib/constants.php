@@ -21,3 +21,7 @@ define('SESS_TENANT_MY_COMPANY', 'tenant_my_company');
 define('SESS_ZONES', 'zones');
 
 define('DEFAULT_PASSWORD', '123456');
+
+define('COMPANY_STATUS_WORKING', 0);
+define('COMPANY_STATUS_WORKING_BUT_NEED_VALIDATE', 1);
+define('COMPANY_STATUS_EXPIRED', 2);
