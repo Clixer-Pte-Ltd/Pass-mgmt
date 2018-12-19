@@ -32,10 +32,10 @@ class WelcomeMail extends Mailable
     {
         $company = null;
         if (isset($this->account->tenant_id)) {
-            $company = Tenant::findOrFail($this->account->tenant_id);
+            $company = $this->account->tenant;
         }
         if (isset($this->account->sub_constructor_id)) {
-            $company = SubContructor::findOrFail($this->account->sub_constructor_id);
+            $company = $this->account->subConstructor;
         }
         return $this->view('emails.new_account_welcome',['company' => $company]);
     }
