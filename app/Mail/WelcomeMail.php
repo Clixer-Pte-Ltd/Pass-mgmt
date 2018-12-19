@@ -30,13 +30,7 @@ class WelcomeMail extends Mailable
      */
     public function build()
     {
-        $company = null;
-        if (isset($this->account->tenant_id)) {
-            $company = $this->account->tenant;
-        }
-        if (isset($this->account->sub_constructor_id)) {
-            $company = $this->account->subConstructor;
-        }
+        $company = $this->account->tenant ?: $this->account->subConstructor;
         return $this->view('emails.new_account_welcome',['company' => $company]);
     }
 }
