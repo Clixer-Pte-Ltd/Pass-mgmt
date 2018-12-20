@@ -7,8 +7,10 @@ use App\Mail\Success;
 use App\Models\BackpackUser;
 use App\Jobs\ProcessSendMail;
 use App\Mail\CreatePassHolderSuccessMail;
+use App\Services\AccountService;
+use App\Services\MailService;
 
-class PassHolderCreatedListener
+class PassHolderCreatedListener extends BasePassHolderListener
 {
     /**
      * Create the event listener.
@@ -17,7 +19,7 @@ class PassHolderCreatedListener
      */
     public function __construct()
     {
-        //
+        
     }
 
     /**
@@ -28,14 +30,6 @@ class PassHolderCreatedListener
      */
     public function handle($event)
     {
-        $pass_holder = $event->model;
-        $admins = BackpackUser::role(AIRPORT_TEAM_ROLE)->get();
-        $companyOfPassHolder = $pass_holder->company->companyable;
-        if (isset($companyOfPassHolder)) {
-            $admins = $admins->merge($companyOfPassHolder->accounts);
-        }
-        $admins->map(function($admin, $index) use ($pass_holder) {
-            ProcessSendMail::dispatch($admin->email, new CreatePassHolderSuccessMail($pass_holder, $admin));
-        });
+        $this->handlePassHolder($event, 'CreatePassHolderSuccessMail');
     }
 }

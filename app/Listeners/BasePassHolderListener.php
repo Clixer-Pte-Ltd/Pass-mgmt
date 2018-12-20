@@ -10,7 +10,7 @@ use App\Mail\PassHolderExpireSoonMail;
 use App\Services\AccountService;
 use App\Services\MailService;
 
-class PassHolderExpireSoonNotification extends BasePassHolderListener
+class BasePassHolderListener
 {
     /**
      * Create the event listener.
@@ -28,8 +28,12 @@ class PassHolderExpireSoonNotification extends BasePassHolderListener
      * @param  object  $event
      * @return void
      */
-    public function handle($event)
+    public function handlePassHolder($event, $mailFormName)
     {
-        $this->handlePassHolder($event, 'PassHolderExpireSoonMail');
+        $pass_holder = $event->model;
+        $accountService = new AccountService($pass_holder);
+        $admins = $accountService->getAccountRelatedToPassHolder();
+        $mailService = new MailService($mailFormName, $admins);
+        $mailService->passHolderNotify($pass_holder);
     }
 }
