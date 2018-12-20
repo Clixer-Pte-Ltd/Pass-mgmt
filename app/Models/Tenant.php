@@ -5,6 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\BackpackUser as User;
+use App\Models\Company;
 
 class Tenant extends Model
 {
@@ -54,6 +55,11 @@ class Tenant extends Model
     public function passHolders()
     {
         return $this->hasMany(PassHolder::class, 'uen', 'company_uen');
+    }
+
+    public function company()
+    {
+        return $this->morphOne(Company::class, 'companyable', 'type', 'uen', 'uen');
     }
 
     /*

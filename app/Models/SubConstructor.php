@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\BackpackUser as User;
+use App\Models\Company;
 use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
@@ -50,6 +51,10 @@ class SubConstructor extends Model
         return $this->hasMany(User::class);
     }
 
+    public function company()
+    {
+        return $this->morphOne(Company::class, 'companyable', 'type', 'uen', 'uen');
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES

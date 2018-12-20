@@ -12,6 +12,7 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use App\Events\PassHolderCreated;
 use App\Listeners\AddZoneToNewlyPassHolder;
+use App\Listeners\PassHolderCreatedListener;
 use App\Events\CompanyExpired;
 use App\Listeners\CompanyExpiredNotification;
 
@@ -33,7 +34,8 @@ class EventServiceProvider extends ServiceProvider
             AccountInfoNotification::class
         ],
         PassHolderCreated::class => [
-            AddZoneToNewlyPassHolder::class
+            AddZoneToNewlyPassHolder::class,
+            PassHolderCreatedListener::class
         ],
         CompanyExpired::class => [
             CompanyExpiredNotification::class

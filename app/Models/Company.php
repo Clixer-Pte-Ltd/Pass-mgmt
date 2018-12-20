@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
+use App\Models\Tenant;
+use App\Models\SubContructor;
 
 class Company extends Model
 {
@@ -19,7 +21,7 @@ class Company extends Model
     protected $primaryKey = 'uen';
     // public $timestamps = false;
     // protected $guarded = ['id'];
-    protected $fillable = [];
+    protected $fillable = ['uen', 'type'];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -28,7 +30,10 @@ class Company extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-
+    public function companyable() 
+    {
+        return $this->morphTo(null, 'type', 'uen', 'uen');
+    }
     /*
     |--------------------------------------------------------------------------
     | RELATIONS

@@ -39,7 +39,7 @@ class UserCreatedListener
             if ($user->is_imported) {
                 event(new AccountImported($user));
             } else {
-                ProcessSendMail::dispatch($user, new WelcomeMail($user));
+                ProcessSendMail::dispatch($user->email, new WelcomeMail($user));
             }
         }
     }
@@ -51,7 +51,7 @@ class UserCreatedListener
             if ($user->is_imported) {
                 event(new AccountImported($user));
             } else {
-                ProcessSendMail::dispatch($user, new WelcomeMail($user));
+                ProcessSendMail::dispatch($user->email, new WelcomeMail($user));
             }
         }
     }

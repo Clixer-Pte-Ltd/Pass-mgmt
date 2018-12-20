@@ -15,17 +15,17 @@ class ProcessSendMail implements ShouldQueue
 
     public $tries = 3;
     public $timeout = 10;
-    private $account;
-    private $mail;
+    private $mailSend;
+    private $mailForm;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($account, $mail)
+    public function __construct($mailSend, $mailForm)
     {
-        $this->account = $account;
-        $this->mail = $mail;
+        $this->mailSend = $mailSend;
+        $this->mailForm = $mailForm;
     }
 
     /**
@@ -35,6 +35,6 @@ class ProcessSendMail implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->account->email)->send($this->mail);
+        Mail::to($this->mailSend)->send($this->mailForm);
     }
 }
