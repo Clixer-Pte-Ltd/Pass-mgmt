@@ -15,6 +15,8 @@ use App\Listeners\AddZoneToNewlyPassHolder;
 use App\Listeners\PassHolderCreatedListener;
 use App\Events\CompanyExpired;
 use App\Listeners\CompanyExpiredNotification;
+use App\Events\PassHolderExpireSoon;
+use App\Listeners\PassHolderExpireSoonNotification;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -39,6 +41,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         CompanyExpired::class => [
             CompanyExpiredNotification::class
+        ],
+        PassHolderExpireSoon::class => [
+            PassHolderExpireSoonNotification::class
         ]
     ];
 
