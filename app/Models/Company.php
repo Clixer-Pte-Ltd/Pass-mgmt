@@ -28,7 +28,10 @@ class Company extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-
+    public function getCompanyModel() 
+    {
+        return $this->type::where('uen', $this->uen)->first();
+    }
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
