@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\RenewPassHolderRequest as UpdateRequest;
+
 class BlacklistHoldersController extends BasePassHolderCrudController
 {
     public function setup()
@@ -14,6 +16,13 @@ class BlacklistHoldersController extends BasePassHolderCrudController
         $this->crud->addButtonFromView('line', 'renew', 'renew');
         $this->crud->removeButtonFromStack('update', 'line');
         $this->crud->removeButtonFromStack('delete', 'line');
+        $this->crud->setEditView('crud::pass-holders.renew');
+        $this->crud->addField([
+            'name' => 'pass_expiry_date',
+            'type' => 'date_picker',
+            'label' => 'Pass Expiry Date'
+        ]);
+        $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
     }
 
     public function index()
@@ -25,7 +34,15 @@ class BlacklistHoldersController extends BasePassHolderCrudController
 
     public function renew($id)
     {
-        $entry = $this->crud->getEntry($id);
+        $content = parent::edit($id);
+        return $content;
+    }
+
+    public function updateExpiry(UpdateRequest $request)
+    {
+        $redirect_location = parent::updateCrud($request);
+        $this->crud->update($request->get($this->crud->model->getKeyName()), ['status' => PASS_STATUS_VALID]);
+        return $redirect_location;
     }
 
     public function terminate($id)
