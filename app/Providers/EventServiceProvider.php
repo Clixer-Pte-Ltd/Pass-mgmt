@@ -17,6 +17,8 @@ use App\Events\CompanyExpired;
 use App\Listeners\CompanyExpiredNotification;
 use App\Events\PassHolderExpireSoon;
 use App\Listeners\PassHolderExpireSoonNotification;
+use App\Events\PassHolderExprired;
+use App\Listeners\PassHolderExpiredNotification;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -44,6 +46,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         PassHolderExpireSoon::class => [
             PassHolderExpireSoonNotification::class
+        ],
+        PassHolderExprired::class => [
+            PassHolderExpiredNotification::class
         ]
     ];
 

@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\PassHolder;
 use App\Events\PassHolderExpireSoon;
+use App\Events\PassHolderExprired;
 use Carbon\Carbon;
 
 class PassHolderExpireChecking extends Command
@@ -40,10 +41,15 @@ class PassHolderExpireChecking extends Command
      */
     public function handle()
     {
-        $passHolderExprires =  $this->getPassHolderExpireSoon();
-        foreach ($passHolderExprires as $pass) {
+        $passHoldersExprireSoon =  $this->getPassHolderExpireSoon();
+        foreach ($passHoldersExprireSoon as $pass) {
             event(new PassHolderExpireSoon($pass));
         }
+
+        $passHoldersExprired = $this->getPassHolderExpired();
+        foreach ($passHoldersExprired as $pass) {
+            event(new PassHolderExprired($pass));
+         } 
     }
 
     public function getPassHolderExpireSoon()
@@ -65,5 +71,10 @@ class PassHolderExpireChecking extends Command
                         ->where('pass_expiry_date', '>', Carbon::now()->addWeeks(1)->subDay());
                     })
                     ->get();
+    }
+
+    public function getPassHolderExpired()
+    {
+        return PassHolder::where('pass_expiry_date', '<=', Carbon::now())->where('pass_expiry_date','>', Carbon::now()->subDays(2))->get();
     }
 }
