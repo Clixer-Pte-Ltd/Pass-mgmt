@@ -2,10 +2,11 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use App\Models\PassHolder;
-use App\Events\PassHolderExpireSoon;
 use Carbon\Carbon;
+use App\Models\PassHolder;
+use Illuminate\Console\Command;
+use App\Events\PassHolderExpired;
+use App\Events\PassHolderExpireSoon;
 
 class PassHolderExpireChecking extends Command
 {
@@ -44,6 +45,8 @@ class PassHolderExpireChecking extends Command
         foreach ($passHolderExprires as $pass) {
             event(new PassHolderExpireSoon($pass));
         }
+
+        $this->handlePassExpired();
     }
 
     public function getPassHolderExpireSoon()
@@ -76,7 +79,7 @@ class PassHolderExpireChecking extends Command
     {
         $pass_expired_query = $this->getPassHolderExpired();
         $pass_expired = $pass_expired_query->get();
-        $pass_expired_query->update('status', PASS_STATUS_BLACKLISTED);
+        $pass_expired_query->update(['status' => PASS_STATUS_BLACKLISTED]);
         event(new PassHolderExpired($pass_expired));
     }
 }
