@@ -60,7 +60,17 @@ class BasePassHolderCrudController extends CrudController
             'attribute' => 'name', // foreign key attribute that is shown to user
             'model' => "App\Models\Zone", // foreign key model
         ]);
+    }
 
+    protected function addRequired()
+    {
+        // add asterisk for fields that are required in PassHolderRequest
+        $this->crud->setRequiredFields(StoreRequest::class, 'create');
+        $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
+    }
+
+    protected function addFields()
+    {
         //FORM FIELDS
         $this->crud->addField([
             'name' => 'applicant_name',
@@ -132,10 +142,6 @@ class BasePassHolderCrudController extends CrudController
             'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
             'select_all' => true, // show Select All and Clear buttons?
         ]);
-
-        // add asterisk for fields that are required in PassHolderRequest
-        $this->crud->setRequiredFields(StoreRequest::class, 'create');
-        $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
     }
 
     public function index()

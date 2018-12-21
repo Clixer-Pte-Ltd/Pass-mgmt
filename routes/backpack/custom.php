@@ -40,6 +40,7 @@ Route::group([
 
     CRUD::resource('blacklist-pass-holder', 'BlacklistHoldersController');
     Route::get('blacklist-pass-holder/{id}/renew', 'BlacklistHoldersController@renew')->name('admin.blacklist-pass-holder.renew');
+    Route::post('blacklist-pass-holder/renew', 'BlacklistHoldersController@updateExpiry')->name('admin.blacklist-pass-holder.updateExpiry');
     Route::post('blacklist-pass-holder/{id}/terminate', 'BlacklistHoldersController@terminate')->name('admin.blacklist-pass-holder.terminate');
 
     CRUD::resource('terminate-pass-holder', 'TerminateHoldersController');
