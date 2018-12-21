@@ -9,6 +9,7 @@ use App\Jobs\ProcessSendMail;
 use App\Mail\CreatePassHolderSuccessMail;
 use App\Services\AccountService;
 use App\Services\MailService;
+use App\Listeners\BasePassHolderListener;
 
 class PassHolderCreatedListener extends BasePassHolderListener
 {
@@ -30,6 +31,7 @@ class PassHolderCreatedListener extends BasePassHolderListener
      */
     public function handle($event)
     {
+        $passHolder = $event->model;
         $this->handlePassHolder($event, 'CreatePassHolderSuccessMail');
     }
 }

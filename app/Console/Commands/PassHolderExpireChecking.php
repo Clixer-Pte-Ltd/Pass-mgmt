@@ -41,20 +41,16 @@ class PassHolderExpireChecking extends Command
      */
     public function handle()
     {
-        $passHolderExprires = $this->getPassHolderExpireSoon();
-        foreach ($passHolderExprires as $pass) {
-            event(new PassHolderExpireSoon($pass));
-        }
-
+        $this->handlePassHolderExpireSoon();
         $this->handlePassExpired();
     }
 
     public function getPassHolderExpireSoon()
     {
         return PassHolder::orWhere(function ($query) {
-            $query->where('pass_expiry_date', '<=', Carbon::now()->addWeeks(4))
-                        ->where('pass_expiry_date', '>', Carbon::now()->addWeeks(4)->subDay());
-        })
+                        $query->where('pass_expiry_date', '<=', Carbon::now()->addWeeks(4))
+                            ->where('pass_expiry_date', '>', Carbon::now()->addWeeks(4)->subDay());
+                        })
                     ->orWhere(function ($query) {
                         $query->where('pass_expiry_date', '<=', Carbon::now()->addWeeks(3))
                         ->where('pass_expiry_date', '>', Carbon::now()->addWeeks(3)->subDay());
@@ -81,5 +77,11 @@ class PassHolderExpireChecking extends Command
         $pass_expired = $pass_expired_query->get();
         $pass_expired_query->update(['status' => PASS_STATUS_BLACKLISTED]);
         event(new PassHolderExpired($pass_expired));
+    }
+
+    private function handlePassHolderExpireSoon()
+    {
+        $pass_expire_soon = $this->getPassHolderExpireSoon();
+        event(new PassHolderExpireSoon($pass_expire_soon));
     }
 }
