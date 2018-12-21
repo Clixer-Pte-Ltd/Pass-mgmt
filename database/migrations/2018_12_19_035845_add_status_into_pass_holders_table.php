@@ -3,9 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\Models\PassHolder;
 
-class AddStatusPassHolder extends Migration
+class AddStatusIntoPassHoldersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +14,7 @@ class AddStatusPassHolder extends Migration
     public function up()
     {
         Schema::table('pass_holders', function (Blueprint $table) {
-            $table->unsignedTinyInteger('status')->default(PassHolder::WORKING)->comment(PassHolder::WORKING . ': working, ' . PassHolder::BLACK_LIST .':blacklist'); // 0: working, 1 expired
+            $table->unsignedTinyInteger('status')->default(0)->comment('0: valid, 1: blacklisted, 2: terminated, 3:returned');
         });
     }
 

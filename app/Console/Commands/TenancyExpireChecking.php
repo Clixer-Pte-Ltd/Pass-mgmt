@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Tenant;
 use App\Events\CompanyExpired;
 use Illuminate\Console\Command;
+use App\Models\SubConstructor;
 
 class TenancyExpireChecking extends Command
 {
@@ -52,21 +53,22 @@ class TenancyExpireChecking extends Command
         ];
     }
 
-    private function checkingTenants()
+    private function checkingCompany($companyType)
     {
-        $tenants_query = Tenant::whereIn('status', $this->checkingStatusCondition())
+        $query = $companyType->whereIn('status', $this->checkingStatusCondition())
                                     ->where('tenancy_end_date', '<', Carbon::now());
-        $tenants = $tenants_query->get();
-        $tenants_query->update(['status' => COMPANY_STATUS_EXPIRED]);
-        event(new CompanyExpired($tenants));
+        $companies = $query->get();
+        $query->update(['status' => COMPANY_STATUS_EXPIRED]);
+        event(new CompanyExpired($companies));
     }
 
-    public function checkingSubContructors()
+    private function checkingTenants()
     {
-        $sub_constructors_query = Tenant::whereIn('status', $this->checkingStatusCondition())
-                                            ->where('tenancy_end_date', '<', Carbon::now());
-        $sub_constructors = $sub_constructors_query->get();
-        $sub_constructors_query->update(['status' => COMPANY_STATUS_EXPIRED]);
-        event(new CompanyExpired($sub_constructors));
+        $this->checkingCompany(Tenant::query());
+    }
+
+    private function checkingSubContructors()
+    {
+        $this->checkingCompany(SubConstructor::query());
     }
 }

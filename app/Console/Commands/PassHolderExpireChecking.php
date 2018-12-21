@@ -2,11 +2,11 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use App\Models\PassHolder;
-use App\Events\PassHolderExpireSoon;
-use App\Events\PassHolderExprired;
 use Carbon\Carbon;
+use App\Models\PassHolder;
+use Illuminate\Console\Command;
+use App\Events\PassHolderExpired;
+use App\Events\PassHolderExpireSoon;
 
 class PassHolderExpireChecking extends Command
 {
@@ -41,23 +41,20 @@ class PassHolderExpireChecking extends Command
      */
     public function handle()
     {
-        $passHoldersExprireSoon =  $this->getPassHolderExpireSoon();
-        foreach ($passHoldersExprireSoon as $pass) {
-            event(new PassHolderExpireSoon($pass));
-        }
+        // $passHoldersExprireSoon =  $this->getPassHolderExpireSoon();
+        // foreach ($passHoldersExprireSoon as $pass) {
+        //     event(new PassHolderExpireSoon($pass));
+        // }
 
-        $passHoldersExprired = $this->getPassHolderExpired();
-        foreach ($passHoldersExprired as $pass) {
-            event(new PassHolderExprired($pass));
-         } 
+        $this->handlePassExpired();
     }
 
     public function getPassHolderExpireSoon()
     {
         return PassHolder::orWhere(function ($query) {
-                        $query->where('pass_expiry_date', '<=', Carbon::now()->addWeeks(4))
+            $query->where('pass_expiry_date', '<=', Carbon::now()->addWeeks(4))
                         ->where('pass_expiry_date', '>', Carbon::now()->addWeeks(4)->subDay());
-                    })
+        })
                     ->orWhere(function ($query) {
                         $query->where('pass_expiry_date', '<=', Carbon::now()->addWeeks(3))
                         ->where('pass_expiry_date', '>', Carbon::now()->addWeeks(3)->subDay());
@@ -73,8 +70,18 @@ class PassHolderExpireChecking extends Command
                     ->get();
     }
 
-    public function getPassHolderExpired()
+    private function getPassHolderExpired()
     {
-        return PassHolder::where('pass_expiry_date', '<=', Carbon::now())->where('pass_expiry_date','>', Carbon::now()->subDays(2))->get();
+        return PassHolder::where('status', PASS_STATUS_VALID)->where('pass_expiry_date', '<', Carbon::now());
+    }
+
+    private function handlePassExpired()
+    {
+        $pass_expired_query = $this->getPassHolderExpired();
+        $pass_expired = $pass_expired_query->get();
+        $pass_expired_query->update(['status' => PASS_STATUS_BLACKLISTED]);
+        foreach ($pass_expired as $pass) {
+            event(new PassHolderExpired($pass));
+        }
     }
 }

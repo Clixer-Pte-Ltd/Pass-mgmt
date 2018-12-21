@@ -3,7 +3,6 @@
 namespace App\Listeners;
 
 use App\Models\Zone;
-use App\Models\PassHolder;
 use App\Mail\Success;
 use App\Models\BackpackUser;
 use App\Jobs\ProcessSendMail;
@@ -11,6 +10,7 @@ use App\Mail\PassHolderExpireSoonMail;
 use App\Services\AccountService;
 use App\Services\MailService;
 use App\Listeners\BasePassHolderListener;
+use App\Events\PassHolderExpired;
 
 class PassHolderExpiredNotification extends BasePassHolderListener
 {
@@ -23,15 +23,14 @@ class PassHolderExpiredNotification extends BasePassHolderListener
     {
         //
     }
-
     /**
      * Handle the event.
      *
      * @param  object  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(PassHolderExpired $event)
     {
-        $this->handlePassHolder($event, 'PassHolderExpiredMail', ['status' => PassHolder::BLACK_LIST]);
+        $this->handlePassHolder($event, 'PassHolderExpiredMail');
     }
 }
