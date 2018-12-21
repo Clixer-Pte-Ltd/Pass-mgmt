@@ -9,21 +9,22 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Support\Collection;
 
 class PassHolderExpired
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $model;
+    public $pass_holders;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($model)
+    public function __construct(Collection $pass_holders)
     {
-        $this->model = $model;
+        $this->pass_holders = $pass_holders;
     }
 
     /**

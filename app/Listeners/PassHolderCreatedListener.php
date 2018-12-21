@@ -31,6 +31,7 @@ class PassHolderCreatedListener extends BasePassHolderListener
      */
     public function handle($event)
     {
+        $passHolder = $event->model;
         $this->handlePassHolder($event, 'CreatePassHolderSuccessMail');
     }
 }

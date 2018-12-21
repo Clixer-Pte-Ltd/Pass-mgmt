@@ -30,7 +30,10 @@ class PassHolderExpiredNotification extends BasePassHolderListener
      * @return void
      */
     public function handle(PassHolderExpired $event)
-    {
-        $this->handlePassHolder($event, 'PassHolderExpiredMail');
+    { 
+        $passHolders = $event->pass_holders;
+        foreach ($passHolders as $pass) {
+            $this->handlePassHolder($pass, 'PassHolderExpiredMail');
+        }
     }
 }

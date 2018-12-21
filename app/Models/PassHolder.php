@@ -9,14 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class PassHolder extends Model
 {
     use CrudTrait;
-
-    /*
-    |--------------------------------------------------------------------------
-    | Define const
-    |--------------------------------------------------------------------------
-    */
-    const BLACK_LIST = 1; //pass holder expired
-    const WORKING = 0; // pass holder active
     /*
     |--------------------------------------------------------------------------
     | GLOBAL VARIABLES

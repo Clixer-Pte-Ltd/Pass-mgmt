@@ -28,9 +28,8 @@ class BasePassHolderListener
      * @param  object  $event
      * @return void
      */
-    public function handlePassHolder($event, $mailFormName = null)
+    public function handlePassHolder($passHolder, $mailFormName = null)
     {
-        $passHolder = $event->model;
         if (isset($mailFormName)) {
             $accountService = new AccountService($passHolder);
             $admins = $accountService->getAccountRelatedToPassHolder();
