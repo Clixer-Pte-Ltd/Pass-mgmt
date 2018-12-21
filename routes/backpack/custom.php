@@ -37,7 +37,13 @@ Route::group([
     CRUD::resource('pass-holder', 'PassHolderCrudController');
     Route::post('pass-holder/import', 'PassHolderCrudController@import')->name('admin.pass-holder.import');
     Route::get('pass-holder/import/demo', 'PassHolderCrudController@importDemo')->name('admin.pass-holder.import.demo');
+
     CRUD::resource('blacklist-pass-holder', 'BlacklistHoldersController');
+    Route::get('blacklist-pass-holder/{id}/renew', 'BlacklistHoldersController@renew')->name('admin.blacklist-pass-holder.renew');
+    Route::post('blacklist-pass-holder/{id}/terminate', 'BlacklistHoldersController@terminate')->name('admin.blacklist-pass-holder.terminate');
+
     CRUD::resource('terminate-pass-holder', 'TerminateHoldersController');
+    Route::post('terminate-pass-holder/{id}/collect', 'TerminateHoldersController@collect')->name('admin.terminate-pass-holder.collect');
+
     CRUD::resource('return-pass-holder', 'ReturnHoldersController');
 }); // this should be the absolute last line of this file
