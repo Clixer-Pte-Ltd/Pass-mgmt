@@ -6,22 +6,23 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Support\Collection;
 
 class PassHolderExpireSoon
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $model;
+    public $pass_holders;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($model)
+    public function __construct(Collection $pass_holders)
     {
         //
-        $this->model = $model;
+        $this->pass_holders = $pass_holders;
     }
 
     /**
