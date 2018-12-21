@@ -41,10 +41,10 @@ class PassHolderExpireChecking extends Command
      */
     public function handle()
     {
-        // $passHoldersExprireSoon =  $this->getPassHolderExpireSoon();
-        // foreach ($passHoldersExprireSoon as $pass) {
-        //     event(new PassHolderExpireSoon($pass));
-        // }
+        $passHoldersExprireSoon =  $this->getPassHolderExpireSoon();
+        foreach ($passHoldersExprireSoon as $pass) {
+            event(new PassHolderExpireSoon($pass));
+        }
 
         $this->handlePassExpired();
     }
