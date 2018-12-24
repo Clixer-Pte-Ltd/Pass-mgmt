@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-md-6">
+	<div class="{{ backpack_user()->hasRole(TENANT_ROLE) ? 'col-md-6' : 'col-md-12' }}">
 		<div class="box no-padding no-border">
 			<h4 class="text-center"><i class="fa fa-user"></i> Accounts</h4>
 			<table class="table table-striped table-bordered" id="tenant_account">
@@ -29,6 +29,7 @@
 			</table>
 		</div>
 	</div>
+	@if(backpack_user()->hasRole(TENANT_ROLE))
 	<div class="col-md-6">
 		<div class="box no-padding no-border">
 			<h4 class="text-center"><i class="fa fa-building"></i> Sub Constructors</h4>
@@ -58,4 +59,5 @@
 			</table>
 		</div>
 	</div>
+	@endif
 </div>

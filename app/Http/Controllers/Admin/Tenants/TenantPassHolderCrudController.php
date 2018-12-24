@@ -25,11 +25,13 @@ class TenantPassHolderCrudController extends BaseTenantPassHolderCrudController
 
         $this->crud->removeField('company_uen');
 
+        $uen = backpack_user()->tenant ? backpack_user()->tenant->uen : backpack_user()->subConstructor->uen;
+
         $this->crud->addField([
             'label' => 'Company',
             'name' => 'company_uen',
             'type' => 'hidden',
-            'value' => backpack_user()->tenant->uen
+            'value' => $uen
         ]);
     }
 

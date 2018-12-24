@@ -43,7 +43,7 @@
 @endif
 
 <!-- Tenant Portal -->
-@if(auth()->user()->hasRole(TENANT_ROLE))
+@if(auth()->user()->hasAnyRole([TENANT_ROLE, SUB_CONSTRUCTOR_ROLE]))
 <li><a href='{{ route("admin.tenant.my-company") }}'><i class='fa fa-building'></i> <span>My Company</span></a></li>
 <li class="treeview">
     <a href="#"><i class="fa fa-folder-open"></i> <span>Pass Holders Management</span> <i class="fa fa-angle-left pull-right"></i></a>

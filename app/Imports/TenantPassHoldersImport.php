@@ -24,7 +24,8 @@ class TenantPassHoldersImport implements ToModel, WithHeadingRow, WithValidation
     {
         try {
             $country_id = Country::where('name', $row['nationality'])->first()->id;
-            $company_uen = backpack_user()->tenant->uen;
+            $uen = backpack_user()->tenant ? backpack_user()->tenant->uen : backpack_user()->subConstructor->uen;
+            $company_uen = $uen;
             $zones = explode(',', $row['zone']);
             session()->put(SESS_ZONES, $zones);
 

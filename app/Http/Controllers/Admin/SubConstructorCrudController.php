@@ -87,11 +87,20 @@ class SubConstructorCrudController extends CrudController
         ]);
 
         if (session()->has(SESS_TENANT_SUB_CONSTRUCTOR) || session()->has(SESS_TENANT_MY_COMPANY)) {
+            if (session()->has(SESS_TENANT_SUB_CONSTRUCTOR)) {
+                $value = session()->get(SESS_TENANT_SUB_CONSTRUCTOR);
+            } else {
+                if (backpack_user()->hasRole(TENANT_ROLE)) {
+                    $value = session()->get(SESS_TENANT_MY_COMPANY);
+                } else {
+                    $value = backpack_user()->subConstructor->tenant_id;
+                }
+            }
             $this->crud->addField([
                 'label' => 'Tenant',
                 'name' => 'tenant_id',
                 'type' => 'hidden',
-                'value' => session()->get(SESS_TENANT_MY_COMPANY) ?: session()->get(SESS_TENANT_SUB_CONSTRUCTOR)
+                'value' => $value
             ]);
         } else {
             $this->crud->addField([  // Select2

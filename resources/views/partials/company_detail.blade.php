@@ -25,9 +25,14 @@
                     <tr>
 		                <td><strong>Actions</strong></td>
                         <td>
-                            <a href="{{ route('crud.tenant.edit', [$entry->id]) }}" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> Edit</a>
-                            <a href="{{ route('admin.tenant.account.create', [$entry->id]) }}" class="btn btn-xs btn-success"><i class="fa fa-user"></i> Add More Account</a>
-                            <a href="{{ route('admin.tenant.sub-constructor.create', [$entry->id]) }}" class="btn btn-xs btn-warning"><i class="fa fa-building"></i> Add More Sub Constructor</a>
+                            @if(backpack_user()->hasRole(TENANT_ROLE))
+                                <a href="{{ route('crud.tenant.edit', [$entry->id]) }}" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                                <a href="{{ route('admin.tenant.account.create', [$entry->id]) }}" class="btn btn-xs btn-success"><i class="fa fa-user"></i> Add More Account</a>
+                                <a href="{{ route('admin.tenant.sub-constructor.create', [$entry->id]) }}" class="btn btn-xs btn-warning"><i class="fa fa-building"></i> Add More Sub Constructor</a>
+                            @else
+                                <a href="{{ route('crud.sub-constructor.edit', [$entry->id]) }}" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                                <a href="{{ route('admin.sub-constructor.account.create', [$entry->id]) }}" class="btn btn-xs btn-success"><i class="fa fa-user"></i> Add More Account</a>
+                            @endif
                         </td>
                     </tr>
 		        </tbody>
