@@ -21,6 +21,8 @@ use App\Events\PassHolderExpired;
 use App\Listeners\PassHolderExpiredNotification;
 use App\Events\CompanyExpireSoon;
 use App\Listeners\CompanyExpireSoonNotification;
+use App\Events\AdhocEmailCreated;
+use App\Listeners\AdhocEmailNotification;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -54,7 +56,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         CompanyExpireSoon::class => [
             CompanyExpireSoonNotification::class
-        ]
+        ],
+        AdhocEmailCreated::class => [
+            AdhocEmailNotification::class
+        ],
     ];
 
     /**

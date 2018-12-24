@@ -10,6 +10,7 @@ define('TENANT_ROLE_ID', '3');
 define('SUB_CONSTRUCTOR_ROLE_ID', '4');
 
 define('DATE_FORMAT', 'd/m/Y');
+define('DATE_TIME_FORMAT', 'd/m/Y h:i');
 
 define('SESS_NEW_ACC_FROM_TENANT', 'tenant');
 define('SESS_NEW_ACC_FROM_SUB_CONSTRUCTOR', 'sub_constructor');

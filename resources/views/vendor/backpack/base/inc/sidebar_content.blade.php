@@ -20,6 +20,13 @@
     </ul>
 </li>
 
+<li class="treeview">
+    <a href="#"><i class="fa fa-bell"></i> <span>Communications</span> <i class="fa fa-angle-left pull-right"></i></a>
+    <ul class="treeview-menu">
+      <li><a href='{{ backpack_url('adhoc-email') }}'><i class='fa fa-envelope'></i> <span>Adhoc Emails</span></a></li>
+    </ul>
+</li>
+
 @endif
 
 @if(auth()->user()->hasRole(ADMIN_ROLE))

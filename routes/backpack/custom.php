@@ -47,4 +47,5 @@ Route::group([
     Route::post('terminate-pass-holder/{id}/collect', 'TerminateHoldersController@collect')->name('admin.terminate-pass-holder.collect');
 
     CRUD::resource('return-pass-holder', 'ReturnHoldersController');
+    CRUD::resource('adhoc-email', 'AdhocEmailCrudController');
 }); // this should be the absolute last line of this file
