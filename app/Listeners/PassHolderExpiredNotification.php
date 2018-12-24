@@ -9,10 +9,9 @@ use App\Jobs\ProcessSendMail;
 use App\Mail\PassHolderExpireSoonMail;
 use App\Services\AccountService;
 use App\Services\MailService;
-use App\Listeners\BasePassHolderListener;
 use App\Events\PassHolderExpired;
 
-class PassHolderExpiredNotification extends BasePassHolderListener
+class PassHolderExpiredNotification extends BaseListener
 {
     /**
      * Create the event listener.

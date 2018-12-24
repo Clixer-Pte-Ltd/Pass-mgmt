@@ -2,17 +2,10 @@
 
 namespace App\Listeners;
 
-use App\Models\Zone;
 use App\Mail\Success;
-use App\Models\BackpackUser;
-use App\Jobs\ProcessSendMail;
-use App\Mail\PassHolderExpireSoonMail;
-use App\Services\AccountService;
-use App\Services\MailService;
-use App\Listeners\BasePassHolderListener;
 use App\Events\PassHolderExpireSoon;
 
-class PassHolderExpireSoonNotification extends BasePassHolderListener
+class PassHolderExpireSoonNotification extends BaseListener
 {
     /**
      * Create the event listener.

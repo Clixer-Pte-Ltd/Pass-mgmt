@@ -7,6 +7,7 @@ use App\Models\Tenant;
 use App\Events\CompanyExpired;
 use Illuminate\Console\Command;
 use App\Models\SubConstructor;
+use App\Events\CompanyExpireSoon;
 
 class TenancyExpireChecking extends Command
 {
@@ -65,10 +66,35 @@ class TenancyExpireChecking extends Command
     private function checkingTenants()
     {
         $this->checkingCompany(Tenant::query());
+        $this->checkCompanyExpireSoon(Tenant::query());
     }
 
     private function checkingSubContructors()
     {
         $this->checkingCompany(SubConstructor::query());
+        $this->checkCompanyExpireSoon(SubConstructor::query());
+    }
+
+    private function checkCompanyExpireSoon($companyType)
+    {
+        $query = $companyType->orWhere(function ($query) {
+            $query->where('tenancy_end_date', '<=', Carbon::now()->addWeeks(4))
+                ->where('tenancy_end_date', '>', Carbon::now()->addWeeks(4)->subDay());
+        })
+            ->orWhere(function ($query) {
+                $query->where('tenancy_end_date', '<=', Carbon::now()->addWeeks(3))
+                    ->where('tenancy_end_date', '>', Carbon::now()->addWeeks(3)->subDay());
+            })
+            ->orWhere(function ($query) {
+                $query->where('tenancy_end_date', '<=', Carbon::now()->addWeeks(2))
+                    ->where('tenancy_end_date', '>', Carbon::now()->addWeeks(2)->subDay());
+            })
+            ->orWhere(function ($query) {
+                $query->where('tenancy_end_date', '<=', Carbon::now()->addWeeks(1))
+                    ->where('tenancy_end_date', '>', Carbon::now()->addWeeks(1)->subDay());
+            });
+
+        $companies = $query->get();
+        event(new CompanyExpireSoon($companies));
     }
 }
