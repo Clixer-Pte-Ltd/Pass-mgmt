@@ -48,4 +48,6 @@ Route::group([
 
     CRUD::resource('return-pass-holder', 'ReturnHoldersController');
     CRUD::resource('adhoc-email', 'AdhocEmailCrudController');
+
+    CRUD::resource('expired-company', 'ExpiredCompanyCrudController');
 }); // this should be the absolute last line of this file
