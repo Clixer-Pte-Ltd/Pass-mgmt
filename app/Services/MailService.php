@@ -20,4 +20,12 @@ class MailService
             ProcessSendMail::dispatch($account->email, new $this->mailForm($pass_holder, $account));
         });
 	}
+
+	public function companyNotify($company)
+    {
+        $this->accounts->map(function($account, $index) use ($company){
+            ProcessSendMail::dispatch($account->email, new $this->mailForm($company, $account));
+        });
+    }
+
 }

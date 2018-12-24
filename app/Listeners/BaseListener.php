@@ -2,15 +2,11 @@
 
 namespace App\Listeners;
 
-use App\Models\Zone;
 use App\Mail\Success;
-use App\Models\BackpackUser;
-use App\Jobs\ProcessSendMail;
-use App\Mail\PassHolderExpireSoonMail;
 use App\Services\AccountService;
 use App\Services\MailService;
 
-class BasePassHolderListener
+class BaseListener
 {
     /**
      * Create the event listener.
@@ -31,10 +27,20 @@ class BasePassHolderListener
     public function handlePassHolder($passHolder, $mailFormName = null)
     {
         if (isset($mailFormName)) {
-            $accountService = new AccountService($passHolder);
-            $admins = $accountService->getAccountRelatedToPassHolder();
+            $accountService = new AccountService();
+            $admins = $accountService->getAccountRelatedToPassHolder($passHolder);
             $mailService = new MailService($mailFormName, $admins);
             $mailService->passHolderNotify($passHolder);
+        }
+    }
+
+    public function handldeCompany ($company, $mailFormName = null)
+    {
+        if (isset($mailFormName)) {
+            $accountService = new AccountService();
+            $admins = $accountService->getAccountRelateCompany($company);
+            $mailService = new MailService($mailFormName, $admins);
+            $mailService->companyNotify($company);
         }
     }
 }

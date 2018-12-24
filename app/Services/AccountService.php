@@ -2,31 +2,35 @@
 namespace App\Services;
 
 use App\Models\BackpackUser;
-use App\Models\PassHolder;
 
 class AccountService
 {
 	private $passHolder;
 
-	public function __construct(PassHolder $passHolder)
+	public function __construct()
 	{
-		$this->passHolder = $passHolder;
 	}
 
-	private function allAirportAccounts() 
+	private function allAirportAccounts()
 	{
 		return BackpackUser::role(AIRPORT_TEAM_ROLE)->get();
 	}
 
-	private function allCompanyAccountsOfPassHolder() 
+	private function allCompanyAccountsOfPassHolder($passHolder)
 	{
-		$companyOfPassHolder = $this->passHolder->company->companyable;
+		$companyOfPassHolder = $passHolder->company->companyable;
         return isset($companyOfPassHolder) ? $companyOfPassHolder->accounts : collect([]);
 	}
 
-	public function getAccountRelatedToPassHolder()
+	public function getAccountRelatedToPassHolder($passHolder)
 	{
 		$admins = $this->allAirportAccounts();
-		return $admins->merge($this->allCompanyAccountsOfPassHolder());
+		return $admins->merge($this->allCompanyAccountsOfPassHolder($passHolder));
 	}
+
+	public function getAccountRelateCompany($company)
+    {
+        $admins = $this->allAirportAccounts();
+        return $admins->merge($company->accounts);
+    }
 }
