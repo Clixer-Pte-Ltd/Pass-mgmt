@@ -44,5 +44,14 @@
 
 <!-- Tenant Portal -->
 @if(auth()->user()->hasRole(TENANT_ROLE))
-  <li><a href='{{ route("admin.tenant.my-company") }}'><i class='fa fa-building'></i> <span>My Company</span></a></li>
+<li><a href='{{ route("admin.tenant.my-company") }}'><i class='fa fa-building'></i> <span>My Company</span></a></li>
+<li class="treeview">
+    <a href="#"><i class="fa fa-folder-open"></i> <span>Pass Holders Management</span> <i class="fa fa-angle-left pull-right"></i></a>
+    <ul class="treeview-menu">
+      <li><a href='{{ backpack_url('tenant-pass-holder') }}'><i class='fa fa-credit-card'></i> <span>Valid Pass Holders</span></a></li>
+      <li><a href='{{ backpack_url('tenant-blacklist-pass-holder') }}'><i class='fa fa-exclamation-circle'></i> <span>Blacklist Pass Holders</span></a></li>
+      <li><a href='{{ backpack_url('tenant-terminate-pass-holder') }}'><i class='fa fa-expeditedssl'></i> <span>Terminate Pass Holders</span></a></li>
+      <li><a href='{{ backpack_url('tenant-return-pass-holder') }}'><i class='fa fa-exchange'></i> <span>Return Pass Holders</span></a></li>
+    </ul>
+</li>
 @endif

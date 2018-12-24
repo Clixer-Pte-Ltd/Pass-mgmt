@@ -29,9 +29,6 @@ Route::group([
     Route::post('sub-constructor/account/import', 'SubConstructorCrudController@importAccount')->name('admin.sub-constructor.account.import');
     Route::get('sub-constructor/account/import/demo', 'SubConstructorCrudController@importAccountDemo')->name('admin.sub-constructor.account.import.demo');
 
-    // Tenant Portal
-    Route::get('profile/t/my-company', 'TenantPortalController@my_company')->name('admin.tenant.my-company');
-
     //Pass Holders
     CRUD::resource('zone', 'ZoneCrudController');
     CRUD::resource('pass-holder', 'PassHolderCrudController');
@@ -50,4 +47,13 @@ Route::group([
     CRUD::resource('adhoc-email', 'AdhocEmailCrudController');
 
     CRUD::resource('expired-company', 'ExpiredCompanyCrudController');
+
+    // Tenant Portal
+    Route::get('profile/t/my-company', 'Tenants\TenantPortalController@my_company')->name('admin.tenant.my-company');
+    CRUD::resource('tenant-pass-holder', 'Tenants\TenantPassHolderCrudController');
+    Route::post('tenant-pass-holder/import', 'Tenants\TenantPassHolderCrudController@import')->name('admin.tenant-pass-holder.import');
+    Route::get('tenant-pass-holder/import/demo', 'Tenants\TenantPassHolderCrudController@importDemo')->name('admin.tenant-pass-holder.import.demo');
+    CRUD::resource('tenant-blacklist-pass-holder', 'Tenants\TenantBlacklistHoldersController');
+    CRUD::resource('tenant-terminate-pass-holder', 'Tenants\TenantTerminateHoldersController');
+    CRUD::resource('tenant-return-pass-holder', 'Tenants\TenantReturnHoldersController');
 }); // this should be the absolute last line of this file
