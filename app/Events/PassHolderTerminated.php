@@ -2,13 +2,13 @@
 
 namespace App\Events;
 
+use App\Models\PassHolder;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use App\Models\PassHolder;
 
-class PassHolderRenewed
+class PassHolderTerminated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

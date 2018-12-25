@@ -2,9 +2,9 @@
 
 namespace App\Listeners;
 
-use App\Events\PassHolderRenewed;
+use App\Events\PassHolderTerminated;
 
-class PassHolderRenewNotification extends  BaseListener
+class PassHolderTerminatedNotification extends BaseListener
 {
     /**
      * Create the event listener.
@@ -22,9 +22,9 @@ class PassHolderRenewNotification extends  BaseListener
      * @param  object  $event
      * @return void
      */
-    public function handle(PassHolderRenewed $event)
+    public function handle(PassHolderTerminated $event)
     {
         $passHolder = $event->pass_holder;
-        $this->handlePassHolder($passHolder, 'PassHolderRenewMail');
+        $this->handlePassHolder($passHolder, 'PassHolderTerminateMail');
     }
 }
