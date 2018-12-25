@@ -12,7 +12,7 @@ class CompanyExpired
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    protected $companies;
+    public $companies;
 
     /**
      * Create a new event instance.
@@ -21,7 +21,6 @@ class CompanyExpired
      */
     public function __construct(Collection $companies)
     {
-        //
         $this->companies = $companies;
     }
 
