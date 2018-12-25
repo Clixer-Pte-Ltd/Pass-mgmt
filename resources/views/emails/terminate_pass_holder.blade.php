@@ -1,12 +1,10 @@
 <p>Dear {{ $account->name }},</p>
 
 
-<div>Pass was renewed.</div>
+<div>Pass was terminated.</div>
 <ul>
     <li>
         Name: {{ $passHolder->applicant_name  }}
-        <br>
-        Date expire: {{ $passHolder->pass_expiry_date }}
     </li>
 </ul>
 

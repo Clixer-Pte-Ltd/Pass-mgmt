@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\RenewPassHolderRequest as UpdateRequest;
 use App\Events\PassHolderRenewed;
+use App\Events\PassHolderTerminated;
 
 class BlacklistHoldersController extends BasePassHolderCrudController
 {
@@ -52,6 +53,7 @@ class BlacklistHoldersController extends BasePassHolderCrudController
         $entry = $this->crud->getEntry($id);
         $entry->status = PASS_STATUS_TERMINATED;
         $entry->save();
+        event(new PassHolderTerminated($entry));
         return redirect()->back();
     }
 }
