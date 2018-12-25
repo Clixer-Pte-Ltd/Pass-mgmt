@@ -5,7 +5,7 @@ namespace App\Listeners;
 use App\Events\CompanyExpired;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class CompanyExpiredNotification implements ShouldQueue
+class CompanyExpiredNotification extends BaseListener
 {
     /**
      * Create the event listener.
@@ -25,6 +25,9 @@ class CompanyExpiredNotification implements ShouldQueue
      */
     public function handle(CompanyExpired $event)
     {
-        //
+        $companies = $event->companies;
+        foreach ($companies as $company) {
+            $this->handldeCompany($company, 'CompanyExpiredMail');
+        }
     }
 }
