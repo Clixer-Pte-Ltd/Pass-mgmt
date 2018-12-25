@@ -8,7 +8,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use App\Models\PassHolder;
 
-class PassHolderRenew
+class PassHolderRenewed
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

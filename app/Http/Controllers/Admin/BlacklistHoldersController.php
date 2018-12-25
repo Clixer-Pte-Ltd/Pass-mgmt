@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\RenewPassHolderRequest as UpdateRequest;
-use App\Events\PassHolderRenew;
+use App\Events\PassHolderRenewed;
 
 class BlacklistHoldersController extends BasePassHolderCrudController
 {
@@ -43,7 +43,7 @@ class BlacklistHoldersController extends BasePassHolderCrudController
     {
         $redirect_location = parent::updateCrud($request);
         $entry = $this->crud->update($request->get($this->crud->model->getKeyName()), ['status' => PASS_STATUS_VALID]);
-        event(new PassHolderRenew($entry));
+        event(new PassHolderRenewed($entry));
         return $redirect_location;
     }
 
