@@ -2,6 +2,8 @@
 namespace App\Services;
 
 use App\Jobs\ProcessSendMail;
+use Illuminate\Support\Collection;
+use App\Services\AccountService;
 
 class MailService
 {
@@ -14,18 +16,34 @@ class MailService
 		$this->accounts = $accounts;
 	}
 
-	public function passHolderNotify($pass_holder)
+	public function passHolderNotify($passHolders)
 	{
-		$this->accounts->map(function($account, $index) use ($pass_holder) {
-            ProcessSendMail::dispatch($account->email, new $this->mailForm($pass_holder, $account));
-        });
+        if (!($passHolders instanceof Collection)) {
+            $passHolders = collect()->push($passHolders);
+        }
+        $accountService = new AccountService();
+        foreach ($passHolders as $passHolder) {
+            $accounts = $accountService->getAccountRelatedToPassHolder($passHolder);
+            $accounts->map(function($account, $index) use ($passHolder) {
+                ProcessSendMail::dispatch($account->email, new $this->mailForm($passHolder, $account));
+            });
+        }
 	}
 
-	public function companyNotify($company)
+	public function companiesNotify($companies)
     {
-        $this->accounts->map(function($account, $index) use ($company){
-            ProcessSendMail::dispatch($account->email, new $this->mailForm($company, $account));
-        });
+        if (!($companies instanceof Collection)) {
+            $companies = collect()->push($companies);
+        }
+        foreach ($companies as $company)
+        {
+            $this->accounts->map(function($account, $index) use ($company){
+                if ($company->hasAccount($account) || !$account->hasCompany())
+                {
+                    ProcessSendMail::dispatch($account->email, new $this->mailForm($company, $account));
+                }
+            });
+        }
     }
 
 }

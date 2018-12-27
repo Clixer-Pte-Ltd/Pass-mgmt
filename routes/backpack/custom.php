@@ -28,6 +28,7 @@ Route::group([
     Route::get('sub-constructor/import/demo', 'SubConstructorCrudController@importDemo')->name('admin.sub-constructor.import.demo');
     Route::post('sub-constructor/account/import', 'SubConstructorCrudController@importAccount')->name('admin.sub-constructor.account.import');
     Route::get('sub-constructor/account/import/demo', 'SubConstructorCrudController@importAccountDemo')->name('admin.sub-constructor.account.import.demo');
+    Route::get('/sub-constructor/{id}/validate', 'SubConstructorCrudController@validateCompany')->name('admin.sub-constructor.validate-company');
 
     //Pass Holders
     CRUD::resource('zone', 'ZoneCrudController');
@@ -56,4 +57,5 @@ Route::group([
     CRUD::resource('tenant-blacklist-pass-holder', 'Tenants\TenantBlacklistHoldersController');
     CRUD::resource('tenant-terminate-pass-holder', 'Tenants\TenantTerminateHoldersController');
     CRUD::resource('tenant-return-pass-holder', 'Tenants\TenantReturnHoldersController');
+    Route::get('/tenant/{id}/validate', 'TenantCrudController@validateCompany')->name('admin.tenant.validate-company');
 }); // this should be the absolute last line of this file

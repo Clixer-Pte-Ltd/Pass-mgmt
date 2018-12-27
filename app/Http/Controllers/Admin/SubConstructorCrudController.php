@@ -242,4 +242,18 @@ class SubConstructorCrudController extends CrudController
         $file = public_path() . '/exports/sub_constructor_accounts.xlsx';
         return response()->download($file);
     }
+
+    public function validateCompany($id)
+    {
+        $entry = $this->crud->getEntry($id);
+        $entry->status = COMPANY_STATUS_WORKING;
+        $entry->save();
+
+        $content = parent::show($id);
+        $this->crud->removeColumn('role_id');
+        $this->crud->addButtonFromView('line', 'add_account', 'add_account', 'end');
+        $this->crud->addButtonFromView('line', 'add_sub_constructor', 'add_sub_constructor', 'end');
+        \Alert::success('Validate done')->flash();
+        return $content;
+    }
 }

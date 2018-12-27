@@ -21,7 +21,7 @@ class Tenant extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     // protected $guarded = ['id'];
-    protected $fillable = ['name', 'uen', 'tenancy_start_date', 'tenancy_end_date', 'role_id'];
+    protected $fillable = ['name', 'uen', 'tenancy_start_date', 'tenancy_end_date', 'role_id', 'status'];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -30,6 +30,10 @@ class Tenant extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+    public function hasAccount($account)
+    {
+        return $this->accounts->contains($account);
+    }
 
     /*
     |--------------------------------------------------------------------------

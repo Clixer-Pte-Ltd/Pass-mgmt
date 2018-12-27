@@ -25,9 +25,6 @@ class CompanyExpiredNotification extends BaseListener
      */
     public function handle(CompanyExpired $event)
     {
-        $companies = $event->companies;
-        foreach ($companies as $company) {
-            $this->handldeCompany($company, 'CompanyExpiredMail');
-        }
+        $this->handldeCompany($event->companies, 'CompanyExpiredMail');
     }
 }

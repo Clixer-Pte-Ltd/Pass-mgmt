@@ -30,16 +30,28 @@ class Company extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-    public function companyable() 
+    public function scopeGetAllCompanies()
     {
-        return $this->morphTo(null, 'type', 'uen', 'uen');
+        $companies = collect();
+        $tenants = Tenant::all();
+        $subcontructors = SubConstructor::all();
+        foreach ($tenants as $tenant) {
+            $companies->push($tenant);
+        }
+        foreach ($subcontructors as $subcontructor) {
+            $companies->push($subcontructor);
+        }
+        return $companies;
     }
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-
+    public function companyable()
+    {
+        return $this->morphTo(null, 'type', 'uen', 'uen');
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES
