@@ -19,9 +19,12 @@ class AccountService
 
 	private function allCompanyAccountsOfPassHolder($passHolder)
 	{
-		$companyOfPassHolder = $passHolder->company->companyable;
-        return isset($companyOfPassHolder) ? $companyOfPassHolder->accounts : collect([]);
-	}
+	    if (isset($passHolder->company)) {
+            $companyOfPassHolder = $passHolder->company->companyable;
+            return isset($companyOfPassHolder) ? $companyOfPassHolder->accounts : collect([]);
+        }
+        return collect([]);
+    }
 
 	public function getAccountRelatedToPassHolder($passHolders)
 	{
