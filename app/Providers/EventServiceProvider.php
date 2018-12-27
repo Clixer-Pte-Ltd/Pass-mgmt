@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\CompanyWasNotValidate;
 use App\Events\UserCreated;
 use App\Events\AccountImported;
+use App\Listeners\CompanyWasNotValidateNotification;
 use Illuminate\Support\Facades\Event;
 use App\Listeners\UserCreatedListener;
 use Illuminate\Auth\Events\Registered;
@@ -27,6 +29,8 @@ use App\Events\PassHolderRenewed;
 use App\Listeners\PassHolderRenewNotification;
 use App\Events\PassHolderTerminated;
 use App\Listeners\PassHolderTerminatedNotification;
+use App\Events\CompanyNeedValidate;
+use App\Listeners\CompaniesNeedValidateNotification;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -70,6 +74,12 @@ class EventServiceProvider extends ServiceProvider
         PassHolderTerminated::class => [
             PassHolderTerminatedNotification::class
         ],
+        CompanyNeedValidate::class => [
+            CompaniesNeedValidateNotification::class
+        ],
+        CompanyWasNotValidate::class => [
+            CompanyWasNotValidateNotification::class
+        ]
     ];
 
     /**

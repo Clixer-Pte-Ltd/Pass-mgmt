@@ -24,23 +24,21 @@ class BaseListener
      * @param  object  $event
      * @return void
      */
-    public function handlePassHolder($passHolder, $mailFormName = null)
+    public function handlePassHolder($passHolders, $mailFormName = null)
     {
         if (isset($mailFormName)) {
-            $accountService = new AccountService();
-            $admins = $accountService->getAccountRelatedToPassHolder($passHolder);
-            $mailService = new MailService($mailFormName, $admins);
-            $mailService->passHolderNotify($passHolder);
+            $mailService = new MailService($mailFormName, null);
+            $mailService->passHolderNotify($passHolders);
         }
     }
 
-    public function handldeCompany ($company, $mailFormName = null)
+    public function handldeCompany ($companies, $mailFormName = null, $hasAirportPassTeam = true, $hasAdminCompay = true)
     {
         if (isset($mailFormName)) {
             $accountService = new AccountService();
-            $admins = $accountService->getAccountRelateCompany($company);
+            $admins = $accountService->getAccountRelateCompany($companies, $hasAirportPassTeam, $hasAdminCompay);
             $mailService = new MailService($mailFormName, $admins);
-            $mailService->companyNotify($company);
+            $mailService->companiesNotify($companies);
         }
     }
 }

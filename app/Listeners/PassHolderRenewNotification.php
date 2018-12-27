@@ -24,7 +24,6 @@ class PassHolderRenewNotification extends  BaseListener
      */
     public function handle(PassHolderRenewed $event)
     {
-        $passHolder = $event->pass_holder;
-        $this->handlePassHolder($passHolder, 'PassHolderRenewMail');
+        $this->handlePassHolder($event->pass_holder, 'PassHolderRenewMail');
     }
 }

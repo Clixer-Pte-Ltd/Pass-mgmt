@@ -24,7 +24,6 @@ class PassHolderTerminatedNotification extends BaseListener
      */
     public function handle(PassHolderTerminated $event)
     {
-        $passHolder = $event->pass_holder;
-        $this->handlePassHolder($passHolder, 'PassHolderTerminateMail');
+        $this->handlePassHolder($event->pass_holder, 'PassHolderTerminateMail');
     }
 }

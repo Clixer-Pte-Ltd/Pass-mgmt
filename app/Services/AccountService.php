@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Models\BackpackUser;
+use Illuminate\Support\Collection;
 
 class AccountService
 {
@@ -11,7 +12,7 @@ class AccountService
 	{
 	}
 
-	private function allAirportAccounts()
+	public function allAirportAccounts()
 	{
 		return BackpackUser::role(AIRPORT_TEAM_ROLE)->get();
 	}
@@ -22,15 +23,39 @@ class AccountService
         return isset($companyOfPassHolder) ? $companyOfPassHolder->accounts : collect([]);
 	}
 
-	public function getAccountRelatedToPassHolder($passHolder)
+	public function getAccountRelatedToPassHolder($passHolders)
 	{
-		$admins = $this->allAirportAccounts();
-		return $admins->merge($this->allCompanyAccountsOfPassHolder($passHolder));
+        if (!($passHolders instanceof Collection)) {
+            $passHolders = collect()->push($passHolders);
+        }
+        $admins = $this->allAirportAccounts();
+        foreach ($passHolders as $passHolder) {
+            $this->allCompanyAccountsOfPassHolder($passHolder)->map(function($ad, $index) use ($admins) {
+                $admins->push($ad);
+            });
+        }
+        return $admins;
 	}
 
-	public function getAccountRelateCompany($company)
+	public function getAccountRelateCompany($companies, $hasAirportPassTeam = true, $hasAdminCompany = true)
     {
-        $admins = $this->allAirportAccounts();
-        return $admins->merge($company->accounts);
+        if (!($companies instanceof Collection)) {
+            $companies = collect()->push($companies);
+        }
+        $admins = collect();
+        if ($hasAdminCompany) {
+            foreach ($companies as $company) {
+                $company->accounts->map(function($ad, $index) use ($admins) {
+                    $admins->push($ad);
+                });
+            }
+        }
+        if ($hasAirportPassTeam) {
+            foreach ($this->allAirportAccounts() as $adAirport) {
+                $admins->push($adAirport);
+            }
+        }
+
+        return $admins;
     }
 }

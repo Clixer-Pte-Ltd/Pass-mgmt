@@ -2,10 +2,9 @@
 
 namespace App\Listeners;
 
-use App\Mail\Success;
-use App\Events\PassHolderExpireSoon;
+use App\Events\CompanyNeedValidate;
 
-class PassHolderExpireSoonNotification extends BaseListener
+class CompaniesNeedValidateNotification extends BaseListener
 {
     /**
      * Create the event listener.
@@ -23,8 +22,8 @@ class PassHolderExpireSoonNotification extends BaseListener
      * @param  object  $event
      * @return void
      */
-    public function handle(PassHolderExpireSoon $event)
+    public function handle(CompanyNeedValidate $event)
     {
-        $this->handlePassHolder($event->pass_holders, 'PassHolderExpireSoonMail');
+        $this->handldeCompany($event->companies, 'CompanyNeedValidateMail', false);
     }
 }

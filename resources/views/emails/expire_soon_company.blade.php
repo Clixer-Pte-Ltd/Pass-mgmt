@@ -4,7 +4,7 @@
 <div>Your company will expire soon.</div>
 <ul>
     <li>
-        Pass holder name: {{ $company->name }}
+        Company name: {{ $company->name }}
         <br>
         Date expire: {{ $company->tenancy_end_date }}
         <br>

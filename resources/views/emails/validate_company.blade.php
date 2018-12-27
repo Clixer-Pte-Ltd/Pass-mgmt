@@ -1,12 +1,14 @@
 <p>Dear {{ $account->name }},</p>
 
 
-<div>Your company was expired.</div>
+<div>Please validate your company.</div>
 <ul>
     <li>
         Company name: {{ $company->name }}
         <br>
-        Date expire: {{ $company->tenancy_end_date }}
+        Click the this to validate your company:
+        <br>
+        <a href="{{ $link }}">Validate company</a>
     </li>
 </ul>
 

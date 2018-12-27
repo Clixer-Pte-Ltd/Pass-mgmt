@@ -43,4 +43,9 @@ class BackpackUser extends User
     {
         return $this->belongsTo(SubConstructor::class);
     }
+
+    public function hasCompany()
+    {
+        return is_null($this->tenant) && is_null($this->subConstructor) ? false : true; // false if user is admin or airport pass team
+    }
 }
