@@ -48,9 +48,11 @@ class AccountService
         $admins = collect();
         if ($hasAdminCompany) {
             foreach ($companies as $company) {
-                $company->accounts->map(function($ad, $index) use ($admins) {
-                    $admins->push($ad);
-                });
+                if (isset($company->accounts)) {
+                    $company->accounts->map(function($ad, $index) use ($admins) {
+                        $admins->push($ad);
+                    });
+                }
             }
         }
         if ($hasAirportPassTeam) {
@@ -58,7 +60,6 @@ class AccountService
                 $admins->push($adAirport);
             }
         }
-
         return $admins;
     }
 }
