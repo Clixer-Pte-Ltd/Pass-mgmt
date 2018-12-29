@@ -32,13 +32,13 @@ class BaseListener
         }
     }
 
-    public function handldeCompany ($companies, $mailFormName = null, $hasAirportPassTeam = true, $hasAdminCompay = true)
+    public function handldeCompany ($companies, $mailFormName = null, $hasAirportPassTeam = true, $hasAdminCompay = true, $content = null)
     {
         if (isset($mailFormName)) {
             $accountService = new AccountService();
             $admins = $accountService->getAccountRelateCompany($companies, $hasAirportPassTeam, $hasAdminCompay);
             $mailService = new MailService($mailFormName, $admins);
-            $mailService->companiesNotify($companies);
+            $mailService->companiesNotify($companies, $content);
         }
     }
 }

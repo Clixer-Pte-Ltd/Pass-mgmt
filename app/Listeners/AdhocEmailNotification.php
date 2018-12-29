@@ -4,7 +4,7 @@ namespace App\Listeners;
 
 use App\Events\AdhocEmailCreated;
 
-class AdhocEmailNotification
+class AdhocEmailNotification extends BaseListener
 {
     /**
      * Create the event listener.
@@ -26,8 +26,10 @@ class AdhocEmailNotification
     {
         $email = $event->email;
         $companies = $email->destinations;
-
-        // @TODO: Sending email here
-        dd($email->subject, $email->body, $companies);
+        $companiesRelate = collect();
+        foreach ($companies as $company) {
+            $companiesRelate->push($company->companyable);
+        }
+        $this->handldeCompany($companiesRelate, 'AdhocMail', false, true, $email);
     }
 }
