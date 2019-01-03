@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 // VALIDATION: change the requests to match your own file names if you need form validation
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-use App\Http\Requests\PassHolderRequest as StoreRequest;
+use App\Http\Requests\StorePassHolderRequest as StoreRequest;
 use App\Http\Requests\UpdatePassHolderRequest as UpdateRequest;
 
 /**
@@ -64,7 +64,7 @@ class BasePassHolderCrudController extends CrudController
 
     protected function addRequired()
     {
-        // add asterisk for fields that are required in PassHolderRequest
+        // add asterisk for fields that are required in StorePassHolderRequest
         $this->crud->setRequiredFields(StoreRequest::class, 'create');
         $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
     }
