@@ -19,6 +19,7 @@ class Company extends Model
 
     protected $table = 'companies';
     protected $primaryKey = 'uen';
+    public $incrementing = false;
     // public $timestamps = false;
     // protected $guarded = ['id'];
     protected $fillable = ['uen', 'type'];
