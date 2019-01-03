@@ -215,6 +215,10 @@ class SubConstructorCrudController extends CrudController
 
     public function import(Request $request, Excel $excel)
     {
+        if (is_null($request->file('import_file'))) {
+            \Alert::error('You must choose file')->flash();
+            return redirect()->back();
+        }
         $excel->import(new SubContructorsImport, $request->file('import_file'));
 
         \Alert::success('Import successful.')->flash();
@@ -230,6 +234,10 @@ class SubConstructorCrudController extends CrudController
 
     public function importAccount(Request $request, Excel $excel)
     {
+        if (is_null($request->file('import_file'))) {
+            \Alert::error('You must choose file')->flash();
+            return redirect()->back();
+        }
         $excel->import(new SubContructorAccountsImport, $request->file('import_file'));
 
         \Alert::success('Import successful. Email will be sent out to imported accounts soon...')->flash();

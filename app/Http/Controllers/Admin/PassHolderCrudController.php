@@ -33,6 +33,10 @@ class PassHolderCrudController extends BasePassHolderCrudController
 
     public function import(Request $request, Excel $excel)
     {
+        if (is_null($request->file('import_file'))) {
+            \Alert::error('You must choose file')->flash();
+            return redirect()->back();
+        }
         $excel->import(new PassHoldersImport, $request->file('import_file'));
 
         \Alert::success('Import successful.')->flash();
