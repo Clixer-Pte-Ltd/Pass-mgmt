@@ -25,7 +25,7 @@ class RenewPassHolderRequest extends FormRequest
     public function rules()
     {
         return [
-            'pass_expiry_date' => 'required|date',
+            'pass_expiry_date' => 'required|date|after:today',
         ];
     }
 

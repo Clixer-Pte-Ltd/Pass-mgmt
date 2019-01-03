@@ -27,7 +27,7 @@ class StorePassHolderRequest extends FormRequest
         return [
             'applicant_name' => 'required',
             'nric' => 'required|unique:pass_holders,nric',
-            'pass_expiry_date' => 'required|date',
+            'pass_expiry_date' => 'required|date|after:today',
             'country_id' => 'required',
             'company_uen' => 'required',
             'ru_name' => 'required',
