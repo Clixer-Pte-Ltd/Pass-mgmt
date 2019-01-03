@@ -184,7 +184,7 @@ class TenantCrudController extends CrudController
     {
         if (is_null($request->file('import_file'))) {
             \Alert::error('You must choose file')->flash();
-            return redirect()->back();
+            return redirect()->back()->with('not_have_file', 1);
         }
         $excel->import(new TenantsImport, $request->file('import_file'));
 
@@ -203,7 +203,7 @@ class TenantCrudController extends CrudController
     {
         if (is_null($request->file('import_file'))) {
             \Alert::error('You must choose file')->flash();
-            return redirect()->back();
+            return redirect()->back()->with('not_have_file', 1);
         }
         $excel->import(new TenantAccountsImport, $request->file('import_file'));
 

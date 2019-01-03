@@ -217,7 +217,7 @@ class SubConstructorCrudController extends CrudController
     {
         if (is_null($request->file('import_file'))) {
             \Alert::error('You must choose file')->flash();
-            return redirect()->back();
+            return redirect()->back()->with('not_have_file', 1);
         }
         $excel->import(new SubContructorsImport, $request->file('import_file'));
 
@@ -236,7 +236,7 @@ class SubConstructorCrudController extends CrudController
     {
         if (is_null($request->file('import_file'))) {
             \Alert::error('You must choose file')->flash();
-            return redirect()->back();
+            return redirect()->back()->with('not_have_file', 1);
         }
         $excel->import(new SubContructorAccountsImport, $request->file('import_file'));
 
