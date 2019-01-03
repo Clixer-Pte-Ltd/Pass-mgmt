@@ -4,7 +4,8 @@
 *
 */
 
-jQuery(function($){
-
-    'use strict';
-});
+$(function () {
+    if (showModal) {
+        $(modalId).modal('show');
+    }
+})

@@ -46,3 +46,14 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+@if(!empty(Session::get('not_have_file')) && Session::get('not_have_file') == 1)
+    <script>
+        showModal = true;
+        modalId = '#modal-tenant';
+    </script>
+@else
+    <script>
+        showModal = false;
+        modalId = '';
+    </script>
+@endif
