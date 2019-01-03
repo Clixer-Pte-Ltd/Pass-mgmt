@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PassHolderRequest extends FormRequest
+class UpdatePassHolderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,10 @@ class PassHolderRequest extends FormRequest
      */
     public function rules()
     {
+        $except = request()->get('id');
         return [
             'applicant_name' => 'required',
-            'nric' => 'required',
+            'nric' => "required|unique:pass_holders,nric,{$except}",
             'pass_expiry_date' => 'required|date',
             'country_id' => 'required',
             'company_uen' => 'required',
@@ -34,30 +35,6 @@ class PassHolderRequest extends FormRequest
             'ru_email' => 'required',
             'as_name' => 'required',
             'as_email' => 'required',
-        ];
-    }
-
-    /**
-     * Get the validation attributes that apply to the request.
-     *
-     * @return array
-     */
-    public function attributes()
-    {
-        return [
-            //
-        ];
-    }
-
-    /**
-     * Get the validation messages that apply to the request.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            //
         ];
     }
 }
