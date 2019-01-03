@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 // VALIDATION: change the requests to match your own file names if you need form validation
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Http\Requests\PassHolderRequest as StoreRequest;
-use App\Http\Requests\PassHolderRequest as UpdateRequest;
+use App\Http\Requests\UpdatePassHolderRequest as UpdateRequest;
 
 /**
  * Class PassHolderCrudController
