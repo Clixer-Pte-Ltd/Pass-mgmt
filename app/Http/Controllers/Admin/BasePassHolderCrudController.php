@@ -14,6 +14,12 @@ use App\Http\Requests\UpdatePassHolderRequest as UpdateRequest;
  */
 class BasePassHolderCrudController extends CrudController
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->middleware('companyOwner')->only(['edit']);
+    }
+
     public function setup()
     {
         /*

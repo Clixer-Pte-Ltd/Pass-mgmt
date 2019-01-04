@@ -16,7 +16,6 @@ class CompanyOwner
     public function handle($request, Closure $next)
     {
         $tenant_id = intval($request->route('tenant'));
-
         if ($tenant_id) {
             if (backpack_user()->hasRole(TENANT_ROLE) && backpack_user()->tenant->id !== $tenant_id) {
                 abort(401);
@@ -34,6 +33,26 @@ class CompanyOwner
             }
         }
 
+        $pass_holder_id = intval($request->route('tenant_pass_holder'));
+        if ($pass_holder_id) {
+            if (!$this->handlePassHolder($pass_holder_id)) {
+                abort(401);
+            }
+        }
+
         return $next($request);
+    }
+
+    public function handlePassHolder($pass_holder_id)
+    {
+        if ($pass_holder_id) {
+            if (backpack_user()->hasRole(TENANT_ROLE) && !backpack_user()->tenant->passHolders->contains('id', $pass_holder_id)) {
+                return false;
+            }
+            if (backpack_user()->hasRole(SUB_CONSTRUCTOR_ROLE) && !backpack_user()->subConstructor->passHolders->contains('id', $pass_holder_id)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

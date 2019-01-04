@@ -54,6 +54,11 @@ class SubConstructor extends Model
         return $this->hasMany(User::class);
     }
 
+    public function passHolders()
+    {
+        return $this->hasMany(PassHolder::class, 'company_uen', 'uen');
+    }
+
     public function company()
     {
         return $this->morphOne(Company::class, 'companyable', 'type', 'uen', 'uen');
