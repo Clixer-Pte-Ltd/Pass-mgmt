@@ -58,7 +58,7 @@ class Tenant extends Model
 
     public function passHolders()
     {
-        return $this->hasMany(PassHolder::class, 'uen', 'company_uen');
+        return $this->hasMany(PassHolder::class, 'company_uen', 'uen');
     }
 
     public function company()
