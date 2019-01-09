@@ -45,7 +45,7 @@ Route::group([
     CRUD::resource('terminate-pass-holder', 'TerminateHoldersController');
     Route::post('terminate-pass-holder/{id}/collect', 'TerminateHoldersController@collect')->name('admin.terminate-pass-holder.collect');
 
-    CRUD::resource('expire-pass-holder', 'ExpirePassHolderCrudController');
+    CRUD::resource('expire-pass-holder', 'ExpireIn4WeekPassHolderCrudController');
 
     CRUD::resource('return-pass-holder', 'ReturnHoldersController');
     CRUD::resource('adhoc-email', 'AdhocEmailCrudController');

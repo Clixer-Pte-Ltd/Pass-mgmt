@@ -10,7 +10,7 @@ namespace App\Http\Controllers\Admin;
 
 use Carbon\Carbon;
 
-class ExpirePassHolderCrudController extends BasePassHolderCrudController
+class ExpireIn4WeekPassHolderCrudController extends BasePassHolderCrudController
 {
     public function setup()
     {
