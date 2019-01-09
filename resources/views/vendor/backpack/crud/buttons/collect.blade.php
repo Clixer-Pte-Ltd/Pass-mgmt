@@ -1,5 +1,5 @@
 @if ($crud->hasAccess('delete'))
-	<a href="javascript:void(0)" onclick="collectEntry(this)" data-route="{{ route('admin.terminate-pass-holder.collect', [$entry->getKey()]) }}" class="btn btn-xs btn-primary" data-button-type="collect"><i class="fa fa-get-pocket"></i> Collect</a>
+	<a href="javascript:void(0)" onclick="collectEntry(this)" data-route="{{ route('admin.terminate-pass-holder.collect', [$entry->getKey()]) }}" class="btn btn-xs btn-primary" data-button-type="collect"><i class="fa fa-get-pocket"></i> Returned</a>
 @endif
 
 <script>
@@ -21,7 +21,7 @@
 	                  // Show an alert with the result
 	                  new PNotify({
 	                      title: "Success",
-	                      text: "Collected successful",
+	                      text: "Returned successful",
 	                      type: "success"
 	                  });
 
@@ -40,7 +40,7 @@
 	                  // Show an alert with the result
 	                  new PNotify({
 	                      title: "Ooop!",
-	                      text: "Your item is not collected!",
+	                      text: "Your item is not returned!",
 	                      type: "warning"
 	                  });
 	              }
@@ -49,7 +49,7 @@
 	      	  // Show an alert telling the user we don't know what went wrong
 	          new PNotify({
 	              title: "Ooop!",
-	              text: "Your item is not collected!",
+	              text: "Your item is not returned!",
 	              type: "info"
 	          });
 	      }

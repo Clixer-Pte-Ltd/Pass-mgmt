@@ -35,6 +35,7 @@ Route::group([
     CRUD::resource('pass-holder', 'PassHolderCrudController');
     Route::post('pass-holder/import', 'PassHolderCrudController@import')->name('admin.pass-holder.import');
     Route::get('pass-holder/import/demo', 'PassHolderCrudController@importDemo')->name('admin.pass-holder.import.demo');
+    Route::post('pass-holder/{id}/blacklist', 'PassHolderCrudController@blacklist')->name('admin.pass-holder.blacklist');
 
     CRUD::resource('blacklist-pass-holder', 'BlacklistHoldersController');
     Route::get('blacklist-pass-holder/{id}/renew', 'BlacklistHoldersController@renew')->name('admin.blacklist-pass-holder.renew');

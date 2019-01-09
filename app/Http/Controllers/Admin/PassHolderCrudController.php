@@ -20,6 +20,9 @@ class PassHolderCrudController extends BasePassHolderCrudController
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/pass-holder');
         $this->crud->setEntityNameStrings('Pass Holder', 'Pass Holders');
         $this->crud->addClause('whereStatus', PASS_STATUS_VALID);
+        $this->crud->addButtonFromView('line', 'blacklist', 'blacklist', 'end');
+        $this->crud->addButtonFromView('line', 'terminate', 'terminate', 'end');
+        $this->crud->addButtonFromView('line', 'collect', 'collect', 'end');
         $this->addFields();
         $this->addRequired();
     }
@@ -48,5 +51,15 @@ class PassHolderCrudController extends BasePassHolderCrudController
     {
         $file = public_path() . '/exports/pass-holders.xlsx';
         return response()->download($file);
+    }
+
+    public function blacklist($id, Request $request)
+    {
+        $entry = $this->crud->getEntry($id);
+        $entry->status = PASS_STATUS_BLACKLISTED;
+        $entry->blacklist_reason = $request->get('blacklist_reason');
+        $entry->save();
+        \Alert::info('Blacklist successful.')->flash();
+        return redirect()->back();
     }
 }

@@ -48,9 +48,9 @@ class PassHolderExpireChecking extends Command
     public function getPassHolderExpireSoon()
     {
         return PassHolder::orWhere(function ($query) {
-                        $query->where('pass_expiry_date', '<=', Carbon::now()->addWeeks(4))
+            $query->where('pass_expiry_date', '<=', Carbon::now()->addWeeks(4))
                             ->where('pass_expiry_date', '>', Carbon::now()->addWeeks(4)->subDay());
-                        })
+        })
                     ->orWhere(function ($query) {
                         $query->where('pass_expiry_date', '<=', Carbon::now()->addWeeks(3))
                         ->where('pass_expiry_date', '>', Carbon::now()->addWeeks(3)->subDay());
@@ -75,7 +75,7 @@ class PassHolderExpireChecking extends Command
     {
         $pass_expired_query = $this->getPassHolderExpired();
         $pass_expired = $pass_expired_query->get();
-        $pass_expired_query->update(['status' => PASS_STATUS_BLACKLISTED]);
+        $pass_expired_query->update(['status' => PASS_STATUS_BLACKLISTED, 'blacklist_reason' => 'Expired! Blacklisted automatically by system']);
         event(new PassHolderExpired($pass_expired));
     }
 
