@@ -13,6 +13,10 @@ class TerminateHoldersController extends BasePassHolderCrudController
         $this->crud->addButtonFromView('line', 'collect', 'collect');
         $this->crud->removeButtonFromStack('update', 'line');
         $this->crud->removeButtonFromStack('delete', 'line');
+        $this->crud->addColumn([
+            'name' => 'terminate_reason',
+            'label' => 'Terminate Reason'
+        ]);
     }
 
     public function index()
