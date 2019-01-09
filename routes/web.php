@@ -40,6 +40,16 @@ Route::group(
     }
 );
 
+Route::group([
+    'prefix' => config('backpack.base.route_prefix', 'admin'),
+    'middleware' => ['web', config('backpack.base.middleware_key', 'admin'), '2fa'],
+    'namespace' => 'Admin',
+], function () { // custom admin routes
+    // User
+    CRUD::resource('user', 'Permission\UserCrudController');
+    CRUD::resource('role', 'Permission\RoleCrudController');
+}); // this should be the absolute last line of this file
+
 Route::post('/2fa', function () {
     return redirect()->route('backpack.dashboard');
 })->name('2fa')->middleware('2fa');
