@@ -48,7 +48,15 @@ class SubConstructorCrudController extends CrudController
         // TODO: remove setFromDb() and manually define Fields and Columns
         // $this->crud->setFromDb();
 
-        $this->crud->addColumns(['name', 'uen']);
+        $this->crud->addColumn([
+            'name' => 'name',
+            'label' => 'Name',
+            'type' => 'closure',
+            'function' => function ($entry) {
+                return "<a href='" . url($this->crud->route . '/' . $entry->getKey()) . "'>{$entry->name}</a>";
+            }
+        ]);
+        $this->crud->addColumns(['uen']);
         $this->crud->addColumn([
             'name' => 'tenancy_start_date', // The db column name
             'label' => 'Tenancy Start Date', // Table column heading
