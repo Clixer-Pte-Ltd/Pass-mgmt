@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Backpack\CRUD preferences
@@ -33,11 +32,11 @@ return [
 
     // Here you may override the css-classes for the content section of the edit view globally
     // To override per view use $this->crud->setEditContentClass('class-string')
-    'edit_content_class'   => 'col-md-8 col-md-offset-2',
+    'edit_content_class' => 'col-md-8 col-md-offset-2',
 
     // Here you may override the css-classes for the content section of the revisions timeline view globally
     // To override per view use $this->crud->setRevisionsTimelineContentClass('class-string')
-    'revisions_timeline_content_class'   => 'col-md-10 col-md-offset-1',
+    'revisions_timeline_content_class' => 'col-md-10 col-md-offset-1',
 
     /*
     |------------
@@ -49,7 +48,7 @@ return [
 
     // enable the datatables-responsive plugin, which hides columns if they don't fit?
     // if not, a horizontal scrollbar will be shown instead
-    'responsive_table' => true,
+    'responsive_table' => false,
 
     // stores pagination and filters in localStorage for two hours
     // whenever the user tries to see that page, backpack loads the previous pagination and filtration
@@ -73,7 +72,7 @@ return [
 
     // Here you may override the css-classes for the content section of the show view globally
     // To override per view use $this->crud->setShowContentClass('class-string')
-    'show_content_class'   => 'col-md-8 col-md-offset-2',
+    'show_content_class' => 'col-md-8 col-md-offset-2',
 
     /*
     |------------
@@ -89,7 +88,7 @@ return [
 
     // Here you may override the css-classes for the content section of the reorder view globally
     // To override per view use $this->crud->setReorderContentClass('class-string')
-    'reorder_content_class'   => 'col-md-8 col-md-offset-2',
+    'reorder_content_class' => 'col-md-8 col-md-offset-2',
 
     /*
     |------------
@@ -542,5 +541,4 @@ return [
         // "zu_ZA" => "Zulu (South Africa)",
         // "zu" => "Zulu"
     ],
-
 ];
