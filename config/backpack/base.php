@@ -18,10 +18,10 @@ return [
     'logo_mini' => '<b>CAG</b>',
 
     // Developer or company name. Shown in footer.
-    'developer_name' => 'Portal Beanz Viet Nam',
+    'developer_name' => 'clixer',
 
     // Developer website. Link in footer.
-    'developer_link' => 'http://portalbeanzvn.com/',
+    'developer_link' => 'https://www.clixer.com/',
 
     // Show powered by Laravel Backpack in the footer?
     'show_powered_by' => false,
