@@ -135,13 +135,15 @@ class RegisterController extends Controller
         if (!config('backpack.base.registration_open')) {
             abort(403, trans('backpack::base.registration_closed'));
         }
-        $this->validatorNewAccount($request->all())->validate();
+        $registration_data = $request->all();
+        $this->validatorNewAccount($registration_data)->validate();
+
+        if (!isset($registration_data['token'])) {
+            $registration_data['token'] = str_random(40);
+        }
 
         // Initialise the 2FA class
         $google2fa = app('pragmarx.google2fa');
-
-        // Save the registration data in an array
-        $registration_data = $request->all();
 
         // Add the secret key to the registration data
         $registration_data['google2fa_secret'] = $google2fa->generateSecretKey();
