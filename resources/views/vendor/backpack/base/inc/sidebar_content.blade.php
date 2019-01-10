@@ -18,7 +18,7 @@
         <li><a href='{{ backpack_url('blacklist-pass-holder') }}'><i class='fa fa-exclamation-circle'></i> <span>Blacklist Pass Holders</span></a></li>
         <li><a href='{{ backpack_url('terminate-pass-holder') }}'><i class='fa fa-expeditedssl'></i> <span>Terminate Pass Holders</span></a></li>
         <li><a href='{{ backpack_url('return-pass-holder') }}'><i class='fa fa-exchange'></i> <span>Return Pass Holders</span></a></li>
-        <li><a href='{{ backpack_url('expire-pass-holder') }}'><i class='fa fa-exchange'></i> <span>Expiring Pass Holder</span></a></li>
+        <li><a href='{{ backpack_url('expire-pass-holder') }}'><i class='fa fa-user-times'></i> <span>Expiring Pass Holder</span></a></li>
     </ul>
 </li>
 

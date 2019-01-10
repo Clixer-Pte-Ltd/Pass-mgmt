@@ -18,7 +18,7 @@ class ExpireIn4WeekPassHolderCrudController extends BasePassHolderCrudController
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/expire-pass-holder');
         $this->crud->setEntityNameStrings('Expire in 4 weeks Pass Holder', 'Expire in 4 weeks Pass Holder');
         $this->crud->addClause('where', 'pass_expiry_date', '<=', Carbon::now()->addWeeks(4));
-        $this->crud->addClause('where', 'pass_expiry_date', '>', Carbon::now()->addWeeks(4)->subDay());
+        $this->crud->addClause('where', 'pass_expiry_date', '>', Carbon::now());
         $this->crud->removeButtonFromStack('update', 'line');
         $this->crud->removeButtonFromStack('delete', 'line');
     }
