@@ -20,11 +20,16 @@ class BlacklistHoldersController extends BasePassHolderCrudController
         $this->crud->removeButtonFromStack('update', 'line');
         $this->crud->removeButtonFromStack('delete', 'line');
         $this->crud->setEditView('crud::pass-holders.renew');
+        $this->crud->addColumn([
+            'name' => 'blacklist_reason',
+            'label' => 'Blacklist Reason'
+        ]);
         $this->crud->addField([
             'name' => 'pass_expiry_date',
             'type' => 'date_picker',
             'label' => 'Pass Expiry Date'
         ]);
+
         $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
     }
 
