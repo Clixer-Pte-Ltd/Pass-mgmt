@@ -22,3 +22,13 @@ function getUserRole($user)
         return 'Sub Constructor';
     }
 }
+
+function getSettingValueByKey($key)
+{
+    return App\Models\Setting::where('key', $key)->first()->value;
+}
+
+function updateSetting($key, $value)
+{
+    App\Models\Setting::where('key', $key)->update(['value' => $value]);
+}

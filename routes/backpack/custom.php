@@ -61,4 +61,8 @@ Route::group([
     CRUD::resource('tenant-terminate-pass-holder', 'Tenants\TenantTerminateHoldersController');
     CRUD::resource('tenant-return-pass-holder', 'Tenants\TenantReturnHoldersController');
     Route::get('/tenant/{id}/validate', 'TenantCrudController@validateCompany')->name('admin.tenant.validate-company');
+
+    //Setting
+    Route::get('settings/smtp', 'SettingsController@smtp')->name('admin.setting.smtp');
+    Route::post('settings/smtp/update', 'SettingsController@updateSmtp')->name('admin.setting.smtp.update');
 }); // this should be the absolute last line of this file
