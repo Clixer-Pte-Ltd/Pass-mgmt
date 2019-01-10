@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'google2fa_secret', 'phone', 'tenant_id', 'sub_constructor_id', 'is_imported'
+        'name', 'email', 'password', 'google2fa_secret', 'phone', 'tenant_id', 'sub_constructor_id', 'is_imported', 'token'
     ];
 
     /**
@@ -30,10 +30,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password', 'remember_token', 'google2fa_secret'
-    ];
-
-    protected $dispatchesEvents = [
-        'created' => UserCreated::class,
     ];
 
     public function setGoogle2faSecretAttribute($value)

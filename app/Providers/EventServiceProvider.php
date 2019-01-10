@@ -31,6 +31,8 @@ use App\Events\PassHolderTerminated;
 use App\Listeners\PassHolderTerminatedNotification;
 use App\Events\CompanyNeedValidate;
 use App\Listeners\CompaniesNeedValidateNotification;
+use App\Events\CompanyAddAccount;
+use App\Listeners\CompanyAddAccountNotification;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -79,6 +81,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         CompanyWasNotValidate::class => [
             CompanyWasNotValidateNotification::class
+        ],
+        CompanyAddAccount::class => [
+            CompanyAddAccountNotification::class
         ]
     ];
 

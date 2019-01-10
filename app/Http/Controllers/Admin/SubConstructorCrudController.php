@@ -186,6 +186,7 @@ class SubConstructorCrudController extends CrudController
 
     public function newAccount($id)
     {
+        session()->put('add_account', true);
         session()->forget(SESS_NEW_ACC_FROM_TENANT);
         session()->put(SESS_NEW_ACC_FROM_SUB_CONSTRUCTOR, $id);
 
