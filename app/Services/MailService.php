@@ -45,4 +45,11 @@ class MailService
             });
         }
     }
+
+    public function accountNotify($account = null, $content = null)
+    {
+        if (!is_null($account)) {
+            ProcessSendMail::dispatch($account->email, new $this->mailForm($account, $content));
+        }
+    }
 }
