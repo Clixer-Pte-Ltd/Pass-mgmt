@@ -1,6 +1,6 @@
 @extends('backpack::layout_guest')
 @php
-    $isCompany = session()->has(SESS_NEW_ACC_FROM_TENANT) || session()->has(SESS_NEW_ACC_FROM_SUB_CONSTRUCTOR) ? true : false;
+    $isAddAccount = session()->get('add_account') ? true :false;
 @endphp
 @section('content')
     <div class="row m-t-40">
@@ -8,14 +8,14 @@
             <h3 class="text-center m-b-20">{{ trans('backpack::base.register') }}</h3>
             <div class="box">
                 <div class="box-body">
-                    <form class="col-md-12 p-t-10" role="form" method="POST" action="{{ $isCompany ? route('backpack.auth.add.account') : route('backpack.auth.register.post') }}">
+                    <form class="col-md-12 p-t-10" role="form" method="POST" action="{{ $isAddAccount ? route('backpack.auth.add.account') : route('backpack.auth.register.post') }}">
                         {!! csrf_field() !!}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label class="control-label">{{ trans('backpack::base.name') }}</label>
 
                             <div>
-                                <input type="text" class="form-control" name="name" value="{{ is_null($user) ? old('name') : $user->name }}">
+                                <input type="text" class="form-control" name="name" value="{{ is_null($account) ? old('name') : $account->name }}">
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -29,7 +29,7 @@
                             <label class="control-label">{{ config('backpack.base.authentication_column_name') }}</label>
 
                             <div>
-                                <input type="{{ backpack_authentication_column()=='email'?'email':'text'}}" class="form-control" name="{{ backpack_authentication_column() }}" value="{{ is_null($user) ? old(backpack_authentication_column()) : $user->email }}">
+                                <input type="{{ backpack_authentication_column()=='email'?'email':'text'}}" class="form-control" name="{{ backpack_authentication_column() }}" value="{{ is_null($account) ? old(backpack_authentication_column()) : $account->email }}">
 
                                 @if ($errors->has(backpack_authentication_column()))
                                     <span class="help-block">
@@ -39,7 +39,7 @@
                             </div>
                         </div>
 
-                        @if(!$isCompany)
+                        @if(!$isAddAccount)
                             <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
                                 <label class="control-label">Phone</label>
 
@@ -82,7 +82,7 @@
                                 </div>
                             </div>
                         @endif
-                        <input type="hidden" name="token" value="{{ @$user->token }}">
+                        <input type="hidden" name="token" value="{{ @$account->token }}">
                         @if(session()->has('tenant'))
                             <input type="hidden" name="tenant_id" value="{{ session()->get('tenant') }}">
                         @endif

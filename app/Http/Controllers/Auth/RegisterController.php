@@ -42,28 +42,27 @@ class RegisterController extends Controller
     }
 
     /**
-     * Get a validator for update account by user
+     * Show the application registration form.
      *
-     * @param array $data
-     *
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @return \Illuminate\Http\Response
      */
-    protected function validateUpdateAccountByUser(array $data)
+    public function showRegistrationForm($token = null)
     {
-        $user_model_fqn = config('backpack.base.user_model_fqn');
-        $user = $user_model_fqn::where('token', $data['token'])->first();
-        if (is_null($user)) {
-            return false;
+        // if registration is closed, deny access
+        if (!config('backpack.base.registration_open')) {
+            abort(403, trans('backpack::base.registration_closed'));
         }
-        $users_table = $user->getTable();
-        $email_validation = backpack_authentication_column() == 'email' ? 'email|' : '';
 
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            backpack_authentication_column() => 'required|' . $email_validation . 'max:255|unique:' . $users_table . ',id,' . $user->email,
-            'password' => 'required|min:6|confirmed',
-            'phone' => 'required|digits:8'
-        ]);
+        $this->data['title'] = trans('backpack::base.register'); // set the page title
+        $this->data['token'] = $token;
+
+        $user_model_fqn = config('backpack.base.user_model_fqn');
+
+        $account = !is_null($token) ? $user_model_fqn::where('token', $token)->first() : null;
+
+        $this->data['account'] = $account;
+
+        return view('backpack::auth.register', $this->data);
     }
 
     /**
@@ -86,73 +85,41 @@ class RegisterController extends Controller
         ]);
     }
 
+
     /**
-     * Save a new user account by company
+     * Get a validator for an incoming registration request.
      *
      * @param array $data
      *
-     * @return User
+     * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function storeNewAccountByCompany(array $data)
-    {
-        $user_model_fqn = config('backpack.base.user_model_fqn');
-        $user = new $user_model_fqn();
-
-        return $user->create([
-            'name' => $data['name'],
-            backpack_authentication_column() => $data[backpack_authentication_column()],
-            'tenant_id' => isset($data['tenant_id']) ? $data['tenant_id'] : null,
-            'sub_constructor_id' => isset($data['sub_constructor_id']) ? $data['sub_constructor_id'] : null,
-            'token' => isset($data['token']) ? $data['token'] : null
-        ]);
-    }
-
-    /**
-     * Update account by user
-     *
-     * @param array $data
-     *
-     * @return User
-     */
-    protected function updateAccountByUser(array $data)
+    protected function validatorNewAccount(array $data)
     {
         $user_model_fqn = config('backpack.base.user_model_fqn');
         $user = $user_model_fqn::where('token', $data['token'])->first();
-        if (is_null($user)) {
-            return false;
-        }
-
-        $user->update([
-            'name' => $data['name'],
-            backpack_authentication_column() => $data[backpack_authentication_column()],
-            'password' => bcrypt($data['password']),
-            'google2fa_secret' => $data['google2fa_secret'],
-            'phone' => isset($data['phone']) ? $data['phone'] : null,
-            'token' => isset($data['token']) ? $data['token'] : null
+        $users_table = $user->getTable();
+        $email_validation = backpack_authentication_column() == 'email' ? 'email|' : '';
+        return Validator::make($data, [
+            'name' => 'required|max:255',
+            backpack_authentication_column() => 'required|' . $email_validation . 'max:255|unique:' . $users_table .',email,' . @$user->id,
+            'password' => 'required|min:6|confirmed',
+            'phone' => 'required|digits:8'
         ]);
-        return $user;
     }
 
     /**
-     * Show the application registration form.
+     * Get a validator for create account by company
      *
-     * @return \Illuminate\Http\Response
+     * @param array $data
+     *
+     * @return \Illuminate\Contracts\Validation\Validator
      */
-    public function showRegistrationForm($token = null)
+    protected function create(array $data, $user = null)
     {
-        // if registration is closed, deny access
-        if (!config('backpack.base.registration_open')) {
-            abort(403, trans('backpack::base.registration_closed'));
-        }
-
-        $this->data['title'] = trans('backpack::base.register'); // set the page title
-        $this->data['token'] = $token;
-
         $user_model_fqn = config('backpack.base.user_model_fqn');
-        $user = $user_model_fqn::where('token', $token)->first();
-        $this->data['user'] = $user;
-
-        return view('backpack::auth.register', $this->data);
+        unset($data['_token']);
+        $data['password'] = isset($data['password']) ? bcrypt($data['password']) : null;
+        return $user_model_fqn::updateOrCreate(['token' => $data['token']], $data);
     }
 
     /**
@@ -168,12 +135,8 @@ class RegisterController extends Controller
         if (!config('backpack.base.registration_open')) {
             abort(403, trans('backpack::base.registration_closed'));
         }
+        $this->validatorNewAccount($request->all())->validate();
 
-        $resultValidate = $this->validateUpdateAccountByUser($request->all())->validate();
-        if (!$resultValidate) {
-            \Alert::error('Error system')->flash();
-            return redirect()->back();
-        }
         // Initialise the 2FA class
         $google2fa = app('pragmarx.google2fa');
 
@@ -209,7 +172,7 @@ class RegisterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function storeAddAccount(Request $request)
+    public function addAccount(Request $request)
     {
         // if registration is closed, deny access
         if (!config('backpack.base.registration_open')) {
@@ -220,7 +183,7 @@ class RegisterController extends Controller
         $data = $request->all();
         $data['token'] = str_random(40);
 
-        $user = $this->storeNewAccountByCompany($data);
+        $user = $this->create($data);
 
         //send mail to user
         event(new CompanyAddAccount($user));
@@ -258,7 +221,7 @@ class RegisterController extends Controller
         // add the session data back to the request input
         $request->merge(session('registration_data'));
 
-        $user = $this->updateAccountByUser($request->all());
+        $user = $this->create($request->all());
 
         if (!$user) {
             \Alert::error('Create account error')->flash();

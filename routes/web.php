@@ -29,7 +29,7 @@ Route::group(
             return 'Forbidden';
         });
         Route::post('register', 'Auth\RegisterController@register')->name('backpack.auth.register.post');
-        Route::post('register/user', 'Auth\RegisterController@storeAddAccount')->name('backpack.auth.add.account');
+        Route::post('add/account', 'Auth\RegisterController@addAccount')->name('backpack.auth.add.account');
 
         Route::get('logout', 'Auth\LoginController@logout')->name('backpack.auth.logout');
         Route::post('logout', 'Auth\LoginController@logout');
