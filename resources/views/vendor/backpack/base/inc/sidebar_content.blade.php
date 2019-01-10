@@ -41,6 +41,13 @@
       <!-- <li><a href="{{ backpack_url('permission') }}"><i class="fa fa-key"></i> <span>Permissions</span></a></li> -->
     </ul>
   </li>
+<li class="header text-center" style="color: white; font-weight: bold; font-size: 14px;">SETTING</li>
+<li class="treeview">
+  <a href="#"><i class="fa fa-envelope"></i> <span>Email</span> <i class="fa fa-angle-left pull-right"></i></a>
+  <ul class="treeview-menu">
+    <li><a href="{{ backpack_url('settings/smtp') }}"><i class="fa fa-comments"></i> <span>SMTP Server</span></a></li>
+  </ul>
+</li>
 @endif
 
 <!-- Tenant Portal -->
