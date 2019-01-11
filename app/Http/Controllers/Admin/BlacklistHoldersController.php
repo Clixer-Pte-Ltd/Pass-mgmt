@@ -37,7 +37,7 @@ class BlacklistHoldersController extends BasePassHolderCrudController
     {
         $content = parent::index();
         $this->crud->removeAllButtonsFromStack('top');
-        return $content;
+        return $content->with('hideCreatePanel', true);
     }
 
     public function renew($id)

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-
 // VALIDATION: change the requests to match your own file names if you need form validation
 use App\Http\Requests\ZoneRequest as StoreRequest;
 use App\Http\Requests\ZoneRequest as UpdateRequest;
@@ -38,6 +37,8 @@ class ZoneCrudController extends CrudController
         // add asterisk for fields that are required in ZoneRequest
         $this->crud->setRequiredFields(StoreRequest::class, 'create');
         $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
+        $this->crud->setListView('crud::customize.list');
+        $this->crud->removeButtonFromStack('create', 'top');
     }
 
     public function store(StoreRequest $request)

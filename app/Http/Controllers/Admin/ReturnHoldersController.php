@@ -17,6 +17,6 @@ class ReturnHoldersController extends BasePassHolderCrudController
         $content = parent::index();
         $this->crud->removeAllButtonsFromStack('top');
         $this->crud->removeAllButtonsFromStack('line');
-        return $content;
+        return $content->with('hideCreatePanel', true);
     }
 }

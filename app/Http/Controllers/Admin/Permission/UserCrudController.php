@@ -27,5 +27,7 @@ class UserCrudController extends BaseUserCrudController
             'pivot' => true, // on create&update, do you need to add/delete pivot table entries?]
             'number_columns' => 3, //can be 1,2,3,4,6
         ]);
+        $this->crud->setListView('crud::customize.list');
+        $this->crud->removeButtonFromStack('create', 'top');
     }
 }

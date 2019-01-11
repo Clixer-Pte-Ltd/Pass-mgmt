@@ -66,6 +66,8 @@ class BasePassHolderCrudController extends CrudController
             'attribute' => 'name', // foreign key attribute that is shown to user
             'model' => "App\Models\Zone", // foreign key model
         ]);
+        $this->crud->setListView('crud::customize.list');
+        $this->crud->removeButtonFromStack('create', 'top');
     }
 
     protected function addRequired()

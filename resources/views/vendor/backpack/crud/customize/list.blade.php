@@ -37,6 +37,8 @@
           @include('crud::inc.filters_navbar')
         @endif
 
+        @if(isset($hideCreatePanel))
+        @else
         <div class="box box-info collapsed-box m-b-20">
             <div class="box-header with-border">
                 <h3 class="box-title">
@@ -70,6 +72,7 @@
 		        </form>
             </div>
         </div>
+        @endif
 
         <div>
             <div class="panel panel-primary">

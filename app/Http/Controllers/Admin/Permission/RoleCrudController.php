@@ -12,5 +12,7 @@ class RoleCrudController extends BaseRoleCrudController
         parent::setup();
         $this->crud->removeColumn('permissions');
         $this->crud->removeField('permissions');
+        $this->crud->setListView('crud::customize.list');
+        $this->crud->removeButtonFromStack('create', 'top');
     }
 }
