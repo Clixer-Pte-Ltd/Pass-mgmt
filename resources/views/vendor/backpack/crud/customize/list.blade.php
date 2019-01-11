@@ -158,6 +158,7 @@
 
   <!-- CRUD LIST CONTENT - crud_list_styles stack -->
   @stack('crud_list_styles')
+  @stack('crud_fields_styles')
 @endsection
 
 @section('after_scripts')
@@ -273,4 +274,5 @@
 
   <!-- CRUD LIST CONTENT - crud_list_scripts stack -->
   @stack('crud_list_scripts')
+  @stack('crud_fields_scripts')
 @endsection
