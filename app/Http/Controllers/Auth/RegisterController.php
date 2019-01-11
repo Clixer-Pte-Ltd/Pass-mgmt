@@ -197,7 +197,7 @@ class RegisterController extends Controller
             if (session()->has(SESS_TENANT_MY_COMPANY)) {
                 return redirect()->route('admin.tenant.my-company');
             }
-            \Alert::success('Sended email to account')->flash();
+            \Alert::success('Sent email to account')->flash();
             return redirect()->route('crud.tenant.show', [$id]);
         }
 
