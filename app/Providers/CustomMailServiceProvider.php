@@ -9,7 +9,7 @@ class CustomMailServiceProvider extends MailServiceProvider
 {
     protected function registerSwiftTransport()
     {
-        $this->app['swift.transport'] = $this->app->instance('mail_transport', function ($app) {
+        $this->app['swift.transport'] = $this->app->instance(CustomTransportManager::class, function ($app) {
             return new CustomTransportManager($app);
         });
     }
