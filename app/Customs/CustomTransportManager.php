@@ -19,16 +19,16 @@ class CustomTransportManager extends TransportManager
         $this->app = $app;
 
         $this->app['config']['mail'] = [
-            'driver' => env('MAIL_DRIVER', 'smtp'),
-            'host' => getSettingValueByKey(SMTP_HOST) ?: env('MAIL_HOST', 'smtp.mailgun.org'),
-            'port' => getSettingValueByKey(SMTP_HOST) ?: env('MAIL_PORT', 587),
+            'driver' => 'smtp',
+            'host' => getSettingValueByKey(SMTP_HOST),
+            'port' => getSettingValueByKey(SMTP_PORT),
             'from' => [
-                'address' => env('MAIL_FROM_ADDRESS', 'cag@example.com'),
-                'name' => env('MAIL_FROM_NAME', 'CAG Pass Management Notification')
+                'address' => 'cag@example.com',
+                'name' => 'CAG Pass Management Notification'
             ],
-            'encryption' => getSettingValueByKey(SMTP_ENCRYPTION) ?: env('MAIL_ENCRYPTION', 'tls'),
-            'username' => getSettingValueByKey(SMTP_USERNAME) ?: env('MAIL_USERNAME'),
-            'password' => getSettingValueByKey(SMTP_PASSWORD) ?: env('MAIL_PASSWORD'),
+            'encryption' => getSettingValueByKey(SMTP_ENCRYPTION),
+            'username' => getSettingValueByKey(SMTP_USERNAME),
+            'password' => getSettingValueByKey(SMTP_PASSWORD),
             'sendmail' => '/usr/sbin/sendmail -bs',
             'markdown' => [
                 'theme' => 'default',

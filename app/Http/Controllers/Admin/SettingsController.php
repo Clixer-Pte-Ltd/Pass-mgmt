@@ -20,6 +20,7 @@ class SettingsController extends Controller
         updateSetting(SMTP_PASSWORD, $request->get(SMTP_PASSWORD));
         updateSetting(SMTP_ENCRYPTION, $request->get(SMTP_ENCRYPTION));
         \Alert::success('Update successful.')->flash();
+        \Artisan::call('config:cache');
 
         return redirect()->back();
     }
