@@ -99,6 +99,8 @@ class TenantCrudController extends CrudController
         // Overwrite view
         $this->crud->setShowView('crud::tenant.show');
         $this->crud->setEditView('crud::tenant.edit');
+        $this->crud->setListView('crud::customize.list');
+        $this->crud->removeButtonFromStack('create', 'top');
     }
 
     public function index()

@@ -129,6 +129,8 @@ class SubConstructorCrudController extends CrudController
         $this->crud->setShowView('crud::sub-constructor.show');
         $this->crud->setCreateView('crud::sub-constructor.create');
         $this->crud->setEditView('crud::sub-constructor.edit');
+        $this->crud->setListView('crud::customize.list');
+        $this->crud->removeButtonFromStack('create', 'top');
     }
 
     public function index()
