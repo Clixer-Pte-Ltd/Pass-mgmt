@@ -59,6 +59,14 @@ class ExpiredCompanyCrudController extends CrudController
 
         $this->crud->removeAllButtonsFromStack('top');
         $this->crud->removeAllButtonsFromStack('line');
+        $this->crud->setListView('crud::customize.list');
+        $this->crud->removeButtonFromStack('create', 'top');
+    }
+
+    public function index()
+    {
+        $content = parent::index();
+        return $content->with('hideCreatePanel', true);
     }
 
     public function store(StoreRequest $request)

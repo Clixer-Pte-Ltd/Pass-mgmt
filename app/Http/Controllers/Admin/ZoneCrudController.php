@@ -23,7 +23,7 @@ class ZoneCrudController extends CrudController
         */
         $this->crud->setModel('App\Models\Zone');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/zone');
-        $this->crud->setEntityNameStrings('zone', 'zones');
+        $this->crud->setEntityNameStrings('Zone', 'Zones');
 
         /*
         |--------------------------------------------------------------------------

@@ -35,7 +35,7 @@ class TenantCrudController extends CrudController
         */
         $this->crud->setModel('App\Models\Tenant');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/tenant');
-        $this->crud->setEntityNameStrings('tenant', 'tenants');
+        $this->crud->setEntityNameStrings('Tenant', 'Tenants');
         $this->crud->allowAccess('show');
 
         /*

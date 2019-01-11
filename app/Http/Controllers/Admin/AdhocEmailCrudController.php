@@ -94,6 +94,8 @@ class AdhocEmailCrudController extends CrudController
         $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
         $this->crud->removeButtonFromStack('update', 'line');
         $this->crud->removeButtonFromStack('delete', 'line');
+        $this->crud->setListView('crud::customize.list');
+        $this->crud->removeButtonFromStack('create', 'top');
     }
 
     public function store(StoreRequest $request)
