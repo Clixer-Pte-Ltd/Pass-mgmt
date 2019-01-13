@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\PassHolder;
+use App\Models\Tenant;
 use Backpack\Base\app\Http\Controllers\Controller;
 
 class AdminController extends Controller
@@ -24,8 +26,13 @@ class AdminController extends Controller
     public function dashboard()
     {
         $this->data['title'] = trans('backpack::base.dashboard'); // set the page title
-
-        return view('backpack::dashboard', $this->data);
+        if(auth()->user()->hasAnyRole([ADMIN_ROLE, AIRPORT_TEAM_ROLE])) {
+            $this->data['pass_holders'] = PassHolder::all();
+        } else {
+            $uen = backpack_user()->tenant ? backpack_user()->tenant->uen : backpack_user()->subConstructor->uen;
+            $this->data['pass_holders'] = PassHolder::where('comapny_uen', $uen)->get();
+        }
+        return view('dashboard.dashboard', $this->data);
     }
 
     /**
