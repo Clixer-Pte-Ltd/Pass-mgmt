@@ -23,6 +23,16 @@ function getUserRole($user)
     }
 }
 
+function getCompanyStatus($status)
+{
+    $statuses = [
+        COMPANY_STATUS_WORKING => 'Active',
+        COMPANY_STATUS_WORKING_BUT_NEED_VALIDATE => 'Under Validation',
+        COMPANY_STATUS_EXPIRED => 'Expired'
+    ];
+    return $statuses[$status];
+}
+
 function getSettingValueByKey($key)
 {
     return App\Models\Setting::where('key', $key)->first()->value;

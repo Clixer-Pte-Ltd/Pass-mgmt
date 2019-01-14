@@ -22,52 +22,56 @@
 @endif
 <div class="row">
 	<div class="col-md-12">
-
-	<!-- Default box -->
-	  <div class="m-t-20">
-	    <div class="box no-padding no-border">
-			<table class="table table-striped">
-		        <tbody>
-		        @foreach ($crud->columns as $column)
-		            <tr>
-		                <td>
-		                    <strong>{{ $column['label'] }}</strong>
-		                </td>
-                        <td>
-							@if (!isset($column['type']))
-		                      @include('crud::columns.text')
-		                    @else
-		                      @if(view()->exists('vendor.backpack.crud.columns.'.$column['type']))
-		                        @include('vendor.backpack.crud.columns.'.$column['type'])
-		                      @else
-		                        @if(view()->exists('crud::columns.'.$column['type']))
-		                          @include('crud::columns.'.$column['type'])
-		                        @else
-		                          @include('crud::columns.text')
-		                        @endif
-		                      @endif
-		                    @endif
-                        </td>
-		            </tr>
-		        @endforeach
-				@if ($crud->buttons->where('stack', 'line')->count())
-					<tr>
-						<td><strong>{{ trans('backpack::crud.actions') }}</strong></td>
-						<td>
-							@include('crud::inc.button_stack', ['stack' => 'line'])
-						</td>
-					</tr>
-				@endif
-		        </tbody>
-			</table>
-        </div><!-- /.box-body -->
-        
-        
-	  </div><!-- /.box -->
-
+		<div class="col-md-4">
+			<div class="box box-widget widget-user">
+				<!-- Add the bg color to the header using any of the bg-* classes -->
+				<div class="widget-user-header bg-aqua-active">
+					<h3 class="widget-user-username">{{ $entry->name }}</h3>
+					<h5 class="widget-user-desc">{{ $entry->uen }}</h5>
+				</div>
+				<div class="widget-user-image">
+					<img class="img-circle" src="{{ asset('images/company.png') }}" alt="User Avatar">
+				</div>
+				<div class="box-footer">
+					<div class="row">
+						<div class="col-sm-4 border-right">
+							<div class="description-block">
+								<h5 class="description-header">Tenancy Start Date</h5>
+								<span class="description-text">{{ custom_date_format($entry->tenancy_start_date) }}</span>
+							</div>
+						<!-- /.description-block -->
+						</div>
+						<!-- /.col -->
+						<div class="col-sm-4 border-right">
+							<div class="description-block">
+								<h5 class="description-header">Status</h5>
+								<span class="description-text">{{ getCompanyStatus($entry->status) }}</span>
+							</div>
+							<!-- /.description-block -->
+						</div>
+						<!-- /.col -->
+						<div class="col-sm-4">
+							<div class="description-block">
+								<h5 class="description-header">Tenancy End Date</h5>
+								<span class="description-text">{{ custom_date_format($entry->tenancy_end_date) }}</span>
+							</div>
+							<!-- /.description-block -->
+						</div>
+						<!-- /.col -->
+					</div>
+					<!-- /.row -->
+					<div class="row text-center">
+						<hr>
+						@include('crud::inc.button_stack', ['stack' => 'line'])
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-8">
+			@include('partials.tenant_detail', ["entry" => $entry])
+		</div>
 	</div>
 </div>
-@include('partials.tenant_detail', ["entry" => $entry])
 @endsection
 
 

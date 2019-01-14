@@ -29,92 +29,96 @@
 	<!-- <a href="javascript: window.print();" class="pull-right hidden-print"><i class="fa fa-print"></i></a> -->
 @endif
 <div class="row">
-	<div class="{{ $crud->getShowContentClass() }}">
-
-	<!-- Default box -->
-	  <div class="m-t-20">
-	  	@if ($crud->model->translationEnabled())
-	    <div class="row">
-	    	<div class="col-md-12 m-b-10">
-				<!-- Change translation button group -->
-				<div class="btn-group pull-right">
-				  <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				    {{trans('backpack::crud.language')}}: {{ $crud->model->getAvailableLocales()[$crud->request->input('locale')?$crud->request->input('locale'):App::getLocale()] }} &nbsp; <span class="caret"></span>
-				  </button>
-				  <ul class="dropdown-menu">
-				  	@foreach ($crud->model->getAvailableLocales() as $key => $locale)
-					  	<li><a href="{{ url($crud->route.'/'.$entry->getKey()) }}?locale={{ $key }}">{{ $locale }}</a></li>
-				  	@endforeach
-				  </ul>
+	<div class="col-md-12">
+		<div class="col-md-4">
+			<div class="box box-widget widget-user">
+				<!-- Add the bg color to the header using any of the bg-* classes -->
+				<div class="widget-user-header bg-aqua-active">
+					<h3 class="widget-user-username">{{ $entry->name }}</h3>
+					<h5 class="widget-user-desc">{{ $entry->uen }}</h5>
+				</div>
+				<div class="widget-user-image">
+					<img class="img-circle" src="{{ asset('images/company.png') }}" alt="User Avatar">
+				</div>
+				<div class="box-footer">
+					<div class="row">
+						<div class="col-sm-4 border-right">
+							<div class="description-block">
+								<h5 class="description-header">Tenancy Start Date</h5>
+								<span class="description-text">{{ custom_date_format($entry->tenancy_start_date) }}</span>
+							</div>
+						<!-- /.description-block -->
+						</div>
+						<!-- /.col -->
+						<div class="col-sm-4 border-right">
+							<div class="description-block">
+								<h5 class="description-header">Status</h5>
+								<span class="description-text">{{ getCompanyStatus($entry->status) }}</span>
+							</div>
+							<!-- /.description-block -->
+						</div>
+						<!-- /.col -->
+						<div class="col-sm-4">
+							<div class="description-block">
+								<h5 class="description-header">Tenancy End Date</h5>
+								<span class="description-text">{{ custom_date_format($entry->tenancy_end_date) }}</span>
+							</div>
+							<!-- /.description-block -->
+						</div>
+						<!-- /.col -->
+					</div>
+					<!-- /.row -->
+					<div class="row text-center">
+						<hr>
+						@include('crud::inc.button_stack', ['stack' => 'line'])
+					</div>
 				</div>
 			</div>
-	    </div>
-	    @else
-	    @endif
-	    <div class="box no-padding no-border">
-			<table class="table table-striped">
-		        <tbody>
-		        @foreach ($crud->columns as $column)
-		            <tr>
-		                <td>
-		                    <strong>{{ $column['label'] }}</strong>
-		                </td>
-                        <td>
-							@if (!isset($column['type']))
-		                      @include('crud::columns.text')
-		                    @else
-		                      @if(view()->exists('vendor.backpack.crud.columns.'.$column['type']))
-		                        @include('vendor.backpack.crud.columns.'.$column['type'])
-		                      @else
-		                        @if(view()->exists('crud::columns.'.$column['type']))
-		                          @include('crud::columns.'.$column['type'])
-		                        @else
-		                          @include('crud::columns.text')
-		                        @endif
-		                      @endif
-		                    @endif
-                        </td>
-		            </tr>
-		        @endforeach
-				@if ($crud->buttons->where('stack', 'line')->count())
-					<tr>
-						<td><strong>{{ trans('backpack::crud.actions') }}</strong></td>
-						<td>
-							@include('crud::inc.button_stack', ['stack' => 'line'])
-						</td>
-					</tr>
-				@endif
-		        </tbody>
-			</table>
-        </div><!-- /.box-body -->
-        
-        <div class="box no-padding no-border">
-            <h4 class="text-center"><i class="fa fa-user"></i> Accounts</h4>
-            <table class="table table-striped table-bordered" id="tenant_account">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($entry->accounts as $account)
-                    <tr>
-                        <td>{{ $account->name }}</td>
-                        <td>{{ $account->email }}</td>
-                        <td>{{ $account->phone }}</td>
-                        <td>
-							<a href="javascript:void(0)" onclick="deleteEntry(this)" data-route="{{ route('crud.user.destroy', [$account->id]) }}" class="btn btn-xs btn-danger" data-button-type="delete"><i class="fa fa-trash"></i> Delete</a>
-							<a href="{{ route('admin.sub-constructor.account.2fa', [$entry->id, $account->id]) }}" class="btn btn-xs btn-default"><i class="fa fa-google-plus-square"></i> Config 2FA</a>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-	  </div><!-- /.box -->
+		</div>
+		<div class="col-md-8">
+			<div class="row">
+				<div class="nav-tabs-custom">
+						<ul class="nav nav-tabs">
+								<li class="active"><a href="#tab_1" data-toggle="tab"><i class="fa fa-users"></i> Accounts</a></li>
+						</ul>
+						<div class="tab-content">
+								<div class="tab-pane active" id="tab_1">
+										<div class="row">
+											<div class="box no-padding no-border">
+												@foreach($entry->accounts as $account)
+														<div class="col-md-6">
+															<div class="info-box bg-green">
+																	<span class="info-box-icon"><i class="fa fa-user"></i></span>
+
+																	<div class="info-box-content">
+																			<span class="info-box-text">{{ $account->name }} / {{ $account->phone }}</span>
+																			<span class="info-box-number">{{ $account->email }}</span>
+																			<span class="text-right info-box-text">
+																				<a href="{{ route('admin.sub-constructor.account.2fa', [$entry->id, $account->id]) }}" class="btn btn-xs btn-default"><i class="fa fa-google-plus-square"></i> Config 2FA</a>
+																				@if($account->id !== auth()->user()->id)
+																					<a href="javascript:void(0)" onclick="deleteEntry(this)" data-route="{{ route('crud.user.destroy', [$account->id]) }}" class="btn btn-xs btn-danger" data-button-type="delete"><i class="fa fa-trash"></i> Delete</a>
+																				@endif
+																			</span>
+
+																	</div>
+																	<!-- /.info-box-content -->
+															</div>
+														</div>
+
+
+												@endforeach
+
+											</div>
+										</div>
+								</div>
+								<!-- /.tab-pane -->
+						</div>
+						<!-- /.tab-content -->
+				</div>
+
+			</div>
+		</div>
+	
 
 	</div>
 </div>
