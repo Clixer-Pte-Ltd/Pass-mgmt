@@ -112,7 +112,7 @@
                             @foreach($pass_holders_expireIn4Weeks as $pass)
                                 <tr>
                                     <td>{{ $pass->applicant_name }}</td>
-                                    <td>{{ $pass->company->name }}</td>
+                                    <td>{{ isset($pass->company) ? $pass->company->name : '' }}</td>
                                     <td>{{ custom_date_format($pass->created_at) }}</td>
                                     <td>{{ custom_date_format($pass->pass_expiry_date) }}</td>
                                 </tr>
