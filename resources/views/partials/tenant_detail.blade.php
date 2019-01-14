@@ -43,7 +43,7 @@
 							@foreach($entry->subContructors as $company)
 								<div class="col-md-6">
 									<a href="{{ route('crud.sub-constructor.show', [$company->id]) }}">
-										<div class="box box-widget-xs widget-user">
+										<div class="box box-widget widget-user">
 											<!-- Add the bg color to the header using any of the bg-* classes -->
 											<div class="widget-user-header bg-green-active">
 												<h3 class="widget-user-username">{{ $company->name }}</h3>
