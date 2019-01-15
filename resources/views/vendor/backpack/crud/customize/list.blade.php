@@ -21,7 +21,6 @@
     <!-- THE ACTUAL CONTENT -->
     <div class="{{ $crud->getListContentClass() }}">
       <div class="">
-
         <div class="row m-b-10">
             <div class="col-xs-12">
                 @if ( $crud->buttons->where('stack', 'top')->count() ||  $crud->exportButtons())
@@ -31,11 +30,17 @@
                 @endif
           </div>
         </div>
-
         {{-- Backpack List Filters --}}
-        @if ($crud->filtersEnabled())
-          @include('crud::inc.filters_navbar')
-        @endif
+      @if ($crud->filtersEnabled())
+          <div class="box box-info m-b-20">
+              <div class="box-header with-border">
+                  <h3 class="box-title">Filter</h3>
+              </div>
+              <div class="box-body">
+                  @include('crud::inc.filters_navbar')
+              </div>
+          </div>
+      @endif
 
         @if(isset($hideCreatePanel))
         @else
@@ -47,7 +52,7 @@
                 </button>
             </div>
             <div class="box-body">
-                <form method="post" action="{{ url($crud->route) }}" 
+                <form method="post" action="{{ url($crud->route) }}"
                     @if ($crud->hasUploadFields('create'))
 				        enctype="multipart/form-data"
 				    @endif

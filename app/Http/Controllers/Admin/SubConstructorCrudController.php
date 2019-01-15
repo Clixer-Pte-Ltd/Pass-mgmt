@@ -131,6 +131,29 @@ class SubConstructorCrudController extends CrudController
         $this->crud->setEditView('crud::sub-constructor.edit');
         $this->crud->setListView('crud::customize.list');
         $this->crud->removeButtonFromStack('create', 'top');
+
+        //filter
+        $this->crud->addFilter([ // daterange filter
+            'type' => 'date_range',
+            'name' => 'date_end_range',
+            'label'=> 'Sub Constructor End Date Range'
+        ],
+            false,
+            function ($value) {
+                $dates = json_decode($value);
+                $this->crud->addClause('where', 'tenancy_end_date', '>=', $dates->from);
+                $this->crud->addClause('where', 'tenancy_end_date', '<=', $dates->to . ' 23:59:59');
+            });
+
+        $this->crud->addFilter([ // date filter
+            'type' => 'date',
+            'name' => 'date_end_pickup',
+            'label'=> 'Sub Constructor End Date Pickup'
+        ],
+            false,
+            function($value) {
+                $this->crud->addClause('where', 'tenancy_end_date', $value);
+            });
     }
 
     public function index()
