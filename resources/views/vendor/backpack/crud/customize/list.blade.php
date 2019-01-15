@@ -30,17 +30,6 @@
                 @endif
           </div>
         </div>
-        {{-- Backpack List Filters --}}
-      @if ($crud->filtersEnabled())
-          <div class="box box-info m-b-20">
-              <div class="box-header with-border">
-                  <h3 class="box-title">Filter</h3>
-              </div>
-              <div class="box-body">
-                  @include('crud::inc.filters_navbar')
-              </div>
-          </div>
-      @endif
 
         @if(isset($hideCreatePanel))
         @else
@@ -95,7 +84,13 @@
                     </div>
                 </div>
                 <div class="panel-body">
-
+                    @if ($crud->filtersEnabled())
+                        <div class="box box-info m-b-20">
+                            <div class="box-header with-border">
+                                @include('crud::inc.filters_navbar')
+                            </div>
+                        </div>
+                    @endif
                     <table id="crudTable" class="box table table-bordered table-striped table-hover display responsive nowrap m-t-0" cellspacing="0">
                     <thead>
                         <tr>
