@@ -43,7 +43,7 @@
 	        // e.preventDefault();
 	        var button = $(button);
 	        var route = button.attr('data-route');
-	        var row = $("#tenant_account a[data-route='"+route+"']").closest('tr');
+	        var row = $("a[data-route='"+route+"']").closest('div.col-md-6');
 
 	        if (confirm("Are you sure you want to delete this item?") == true) {
 	            $.ajax({
@@ -59,11 +59,6 @@
 
 	                    // Hide the modal, if any
 	                    $('.modal').modal('hide');
-
-	                    // Remove the details row, if it is open
-	                    if (row.hasClass("shown")) {
-	                        row.next().remove();
-	                    }
 
 	                    // Remove the row from the datatable
 	                    row.remove();
