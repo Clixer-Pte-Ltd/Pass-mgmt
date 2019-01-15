@@ -2,16 +2,17 @@
 	<div class="col-md-12">
 		<div class="nav-tabs-custom">
 				<ul class="nav nav-tabs">
-						<li class="active"><a href="#tab_1" data-toggle="tab"><i class="fa fa-users"></i> Accounts</a></li>
-						@if(backpack_user()->hasAnyRole([TENANT_ROLE, AIRPORT_TEAM_ROLE, ADMIN_ROLE]))
-							<li><a href="#tab_2" data-toggle="tab"><i class="fa fa-building"></i> Sub Constructors</a></li>
+						<li class="active"><a href="#tab_1" data-toggle="tab"><i class="fa fa-users"></i> Accounts Registered</a></li>
+						<li><a href="#tab_2" data-toggle="tab"><i class="fa fa-users"></i> Account Pending Register </a></li>
+				@if(backpack_user()->hasAnyRole([TENANT_ROLE, AIRPORT_TEAM_ROLE, ADMIN_ROLE]))
+							<li><a href="#tab_3" data-toggle="tab"><i class="fa fa-building"></i> Sub Constructors</a></li>
 						@endif
 				</ul>
 				<div class="tab-content">
 						<div class="tab-pane active" id="tab_1">
 								<div class="row">
 									<div class="box no-padding no-border">
-										@foreach($entry->accounts as $account)
+										@foreach($entry->accounts()->whereNotNull('phone')->get() as $account)
 												<div class="col-md-6">
 													<div class="info-box bg-green">
 															<span class="info-box-icon"><i class="fa fa-user"></i></span>
@@ -37,9 +38,37 @@
 									</div>
 								</div>
 						</div>
+						<div class="tab-pane" id="tab_2">
+							<div class="row">
+								<div class="box no-padding no-border">
+									@foreach($entry->accounts()->whereNull('phone')->get() as $account)
+										<div class="col-md-6">
+											<div class="info-box bg-green">
+												<span class="info-box-icon"><i class="fa fa-user"></i></span>
+
+												<div class="info-box-content">
+													<span class="info-box-text">{{ $account->name }} / {{ $account->phone }}</span>
+													<span class="info-box-number">{{ $account->email }}</span>
+													<span class="text-right info-box-text">
+														@if($account->id !== auth()->user()->id)
+															<a href="javascript:void(0)" onclick="deleteEntry(this)" data-route="{{ route('crud.user.destroy', [$account->id]) }}" class="btn btn-xs btn-danger" data-button-type="delete"><i class="fa fa-trash"></i> Delete</a>
+														@endif
+													</span>
+
+												</div>
+												<!-- /.info-box-content -->
+											</div>
+										</div>
+
+
+									@endforeach
+
+								</div>
+							</div>
+						</div>
 						<!-- /.tab-pane -->
 						@if(backpack_user()->hasAnyRole([TENANT_ROLE, AIRPORT_TEAM_ROLE, ADMIN_ROLE]))
-						<div class="tab-pane" id="tab_2">
+						<div class="tab-pane" id="tab_3">
 							<div class="row">
 								@foreach($entry->subContructors as $company)
 									<div class="col-md-6">
