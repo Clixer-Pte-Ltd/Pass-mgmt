@@ -30,7 +30,7 @@ class AdminController extends Controller
             $this->data['pass_holders'] = PassHolder::all();
         } else {
             $uen = backpack_user()->tenant ? backpack_user()->tenant->uen : backpack_user()->subConstructor->uen;
-            $this->data['pass_holders'] = PassHolder::where('comapny_uen', $uen)->get();
+            $this->data['pass_holders'] = PassHolder::where('com    pany_uen', $uen)->get();
         }
         return view('dashboard.dashboard', $this->data);
     }
