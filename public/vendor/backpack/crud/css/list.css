@@ -175,3 +175,8 @@
 	table.dataTable {
 		margin-top: 0px!important;
 	}
+
+	/*datapicker*/
+	.datepicker {
+		z-index: 1050 !important;
+	}
