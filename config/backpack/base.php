@@ -14,8 +14,8 @@ return [
     'project_name' => 'CAG Pass Management',
 
     // Menu logos
-    'logo_lg' => "<span><img src=\"" . asset('storage/imgs/logo2.jpg') . "\" style='width: 200px; height: auto;'></span>",
-    'logo_mini' => "<b><span><img src=\"" . asset('storage/imgs/logo-mini.jpg') . "\" style='max-width: 45px; height: auto;'></span></b>",
+    'logo_lg' => "<span><img src=\"" . asset('storage/imgs/logo2.jpg') . "\" style='width: 151px; height: auto;'></span>",
+    'logo_mini' => "<b><span><img src=\"" . asset('storage/imgs/logo-mini.jpg') . "\" style='max-width: 35px; height: auto;'></span></b>",
 
     // Developer or company name. Shown in footer.
     'developer_name' => 'clixer',
