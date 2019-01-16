@@ -253,6 +253,13 @@ class SubConstructorCrudController extends CrudController
             \Alert::error('You must choose file')->flash();
             return redirect()->back()->with('not_have_file', 1);
         }
+        $extensions = array("xls","xlsx","xlm","xla","xlc","xlt","xlw");
+        $result = array($request->file('import_file')->getClientOriginalExtension());
+
+        if (!in_array($result[0],$extensions)) {
+            \Alert::error('You must choose excel file')->flash();
+            return redirect()->back()->with('not_have_file', 1);
+        }
         $excel->import(new SubContructorsImport, $request->file('import_file'));
 
         \Alert::success('Import successful.')->flash();
@@ -270,6 +277,13 @@ class SubConstructorCrudController extends CrudController
     {
         if (is_null($request->file('import_file'))) {
             \Alert::error('You must choose file')->flash();
+            return redirect()->back()->with('not_have_file', 1);
+        }
+        $extensions = array("xls","xlsx","xlm","xla","xlc","xlt","xlw");
+        $result = array($request->file('import_file')->getClientOriginalExtension());
+
+        if (!in_array($result[0],$extensions)) {
+            \Alert::error('You must choose excel file')->flash();
             return redirect()->back()->with('not_have_file', 1);
         }
         $excel->import(new SubContructorAccountsImport, $request->file('import_file'));
