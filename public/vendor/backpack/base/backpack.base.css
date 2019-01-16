@@ -942,3 +942,6 @@ body.skin-purple .nav-steps li.active a strong {
   border: none;
   box-shadow: none;
 }
+.content-wrapper.no-margin.no-padding {
+  background-image: url('/storage/imgs/main-background.jpg');
+}
