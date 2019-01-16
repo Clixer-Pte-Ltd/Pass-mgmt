@@ -165,7 +165,7 @@ class BasePassHolderCrudController extends CrudController
         $redirect_location = parent::storeCrud($request);
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
-        return $redirect_location;
+        return redirect()->route('crud.pass-holder.index');
     }
 
     public function update(UpdateRequest $request)
