@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Permission;
 
 use Backpack\PermissionManager\app\Http\Controllers\UserCrudController as BaseUserCrudController;
+use Backpack\PermissionManager\app\Http\Requests\UserStoreCrudRequest as StoreRequest;
 
 class UserCrudController extends BaseUserCrudController
 {
@@ -29,5 +30,15 @@ class UserCrudController extends BaseUserCrudController
         ]);
         $this->crud->setListView('crud::customize.list');
         $this->crud->removeButtonFromStack('create', 'top');
+    }
+
+
+    public function store(StoreRequest $request)
+    {
+        // your additional operations before save here
+        $redirect_location = parent::storeCrud($request);
+        // your additional operations after save here
+        // use $this->data['entry'] or $this->crud->entry
+        return redirect()->route('crud.user.index');
     }
 }

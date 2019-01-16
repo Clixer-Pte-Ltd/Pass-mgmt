@@ -106,7 +106,6 @@ class AdhocEmailCrudController extends CrudController
         // use $this->data['entry'] or $this->crud->entry
         event(new AdhocEmailCreated($this->crud->entry));
         return redirect()->route('crud.adhoc-email.index');
-        return $redirect_location;
     }
 
     public function update(UpdateRequest $request)
