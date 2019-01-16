@@ -942,6 +942,17 @@ body.skin-purple .nav-steps li.active a strong {
   border: none;
   box-shadow: none;
 }
+
 .content-wrapper.no-margin.no-padding {
-  background-image: url('/storage/imgs/main-background.jpg');
+  background: url('/storage/imgs/main-background.jpg') no-repeat center center fixed;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height:100vh !important;
+  position: relative;
 }
+.main-footer.m-l-0.text-sm {
+  display: none;
+}
+
