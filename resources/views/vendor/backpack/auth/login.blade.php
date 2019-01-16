@@ -3,12 +3,14 @@
 @section('content')
     <div class="row m-t-40">
         <div class="col-md-4 col-md-offset-4">
-            <h3 class="text-center m-b-20">{{ trans('backpack::base.login') }}</h3>
             <div class="box">
                 <div class="box-body">
                     <form class="col-md-12 p-t-10" role="form" method="POST" action="{{ route('backpack.auth.login') }}">
                         {!! csrf_field() !!}
-
+                        <h3 class="text-center m-b-20">
+                            <img src="{{ asset('/storage/imgs/logo-mini2.png') }}" style="width:50px; height: auto">
+                            {{ trans('backpack::base.login') }}
+                        </h3>
                         <div class="form-group{{ $errors->has($username) ? ' has-error' : '' }}">
                             <label class="control-label">{{ config('backpack.base.authentication_column_name') }}</label>
 
