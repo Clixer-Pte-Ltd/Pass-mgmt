@@ -16,7 +16,9 @@ class ExpiredCompany extends Model
     */
 
     protected $table = 'expired_companies';
-    // protected $primaryKey = 'id';
+    protected $primaryKey = 'uen';
+    public $incrementing = false;
+
     // public $timestamps = false;
     // protected $guarded = ['id'];
     protected $fillable = ['uen', 'type', 'name', 'tenancy_start_date', 'tenancy_end_date'];
@@ -34,7 +36,10 @@ class ExpiredCompany extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-
+    public function companyable()
+    {
+        return $this->morphTo(null, 'type', 'uen', 'uen');
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES
@@ -46,12 +51,6 @@ class ExpiredCompany extends Model
     | ACCESORS
     |--------------------------------------------------------------------------
     */
-
-    public function getTypeAttribute($value)
-    {
-        return $value == "App\Models\Tenant" ? 'Tenant' : 'Sub-Contructor';
-    }
-
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

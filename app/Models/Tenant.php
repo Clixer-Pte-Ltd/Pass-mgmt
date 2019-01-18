@@ -66,6 +66,11 @@ class Tenant extends Model
         return $this->morphOne(Company::class, 'companyable', 'type', 'uen', 'uen');
     }
 
+    public function companyExpire()
+    {
+        return $this->morphOne(Company::class, 'companyable', 'type', 'uen', 'uen');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

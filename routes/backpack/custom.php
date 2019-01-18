@@ -10,7 +10,11 @@ Route::group([
     'prefix' => config('backpack.base.route_prefix', 'admin'),
     'middleware' => ['web', config('backpack.base.middleware_key', 'admin'), '2fa'],
     'namespace' => 'App\Http\Controllers\Admin',
-], function () { // custom admin routes
+], function () {// custom admin routes
+    //company
+    Route::get('company/{uen}/renew', 'CompanyCrudController@renew')->name('admin.company.renew');
+    Route::post('company/renew', 'CompanyCrudController@updateExpiry')->name('admin.company.updateExpiry');
+    //tenant
     CRUD::resource('tenant', 'TenantCrudController');
     Route::get('tenant/{id}/account/create', 'TenantCrudController@newAccount')->name('admin.tenant.account.create');
     Route::get('tenant/{id}/sub-constructor/create', 'TenantCrudController@newSubConstructor')->name('admin.tenant.sub-constructor.create');
