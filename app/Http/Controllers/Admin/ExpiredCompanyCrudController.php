@@ -36,9 +36,12 @@ class ExpiredCompanyCrudController extends CrudController
 
         $this->crud->addColumns(['name', 'uen']);
         $this->crud->addColumn([
-            'name' => 'type', // The db column name
-            'label' => 'Type', // Table column heading
-            'type' => 'text',
+            'name' => 'type',
+            'label' => 'type',
+            'type' => 'closure',
+            'function' => function($entry) {
+                return getTypeAttribute($entry->type);
+            }
         ]);
         $this->crud->addColumn([
             'name' => 'tenancy_start_date', // The db column name
@@ -58,7 +61,8 @@ class ExpiredCompanyCrudController extends CrudController
         $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
 
         $this->crud->removeAllButtonsFromStack('top');
-        $this->crud->removeAllButtonsFromStack('line');
+        $this->crud->addButtonFromView('line', 'renew', 'renew_company');
+        $this->crud->removeButton('update');
         $this->crud->setListView('crud::customize.list');
         $this->crud->removeButtonFromStack('create', 'top');
 
@@ -108,5 +112,10 @@ class ExpiredCompanyCrudController extends CrudController
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
         return $redirect_location;
+    }
+
+    public function destroy($uen)
+    {
+       $this->crud->getEntry($uen)->companyable->delete();
     }
 }

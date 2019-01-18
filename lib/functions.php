@@ -42,3 +42,8 @@ function updateSetting($key, $value)
 {
     App\Models\Setting::where('key', $key)->update(['value' => $value]);
 }
+
+function getTypeAttribute($value)
+{
+    return array_values(array_slice(explode("\\", $value), -1))[0];
+}
