@@ -1,0 +1,96 @@
+.grad-blue {
+    background: linear-gradient(to right, #1e5799 0%,#33439b 0%,#7ab7e4 50%,#33439b 100%);
+    background-size: 200% auto;
+    background-position: left top;
+    transition: 0.5s ease-in-out;
+}
+
+.grad-red {
+    background: linear-gradient(to right, #ff869a 0%, #ff163d 51%, #ff869a 100%);
+    background-size: 200% auto;
+    background-position: left top;
+    transition: 0.5s ease-in-out;
+}
+
+.grad-info {
+    background: linear-gradient(to right, #08e3ff 0%, #008697 51%, #08e3ff 100%);
+    background-size: 200% auto;
+    background-position: left top;
+    transition: 0.5s ease-in-out;
+}
+
+.grad-warning {
+    background: linear-gradient(to right, #ffcb80 0%, #ff9d10 51%, #ffcb80 100%);
+    background-size: 200% auto;
+    background-position: left top;
+    transition: 0.5s ease-in-out;
+}
+
+.grad-primary {
+    background: linear-gradient(to right, #73b4ff 0%, #0378ff 51%, #73b4ff 100%);
+    background-size: 200% auto;
+    background-position: left top;
+    transition: 0.5s ease-in-out;
+}
+
+.grad-success {
+    background: linear-gradient(to right, #59e0c5 0%, #20a98e 51%, #59e0c5 100%);
+    background-size: 200% auto;
+    background-position: left top;
+    transition: 0.5s ease-in-out;
+}
+
+.grad-success:hover, .grad-success:hover, .grad-primary:hover, .grad-warning:hover, .grad-info:hover, .grad-red:hover, .grad-blue:hover {
+    background-position: right center;
+}
+
+.main-sidebar {
+    background: linear-gradient(to bottom, #435ba9 0%,#7ab7e4 100%);
+}
+
+.sidebar a {
+    color: white !important;
+}
+
+nav[role='navigation'], .logo {
+    background-color: #425aa8 !important;
+}
+
+.z-depth-0 {
+    box-shadow: 0 0 25px 5px #ccc, 0 1px 5px 0 rgba(0,0,0,0.1), 0 0 0 0 transparent;
+}
+
+li.header {
+    background: transparent !important;
+    border-top: #ffffff dashed 1px;
+    border-bottom: #ffffff dashed 1px;
+    color: white !important; 
+    font-weight: bold !important; 
+    font-size: 16px !important;
+}
+
+ul.sidebar-menu>li>a>i {
+    font-size: 16px;
+}
+
+ul.sidebar-menu>li>a {
+    font-size: 16px;
+}
+
+
+ul.sidebar-menu>li>ul, ul.sidebar-menu>li>a {
+    background: transparent !important;
+    color: #ffffff !important;
+}
+
+ul.sidebar-menu>li>ul>li.active {
+    background: #ffffff !important;
+}
+ul.sidebar-menu>li>ul>li.active>a {
+    color: #32419a !important;
+}
+
+ul.sidebar-menu>li>a:hover, ul.sidebar-menu>li>ul>li>a:hover {
+    background: #ffffff !important;
+    color: #32419a !important;
+}

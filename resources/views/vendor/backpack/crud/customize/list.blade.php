@@ -21,7 +21,7 @@
     <!-- THE ACTUAL CONTENT -->
     <div class="{{ $crud->getListContentClass() }}">
       <div class="">
-        <div class="row m-b-10">
+        <div class="row m-b-20">
             <div class="col-xs-12">
                 @if ( $crud->buttons->where('stack', 'top')->count() ||  $crud->exportButtons())
                     <div class="hidden-print {{ $crud->hasAccess('create')?'with-border':'' }}">
@@ -33,9 +33,9 @@
 
         @if(isset($hideCreatePanel))
         @else
-        <div class="box box-info collapsed-box m-b-20">
-            <div class="box-header with-border">
-                <h3 class="box-title">
+        <div class="box box-info collapsed-box m-b-20 z-depth-0">
+            <div class="box-header with-border grad-success">
+                <h3 class="box-title" style="color: #ffffff">
                 <span class="fa fa-fw fa-plus"></span> Add {{ $crud->entity_name }} </h3>
                 <button type="button" class="btn btn-box-tool" data-widget="collapse" style="position: absolute; top: 4px; right: 0; width: 100%; text-align: right; margin-top: -5px; height: 100%; padding-right: 10px; outline: 0;">
                 </button>
@@ -55,7 +55,7 @@
                         <div class="text-center">
                             <div id="saveActions" class="form-group">
                                 <div class="btn-group">
-                                    <button type="submit" class="btn btn-success">
+                                    <button type="submit" class="btn btn-success grad-success">
                                         <span class="fa fa-save" role="presentation" aria-hidden="true"></span> &nbsp;
                                         <span data-value="save_and_back">Save</span>
                                     </button>
@@ -69,8 +69,8 @@
         @endif
 
         <div>
-            <div class="panel panel-primary">
-                <div class="panel-heading">
+            <div class="panel panel-primary z-depth-0">
+                <div class="panel-heading grad-blue">
                     <div class="panel-title">
                         <div class="row">
                             <div class="col-xs-6">

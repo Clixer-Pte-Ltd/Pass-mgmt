@@ -1,5 +1,5 @@
 @if ($crud->hasAccess('delete'))
-	<a href="javascript:void(0)" onclick="collectEntry(this)" data-route="{{ route('admin.terminate-pass-holder.collect', [$entry->getKey()]) }}" class="btn btn-xs btn-primary" data-button-type="collect"><i class="fa fa-get-pocket"></i> Returned</a>
+	<a href="javascript:void(0)" onclick="collectEntry(this)" data-route="{{ route('admin.terminate-pass-holder.collect', [$entry->getKey()]) }}" class="btn btn-primary grad-primary" data-button-type="collect"><i class="fa fa-get-pocket"></i> Returned</a>
 @endif
 
 <script>

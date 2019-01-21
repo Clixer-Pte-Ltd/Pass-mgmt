@@ -3,7 +3,7 @@
 <!-- <li><a href="{{ backpack_url('elfinder') }}"><i class="fa fa-files-o"></i> <span>{{ trans('backpack::crud.file_manager') }}</span></a></li> -->
 @if(auth()->user()->hasAnyRole([ADMIN_ROLE, AIRPORT_TEAM_ROLE]))
 <li class="treeview">
-    <a href="#"><i class="fa fa-university"></i> <span>Companies Management</span> <i class="fa fa-angle-left pull-right"></i></a>
+    <a href="#"><i class="fa fa-university"></i> <span>Companies</span> <i class="fa fa-angle-left pull-right"></i></a>
     <ul class="treeview-menu">
       <li><a href='{{ backpack_url('tenant') }}'><i class='fa fa-list'></i> <span>Tenants</span></a></li>
       <li><a href='{{ backpack_url('sub-constructor') }}'><i class='fa fa-building'></i> <span>Sub Constructors</span></a></li>
@@ -11,7 +11,7 @@
     </ul>
 </li>
 <li class="treeview">
-    <a href="#"><i class="fa fa-folder-open"></i> <span>Pass Holders Management</span> <i class="fa fa-angle-left pull-right"></i></a>
+    <a href="#"><i class="fa fa-folder-open"></i> <span>Pass Holders</span> <i class="fa fa-angle-left pull-right"></i></a>
     <ul class="treeview-menu">
         <li><a href='{{ backpack_url('zone') }}'><i class='fa fa-th-list'></i> <span>Zones</span></a></li>
         <li><a href='{{ backpack_url('pass-holder') }}'><i class='fa fa-credit-card'></i> <span>Valid Pass Holders</span></a></li>
@@ -41,7 +41,7 @@
       <!-- <li><a href="{{ backpack_url('permission') }}"><i class="fa fa-key"></i> <span>Permissions</span></a></li> -->
     </ul>
   </li>
-<li class="header text-center" style="color: white; font-weight: bold; font-size: 14px;">SETTING</li>
+<li class="header text-center">SETTING</li>
 <li class="treeview">
   <a href="#"><i class="fa fa-envelope"></i> <span>Email</span> <i class="fa fa-angle-left pull-right"></i></a>
   <ul class="treeview-menu">

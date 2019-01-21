@@ -1,4 +1,4 @@
-<button class="btn btn-primary ladda-button" data-toggle="modal" data-target="#modal-sub-constructor">
+<button class="btn btn-primary grad-primary" data-toggle="modal" data-target="#modal-sub-constructor">
     <span class="ladda-label">
         <i class="fa fa-plus"></i> Bulk Import Sub Constructors
     </span>

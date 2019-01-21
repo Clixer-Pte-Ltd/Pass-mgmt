@@ -1,5 +1,5 @@
 @if ($crud->hasAccess('delete'))
-	<button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modal-terminate-{{ $entry->id }}">
+	<button type="button" class="btn btn-warning grad-warning" data-toggle="modal" data-target="#modal-terminate-{{ $entry->id }}">
 		<span class="fa fa-trash">Terminate</span>
 	</button>
 	<div class="modal modal-default fade" id="modal-terminate-{{ $entry->id }}" datasqstyle="{'bottom':null}" datasqbottom="40" style="bottom: 40px; display: none;">

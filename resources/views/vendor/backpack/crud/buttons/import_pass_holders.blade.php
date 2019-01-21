@@ -1,4 +1,4 @@
-<button class="btn btn-primary ladda-button" data-toggle="modal" data-target="#modal-pass-holder">
+<button class="btn btn-primary grad-primary" data-toggle="modal" data-target="#modal-pass-holder">
     <span class="ladda-label">
         <i class="fa fa-plus"></i> Bulk Import Pass Holders
     </span>
