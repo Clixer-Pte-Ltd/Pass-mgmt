@@ -133,7 +133,7 @@ ul.sidebar-menu>li>a:hover, ul.sidebar-menu>li>ul>li>a:hover {
     background-size: 100%;
 }
 
-.content {
+.login_content {
     position: absolute;
     width: 100%;
     display: inline-block;
@@ -161,14 +161,14 @@ ul.sidebar-menu>li>a:hover, ul.sidebar-menu>li>ul>li>a:hover {
     background-size: 100%;
 }
 
-.box {
+.box.login {
     padding-bottom: 20px;
     background-color: #ffffffc7;
     position: relative;
     overflow: hidden;
 }
 
-.box:before {
+.box.login:before {
     display: inline-block;
     content: '';
     background-image: url(/storage/imgs/logo-mini2.png);
@@ -183,7 +183,7 @@ ul.sidebar-menu>li>a:hover, ul.sidebar-menu>li>ul>li>a:hover {
     background-size: 100%;
 }
 
-.box:after {
+.box.login:after {
     display: inline-block;
     content: '';
     background-image: url(/storage/imgs/logo-mini2.png);
@@ -198,7 +198,7 @@ ul.sidebar-menu>li>a:hover, ul.sidebar-menu>li>ul>li>a:hover {
     opacity: 0.3;
 }
 
-.box-body:after {
+.box-body.login:after {
     display: inline-block;
     content: '';
     background-color: #fff;
@@ -233,7 +233,7 @@ button.btn.btn-block.btn-primary {
     left: 15px;
     margin: auto;
 }
-.box-body {
+.box-body.login {
     display: inline-block;
     width: 100%;
 }
