@@ -5,10 +5,12 @@ namespace App\Models;
 use Backpack\CRUD\CrudTrait;
 use App\Events\PassHolderCreated;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class PassHolder extends Model
 {
     use CrudTrait;
+    use LogsActivity;
     /*
     |--------------------------------------------------------------------------
     | GLOBAL VARIABLES
@@ -20,6 +22,7 @@ class PassHolder extends Model
     // public $timestamps = false;
     // protected $guarded = ['id'];
     protected $fillable = ['applicant_name', 'nric', 'pass_expiry_date', 'country_id', 'company_uen', 'ru_name', 'ru_email', 'as_name', 'as_email', 'status'];
+    protected static $logFillable = true;
     // protected $hidden = [];
     // protected $dates = [];
 

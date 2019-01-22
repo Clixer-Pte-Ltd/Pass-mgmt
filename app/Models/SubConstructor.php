@@ -6,11 +6,12 @@ use App\Models\BackpackUser as User;
 use App\Models\Company;
 use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class SubConstructor extends Model
 {
     use CrudTrait;
-
+    use LogsActivity;
     /*
     |--------------------------------------------------------------------------
     | GLOBAL VARIABLES
@@ -22,6 +23,7 @@ class SubConstructor extends Model
     // public $timestamps = false;
     // protected $guarded = ['id'];
     protected $fillable = ['name', 'uen', 'tenancy_start_date', 'tenancy_end_date', 'role_id', 'tenant_id', 'status'];
+    protected static $logFillable = true;
     // protected $hidden = [];
     // protected $dates = [];
 

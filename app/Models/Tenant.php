@@ -6,10 +6,12 @@ use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\BackpackUser as User;
 use App\Models\Company;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Tenant extends Model
 {
     use CrudTrait;
+    use LogsActivity;
 
     /*
     |--------------------------------------------------------------------------
@@ -22,6 +24,7 @@ class Tenant extends Model
     // public $timestamps = false;
     // protected $guarded = ['id'];
     protected $fillable = ['name', 'uen', 'tenancy_start_date', 'tenancy_end_date', 'role_id', 'status'];
+    protected static $logFillable = true;
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -34,7 +37,6 @@ class Tenant extends Model
     {
         return $this->accounts->contains($account);
     }
-
     /*
     |--------------------------------------------------------------------------
     | RELATIONS

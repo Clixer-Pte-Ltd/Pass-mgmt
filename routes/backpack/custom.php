@@ -69,4 +69,6 @@ Route::group([
     //Setting
     Route::get('settings/smtp', 'SettingsController@smtp')->name('admin.setting.smtp');
     Route::post('settings/smtp/update', 'SettingsController@updateSmtp')->name('admin.setting.smtp.update');
+    Route::get('settings/revisions', 'RevisionController@list')->name('admin.setting.revisions.list');
+
 }); // this should be the absolute last line of this file
