@@ -189,7 +189,7 @@ class RegisterController extends Controller
 
         //send mail to user
         event(new CompanyAddAccount($user));
-
+        activity()->performedOn($user)->withProperties(['name' => $user->name, 'email' => $user->email])->log('added-account');
         if (session()->has(SESS_NEW_ACC_FROM_TENANT)) {
             $id = session()->get(SESS_NEW_ACC_FROM_TENANT);
             session()->forget(SESS_NEW_ACC_FROM_TENANT);

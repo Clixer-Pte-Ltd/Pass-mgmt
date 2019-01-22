@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Zone extends Model
 {
     use CrudTrait;
+    use LogsActivity;
 
     /*
     |--------------------------------------------------------------------------
@@ -19,7 +21,8 @@ class Zone extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    // protected $fillable = [];
+    protected $fillable = ['name'];
+    protected static $logFillable = true;
     // protected $hidden = [];
     // protected $dates = [];
 

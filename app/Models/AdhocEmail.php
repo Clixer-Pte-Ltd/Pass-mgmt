@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class AdhocEmail extends Model
 {
     use CrudTrait;
+    use LogsActivity;
 
     /*
     |--------------------------------------------------------------------------
@@ -20,6 +22,7 @@ class AdhocEmail extends Model
     // public $timestamps = false;
     // protected $guarded = ['id'];
     protected $fillable = ['subject', 'body'];
+    protected static $logFillable = true;
     // protected $hidden = [];
     // protected $dates = [];
 

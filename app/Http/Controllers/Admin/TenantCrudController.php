@@ -12,6 +12,7 @@ use App\Http\Requests\UpdateTenantRequest as UpdateRequest;
 use App\Imports\TenantsImport;
 use App\Imports\TenantAccountsImport;
 
+
 /**
  * Class TenantCrudController
  * @package App\Http\Controllers\Admin
