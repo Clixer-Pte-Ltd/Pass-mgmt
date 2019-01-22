@@ -34,7 +34,7 @@
         @if(isset($hideCreatePanel))
         @else
         <div class="box box-info collapsed-box m-b-20 z-depth-0">
-            <div class="box-header with-border grad-success">
+            <div class="box-header with-border grad-success-panel">
                 <h3 class="box-title" style="color: #ffffff">
                 <span class="fa fa-fw fa-plus"></span> Add {{ $crud->entity_name }} </h3>
                 <button type="button" class="btn btn-box-tool" data-widget="collapse" style="position: absolute; top: 4px; right: 0; width: 100%; text-align: right; margin-top: -5px; height: 100%; padding-right: 10px; outline: 0;">
@@ -70,7 +70,7 @@
 
         <div>
             <div class="panel panel-primary z-depth-0">
-                <div class="panel-heading grad-blue">
+                <div class="panel-heading grad-blue-panel">
                     <div class="panel-title">
                         <div class="row">
                             <div class="col-xs-6">

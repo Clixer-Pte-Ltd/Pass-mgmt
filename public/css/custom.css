@@ -1,8 +1,12 @@
-.grad-blue {
+.grad-blue, .grad-blue-panel {
     background: linear-gradient(to right, #1e5799 0%,#33439b 0%,#7ab7e4 50%,#33439b 100%);
     background-size: 200% auto;
     background-position: left top;
     transition: 0.5s ease-in-out;
+}
+
+.grad-blue {
+    border-radius: 2rem;
 }
 
 .grad-red {
@@ -10,6 +14,7 @@
     background-size: 200% auto;
     background-position: left top;
     transition: 0.5s ease-in-out;
+    border-radius: 2rem;
 }
 
 .grad-info {
@@ -17,6 +22,7 @@
     background-size: 200% auto;
     background-position: left top;
     transition: 0.5s ease-in-out;
+    border-radius: 2rem;
 }
 
 .grad-warning {
@@ -24,6 +30,7 @@
     background-size: 200% auto;
     background-position: left top;
     transition: 0.5s ease-in-out;
+    border-radius: 2rem;
 }
 
 .grad-primary {
@@ -31,16 +38,21 @@
     background-size: 200% auto;
     background-position: left top;
     transition: 0.5s ease-in-out;
+    border-radius: 2rem;
 }
 
-.grad-success {
+.grad-success, .grad-success-panel {
     background: linear-gradient(to right, #59e0c5 0%, #20a98e 51%, #59e0c5 100%);
     background-size: 200% auto;
     background-position: left top;
     transition: 0.5s ease-in-out;
 }
 
-.grad-success:hover, .grad-success:hover, .grad-primary:hover, .grad-warning:hover, .grad-info:hover, .grad-red:hover, .grad-blue:hover {
+.grad-success {
+    border-radius: 2rem;
+}
+
+.grad-success:hover, .grad-success:hover, .grad-primary:hover, .grad-warning:hover, .grad-info:hover, .grad-red:hover, .grad-blue:hover, .grad-success-panel:hover, .grad-blue-panel:hover {
     background-position: right center;
 }
 
