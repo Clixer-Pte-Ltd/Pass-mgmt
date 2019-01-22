@@ -1,21 +1,35 @@
 @extends('backpack::layout_guest')
 
 @section('content')
+    
     <div class="row m-t-40">
-        <div class="col-md-4 col-md-offset-4">
+        <div class="col-md-6 col-md-offset-3">
             <div class="box">
                 <div class="box-body">
-                    <form class="col-md-12 p-t-10" role="form" method="POST" action="{{ route('backpack.auth.login') }}">
+                    <div class="col-md-6">
+                        <div class="title_login">
+                            <h1 class="text-center title">
+                                Welcome to CAG Pass Management 
+                            </h1>
+                            <h4 class="text-center title_son">
+                                ( Changi Airport Group Pass Management )
+                            </h4>
+                            <div class="content_title">
+                                <p>Welcome to 2FA system ( 2 factor authentication ).</p>
+                            </div>
+                        </div>
+                    </div>  
+                    <form class="col-md-6 p-t-10 p-b-10 p-r-10 p-l-10 fromLogin " role="form" method="POST" action="{{ route('backpack.auth.login') }}">
                         {!! csrf_field() !!}
                         <h3 class="text-center m-b-20">
-                            <img src="{{ asset('/storage/imgs/logo-mini2.png') }}" style="width:50px; height: auto">
+                            <img class="img_logo" src="{{ asset('/storage/imgs/logo-mini2.png') }}" style="width:50px; height: auto">
                             {{ trans('backpack::base.login') }}
                         </h3>
                         <div class="form-group{{ $errors->has($username) ? ' has-error' : '' }}">
                             <label class="control-label">{{ config('backpack.base.authentication_column_name') }}</label>
 
-                            <div>
-                                <input type="text" class="form-control" name="{{ $username }}" value="{{ old($username) }}">
+                            <div class="emailForm">
+                                <input  type="text" class="form-control" name="{{ $username }}" value="{{ old($username) }}" placeholder="Email Address">
 
                                 @if ($errors->has($username))
                                     <span class="help-block">
@@ -28,8 +42,8 @@
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label class="control-label">{{ trans('backpack::base.password') }}</label>
 
-                            <div>
-                                <input type="password" class="form-control" name="password">
+                            <div class="passwordForm">
+                                <input  type="password" class="form-control" name="password" placeholder="Password">
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">
