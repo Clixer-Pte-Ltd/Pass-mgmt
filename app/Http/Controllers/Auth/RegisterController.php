@@ -96,11 +96,6 @@ class RegisterController extends Controller
     protected function validatorNewAccount(array $data)
     {
         $user_model_fqn = config('backpack.base.user_model_fqn');
-        if (isset($data['token'])) {
-            $user = $user_model_fqn::where('token', $data['token'])->first();
-        } else {    
-            $user = null;
-        }
         $users_table = 'users';
         $email_validation = backpack_authentication_column() == 'email' ? 'email|' : '';
         return Validator::make($data, [
