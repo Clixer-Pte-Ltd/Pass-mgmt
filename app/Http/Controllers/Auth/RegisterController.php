@@ -96,7 +96,11 @@ class RegisterController extends Controller
     protected function validatorNewAccount(array $data)
     {
         $user_model_fqn = config('backpack.base.user_model_fqn');
-        $user = $user_model_fqn::where('token', $data['token'])->first();
+        if (isset($data['token'])) {
+            $user = $user_model_fqn::where('token', $data['token'])->first();
+        } else {    
+            $user = null;
+        }
         $users_table = 'users';
         $email_validation = backpack_authentication_column() == 'email' ? 'email|' : '';
         return Validator::make($data, [
@@ -116,7 +120,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data, $user = null)
     {
-        $user_model_fqn = config('backpack.base.user_model_fqn');
+        $user_model_fqn = config('backpack.base.user_model_fqn');   
         unset($data['_token']);
         $data['password'] = isset($data['password']) ? bcrypt($data['password']) : null;
         return $user_model_fqn::updateOrCreate(['token' => $data['token']], $data);
@@ -224,7 +228,6 @@ class RegisterController extends Controller
         $request->merge(session('registration_data'));
 
         $user = $this->create($request->all());
-
         if (!$user) {
             \Alert::error('Create account error')->flash();
             return redirect()->back();
