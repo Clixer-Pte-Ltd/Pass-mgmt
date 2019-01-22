@@ -106,3 +106,134 @@ ul.sidebar-menu>li>a:hover, ul.sidebar-menu>li>ul>li>a:hover {
     background: #ffffff !important;
     color: #32419a !important;
 }
+
+.emailForm,
+.passwordForm {
+    width: 100%;
+    position: relative;
+}
+
+.emailForm input,
+.passwordForm input {
+    height: 40px;
+}
+
+.emailForm:after {
+    display: inline-block;
+    content: '';
+    background-image: url(/storage/imgs/envelope.png);
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    right: 10px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.content {
+    position: absolute;
+    width: 100%;
+    display: inline-block;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    min-height: initial;
+    height: 400px;
+}
+
+.passwordForm:after {
+    display: inline-block;
+    content: '';
+    background-image: url(/storage/imgs/password.png);
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    right: 10px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.box {
+    padding-bottom: 20px;
+    background-color: #ffffffc7;
+    position: relative;
+    overflow: hidden;
+}
+
+.box:before {
+    display: inline-block;
+    content: '';
+    background-image: url(/storage/imgs/logo-mini2.png);
+    position: absolute;
+    left: -170px;
+    width: 300px;
+    height: 400px;
+    background-repeat: no-repeat;
+    background-position: center;
+    top: 150px;
+    opacity: 0.3;
+    background-size: 100%;
+}
+
+.box:after {
+    display: inline-block;
+    content: '';
+    background-image: url(/storage/imgs/logo-mini2.png);
+    position: absolute;
+    right: -150px;
+    width: 300px;
+    height: 400px;
+    background-repeat: no-repeat;
+    background-position: center;
+    bottom: 100px;
+    background-size: 100%;
+    opacity: 0.3;
+}
+
+.box-body:after {
+    display: inline-block;
+    content: '';
+    background-color: #fff;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+button.btn.btn-block.btn-primary {
+    width: 30%;
+    background-color: #dd4b39;
+    float: right;
+    border: none;
+}
+
+.fromLogin {
+    border-left: solid 1px #cccccc52;
+    box-shadow: -3px 1px 15px 5px #cccccc52;
+    position: relative;
+}
+.content_title:after {
+    display: inline-block;
+    content: '';
+    background-image: url(/public/images/security.jpg);
+    width: 50px;
+    height: 50px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    bottom: 0;
+    left: 15px;
+    margin: auto;
+}
+.box-body {
+    display: inline-block;
+    width: 100%;
+}
