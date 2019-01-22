@@ -103,27 +103,31 @@ class TenantCrudController extends CrudController
         $this->crud->removeButtonFromStack('create', 'top');
 
         //filter
-        $this->crud->addFilter([ // daterange filter
-            'type' => 'date_range',
-            'name' => 'date_end_range',
-            'label'=> 'Tenancy End Date Range'
-        ],
+        $this->crud->addFilter(
+            [ // daterange filter
+                'type' => 'date_range',
+                'name' => 'date_end_range',
+                'label' => 'Tenancy End Date Range'
+            ],
             false,
             function ($value) {
                 $dates = json_decode($value);
                 $this->crud->addClause('where', 'tenancy_end_date', '>=', $dates->from);
                 $this->crud->addClause('where', 'tenancy_end_date', '<=', $dates->to . ' 23:59:59');
-            });
+            }
+        );
 
-        $this->crud->addFilter([ // date filter
-            'type' => 'date',
-            'name' => 'date_end_pickup',
-            'label'=> 'Tenancy End Date Pickup'
-        ],
+        $this->crud->addFilter(
+            [ // date filter
+                'type' => 'date',
+                'name' => 'date_end_pickup',
+                'label' => 'Tenancy End Date Pickup'
+            ],
             false,
-            function($value) {
-                 $this->crud->addClause('where', 'tenancy_end_date', $value);
-            });
+            function ($value) {
+                $this->crud->addClause('where', 'tenancy_end_date', $value);
+            }
+        );
     }
 
     public function index()
@@ -220,10 +224,10 @@ class TenantCrudController extends CrudController
             return redirect()->back()->with('not_have_file', 1);
         }
 
-        $extensions = array("xls","xlsx","xlm","xla","xlc","xlt","xlw");
-        $result = array($request->file('import_file')->getClientOriginalExtension());
+        $extensions = ['xls', 'xlsx', 'xlm', 'xla', 'xlc', 'xlt', 'xlw'];
+        $result = [$request->file('import_file')->getClientOriginalExtension()];
 
-        if (!in_array($result[0],$extensions)) {
+        if (!in_array($result[0], $extensions)) {
             \Alert::error('You must choose excel file')->flash();
             return redirect()->back()->with('not_have_file', 1);
         }
@@ -246,10 +250,10 @@ class TenantCrudController extends CrudController
             \Alert::error('You must choose file')->flash();
             return redirect()->back()->with('not_have_file', 1);
         }
-        $extensions = array("xls","xlsx","xlm","xla","xlc","xlt","xlw");
-        $result = array($request->file('import_file')->getClientOriginalExtension());
+        $extensions = ['xls', 'xlsx', 'xlm', 'xla', 'xlc', 'xlt', 'xlw'];
+        $result = [$request->file('import_file')->getClientOriginalExtension()];
 
-        if (!in_array($result[0],$extensions)) {
+        if (!in_array($result[0], $extensions)) {
             \Alert::error('You must choose excel file')->flash();
             return redirect()->back()->with('not_have_file', 1);
         }
