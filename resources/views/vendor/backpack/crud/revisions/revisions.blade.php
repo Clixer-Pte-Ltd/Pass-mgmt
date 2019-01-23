@@ -39,6 +39,7 @@
                         @endforeach
                     @endforeach
                 </ul>
+                <div class="text-center">{{ $activies->links() }}</div>
             @endif
         </div>
     </div>
