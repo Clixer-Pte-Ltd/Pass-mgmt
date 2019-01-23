@@ -132,6 +132,9 @@ ul.sidebar-menu>li>a:hover, ul.sidebar-menu>li>ul>li>a:hover {
     border-right: 1px solid #5F5148;
 }
 
+/* ===== LOGIN ======= */
+/***********************/
+
 .emailForm,
 .passwordForm {
     width: 100%;
@@ -158,7 +161,8 @@ ul.sidebar-menu>li>a:hover, ul.sidebar-menu>li>ul>li>a:hover {
     background-size: 100%;
 }
 
-.login_content {
+.login_content,
+.register_content {
     position: absolute;
     width: 100%;
     display: inline-block;
@@ -262,3 +266,57 @@ button.btn.btn-block.btn-primary {
     display: inline-block;
     width: 100%;
 }
+
+
+/* ===== OTP ======= */
+/*********************/
+
+.register_content .panel.panel-default {
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    background-color: #fff;
+}
+.register_content .panel.panel-default:before {
+    display: inline-block;
+    content: '';
+    background-image: url(/storage/imgs/logo-mini2.png);
+    position: absolute;
+    left: -63px;
+    width: 150px;
+    height: 200px;
+    background-repeat: no-repeat;
+    background-position: center;
+    top: 40px;
+    opacity: 0.3;
+    background-size: 100%;
+}
+.register_content .panel.panel-default:after {
+    display: inline-block;
+    content: '';
+    background-image: url(/storage/imgs/logo-mini2.png);
+    position: absolute;
+    right: -120px;
+    width: 150px;
+    height: 200px;
+    background-repeat: no-repeat;
+    background-position: center;
+    top: -40px;
+    opacity: 0.3;
+    background-size: 100%;
+}
+.register_content .panel-heading {
+    background-color: initial;
+    border-color: inherit;
+    border: none;
+    font-size: 24px;
+    font-weight: 700;
+}
+.register_content #one_time_password {
+    background-color: #fff;
+}
+
+
+
+
