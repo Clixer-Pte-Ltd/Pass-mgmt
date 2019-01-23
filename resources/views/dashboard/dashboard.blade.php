@@ -53,7 +53,7 @@
                     ['background_color' => '#337ab7',
                     'icon' => 'fa fa-mail-reply',
                     'number' => $pass_holders->where('status', PASS_STATUS_TERMINATED)->count(),
-                    'title' => 'Pending Return'])
+                    'title' => 'Expired Pending Return'])
                 </div>
             </div>
         </div>
