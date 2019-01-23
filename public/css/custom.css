@@ -56,16 +56,39 @@
     background-position: right center;
 }
 
-.main-sidebar {
-    background: linear-gradient(to bottom, #435ba9 0%,#7ab7e4 100%);
+.main-sidebar, nav[role='navigation'], .main-footer {
+    background: #5F5148;
+}
+
+.main-footer {
+    color: #ffffff;
+    font-size: 14px;
+    border-left: 1px solid white;
 }
 
 .sidebar a {
     color: white !important;
 }
 
-nav[role='navigation'], .logo {
-    background-color: #425aa8 !important;
+.logo {
+    background: #ffffff;
+}
+
+.sidebar-toggle, .sidebar-toggle:active, .sidebar-toggle:focus {
+    color: #ffffff;
+}
+
+.navbar-custom-menu>ul>li>a {
+    color: #ffffff;
+}
+
+.navbar-custom-menu>ul>li>a:hover {
+    background: transparent;
+    color: #ffffff;
+}
+
+.content-wrapper {
+    background: transparent !important;
 }
 
 .z-depth-0 {
@@ -97,14 +120,16 @@ ul.sidebar-menu>li>ul, ul.sidebar-menu>li>a {
 
 ul.sidebar-menu>li>ul>li.active {
     background: #ffffff !important;
+    border-right: 1px solid #5F5148;
 }
 ul.sidebar-menu>li>ul>li.active>a {
-    color: #32419a !important;
+    color: #5F5148 !important;
 }
 
 ul.sidebar-menu>li>a:hover, ul.sidebar-menu>li>ul>li>a:hover {
     background: #ffffff !important;
-    color: #32419a !important;
+    color: #5F5148 !important;
+    border-right: 1px solid #5F5148;
 }
 
 .emailForm,
