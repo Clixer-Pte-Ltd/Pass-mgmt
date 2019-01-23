@@ -9,13 +9,16 @@
                         <div class="col-md-6">
                             <div class="title_login">
                                 <h1 class="text-center title">
-                                    Welcome to CAG Pass Management 
+                                    Welcome to <br>CAG Pass Management 
                                 </h1>
-                                <h4 class="text-center title_son">
-                                    ( Changi Airport Group Pass Management )    
-                                </h4>
                                 <div class="content_title">
-                                    <p>Welcome to 2FA system ( 2 factor authentication ).</p>
+                                    <ul>
+                                        <li>Secure and Reliable</li>
+                                        <li>Integrate with 2FA (Google Authenticator)</li>
+                                    </ul>
+                                </div>
+                                <div class="content_title">
+                                    To keep connected with us, please login with your personal info by email address and password
                                 </div>
                             </div>
                         </div>  

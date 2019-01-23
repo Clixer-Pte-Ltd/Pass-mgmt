@@ -244,6 +244,9 @@ button.btn.btn-block.btn-primary {
     box-shadow: -3px 1px 15px 5px #cccccc52;
     position: relative;
 }
+.content_title {
+    font-size: 16px;
+}
 .content_title:after {
     display: inline-block;
     content: '';
