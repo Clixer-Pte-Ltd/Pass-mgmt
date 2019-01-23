@@ -46,26 +46,13 @@ class BasePassHolderCrudController extends CrudController
             'type' => 'date',
             'format' => DATE_FORMAT, // use something else than the base.default_date_format config value
         ]);
-        $this->crud->addColumn([
-            'name' => 'country.name',
-            'label' => 'Country',
-            'type' => 'text'
-        ]);
+
         $this->crud->addColumn([
             'name' => 'company.name',
             'label' => 'Company',
             'type' => 'text'
         ]);
-        $this->crud->addColumns(['ru_name', 'ru_email', 'as_name', 'as_email']);
-        $this->crud->addColumn([
-            // n-n relationship (with pivot table)
-            'label' => 'Zones', // Table column heading
-            'type' => 'select_multiple',
-            'name' => 'zones', // the method that defines the relationship in your Model
-            'entity' => 'zones', // the method that defines the relationship in your Model
-            'attribute' => 'name', // foreign key attribute that is shown to user
-            'model' => "App\Models\Zone", // foreign key model
-        ]);
+
         $this->crud->setListView('crud::customize.list');
         $this->crud->removeButtonFromStack('create', 'top');
     }
