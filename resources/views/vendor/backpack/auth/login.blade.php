@@ -68,7 +68,7 @@
 
                             <div class="form-group">
                                 <div>
-                                    <button type="submit" class="btn btn-block btn-primary">
+                                    <button type="submit" class="btn btn-block btn-primary grad-red">
                                         {{ trans('backpack::base.login') }}
                                     </button>
                                 </div>
