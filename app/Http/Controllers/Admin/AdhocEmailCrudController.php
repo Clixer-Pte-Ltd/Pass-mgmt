@@ -45,12 +45,12 @@ class AdhocEmailCrudController extends CrudController
         $this->crud->addColumn([
             'name' => 'body',
             'type' => 'text',
-            'label' => 'Body'
+            'label' => 'Message'
         ]);
 
         $this->crud->addColumn([
             // n-n relationship (with pivot table)
-            'label' => 'Destinations', // Table column heading
+            'label' => 'To Email Address', // Table column heading
             'type' => 'select_multiple',
             'name' => 'destinations', // the method that defines the relationship in your Model
             'entity' => 'destinations', // the method that defines the relationship in your Model
@@ -67,7 +67,7 @@ class AdhocEmailCrudController extends CrudController
 
         //FORM FIELDS
         $this->crud->addField([       // Select2Multiple = n-n relationship (with pivot table)
-            'label' => 'Destinations',
+            'label' => 'To Email Address',
             'type' => 'select2_multiple',
             'name' => 'destinations', // the method that defines the relationship in your Model
             'entity' => 'destinations', // the method that defines the relationship in your Model
@@ -86,7 +86,7 @@ class AdhocEmailCrudController extends CrudController
         $this->crud->addField([
             'name' => 'body',
             'type' => 'ckeditor',
-            'label' => 'Body'
+            'label' => 'Message'
         ]);
 
         // add asterisk for fields that are required in AdhocEmailRequest
