@@ -66,9 +66,15 @@ Route::group([
     CRUD::resource('tenant-return-pass-holder', 'Tenants\TenantReturnHoldersController');
     Route::get('/tenant/{id}/validate', 'TenantCrudController@validateCompany')->name('admin.tenant.validate-company');
 
+    //revisions
+    Route::get('revisions/list', 'RevisionController@list')->name('admin.revisions.list');
+
     //Setting
     Route::get('settings/smtp', 'SettingsController@smtp')->name('admin.setting.smtp');
     Route::post('settings/smtp/update', 'SettingsController@updateSmtp')->name('admin.setting.smtp.update');
-    Route::get('settings/revisions', 'RevisionController@list')->name('admin.setting.revisions.list');
+
+    Route::get('settings/revisions', 'SettingsController@revisions')->name('admin.setting.revisions');
+    Route::post('settings/revisions/retentation-rate', 'SettingsController@updateRetentationRate')->name('admin.setting.revisions.retentation-rate');
+    Route::post('settings/revisions/action-audit-log', 'SettingsController@updateActionAuditLog')->name('admin.setting.revisions.action-audit-log');
 
 }); // this should be the absolute last line of this file

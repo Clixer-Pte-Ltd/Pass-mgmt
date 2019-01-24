@@ -6,7 +6,7 @@ use App\Models\BackpackUser as User;
 use App\Models\Company;
 use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\Traits\LogsActivity;
+use App\Traits\LogsActivity;
 
 class SubConstructor extends Model
 {

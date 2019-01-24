@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\CrudTrait;
 use App\Events\PassHolderCreated;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\Traits\LogsActivity;
+use App\Traits\LogsActivity;
 
 class PassHolder extends Model
 {

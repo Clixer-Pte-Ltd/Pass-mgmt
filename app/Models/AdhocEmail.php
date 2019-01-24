@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\Traits\LogsActivity;
+use App\Traits\LogsActivity;
 
 class AdhocEmail extends Model
 {
