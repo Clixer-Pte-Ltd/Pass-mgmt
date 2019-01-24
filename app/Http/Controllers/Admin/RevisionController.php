@@ -17,10 +17,12 @@ class RevisionController extends Controller
 
     public function list()
     {
-        $activies = Activity::orderBy('created_at', 'DEST')->get();
+        $activies = Activity::orderBy('created_at', 'DEST')->paginate(15);
+        $this->data['revisions'] = [];
         foreach ($activies as $activity) {
             $this->data['revisions'][$activity->created_at->format(config('backpack.base.default_date_format'))][] = $activity;
         }
+        $this->data['activies'] = $activies;
         return view('crud::revisions.revisions', $this->data);
     }
 }
