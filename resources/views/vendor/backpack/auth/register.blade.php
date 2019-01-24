@@ -8,7 +8,7 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="title_register">
                     <h2 class="text-center m-b-20">
-                        <img class="icon_logo" src="http://cag-back.local/storage/imgs/logo-mini2.png">
+                        <img class="icon_logo" src="{{ asset('/storage/imgs/logo-mini2.png') }}" >
                         {{ trans('backpack::base.register') }}
                     </h2>
                 </div>
