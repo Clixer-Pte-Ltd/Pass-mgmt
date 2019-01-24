@@ -19,3 +19,108 @@
 	padding-top: 20px;
 	padding-bottom: 20px;
 }
+
+
+/***********revision setting*****************/
+.action-audit-log .toggle {
+	position: relative;
+	display: block;
+	width: 40px;
+	height: 20px;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+	transform: translate3d(0,0,0);
+}
+
+.action-audit-log .toggle:before {
+	content: "";
+	position: relative;
+	top: 3px;
+	left: 3px;
+	width: 34px;
+	height: 14px;
+	display: block;
+	background: #9A9999;
+	border-radius: 8px;
+	transition: background .2s ease
+}
+.action-audit-log span {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 20px;
+	height: 20px;
+	display: block;
+	background: white;
+	border-radius: 10px;
+	box-shadow: 0 3px 8px rgba(154,153,153,0.5);
+	transition: all .2s ease
+}
+.action-audit-log span:before {
+	content: "";
+	position: absolute;
+	display: block;
+	margin: -18px;
+	width: 56px;
+	height: 56px;
+	background: rgba(79,46,220,.5);
+	border-radius: 50%;
+	transform: scale(0);
+	opacity: 1;
+	pointer-events: none
+}
+.action-audit-log {
+	position: absolute;
+	top: calc(50% - 10px);
+}
+
+/*update*/
+.action-audit-log #cbx-update:checked+.toggle:before {
+	background: #947ADA
+}
+.action-audit-log #cbx-update:checked+.toggle span {
+	background:  #4F2EDC;
+	transform: translateX(20px);
+	transition: all .2s cubic-bezier(.8,.4,.3,1.25), background .15s ease;
+	box-shadow: 0 3px 8px rgba(79,46,220,.2);
+}
+
+.action-audit-log #cbx-update:checked+.toggle span:before{
+	transform: scale(1);
+	opacity: 0;
+	transition: all .4s ease;
+}
+
+
+/*create*/
+.action-audit-log #cbx-create:checked+.toggle:before {
+	background: #947ADA
+}
+.action-audit-log #cbx-create:checked+.toggle span {
+	background:  #4F2EDC;
+	transform: translateX(20px);
+	transition: all .2s cubic-bezier(.8,.4,.3,1.25), background .15s ease;
+	box-shadow: 0 3px 8px rgba(79,46,220,.2);
+}
+.action-audit-log #cbx-create:checked+.toggle span:before{
+	transform: scale(1);
+	opacity: 0;
+	transition: all .4s ease;
+}
+
+/*delete*/
+.action-audit-log #cbx-delete:checked+.toggle:before {
+	background: #947ADA
+}
+.action-audit-log #cbx-delete:checked+.toggle span {
+	background:  #4F2EDC;
+	transform: translateX(20px);
+	transition: all .2s cubic-bezier(.8,.4,.3,1.25), background .15s ease;
+	box-shadow: 0 3px 8px rgba(79,46,220,.2);
+}
+.action-audit-log #cbx-delete:checked+.toggle span:before{
+	transform: scale(1);
+	opacity: 0;
+	transition: all .4s ease;
+}
+/***********end revision setting*****************/
