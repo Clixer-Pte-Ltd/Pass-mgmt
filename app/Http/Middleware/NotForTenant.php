@@ -15,7 +15,7 @@ class NotForTenant
      */
     public function handle($request, Closure $next)
     {
-        if (backpack_user()->hasRole(TENANT_ROLE)) {
+        if (backpack_user()->hasRole(TENANT_CO_ROLE)) {
             abort(401);
         }
         return $next($request);

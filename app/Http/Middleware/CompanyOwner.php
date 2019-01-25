@@ -17,7 +17,7 @@ class CompanyOwner
     {
         $tenant_id = intval($request->route('tenant'));
         if ($tenant_id) {
-            if (backpack_user()->hasRole(TENANT_ROLE) && backpack_user()->tenant->id !== $tenant_id) {
+            if (backpack_user()->hasRole(TENANT_CO_ROLE) && backpack_user()->tenant->id !== $tenant_id) {
                 abort(401);
             }
         }
@@ -25,10 +25,10 @@ class CompanyOwner
         $sub_constructor_id = intval($request->route('sub_constructor'));
 
         if ($sub_constructor_id) {
-            if (backpack_user()->hasRole(TENANT_ROLE) && !backpack_user()->tenant->subContructors->contains('id', $sub_constructor_id)) {
+            if (backpack_user()->hasRole(TENANT_CO_ROLE) && !backpack_user()->tenant->subContructors->contains('id', $sub_constructor_id)) {
                 abort(401);
             }
-            if (backpack_user()->hasRole(SUB_CONSTRUCTOR_ROLE) && backpack_user()->subConstructor->id !== $sub_constructor_id) {
+            if (backpack_user()->hasRole(SUB_CONSTRUCTOR_CO_ROLE) && backpack_user()->subConstructor->id !== $sub_constructor_id) {
                 abort(401);
             }
         }
@@ -46,10 +46,10 @@ class CompanyOwner
     public function handlePassHolder($pass_holder_id)
     {
         if ($pass_holder_id) {
-            if (backpack_user()->hasRole(TENANT_ROLE) && !backpack_user()->tenant->passHolders->contains('id', $pass_holder_id)) {
+            if (backpack_user()->hasRole(TENANT_CO_ROLE) && !backpack_user()->tenant->passHolders->contains('id', $pass_holder_id)) {
                 return false;
             }
-            if (backpack_user()->hasRole(SUB_CONSTRUCTOR_ROLE) && !backpack_user()->subConstructor->passHolders->contains('id', $pass_holder_id)) {
+            if (backpack_user()->hasRole(SUB_CONSTRUCTOR_CO_ROLE) && !backpack_user()->subConstructor->passHolders->contains('id', $pass_holder_id)) {
                 return false;
             }
         }

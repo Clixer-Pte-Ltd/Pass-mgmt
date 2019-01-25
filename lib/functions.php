@@ -12,13 +12,13 @@ function custom_date_time_format($date)
 
 function getUserRole($user)
 {
-    if ($user->hasAnyRole([ADMIN_ROLE, AIRPORT_TEAM_ROLE])) {
+    if ($user->hasAnyRole([CAG_ADMIN_ROLE])) {
         return 'Admin';
     }
-    if ($user->hasRole(TENANT_ROLE)) {
+    if ($user->hasRole(TENANT_CO_ROLE)) {
         return 'Tenant';
     }
-    if ($user->hasRole(SUB_CONSTRUCTOR_ROLE)) {
+    if ($user->hasRole(SUB_CONSTRUCTOR_CO_ROLE)) {
         return 'Sub Constructor';
     }
 }

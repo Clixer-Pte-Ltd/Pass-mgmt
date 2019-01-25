@@ -15,10 +15,18 @@ class RolesTableSeeder extends Seeder
 
         \DB::table('roles')->truncate();
         $data = [
-            ['name' => 'admin', 'guard_name' => 'backpack', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['name' => 'airport pass team', 'guard_name' => 'backpack', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['name' => 'tenant', 'guard_name' => 'backpack', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['name' => 'sub constructor', 'guard_name' => 'backpack', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['name' => 'cag admin', 'guard_name' => 'backpack', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['name' => 'cag staff', 'guard_name' => 'backpack', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['name' => 'cag viewer', 'guard_name' => 'backpack', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+
+            ['name' => 'tenant coordinator', 'guard_name' => 'backpack', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['name' => 'tenant as', 'guard_name' => 'backpack', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['name' => 'tenant viewer', 'guard_name' => 'backpack', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+
+            ['name' => 'sub constructor coordinator', 'guard_name' => 'backpack', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['name' => 'sub constructor as', 'guard_name' => 'backpack', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['name' => 'sub constructor viewer', 'guard_name' => 'backpack', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+
         ];
         foreach ($data as $item) {
             \DB::table('roles')->insert($item);

@@ -44,7 +44,31 @@
                                     @endif
                                 </div>
                             </div>
+                            @if($isAddAccount)
+                                <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
+                                    <label for="select-role">Role Account</label>
+                                    <div class="form-group input_register role_register">
+                                        <select class="form-control" name='role' id="select-role" style="padding-left: 30px; margin-left: 30px; width: 95%">
+                                            @if (session()->has(SESS_NEW_ACC_FROM_TENANT))
+                                                <option value="{{ TENANT_CO_ROLE_ID }}">{{ TENANT_CO_ROLE }}</option>
+                                                <option value="{{ TENANT_AS_ROLE_ID }}">{{ TENANT_AS_ROLE }}</option>
+                                                <option value="{{ TENANT_VIEWER_ROLE_ID }}">{{ TENANT_VIEWER_ROLE }}</option>
+                                            @endif
 
+                                            @if (session()->has(SESS_NEW_ACC_FROM_SUB_CONSTRUCTOR))
+                                                <option value="{{ SUB_CONSTRUCTOR_CO_ROLE_ID }}">{{ SUB_CONSTRUCTOR_CO_ROLE }}</option>
+                                                <option value="{{ SUB_CONSTRUCTOR_AS_ROLE_ID }}">{{ SUB_CONSTRUCTOR_AS_ROLE }}</option>
+                                                <option value="{{ SUB_CONSTRUCTOR_VIEWER_ROLE_ID }}">{{ SUB_CONSTRUCTOR_VIEWER_ROLE }}</option>
+                                            @endif
+                                        </select>
+                                    </div>
+                                    @if ($errors->has('role'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('role') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            @endif
                             @if(!$isAddAccount)
                                 <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
                                     <label class="control-label">Phone</label>
