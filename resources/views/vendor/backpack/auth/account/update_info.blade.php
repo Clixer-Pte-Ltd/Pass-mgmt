@@ -10,13 +10,13 @@
 @endsection
 
 @section('header')
-<section class="content-header">
+<section class="content-header account">
 
     <h1>
         {{ trans('backpack::base.my_account') }}
     </h1>
 
-    <ol class="breadcrumb">
+    <!-- <ol class="breadcrumb">
 
         <li>
             <a href="{{ backpack_url() }}">{{ config('backpack.base.project_name') }}</a>
@@ -30,7 +30,7 @@
             {{ trans('backpack::base.update_account_info') }}
         </li>
 
-    </ol>
+    </ol> -->
 
 </section>
 @endsection
@@ -46,7 +46,7 @@
 
             {!! csrf_field() !!}
 
-            <div class="box padding-10">
+            <div class="box info_account padding-10">
 
                 <div class="box-body backpack-profile-form">
 
@@ -94,8 +94,8 @@
                     </div>
 
                     <div class="form-group m-b-0">
-                        <button type="submit" class="btn btn-success"><span class="ladda-label"><i class="fa fa-save"></i> {{ trans('backpack::base.save') }}</span></button>
-                        <a href="{{ backpack_url() }}" class="btn btn-default"><span class="ladda-label">{{ trans('backpack::base.cancel') }}</span></a>
+                        <button type="submit" class="btn btn-success save"><span class="ladda-label"><i class="fa fa-save"></i> {{ trans('backpack::base.save') }}</span></button>
+                        <a href="{{ backpack_url() }}" class="btn btn-default cancel"><span class="ladda-label">{{ trans('backpack::base.cancel') }}</span></a>
                     </div>
 
                 </div>
@@ -106,3 +106,4 @@
     </div>
 </div>
 @endsection
+
