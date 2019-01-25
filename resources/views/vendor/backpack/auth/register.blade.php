@@ -104,19 +104,6 @@
                                     </button>
                                 </div>
                             </div>
-                            @if(session()->has(SESS_TENANT_MY_COMPANY))
-                                <div class="m-t-10"><a href="{{ route('admin.tenant.my-company') }}">Not now, back to portal</a></div>
-                            @else
-                                @if(!session()->has(SESS_NEW_ACC_FROM_TENANT) && !session()->has(SESS_NEW_ACC_FROM_SUB_CONSTRUCTOR))
-                                    <div class="m-t-10 button_login"><a href="{{ route('backpack.auth.login') }}">{{ trans('backpack::base.login') }}</a></div>
-                                @else
-                                    @if(session()->has(SESS_NEW_ACC_FROM_TENANT))
-                                        <div class="m-t-10"><a href="{{ route('crud.tenant.show', [session()->get('tenant')]) }}">Not now, back to portal</a></div>
-                                    @else
-                                        <div class="m-t-10"><a href="{{ route('crud.sub-constructor.show', [session()->get('sub_constructor')]) }}">Not now, back to portal</a></div>
-                                    @endif
-                                @endif
-                            @endif
                         </form>
                     </div>
                 </div>

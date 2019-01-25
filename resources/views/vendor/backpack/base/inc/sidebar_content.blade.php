@@ -49,6 +49,7 @@
         <li><a href="{{ backpack_url('settings/smtp') }}"><i class="fa fa-comments"></i> <span>SMTP Server</span></a></li>
     </ul>
 </li>
+
 @endif
 
 <!-- Tenant Portal -->
