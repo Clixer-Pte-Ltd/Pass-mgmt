@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Validator;
 use App\Events\CompanyAddAccount;
+use App\Models\Role;
 
 class RegisterController extends Controller
 {
@@ -141,7 +142,6 @@ class RegisterController extends Controller
         if (!isset($registration_data['token'])) {
             $registration_data['token'] = str_random(40);
         }
-
         // Initialise the 2FA class
         $google2fa = app('pragmarx.google2fa');
 
@@ -186,6 +186,7 @@ class RegisterController extends Controller
         $data['token'] = str_random(40);
 
         $user = $this->create($data);
+        $user->assignRole($request->role);
 
         //send mail to user
         event(new CompanyAddAccount($user));
@@ -229,7 +230,6 @@ class RegisterController extends Controller
             \Alert::error('Create account error')->flash();
             return redirect()->back();
         }
-
         event(new UserCreated($user));
 
         if (session()->has(SESS_NEW_ACC_FROM_TENANT)) {

@@ -22,7 +22,7 @@ class SubConstructorCrudController extends CrudController
     public function __construct()
     {
         parent::__construct();
-        $this->middleware('adminOrTeam')->only('index');
+        $this->middleware('adminCag')->only('index');
         $this->middleware('companyOwner')->only('show', 'edit');
         $this->middleware('notForTenant')->only('edit');
     }
@@ -98,7 +98,7 @@ class SubConstructorCrudController extends CrudController
             if (session()->has(SESS_TENANT_SUB_CONSTRUCTOR)) {
                 $value = session()->get(SESS_TENANT_SUB_CONSTRUCTOR);
             } else {
-                if (backpack_user()->hasRole(TENANT_ROLE)) {
+                if (backpack_user()->hasRole(TENANT_CO_ROLE)) {
                     $value = session()->get(SESS_TENANT_MY_COMPANY);
                 } else {
                     $value = backpack_user()->subConstructor->tenant_id;
@@ -201,7 +201,7 @@ class SubConstructorCrudController extends CrudController
             'type' => 'text'
         ]);
 
-        if (backpack_user()->hasRole(TENANT_ROLE)) {
+        if (backpack_user()->hasRole(TENANT_CO_ROLE)) {
             $this->crud->removeButtonFromStack('update', 'line');
         }
 

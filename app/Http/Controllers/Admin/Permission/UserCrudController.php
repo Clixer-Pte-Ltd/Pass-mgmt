@@ -7,6 +7,11 @@ use Backpack\PermissionManager\app\Http\Requests\UserStoreCrudRequest as StoreRe
 
 class UserCrudController extends BaseUserCrudController
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->middleware('adminCag');
+    }
     public function setup()
     {
         parent::setup();

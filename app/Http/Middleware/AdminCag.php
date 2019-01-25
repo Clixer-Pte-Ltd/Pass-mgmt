@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class AdminOrTeam
+class AdminCag
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,7 @@ class AdminOrTeam
      */
     public function handle($request, Closure $next)
     {
-        if (!backpack_user()->hasAnyRole([ADMIN_ROLE, AIRPORT_TEAM_ROLE])) {
+        if (!backpack_user()->hasAnyRole([CAG_ADMIN_ROLE])) {
             abort(401);
         }
         return $next($request);

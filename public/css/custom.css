@@ -401,6 +401,9 @@ button.btn.btn-block.btn-primary {
 .input_register.pwd_register:before {
     background-image: url(/storage/imgs/password_re.png);
 }
+.input_register.role_register:before {
+    background-image: url(/storage/imgs/role_re.png);
+}
 
 
 

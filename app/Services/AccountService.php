@@ -14,7 +14,7 @@ class AccountService
 
 	public function allAirportAccounts()
 	{
-		return BackpackUser::role(AIRPORT_TEAM_ROLE)->get();
+		return BackpackUser::role(CAG_ADMIN_ROLE)->get();
 	}
 
 	private function allCompanyAccountsOfPassHolder($passHolder)

@@ -4,7 +4,7 @@
 				<ul class="nav nav-tabs">
 						<li class="active"><a href="#tab_1" data-toggle="tab"><i class="fa fa-users"></i> Accounts Registered</a></li>
 						<li><a href="#tab_2" data-toggle="tab"><i class="fa fa-users"></i> Account Pending Register </a></li>
-				@if(backpack_user()->hasAnyRole([TENANT_ROLE, AIRPORT_TEAM_ROLE, ADMIN_ROLE]))
+				@if(backpack_user()->hasAnyRole([TENANT_CO_ROLE, CAG_ADMIN_ROLE]))
 							<li><a href="#tab_3" data-toggle="tab"><i class="fa fa-building"></i> Sub Constructors</a></li>
 						@endif
 				</ul>
@@ -67,7 +67,7 @@
 							</div>
 						</div>
 						<!-- /.tab-pane -->
-						@if(backpack_user()->hasAnyRole([TENANT_ROLE, AIRPORT_TEAM_ROLE, ADMIN_ROLE]))
+						@if(backpack_user()->hasAnyRole([TENANT_CO_ROLE, CAG_ADMIN_ROLE]))
 						<div class="tab-pane" id="tab_3">
 							<div class="row">
 								@foreach($entry->subContructors as $company)

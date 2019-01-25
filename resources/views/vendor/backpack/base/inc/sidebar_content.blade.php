@@ -1,7 +1,8 @@
-<!-- This file is used to store sidebar items, starting with Backpack\Base 0.9.0 -->
+{{-----------------------dashboard------------------}}
 <li><a href="{{ backpack_url('dashboard') }}"><i class="fa fa-dashboard"></i> <span>{{ trans('backpack::base.dashboard') }}</span></a></li>
-<!-- <li><a href="{{ backpack_url('elfinder') }}"><i class="fa fa-files-o"></i> <span>{{ trans('backpack::crud.file_manager') }}</span></a></li> -->
-@if(auth()->user()->hasAnyRole([ADMIN_ROLE, AIRPORT_TEAM_ROLE]))
+
+{{-----------------------tenant, subcontructor-------------------}}
+@if(auth()->user()->hasAnyRole([CAG_ADMIN_ROLE, CAG_STAFF, CAG_VIEWER]))
 <li class="treeview">
     <a href="#"><i class="fa fa-university"></i> <span>Companies</span> <i class="fa fa-angle-left pull-right"></i></a>
     <ul class="treeview-menu">
@@ -21,18 +22,16 @@
         <li><a href='{{ backpack_url('expire-pass-holder') }}'><i class='fa fa-user-times'></i> <span>Expiring Pass Holder</span></a></li>
     </ul>
 </li>
-
 <li class="treeview">
     <a href="#"><i class="fa fa-bell"></i> <span>Communications</span> <i class="fa fa-angle-left pull-right"></i></a>
     <ul class="treeview-menu">
       <li><a href='{{ backpack_url('adhoc-email') }}'><i class='fa fa-envelope'></i> <span>Send Email Messages</span></a></li>
     </ul>
 </li>
-
 @endif
 
-@if(auth()->user()->hasAnyRole([ADMIN_ROLE, AIRPORT_TEAM_ROLE]))
-<!-- Users, Roles Permissions -->
+{{-------------------user, setting-----------------------}}
+@if(auth()->user()->hasAnyRole([CAG_ADMIN_ROLE]))
 <li class="treeview">
     <a href="#"><i class="fa fa-users"></i> <span>Users Management</span> <i class="fa fa-angle-left pull-right"></i></a>
     <ul class="treeview-menu">
@@ -52,8 +51,11 @@
 </li>
 @endif
 
-<!-- Tenant Portal -->
-@if(auth()->user()->hasAnyRole([TENANT_ROLE, SUB_CONSTRUCTOR_ROLE]))
+{{-------------------pass holder, my company--------------}}
+@if(auth()->user()->hasAnyRole([
+        TENANT_CO_ROLE, TENANT_AS_ROLE, TENANT_VIEWER_ROLE,
+        SUB_CONSTRUCTOR_CO_ROLE, SUB_CONSTRUCTOR_AS_ROLE, SUB_CONSTRUCTOR_VIEWER_ROLE
+        ]))
 <li><a href='{{ route("admin.tenant.my-company") }}'><i class='fa fa-building'></i> <span>My Company</span></a></li>
 <li class="treeview">
     <a href="#"><i class="fa fa-folder-open"></i> <span>Pass Holders Management</span> <i class="fa fa-angle-left pull-right"></i></a>
