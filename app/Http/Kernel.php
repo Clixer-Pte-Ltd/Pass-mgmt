@@ -64,6 +64,7 @@ class Kernel extends HttpKernel
         'adminCag' => \App\Http\Middleware\AdminCag::class,
         'companyOwner' => \App\Http\Middleware\CompanyOwner::class,
         'notForTenant' => \App\Http\Middleware\NotForTenant::class,
+        'crudUser' => \App\Http\Middleware\CrudUser::class,
     ];
 
     /**

@@ -30,16 +30,22 @@
 </li>
 @endif
 
-{{-------------------user, setting-----------------------}}
-@if(auth()->user()->hasAnyRole([CAG_ADMIN_ROLE]))
+{{-------------------user-----------------------}}
+@if(auth()->user()->hasAnyRole([CAG_ADMIN_ROLE, TENANT_CO_ROLE, SUB_CONSTRUCTOR_CO_ROLE]))
 <li class="treeview">
     <a href="#"><i class="fa fa-users"></i> <span>Users Management</span> <i class="fa fa-angle-left pull-right"></i></a>
     <ul class="treeview-menu">
       <li><a href="{{ backpack_url('user') }}"><i class="fa fa-user"></i> <span>Users</span></a></li>
-      <li><a href="{{ backpack_url('role') }}"><i class="fa fa-key"></i> <span>Roles</span></a></li>
+        @if(auth()->user()->hasAnyRole([CAG_ADMIN_ROLE]))
+            <li><a href="{{ backpack_url('role') }}"><i class="fa fa-key"></i> <span>Roles</span></a></li>
+        @endif
       <!-- <li><a href="{{ backpack_url('permission') }}"><i class="fa fa-key"></i> <span>Permissions</span></a></li> -->
     </ul>
 </li>
+@endif
+
+{{-------------------setting-----------------------}}
+@if(auth()->user()->hasAnyRole([CAG_ADMIN_ROLE]))
 <li><a href="{{ backpack_url('revisions/list') }}"><i class="fa fa-sticky-note-o"></i> <span>Revisions</span></a></li>
 <li class="header text-center">SETTING</li>
 <li><a href="{{ backpack_url('settings/revisions') }}"><i class="fa fa-asterisk"></i> <span>Revisions Setting</span></a></li>
@@ -49,7 +55,6 @@
         <li><a href="{{ backpack_url('settings/smtp') }}"><i class="fa fa-comments"></i> <span>SMTP Server</span></a></li>
     </ul>
 </li>
-
 @endif
 
 {{-------------------pass holder, my company--------------}}

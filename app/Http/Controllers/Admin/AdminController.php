@@ -26,7 +26,7 @@ class AdminController extends Controller
     public function dashboard()
     {
         $this->data['title'] = trans('backpack::base.dashboard'); // set the page title
-        if(auth()->user()->hasAnyRole([CAG_ADMIN_ROLE])) {
+        if(backpack_user()->hasAnyRole(config('backpack.cag.roles'))) {
             $this->data['pass_holders'] = PassHolder::all();
         } else {
             $uen = backpack_user()->tenant ? backpack_user()->tenant->uen : backpack_user()->subConstructor->uen;
