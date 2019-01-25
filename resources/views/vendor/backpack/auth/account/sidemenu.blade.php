@@ -17,7 +17,5 @@
 	  	class="active info"
 	  	@endif
 	  	><a href="{{ route('backpack.account.password') }}">{{ trans('backpack::base.change_password') }}</a></li>
-
 	</ul>
 </div>
-	
