@@ -37,3 +37,11 @@ define('SMTP_PORT', 'smtp_port');
 define('SMTP_USERNAME', 'smtp_username');
 define('SMTP_PASSWORD', 'smtp_password');
 define('SMTP_ENCRYPTION', 'smtp_encryption');
+
+//after update action here, must update action in function.php in getLogActions()
+//action must folow form revision_action_actionname
+define('REVISION_UPDATED', 'revision_action_updated');
+define('REVISION_DELETED', 'revision_action_deleted');
+define('REVISION_CREATED', 'revision_action_created');
+
+define('REVISION_RETENTATION_RATE', 'revision_retentation_rate');

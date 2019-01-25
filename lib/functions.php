@@ -47,3 +47,15 @@ function getTypeAttribute($value)
 {
     return array_values(array_slice(explode("\\", $value), -1))[0];
 }
+
+function getLogActions()
+{
+    $actions = [
+        REVISION_UPDATED,
+        REVISION_DELETED,
+        REVISION_CREATED,
+    ];
+    return App\Models\Setting::whereIn('key', $actions)->where('value', 1)->get()->map(function($item, $index) {
+        return array_values(array_slice(explode("_", $item->key), -1))[0];
+    });
+}

@@ -6,7 +6,7 @@ use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\BackpackUser as User;
 use App\Models\Company;
-use Spatie\Activitylog\Traits\LogsActivity;
+use App\Traits\LogsActivity;
 
 class Tenant extends Model
 {
