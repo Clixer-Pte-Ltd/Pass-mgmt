@@ -9,6 +9,11 @@ use App\Http\Requests\RenewPassHolderRequest as UpdateRequest;
 
 class BlacklistHoldersController extends BasePassHolderCrudController
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->middleware('hasRoles:' . implodeCag([CAG_ADMIN_ROLE, CAG_STAFF_ROLE, COMPANY_CO_ROLE, COMPANY_AS_ROLE]))->only(['renew', 'updateExpiry', 'terminate']);
+    }
     public function setup()
     {
         parent::setup();

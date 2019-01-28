@@ -17,7 +17,9 @@ class BasePassHolderCrudController extends CrudController
     public function __construct()
     {
         parent::__construct();
-        $this->middleware('companyOwner')->only(['edit']);
+        $this->middleware('companyOwner')->only(['edit', 'update', 'store','destroy']);
+        $this->middleware('hasRoles:' . implodeCag([CAG_ADMIN_ROLE, CAG_STAFF_ROLE, COMPANY_CO_ROLE, COMPANY_AS_ROLE]))->only(['edit', 'create','update', 'store','destroy', 'import']);
+
     }
 
     public function setup()

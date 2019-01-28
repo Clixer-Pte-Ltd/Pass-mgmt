@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 // VALIDATION: change the requests to match your own file names if you need form validation
 use Maatwebsite\Excel\Excel;
 use App\Imports\TenantPassHoldersImport;
+use App\Http\Requests\StorePassHolderRequest as StoreRequest;
+use App\Http\Requests\UpdatePassHolderRequest as UpdateRequest;
 
 /**
  * Class PassHolderCrudController
@@ -56,5 +58,14 @@ class TenantPassHolderCrudController extends BaseTenantPassHolderCrudController
     {
         $file = public_path() . '/exports/tenant-pass-holders.xlsx';
         return response()->download($file);
+    }
+
+    public function store(StoreRequest $request)
+    {
+        // your additional operations before save here
+        $redirect_location = parent::storeCrud($request);
+        // your additional operations after save here
+        // use $this->data['entry'] or $this->crud->entry
+        return redirect()->route('crud.tenant-pass-holder.index');
     }
 }

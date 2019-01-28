@@ -1,12 +1,12 @@
 <?php
 //----------cag user---------//
 define('CAG_ADMIN_ROLE', 'cag admin');
-define('CAG_STAFF', 'cag staff');
-define('CAG_VIEWER', 'cag viewer');
+define('CAG_STAFF_ROLE', 'cag staff');
+define('CAG_VIEWER_ROLE', 'cag viewer');
 
 define('CAG_ADMIN_ROLE_ID', '1');
-define('CAG_STAFF_ID', '2');
-define('CAG_VIEWER_ID', '3');
+define('CAG_STAFF_ROLE_ID', '2');
+define('CAG_VIEWER_ROLE_ID', '3');
 //----------end cag user---------//
 
 //----------company user--------//

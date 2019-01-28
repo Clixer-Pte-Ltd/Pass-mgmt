@@ -62,7 +62,9 @@
 					<!-- /.row -->
 					<div class="row text-center">
 						<hr>
-						@include('crud::inc.button_stack', ['stack' => 'line'])
+						@if(backpack_user()->hasAnyRole([CAG_ADMIN_ROLE, CAG_STAFF_ROLE, COMPANY_CO_ROLE]))
+							@include('crud::inc.button_stack', ['stack' => 'line'])
+						@endif
 					</div>
 				</div>
 			</div>

@@ -23,8 +23,8 @@ class SubConstructorCrudController extends CrudController
     {
         parent::__construct();
         $this->middleware('hasRoles:' . implodeCag(config('backpack.cag.roles')))->only('index');
-        $this->middleware('hasRoles:' . implodeCag([CAG_ADMIN_ROLE, CAG_STAFF, COMPANY_CO_ROLE]))->except('index');
-        $this->middleware('companyOwner')->except('index');
+        $this->middleware('hasRoles:' . implodeCag([CAG_ADMIN_ROLE, CAG_STAFF_ROLE, COMPANY_CO_ROLE]))->only(['edit','create', 'update', 'store','destroy', 'newAccount', 'import', 'importAccount']);
+        $this->middleware('companyOwner')->only(['edit', 'update', 'store','destroy']);
     }
 
     public function setup()
