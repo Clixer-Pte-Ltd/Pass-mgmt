@@ -41,7 +41,7 @@ class BasePassHolderCrudController extends CrudController
         // $this->crud->setFromDb();
 
         //List columns
-        $this->crud->addColumns(['applicant_name']);
+        $this->crud->addColumns(['applicant_name', 'nric']);
         $this->crud->addColumn([
             'name' => 'pass_expiry_date', // The db column name
             'label' => 'Pass Expiry Date', // Table column heading
