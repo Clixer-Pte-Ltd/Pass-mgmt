@@ -77,4 +77,6 @@ Route::group([
     Route::post('settings/revisions/retentation-rate', 'SettingsController@updateRetentationRate')->name('admin.setting.revisions.retentation-rate');
     Route::post('settings/revisions/action-audit-log', 'SettingsController@updateActionAuditLog')->name('admin.setting.revisions.action-audit-log');
 
+    //user
+    Route::get('user/{id}/show-2fa', 'Permission\UserCrudController@showAccount2fa')->name('admin.user.show-2fa');
 }); // this should be the absolute last line of this file

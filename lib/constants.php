@@ -1,32 +1,22 @@
 <?php
 //----------cag user---------//
 define('CAG_ADMIN_ROLE', 'cag admin');
-define('CAG_STAFF', 'cag staff');
-define('CAG_VIEWER', 'cag viewer');
+define('CAG_STAFF_ROLE', 'cag staff');
+define('CAG_VIEWER_ROLE', 'cag viewer');
 
 define('CAG_ADMIN_ROLE_ID', '1');
-define('CAG_STAFF_ID', '2');
-define('CAG_VIEWER_ID', '3');
+define('CAG_STAFF_ROLE_ID', '2');
+define('CAG_VIEWER_ROLE_ID', '3');
 //----------end cag user---------//
 
 //----------company user--------//
-define('TENANT_CO_ROLE', 'tenant coordinator');
-define('TENANT_AS_ROLE', 'tenant as');
-define('TENANT_VIEWER_ROLE', 'tenant viewer');
+define('COMPANY_CO_ROLE', 'company coordinator');
+define('COMPANY_AS_ROLE', 'company as');
+define('COMPANY_VIEWER_ROLE', 'company viewer');
 
-define('SUB_CONSTRUCTOR_CO_ROLE', 'sub constructor coordinator');
-define('SUB_CONSTRUCTOR_AS_ROLE', 'sub constructor as');
-define('SUB_CONSTRUCTOR_VIEWER_ROLE', 'sub constructor viewer');
-
-
-define('TENANT_CO_ROLE_ID', '4');
-define('TENANT_AS_ROLE_ID', '5');
-define('TENANT_VIEWER_ROLE_ID', '6');
-
-define('SUB_CONSTRUCTOR_CO_ROLE_ID', '7');
-define('SUB_CONSTRUCTOR_AS_ROLE_ID', '8');
-define('SUB_CONSTRUCTOR_VIEWER_ROLE_ID', '9');
-
+define('COMPANY_CO_ROLE_ID', '4');
+define('COMPANY_AS_ROLE_ID', '5');
+define('COMPANY_VIEWER_ROLE_ID', '6');
 //----------end company user--------//
 
 

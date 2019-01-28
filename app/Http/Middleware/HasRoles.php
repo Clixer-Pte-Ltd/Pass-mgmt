@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class NotForTenant
+class HasRoles
 {
     /**
      * Handle an incoming request.
@@ -13,9 +13,9 @@ class NotForTenant
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $roles = '')
     {
-        if (backpack_user()->hasRole(TENANT_CO_ROLE)) {
+        if (!backpack_user()->hasAnyRole(explodeCag($roles))) {
             abort(401);
         }
         return $next($request);

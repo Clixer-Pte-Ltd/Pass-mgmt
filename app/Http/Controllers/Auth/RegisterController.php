@@ -119,7 +119,7 @@ class RegisterController extends Controller
     {
         $user_model_fqn = config('backpack.base.user_model_fqn');
         unset($data['_token']);
-        $data['password'] = isset($data['password']) ? bcrypt($data['password']) : null;
+        $data['password'] = isset($data['password']) ? $data['password'] : null;
         return $user_model_fqn::updateOrCreate(['token' => $data['token']], $data);
     }
 
