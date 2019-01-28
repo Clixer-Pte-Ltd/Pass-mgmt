@@ -67,7 +67,13 @@ class PassHolder extends Model
     | ACCESORS
     |--------------------------------------------------------------------------
     */
-
+    public function getNricAttribute($value)
+    {
+        if (backpack_user()->hasAnyRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE]) && $value) {
+            return substr_replace($value,"***",0, strlen($value)-2);
+        }
+        return $value;
+    }
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
