@@ -2,7 +2,7 @@
 <li><a href="{{ backpack_url('dashboard') }}"><i class="fa fa-dashboard"></i> <span>{{ trans('backpack::base.dashboard') }}</span></a></li>
 
 {{-----------------------tenant, subcontructor-------------------}}
-@if(auth()->user()->hasAnyRole([CAG_ADMIN_ROLE, CAG_STAFF, CAG_VIEWER]))
+@if(auth()->user()->hasAnyRole(config('backpack.cag.roles')))
 <li class="treeview">
     <a href="#"><i class="fa fa-university"></i> <span>Companies</span> <i class="fa fa-angle-left pull-right"></i></a>
     <ul class="treeview-menu">
@@ -31,7 +31,7 @@
 @endif
 
 {{-------------------user-----------------------}}
-@if(auth()->user()->hasAnyRole([CAG_ADMIN_ROLE, TENANT_CO_ROLE, SUB_CONSTRUCTOR_CO_ROLE]))
+@if(auth()->user()->hasAnyRole([CAG_ADMIN_ROLE, COMPANY_CO_ROLE]))
 <li class="treeview">
     <a href="#"><i class="fa fa-users"></i> <span>Users Management</span> <i class="fa fa-angle-left pull-right"></i></a>
     <ul class="treeview-menu">
@@ -58,10 +58,7 @@
 @endif
 
 {{-------------------pass holder, my company--------------}}
-@if(auth()->user()->hasAnyRole([
-        TENANT_CO_ROLE, TENANT_AS_ROLE, TENANT_VIEWER_ROLE,
-        SUB_CONSTRUCTOR_CO_ROLE, SUB_CONSTRUCTOR_AS_ROLE, SUB_CONSTRUCTOR_VIEWER_ROLE
-        ]))
+@if(auth()->user()->hasAnyRole(config('backpack.company.roles')))
 <li><a href='{{ route("admin.tenant.my-company") }}'><i class='fa fa-building'></i> <span>My Company</span></a></li>
 <li class="treeview">
     <a href="#"><i class="fa fa-folder-open"></i> <span>Pass Holders Management</span> <i class="fa fa-angle-left pull-right"></i></a>

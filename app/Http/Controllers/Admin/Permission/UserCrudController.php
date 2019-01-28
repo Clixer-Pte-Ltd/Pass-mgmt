@@ -16,7 +16,7 @@ class UserCrudController extends BaseUserCrudController
     public function setup()
     {
         parent::setup();
-        if (backpack_user()->hasAnyRole([TENANT_CO_ROLE, SUB_CONSTRUCTOR_CO_ROLE])) {
+        if (backpack_user()->hasRole(COMPANY_CO_ROLE)) {
             $companyId = backpack_user()->getCompany()->id;
             $this->crud->addClause(backpack_user()->tenant ? 'whereTenantId' : 'whereSubConstructorId', $companyId);
         }
@@ -45,11 +45,8 @@ class UserCrudController extends BaseUserCrudController
             'pivot' => true, // on create&update, do you need to add/delete pivot table entries?]
             'number_columns' => 3, //can be 1,2,3,4,6
             'function' => function() {
-                if (backpack_user()->hasRole(TENANT_CO_ROLE)) {
-                    return Role::whereIn('id', config('backpack.company.tenant.roles'))->get();
-                }
-                if (backpack_user()->hasRole(SUB_CONSTRUCTOR_CO_ROLE)) {
-                    return Role::whereIn('id', config('backpack.company.sub_constructor.roles'))->get();
+                if (backpack_user()->hasRole(COMPANY_CO_ROLE)) {
+                    return Role::whereIn('name', config('backpack.company.roles'))->get();
                 }
                 if (backpack_user()->hasRole(CAG_ADMIN_ROLE)) {
                     return Role::all();
