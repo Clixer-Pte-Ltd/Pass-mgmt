@@ -19,7 +19,7 @@ class CreateSubConstructorsTable extends Migration
             $table->string('uen')->unique();
             $table->date('tenancy_start_date');
             $table->date('tenancy_end_date');
-            $table->unsignedInteger('role_id')->default(SUB_CONSTRUCTOR_CO_ROLE_ID);
+            $table->unsignedInteger('role_id')->default(COMPANY_CO_ROLE);
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
             $table->unsignedInteger('tenant_id');
             $table->foreign('tenant_id')->references('id')->on('tenants')->onDelete('cascade');

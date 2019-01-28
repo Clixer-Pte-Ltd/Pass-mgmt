@@ -48,4 +48,10 @@ class BackpackUser extends User
     {
         return is_null($this->tenant) && is_null($this->subConstructor) ? false : true; // false if user is admin or airport pass team
     }
+
+    public function getCompany()
+    {
+        $company = $this->hasCompany() && $this->tenant? $this->tenant : $this->subConstructor;
+        return isset($company) ? $company : null;
+    }
 }

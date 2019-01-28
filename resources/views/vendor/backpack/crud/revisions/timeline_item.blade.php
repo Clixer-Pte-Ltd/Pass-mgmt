@@ -98,7 +98,7 @@
     </div>
 @endif
 
-{{--created--}}
+{{--add account--}}
 @if ($history->description == 'added-account')
     <div class="timeline-item"  id="timeline-added-account">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>

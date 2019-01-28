@@ -15,11 +15,8 @@ function getUserRole($user)
     if ($user->hasAnyRole([CAG_ADMIN_ROLE])) {
         return 'Admin';
     }
-    if ($user->hasRole(TENANT_CO_ROLE)) {
-        return 'Tenant';
-    }
-    if ($user->hasRole(SUB_CONSTRUCTOR_CO_ROLE)) {
-        return 'Sub Constructor';
+    if ($user->hasRole(COMPANY_CO_ROLE)) {
+        return 'Company';
     }
 }
 
@@ -58,4 +55,14 @@ function getLogActions()
     return App\Models\Setting::whereIn('key', $actions)->where('value', 1)->get()->map(function($item, $index) {
         return array_values(array_slice(explode("_", $item->key), -1))[0];
     });
+}
+
+function implodeCag($array = [])
+{
+    return implode('-', $array);
+}
+
+function explodeCag($string = '')
+{
+    return explode('-', $string);
 }
