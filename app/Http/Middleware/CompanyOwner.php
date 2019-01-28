@@ -44,7 +44,7 @@ class CompanyOwner
 
     public function handlePassHolder($pass_holder_id)
     {
-        if ($pass_holder_id && backpack_user()->hasCompany() && backpack_user()->getCompany()->passholders->constains('id', $pass_holder_id)) {
+        if ($pass_holder_id && backpack_user()->hasCompany() && backpack_user()->getCompany()->passholders->contains('id', $pass_holder_id)) {
             return true;
         }
         return false;
