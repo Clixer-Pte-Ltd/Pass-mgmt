@@ -38,24 +38,13 @@
             {{--    number  --}}
             <div class="box dashboard dashboardChart">
                 {{--Active Pass--}}
-                @include('dashboard.includes.panel',
-                ['background_color' => 'rgb(64, 199, 95)',
-                'icon' => 'fa fa-child',
-                'number' => $pass_holders->where('status', PASS_STATUS_VALID)->count(),
-                'title' => 'Active Pass'])
+                @include('dashboard.includes.panel')
 
                 {{--Pass Expiring Within 4 Weeks--}}
-                @include('dashboard.includes.panel',
-                ['background_color' => 'rgb(223, 67, 49)', 'icon' => 'fa fa-user-times',
-                'number' => $pass_holders_expireIn4Weeks->count(),
-                'title' => 'Pass Expiring Within 4 Weeks'])
+                @include('dashboard.includes.panel1')
 
                 {{--Pending Return--}}
-                @include('dashboard.includes.panel',
-                ['background_color' => '#337ab7',
-                'icon' => 'fa fa-mail-reply',
-                'number' => $pass_holders->where('status', PASS_STATUS_TERMINATED)->count(),
-                'title' => 'Expired Pending Return'])
+                @include('dashboard.includes.panel2')
             </div>
         </div>
         <div class="table_listDashboard">
@@ -192,4 +181,77 @@
             </div>
         </div>
     </div>
+@endsection
+@section('after_scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.min.js"></script>
+    <script type="text/javascript">
+        var options = {
+            // legend: false,
+            responsive: false
+        };
+        new Chart($("#canvas1"), {
+            type: 'doughnut',
+            tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+            data: {
+            labels: [
+                
+            ],
+            datasets: [{
+            data: [10, 80],
+            backgroundColor: [
+                "#aee0f9",
+                "#13a7fd",
+            ],
+            hoverBackgroundColor: [
+                "#aee0f9",
+                "#13a7fd",
+            ]
+            }]
+        },
+            options: { responsive: false }
+        });     
+        new Chart($("#canvas2"), {
+            type: 'doughnut',
+            tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+            data: {
+            labels: [
+                
+            ],
+            datasets: [{
+            data: [10, 80],
+            backgroundColor: [
+                "#febf72",
+                "#fc9d29",
+            ],
+            hoverBackgroundColor: [
+                "#febf72",
+                "#fc9d29",
+            ]
+            }]
+        },
+            options: { responsive: false }
+        }); 
+        new Chart($("#canvas3"), {
+            type: 'doughnut',
+            tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+            data: {
+            labels: [
+                
+            ],
+            datasets: [{
+            data: [10, 80],
+            backgroundColor: [
+                "#7cd5bf",
+                "#00be8e",
+            ],
+            hoverBackgroundColor: [
+                "#7cd5bf",
+                "#00be8e",
+            ]
+            }]
+        },
+            options: { responsive: false }
+        });       
+
+    </script>
 @endsection
