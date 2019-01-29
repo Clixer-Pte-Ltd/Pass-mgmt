@@ -17,7 +17,6 @@
         <li><a href='{{ backpack_url('zone') }}'><i class='fa fa-th-list'></i> <span>Zones</span></a></li>
         <li><a href='{{ backpack_url('pass-holder') }}'><i class='fa fa-credit-card'></i> <span>Valid Pass Holders</span></a></li>
         <li><a href='{{ backpack_url('blacklist-pass-holder') }}'><i class='fa fa-exclamation-circle'></i> <span>Expired Pass Holders</span></a></li>
-        <li><a href='{{ backpack_url('confirm-return-pass-holder') }}'><i class='fa fa-exclamation-circle'></i> <span>Pass Holders Confirm Return </span></a></li>
         <li><a href='{{ backpack_url('return-pass-holder') }}'><i class='fa fa-exchange'></i> <span>Return Pass Holders</span></a></li>
         <li><a href='{{ backpack_url('expire-pass-holder') }}'><i class='fa fa-user-times'></i> <span>Expiring Pass Holder</span></a></li>
     </ul>
