@@ -57,6 +57,8 @@ class BasePassHolderCrudController extends CrudController
 
         $this->crud->setListView('crud::customize.list');
         $this->crud->removeButtonFromStack('create', 'top');
+        $this->crud->allowAccess('show');
+        $this->crud->setShowView('crud::pass-holders.show');
     }
 
     protected function addRequired()
@@ -165,4 +167,5 @@ class BasePassHolderCrudController extends CrudController
         // use $this->data['entry'] or $this->crud->entry
         return $redirect_location;
     }
+
 }

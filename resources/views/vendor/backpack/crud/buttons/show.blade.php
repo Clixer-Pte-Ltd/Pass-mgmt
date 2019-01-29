@@ -2,13 +2,12 @@
 	@if (!$crud->model->translationEnabled())
 
 	<!-- Single edit button -->
-	<a href="{{ url($crud->route.'/'.$entry->getKey()) }}" class="btn btn-info grad-info"><i class="fa fa-eye"></i> Manage</a>
+	<a href="{{ url($crud->route.'/'.$entry->getKey()) }}" class="btn btn-info grad-info"><i class="fa fa-eye"></i> Detail</a>
 
 	@else
-
 	<!-- Edit button group -->
 	<div class="btn-group">
-	  <a href="{{ url($crud->route.'/'.$entry->getKey()) }}" class="btn btn-info grad-info"><i class="fa fa-eye"></i> Manage</a>
+	  <a href="{{ url($crud->route.'/'.$entry->getKey()) }}" class="btn btn-info grad-info"><i class="fa fa-eye"></i> Detail</a>
 	  <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	    <span class="caret"></span>
 	    <span class="sr-only">Toggle Dropdown</span>
