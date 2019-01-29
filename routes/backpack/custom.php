@@ -41,16 +41,19 @@ Route::group([
     Route::get('pass-holder/import/demo', 'PassHolderCrudController@importDemo')->name('admin.pass-holder.import.demo');
     Route::post('pass-holder/{id}/blacklist', 'PassHolderCrudController@blacklist')->name('admin.pass-holder.blacklist');
 
+    //Pass Holder Blacklist
     CRUD::resource('blacklist-pass-holder', 'BlacklistHoldersController');
     Route::get('blacklist-pass-holder/{id}/renew', 'BlacklistHoldersController@renew')->name('admin.blacklist-pass-holder.renew');
     Route::post('blacklist-pass-holder/renew', 'BlacklistHoldersController@updateExpiry')->name('admin.blacklist-pass-holder.updateExpiry');
-    Route::post('blacklist-pass-holder/{id}/terminate', 'BlacklistHoldersController@terminate')->name('admin.blacklist-pass-holder.terminate');
+    Route::post('blacklist-pass-holder/{id}/return', 'BlacklistHoldersController@returnPass')->name('admin.blacklist-pass-holder.return');
 
-    CRUD::resource('terminate-pass-holder', 'TerminateHoldersController');
-    Route::post('terminate-pass-holder/{id}/collect', 'TerminateHoldersController@collect')->name('admin.terminate-pass-holder.collect');
-
+    //Pass Holder Expire
     CRUD::resource('expire-pass-holder', 'ExpireIn4WeekPassHolderCrudController');
 
+    //Pass Holder Need Confirm Return
+    CRUD::resource('confirm-return-pass-holder', 'ConfirmPassHoldersController');
+
+    //Pass Holder Return
     CRUD::resource('return-pass-holder', 'ReturnHoldersController');
     CRUD::resource('adhoc-email', 'AdhocEmailCrudController');
 
@@ -62,7 +65,6 @@ Route::group([
     Route::post('tenant-pass-holder/import', 'Tenants\TenantPassHolderCrudController@import')->name('admin.tenant-pass-holder.import');
     Route::get('tenant-pass-holder/import/demo', 'Tenants\TenantPassHolderCrudController@importDemo')->name('admin.tenant-pass-holder.import.demo');
     CRUD::resource('tenant-blacklist-pass-holder', 'Tenants\TenantBlacklistHoldersController');
-    CRUD::resource('tenant-terminate-pass-holder', 'Tenants\TenantTerminateHoldersController');
     CRUD::resource('tenant-return-pass-holder', 'Tenants\TenantReturnHoldersController');
     Route::get('/tenant/{id}/validate', 'TenantCrudController@validateCompany')->name('admin.tenant.validate-company');
 

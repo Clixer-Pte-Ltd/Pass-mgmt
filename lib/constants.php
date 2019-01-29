@@ -41,7 +41,7 @@ define('COMPANY_STATUS_EXPIRED', 2);
 
 define('PASS_STATUS_VALID', 0);
 define('PASS_STATUS_BLACKLISTED', 1);
-define('PASS_STATUS_TERMINATED', 2);
+define('PASS_STATUS_WAITING_CONFIRM_RETURN', 2);
 define('PASS_STATUS_RETURNED', 3);
 
 define('SMTP_HOST', 'smtp_host');

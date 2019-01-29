@@ -147,38 +147,6 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                {{--Pass Pending Return--}}
-                <div class="box dashboard">
-                    <div class="box-header text-center">
-                        <h2>Pass Pending Return</h2>
-                    </div>
-                    <div class="box-body dashboard">
-                        <div class="table-responsive">
-                            <table class="table no-margin table-striped table-hover dashboard">
-                                <thead class="bg-primary">
-                                <tr>
-                                    <th>Name</th>
-                                    <th>NRIC</th>
-                                    <th>Issue Date</th>
-                                    <th>Expiry Date</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($pass_holders->where('status', PASS_STATUS_TERMINATED) as $pass)
-                                        <tr>
-                                            <td>{{ $pass->applicant_name }}</td>
-                                            <td>{{ $pass->nric }}</td>
-                                            <td>{{ custom_date_format($pass->created_at) }}</td>
-                                            <td>{{ custom_date_format($pass->pass_expiry_date) }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 @endsection
