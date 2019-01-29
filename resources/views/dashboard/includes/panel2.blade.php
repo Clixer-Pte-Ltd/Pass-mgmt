@@ -1,4 +1,4 @@
-<div class="col-xs-4 text-center ">
+<div class="col-xs-12 col-sm-4 col-md-4 text-center ">
     <div class="chartDashboard return">
         <div class="title_chart">
             <p>

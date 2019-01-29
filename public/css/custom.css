@@ -96,6 +96,10 @@ nav[role='navigation'],
 
 .main-header .logo {
     background: #22333b;
+    z-index: 999999;
+    box-shadow: 6px -7px 7px 0px #ccc;
+    position: absolute;
+    height: 55px;
 }
 
 .main-footer {
@@ -718,6 +722,7 @@ footer.footer_menuside a {
 }
 .box.dashboard.dashboardChart {
     padding-bottom: 50px;
+    padding-top: 30px;
 }
 .box.dashboard .box-header.text-center {
     display: inline-block;
