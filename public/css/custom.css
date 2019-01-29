@@ -751,17 +751,24 @@ table.table.no-margin.table-striped.table-hover.dashboard tbody tr td {
 }
 .chartDashboard {
     border: solid 1px #ccc;
-    box-shadow: 1px 1px 1px 1px #ccc;
-    padding: 50px 15px;
-}
-
-.chartDashboard:nth-of-type(2) {
-    border: solid 1px red;
+    box-shadow: 0 -2px 8px 4px #ccc;
+    padding: 25px 15px;
+    border-radius: 5px;
 }
 .chartDashboard .title_chart {
     float: left;
     width: 42%;
-    font-size: 28px;
+    font-size: 26px;
+    margin-top: 15%;
+}
+.chartDashboard .title_chart p {
+    margin-bottom: 0;
+}
+.chartDashboard.weeks .title_chart {
+    color: #ff9634;
+}
+.chartDashboard.return .title_chart {
+    color: #14bf93;
 }
 .title_chart {
     color: #5bc8f3;
