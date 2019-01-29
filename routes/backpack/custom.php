@@ -50,9 +50,6 @@ Route::group([
     //Pass Holder Expire
     CRUD::resource('expire-pass-holder', 'ExpireIn4WeekPassHolderCrudController');
 
-    //Pass Holder Need Confirm Return
-    CRUD::resource('confirm-return-pass-holder', 'ConfirmPassHoldersController');
-
     //Pass Holder Return
     CRUD::resource('return-pass-holder', 'ReturnHoldersController');
     CRUD::resource('adhoc-email', 'AdhocEmailCrudController');
