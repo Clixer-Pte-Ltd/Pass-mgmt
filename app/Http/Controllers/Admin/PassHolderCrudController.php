@@ -21,8 +21,7 @@ class PassHolderCrudController extends BasePassHolderCrudController
         $this->crud->setEntityNameStrings('Pass Holder', 'Pass Holders');
         $this->crud->addClause('whereStatus', PASS_STATUS_VALID);
         $this->crud->addButtonFromView('line', 'blacklist', 'blacklist', 'end');
-        $this->crud->addButtonFromView('line', 'terminate', 'terminate', 'end');
-        $this->crud->addButtonFromView('line', 'collect', 'collect', 'end');
+//        $this->crud->addButtonFromView('line', 'collect', 'collect', 'end');
         $this->addFields();
         $this->addRequired();
 
@@ -90,7 +89,7 @@ class PassHolderCrudController extends BasePassHolderCrudController
         $entry->status = PASS_STATUS_BLACKLISTED;
         $entry->blacklist_reason = $request->get('blacklist_reason');
         $entry->save();
-        \Alert::info('Blacklist successful.')->flash();
+        \Alert::info('Blacklist done.')->flash();
         return redirect()->back();
     }
 }

@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Events\PassHolderRenewed;
-use App\Events\PassHolderTerminated;
 use App\Http\Requests\RenewPassHolderRequest as UpdateRequest;
+use App\Events\PassHolderNeedConfirmReturn;
 
 class BlacklistHoldersController extends BasePassHolderCrudController
 {
@@ -20,8 +20,8 @@ class BlacklistHoldersController extends BasePassHolderCrudController
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/blacklist-pass-holder');
         $this->crud->setEntityNameStrings('Blacklist Pass Holder', 'Blacklist Pass Holders');
         $this->crud->addClause('whereStatus', PASS_STATUS_BLACKLISTED);
-        $this->crud->addButtonFromView('line', 'terminate', 'terminate');
         $this->crud->addButtonFromView('line', 'renew', 'renew');
+        $this->crud->addButtonFromView('line', 'return', 'return_pass');
         $this->crud->removeButtonFromStack('update', 'line');
         $this->crud->removeButtonFromStack('delete', 'line');
         $this->crud->setEditView('crud::pass-holders.renew');
@@ -82,14 +82,18 @@ class BlacklistHoldersController extends BasePassHolderCrudController
         return $redirect_location;
     }
 
-    public function terminate($id, Request $request)
+    public function returnPass($id)
     {
         $entry = $this->crud->getEntry($id);
-        $entry->status = PASS_STATUS_TERMINATED;
-        $entry->terminate_reason = $request->get('terminate_reason');
-        $entry->save();
-        event(new PassHolderTerminated($entry));
-        \Alert::warning('Terminate successful.')->flash();
+        if (backpack_user()->hasAnyRole([CAG_ADMIN_ROLE, CAG_STAFF_ROLE])) {
+            $entry->status = PASS_STATUS_RETURNED;
+            $entry->save();
+        } else {
+            $entry->status = PASS_STATUS_WAITING_CONFIRM_RETURN;
+            $entry->save();
+            event(new PassHolderNeedConfirmReturn($entry, false));
+        }
+        \Alert::info('Return done.')->flash();
         return redirect()->back();
     }
 }

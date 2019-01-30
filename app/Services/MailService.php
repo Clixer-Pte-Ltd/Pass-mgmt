@@ -16,7 +16,7 @@ class MailService
 		$this->accounts = $accounts;
 	}
 
-	public function passHolderNotify($passHolders)
+	public function passHolderNotify($passHolders, $extraData = [])
 	{
         if (!($passHolders instanceof Collection)) {
             $passHolders = collect()->push($passHolders);
@@ -24,8 +24,8 @@ class MailService
         $accountService = new AccountService();
         foreach ($passHolders as $passHolder) {
             $accounts = $accountService->getAccountRelatedToPassHolder($passHolder);
-            $accounts->map(function($account, $index) use ($passHolder) {
-                ProcessSendMail::dispatch($account->email, new $this->mailForm($passHolder, $account));
+            $accounts->map(function($account, $index) use ($passHolder, $extraData) {
+                ProcessSendMail::dispatch($account->email, new $this->mailForm($passHolder, $account, $extraData));
             });
         }
 	}

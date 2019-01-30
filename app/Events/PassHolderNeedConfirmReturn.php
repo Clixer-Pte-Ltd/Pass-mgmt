@@ -2,25 +2,29 @@
 
 namespace App\Events;
 
-use App\Models\PassHolder;
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class PassHolderTerminated
+class PassHolderNeedConfirmReturn
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $pass_holder;
+    public $is_list_pass;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(PassHolder $pass_holder)
+    public function __construct($passHolder, $isListPass)
     {
-        $this->pass_holder = $pass_holder;
+        $this->pass_holder = $passHolder;
+        $this->is_list_pass = $isListPass;
     }
 
     /**

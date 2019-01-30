@@ -29,6 +29,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('cag:company:update-status ' . COMPANY_STATUS_WORKING_BUT_NEED_VALIDATE)->weeklyOn(1, '00:00:00');
         $schedule->command('cag:company:validated-checking')->weeklyOn(2, '00:00:00');
         $schedule->command('cag:revision:checking')->dailyAt('00:00');
+        $schedule->command('cag:pass_holder:checking_confirm_return')->weeklyOn(1, '00:00:00');
     }
 
     /**

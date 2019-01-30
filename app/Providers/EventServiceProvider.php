@@ -27,12 +27,12 @@ use App\Events\AdhocEmailCreated;
 use App\Listeners\AdhocEmailNotification;
 use App\Events\PassHolderRenewed;
 use App\Listeners\PassHolderRenewNotification;
-use App\Events\PassHolderTerminated;
-use App\Listeners\PassHolderTerminatedNotification;
 use App\Events\CompanyNeedValidate;
 use App\Listeners\CompaniesNeedValidateNotification;
 use App\Events\CompanyAddAccount;
 use App\Listeners\CompanyAddAccountNotification;
+use App\Events\PassHolderNeedConfirmReturn;
+use App\Listeners\PassHolderNeedConfirmReturnNotification;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -73,9 +73,6 @@ class EventServiceProvider extends ServiceProvider
         PassHolderRenewed::class => [
             PassHolderRenewNotification::class
         ],
-        PassHolderTerminated::class => [
-            PassHolderTerminatedNotification::class
-        ],
         CompanyNeedValidate::class => [
             CompaniesNeedValidateNotification::class
         ],
@@ -84,6 +81,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         CompanyAddAccount::class => [
             CompanyAddAccountNotification::class
+        ],
+        PassHolderNeedConfirmReturn::class => [
+            PassHolderNeedConfirmReturnNotification::class
         ]
     ];
 

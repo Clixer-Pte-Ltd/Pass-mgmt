@@ -14,7 +14,9 @@ class AccountService
 
 	public function allAirportAccounts()
 	{
-		return BackpackUser::role(CAG_ADMIN_ROLE)->get();
+		return BackpackUser::whereHas('roles', function ($query) {
+            $query->whereIn('name', config('backpack.cag.roles'));
+        })->get();
 	}
 
 	private function allCompanyAccountsOfPassHolder($passHolder)

@@ -2,21 +2,26 @@
 
 namespace App\Http\Controllers\Admin;
 
-class TerminateHoldersController extends BasePassHolderCrudController
+use Illuminate\Http\Request;
+use App\Events\PassHolderRenewed;
+use App\Http\Requests\RenewPassHolderRequest as UpdateRequest;
+
+class ConfirmPassHoldersController extends BasePassHolderCrudController
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->middleware('hasRoles:' . implodeCag([CAG_ADMIN_ROLE, CAG_STAFF_ROLE, COMPANY_CO_ROLE, COMPANY_AS_ROLE]))->only(['returnPass']);
+    }
     public function setup()
     {
         parent::setup();
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/terminate-pass-holder');
-        $this->crud->setEntityNameStrings('Terminated Pass Holder', 'Terminated Pass Holders');
-        $this->crud->addClause('whereStatus', PASS_STATUS_TERMINATED);
-        $this->crud->addButtonFromView('line', 'collect', 'collect');
+        $this->crud->setRoute(config('backpack.base.route_prefix') . '/confirm-return-pass-holder');
+        $this->crud->setEntityNameStrings('Pass Holder Need Confirm Return', 'Pass Holder Need Confirm Return');
+        $this->crud->addClause('whereStatus', PASS_STATUS_WAITING_CONFIRM_RETURN);
         $this->crud->removeButtonFromStack('update', 'line');
         $this->crud->removeButtonFromStack('delete', 'line');
-        $this->crud->addColumn([
-            'name' => 'terminate_reason',
-            'label' => 'Terminate Reason'
-        ]);
+        $this->crud->addButtonFromView('line', 'return', 'return_pass');
 
         //filter
         $this->crud->addFilter([ // daterange filter
@@ -47,13 +52,5 @@ class TerminateHoldersController extends BasePassHolderCrudController
         $content = parent::index();
         $this->crud->removeAllButtonsFromStack('top');
         return $content->with('hideCreatePanel', true);
-    }
-
-    public function collect($id)
-    {
-        $entry = $this->crud->getEntry($id);
-        $entry->status = PASS_STATUS_RETURNED;
-        $entry->save();
-        return redirect()->back();
     }
 }
