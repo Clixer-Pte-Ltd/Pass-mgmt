@@ -18,7 +18,7 @@
         <li><a href='{{ backpack_url('pass-holder') }}'><i class='fa fa-credit-card'></i> <span>Valid Pass Holders</span></a></li>
         <li><a href='{{ backpack_url('expire-pass-holder') }}'><i class='fa fa-user-times'></i> <span>Expiring Pass Holder</span></a></li>
         <li><a href='{{ backpack_url('blacklist-pass-holder') }}'><i class='fa fa-exclamation-circle'></i> <span>Expired Pass Holders</span></a></li>
-        <li><a href='{{ backpack_url('return-pass-holder') }}'><i class='fa fa-exchange'></i> <span>Return Pass Holders</span></a></li>
+        <li><a href='{{ backpack_url('return-pass-holder') }}'><i class='fa fa-exchange'></i> <span>Returned Pass Holders</span></a></li>
     </ul>
 </li>
 <li class="treeview">
@@ -66,7 +66,7 @@
     <ul class="treeview-menu">
       <li><a href='{{ backpack_url('tenant-pass-holder') }}'><i class='fa fa-credit-card'></i> <span>Valid Pass Holders</span></a></li>
       <li><a href='{{ backpack_url('tenant-blacklist-pass-holder') }}'><i class='fa fa-exclamation-circle'></i> <span>Expired Pass Holders</span></a></li>
-      <li><a href='{{ backpack_url('tenant-return-pass-holder') }}'><i class='fa fa-exchange'></i> <span>Return Pass Holders</span></a></li>
+      <li><a href='{{ backpack_url('tenant-return-pass-holder') }}'><i class='fa fa-exchange'></i> <span>Returned Pass Holders</span></a></li>
     </ul>
 </li>
 @endif
