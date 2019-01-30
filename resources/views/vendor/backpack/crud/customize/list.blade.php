@@ -48,7 +48,7 @@
 		  		>
 		            {!! csrf_field() !!}
 		            <div class="col-md-12">
-		                <div class="row display-flex-wrap">
+		                <div class="row">
 		                    <!-- load the view from the application if it exists, otherwise load the one in the package -->
 		      	            @include('crud::customize.form_content', [ 'fields' => $crud->getFields('create'), 'action' => 'create' ])
 		                </div><!-- /.box-body -->
