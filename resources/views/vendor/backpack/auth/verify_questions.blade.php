@@ -1,17 +1,17 @@
 @extends('backpack::layout_guest')
 
 @section('content')
-    <div class="row">
-        <div class="col-md-6">
+    <div class="row" style="padding-top: 50px">
+        <div class="col-md-6" style="padding: 10px">
             <div style="width: 100%; text-align: center">
-                <iframe style="margin: 0 auto" width="420" height="315"
+                <iframe style="margin: 0 auto; width: 90%; height: 460px"
                         src="https://www.youtube.com/embed/iUbZvwGqrUo?autoplay=1">
                 </iframe>
             </div>
         </div>
         <div class="col-md-6">
             <!--CSS list style with number cicles background -->
-            <h2><strong>Question</strong></h2>
+            <h2 style="margin: 0"><strong>Question</strong></h2>
             <div class="numberlist">
                 <ol>
                     <li><span>Question 1</span></li>
