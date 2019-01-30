@@ -64,6 +64,7 @@ Route::group([
     CRUD::resource('tenant-blacklist-pass-holder', 'Tenants\TenantBlacklistHoldersController');
     CRUD::resource('tenant-return-pass-holder', 'Tenants\TenantReturnHoldersController');
     Route::get('/tenant/{id}/validate', 'TenantCrudController@validateCompany')->name('admin.tenant.validate-company');
+    CRUD::resource('tenant-expire-pass-holder', 'Tenants\TenantExpireIn4WeekPassHolderCrudController');
 
     //revisions
     Route::get('revisions/list', 'RevisionController@list')->name('admin.revisions.list');
