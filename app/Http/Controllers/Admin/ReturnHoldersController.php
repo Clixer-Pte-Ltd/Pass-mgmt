@@ -10,6 +10,8 @@ class ReturnHoldersController extends BasePassHolderCrudController
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/return-pass-holder');
         $this->crud->setEntityNameStrings('Returned Pass Holder', 'Returned Pass Holders');
         $this->crud->addClause('whereStatus', PASS_STATUS_RETURNED);
+        $this->crud->removeButton('delete');
+        $this->crud->removeButton('update');
 
         //filter
         $this->crud->addFilter([ // daterange filter
@@ -39,7 +41,6 @@ class ReturnHoldersController extends BasePassHolderCrudController
     {
         $content = parent::index();
         $this->crud->removeAllButtonsFromStack('top');
-        $this->crud->removeAllButtonsFromStack('line');
         return $content->with('hideCreatePanel', true);
     }
 }
