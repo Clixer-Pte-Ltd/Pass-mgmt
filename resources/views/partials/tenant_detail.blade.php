@@ -2,11 +2,11 @@
 	<div class="col-md-12">
 		<div class="nav-tabs-custom">
 				<ul class="nav nav-tabs">
-						<li class="active"><a href="#tab_1" data-toggle="tab"><i class="fa fa-users"></i> Accounts Registered</a></li>
-						<li><a href="#tab_2" data-toggle="tab"><i class="fa fa-users"></i> Account Pending Register </a></li>
-				@if(backpack_user()->hasAnyRole([COMPANY_CO_ROLE, CAG_ADMIN_ROLE]))
-							<li><a href="#tab_3" data-toggle="tab"><i class="fa fa-building"></i> Sub Constructors</a></li>
-						@endif
+					<li class="active"><a href="#tab_1" data-toggle="tab"><i class="fa fa-users"></i> Accounts Registered</a></li>
+					<li><a href="#tab_2" data-toggle="tab"><i class="fa fa-users"></i> Account Pending Register </a></li>
+				@if(backpack_user()->hasAnyRole([COMPANY_CO_ROLE, CAG_ADMIN_ROLE]) && $entry instanceof App\Models\Tenant)
+					<li><a href="#tab_3" data-toggle="tab"><i class="fa fa-building"></i> Sub Constructors</a></li>
+				@endif
 				</ul>
 				<div class="tab-content">
 						<div class="tab-pane active" id="tab_1">
@@ -67,7 +67,7 @@
 							</div>
 						</div>
 						<!-- /.tab-pane -->
-						@if(backpack_user()->hasAnyRole([COMPANY_CO_ROLE, CAG_ADMIN_ROLE]))
+						@if(backpack_user()->hasAnyRole([COMPANY_CO_ROLE, CAG_ADMIN_ROLE]) && $entry instanceof App\Models\Tenant)
 						<div class="tab-pane" id="tab_3">
 							<div class="row">
 								@foreach($entry->subContructors as $company)

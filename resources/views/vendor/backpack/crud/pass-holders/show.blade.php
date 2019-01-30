@@ -73,7 +73,7 @@
                                 <td><strong>{{ trans('backpack::crud.actions') }}</strong></td>
                                 <td>
                                     @if ($entry->status != PASS_STATUS_RETURNED)
-                                        <a href="{{ url($crud->route.'/'.$entry->getKey()) . '/edit' }}" class="btn btn-info grad-info"><i class="fa fa-eye"></i> Edit</a>
+                                        <a href="{{ backpack_url('pass-holder') . '/'.$entry->getKey() . '/edit' }}" class="btn btn-info grad-info"><i class="fa fa-eye"></i> Edit</a>
                                     @endif
                                     @if ($entry->status == PASS_STATUS_WAITING_CONFIRM_RETURN)
                                         @include('vendor.backpack.crud.buttons.return_pass')
