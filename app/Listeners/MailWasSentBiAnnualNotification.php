@@ -2,12 +2,13 @@
 
 namespace App\Listeners;
 
-use App\Events\CompanyAddAccount;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Services\AccountService;
 use App\Services\MailService;
+use App\Events\MailWasSentBiAnnual;
 
-class CompanyAddAccountNotification
+class MailWasSentBiAnnualNotification
 {
     /**
      * Create the event listener.
@@ -25,10 +26,12 @@ class CompanyAddAccountNotification
      * @param  object  $event
      * @return void
      */
-    public function handle(CompanyAddAccount $event)
+    public function handle(MailWasSentBiAnnual $event)
     {
-        $user = $event->user;
-        $mailService = new MailService('CompanyNotifyNewAccount', null);
-        $mailService->sendMailToAccount($user);
+        $accountService = new AccountService();
+        $admins = $accountService->allCoTenantAccount();
+
+        $mailService = new MailService('BiAnnualMail', $admins);
+        $mailService->sendMailToMutilAccounts();
     }
 }
