@@ -33,6 +33,8 @@ use App\Events\CompanyAddAccount;
 use App\Listeners\CompanyAddAccountNotification;
 use App\Events\PassHolderNeedConfirmReturn;
 use App\Listeners\PassHolderNeedConfirmReturnNotification;
+use App\Events\MailWasSentBiAnnual;
+use App\Listeners\MailWasSentBiAnnualNotification;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -84,6 +86,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         PassHolderNeedConfirmReturn::class => [
             PassHolderNeedConfirmReturnNotification::class
+        ],
+        MailWasSentBiAnnual::class => [
+            MailWasSentBiAnnualNotification::class
         ]
     ];
 

@@ -46,10 +46,17 @@ class MailService
         }
     }
 
-    public function accountNotify($account = null, $content = null)
+    public function sendMailToAccount($account = null, $content = null)
     {
         if (!is_null($account)) {
             ProcessSendMail::dispatch($account->email, new $this->mailForm($account, $content));
+        }
+    }
+
+    public function sendMailToMutilAccounts($content = null, $objectContent = null, $extraData = [])
+    {
+        foreach ($this->accounts as $account) {
+            ProcessSendMail::dispatch($account->email, new $this->mailForm ($objectContent, $account, $extraData, $content));
         }
     }
 }

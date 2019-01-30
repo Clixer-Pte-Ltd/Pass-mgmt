@@ -30,8 +30,8 @@ class CompanyWasNotValidateNotification extends BaseListener
     {
         $accountService = new AccountService();
         $admins = $accountService->getAccountRelateCompany($event->companies, true, false);
-        foreach ($admins as $admin) {
-            ProcessSendMail::dispatch($admin->email, new CompaniesListNotValidate($event->companies, $admin));
-        }
+
+        $mailService = new MailService('CompaniesListNotValidate', $admins);
+        $mailService->sendMailToMutilAccounts(null, $event->companies);
     }
 }

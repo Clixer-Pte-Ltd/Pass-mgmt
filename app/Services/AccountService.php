@@ -19,6 +19,13 @@ class AccountService
         })->get();
 	}
 
+    public function allCoTenantAccount()
+    {
+        return BackpackUser::whereHas('roles', function ($query) {
+            $query->where('name', COMPANY_CO_ROLE);
+        })->whereNotNull('tenant_id')->get();
+    }
+
 	private function allCompanyAccountsOfPassHolder($passHolder)
 	{
 	    if (isset($passHolder->company)) {

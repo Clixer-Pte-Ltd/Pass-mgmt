@@ -8,6 +8,7 @@ use App\Events\PassHolderNeedConfirmReturn;
 use App\Services\AccountService;
 use App\Jobs\ProcessSendMail;
 use App\Mail\PassHolderNeedConfirmReturnMail;
+use App\Services\MailService;
 
 class PassHolderNeedConfirmReturnNotification extends BaseListener
 {
@@ -31,8 +32,8 @@ class PassHolderNeedConfirmReturnNotification extends BaseListener
     {
         $accountService = new AccountService();
         $admins = $accountService->getAccountRelateCompany(null, true, false);
-        foreach ($admins as $admin) {
-            ProcessSendMail::dispatch($admin->email, new PassHolderNeedConfirmReturnMail($event->pass_holder, $admin, ['isListPass' => $event->is_list_pass]));
-        }
+
+        $mailService = new MailService('PassHolderNeedConfirmReturnMail', $admins);
+        $mailService->sendMailToMutilAccounts(null, $event->pass_holder, ['isListPass' => $event->is_list_pass]);
     }
 }
