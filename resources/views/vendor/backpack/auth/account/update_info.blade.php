@@ -13,7 +13,9 @@
 <section class="content-header account">
 
     <h1>
-        {{ trans('backpack::base.my_account') }}
+        <span class="text-capitalize">
+            {{ trans('backpack::base.my_account') }}
+        </span>
     </h1>
 
     <!-- <ol class="breadcrumb">
