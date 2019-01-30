@@ -786,7 +786,10 @@ table.table.no-margin.table-striped.table-hover.dashboard tbody tr td {
     color: #01bd8b;
 }
  
-
+section.sidebar {
+    position: relative;
+    z-index: 9;
+}
 
 
 /* ===== RESPONSIVE  ======= */
