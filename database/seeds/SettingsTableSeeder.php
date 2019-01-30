@@ -15,11 +15,11 @@ class SettingsTableSeeder extends Seeder
 
         \DB::table('settings')->truncate();
         $data = [
-            ['key' => 'smtp_host', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['key' => 'smtp_port', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['key' => 'smtp_username', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['key' => 'smtp_password', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['key' => 'smtp_encryption', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['key' => SMTP_HOST, 'value' => 'smtp.mailtrap.io', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['key' => SMTP_PORT, 'value' => '2525', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['key' => SMTP_USERNAME, 'value' => 'fff7ae77763fc6', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['key' => SMTP_PASSWORD, 'value' => 'bce275caa272a8', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['key' => SMTP_ENCRYPTION, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
         ];
         foreach ($data as $item) {
             \DB::table('settings')->insert($item);
