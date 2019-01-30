@@ -166,6 +166,8 @@ class TenantCrudController extends CrudController
         //Reset for 2fa setup
         session()->forget(SESS_TENANT_2FA);
         session()->forget(SESS_SUB_CONSTRUCTOR_2FA);
+        session()->put(SESS_NEW_ACC_FROM_TENANT, $id);
+        session()->forget(SESS_NEW_ACC_FROM_SUB_CONSTRUCTOR);
 
         session()->put(SESS_TENANT_SUB_CONSTRUCTOR, $id);
 

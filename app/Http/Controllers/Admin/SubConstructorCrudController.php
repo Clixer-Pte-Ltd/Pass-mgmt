@@ -191,6 +191,8 @@ class SubConstructorCrudController extends CrudController
         //Reset for 2fa setup
         session()->forget(SESS_TENANT_2FA);
         session()->forget(SESS_SUB_CONSTRUCTOR_2FA);
+        session()->forget(SESS_NEW_ACC_FROM_TENANT);
+        session()->put(SESS_NEW_ACC_FROM_SUB_CONSTRUCTOR, $id);
 
         $content = parent::show($id);
         $this->crud->removeColumn('role_id');

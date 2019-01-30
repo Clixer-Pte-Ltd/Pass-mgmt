@@ -31,6 +31,10 @@ Route::group(
         Route::post('register', 'Auth\RegisterController@register')->name('backpack.auth.register.post');
         Route::post('add/account', 'Auth\RegisterController@addAccount')->name('backpack.auth.add.account');
 
+        //verify questions register
+        Route::get('verify/questions/{token}', 'Auth\RegisterController@showVerifyQuestions')->name('backpack.auth.show.verify.question');
+        Route::post('verify/questions', 'Auth\RegisterController@verifyQuestions')->name('backpack.auth.verify.questions');
+
         Route::get('logout', 'Auth\LoginController@logout')->name('backpack.auth.logout');
         Route::post('logout', 'Auth\LoginController@logout');
         // if not otherwise configured, setup the dashboard routes

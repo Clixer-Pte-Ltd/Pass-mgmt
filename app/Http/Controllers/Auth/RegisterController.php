@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Validator;
 use App\Events\CompanyAddAccount;
-use App\Models\Role;
+use App\Models\BackpackUser;
 
 class RegisterController extends Controller
 {
@@ -261,5 +261,20 @@ class RegisterController extends Controller
     protected function guard()
     {
         return backpack_auth();
+    }
+
+    public function showVerifyQuestions($token)
+    {
+        $user = BackpackUser::where('token', $token)->first();
+        if (is_null($user)) {
+            abort(404);
+        }
+        return view('vendor.backpack.auth.verify_questions', ['token' => $token]);
+    }
+
+    public function verifyQuestions(Request $request)
+    {
+        $this->validate($request, ['verify_questions_value' => 'required|in:1'], ['verify_questions_value.required' => 'You must confirm the questions']);
+        return redirect()->route('backpack.auth.register',['token' => urlencode($request->token)]);
     }
 }
