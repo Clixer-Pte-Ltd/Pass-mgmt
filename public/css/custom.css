@@ -803,6 +803,9 @@ table.table.no-margin.table-striped.table-hover.dashboard tbody tr td {
 
 
 @media (max-width: 991px) {
+    .input-group.date {
+        width: 100% !important;
+    }
     .dataTables_filter input {
         width: auto !important;
     }
