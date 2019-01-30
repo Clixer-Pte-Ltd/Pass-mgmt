@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Events\PassHolderRenewed;
 use App\Http\Requests\RenewPassHolderRequest as UpdateRequest;
@@ -87,6 +88,7 @@ class BlacklistHoldersController extends BasePassHolderCrudController
         $entry = $this->crud->getEntry($id);
         if (backpack_user()->hasAnyRole([CAG_ADMIN_ROLE, CAG_STAFF_ROLE])) {
             $entry->status = PASS_STATUS_RETURNED;
+            $entry->returned_at = Carbon::now();
             $entry->save();
         } else {
             $entry->status = PASS_STATUS_WAITING_CONFIRM_RETURN;
