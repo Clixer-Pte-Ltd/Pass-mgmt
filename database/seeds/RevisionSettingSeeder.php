@@ -12,10 +12,10 @@ class RevisionSettingSeeder extends Seeder
         \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
         $data = [
-            ['key' => REVISION_UPDATED, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['key' => REVISION_DELETED, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['key' => REVISION_CREATED, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['key' => REVISION_RETENTATION_RATE, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['key' => REVISION_UPDATED, 'value' => '1', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['key' => REVISION_DELETED, 'value' => '1', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['key' => REVISION_CREATED, 'value' => '1', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['key' => REVISION_RETENTATION_RATE, 'value' => '24', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
         ];
         foreach ($data as $item) {
             \DB::table('settings')->insert($item);
