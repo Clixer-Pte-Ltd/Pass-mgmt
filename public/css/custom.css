@@ -812,3 +812,24 @@ table.table.no-margin.table-striped.table-hover.dashboard tbody tr td {
         width: auto !important;
     }
 }
+@media (max-width: 767px) {
+    .main-header .logo {
+        position: relative;
+    }
+    .main-header {
+        display: inline-block;
+        width: 100%;
+        max-height: inherit;
+    }
+}
+
+@media (max-width: 425px) {
+    .content_title_header span {
+        font-size: 14px;
+    .grad-primary {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+
+
