@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Events\PassHolderRenewed;
 use App\Http\Requests\RenewPassHolderRequest as UpdateRequest;
@@ -19,7 +20,7 @@ class BlacklistHoldersController extends BasePassHolderCrudController
         parent::setup();
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/blacklist-pass-holder');
         $this->crud->setEntityNameStrings('Blacklist Pass Holder', 'Blacklist Pass Holders');
-        $this->crud->addClause('whereStatus', PASS_STATUS_BLACKLISTED);
+        $this->crud->addClause('whereIn', 'status', [PASS_STATUS_BLACKLISTED, PASS_STATUS_WAITING_CONFIRM_RETURN]);
         $this->crud->addButtonFromView('line', 'renew', 'renew');
         $this->crud->addButtonFromView('line', 'return', 'return_pass');
         $this->crud->removeButtonFromStack('update', 'line');
@@ -87,6 +88,7 @@ class BlacklistHoldersController extends BasePassHolderCrudController
         $entry = $this->crud->getEntry($id);
         if (backpack_user()->hasAnyRole([CAG_ADMIN_ROLE, CAG_STAFF_ROLE])) {
             $entry->status = PASS_STATUS_RETURNED;
+            $entry->returned_at = Carbon::now();
             $entry->save();
         } else {
             $entry->status = PASS_STATUS_WAITING_CONFIRM_RETURN;
