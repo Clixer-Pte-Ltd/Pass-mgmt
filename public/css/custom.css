@@ -122,8 +122,10 @@ nav[role='navigation'],
 
 .sidebar-toggle,
 .sidebar-toggle:active,
-.sidebar-toggle:focus {
-    color: #5b524b;
+.sidebar-toggle:focus,
+.sidebar-toggle:hover
+ {
+    color: #5b524b !important;
 }
 
 .navbar-custom-menu>ul>li>a {
