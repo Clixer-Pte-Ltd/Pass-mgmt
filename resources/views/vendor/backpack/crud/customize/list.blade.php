@@ -73,10 +73,10 @@
                 <div class="panel-heading grad-blue-panel">
                     <div class="panel-title">
                         <div class="row">
-                            <div class="col-xs-6">
+                            <div class="col-xs-2 col-sm-4 col-md-6">
                                 <h4>Manage {{ $crud->entity_name_plural }}</h4>
                             </div>
-                            <div class="col-xs-6">
+                            <div class="col-xs-4 col-sm-5 col-md-5">
                                 <div id="datatable_search_stack" class="pull-right"></div>              
                             </div>
                         </div>

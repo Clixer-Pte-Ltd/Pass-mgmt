@@ -802,4 +802,8 @@ table.table.no-margin.table-striped.table-hover.dashboard tbody tr td {
 }
 
 
-
+@media (max-width: 991px) {
+    .dataTables_filter input {
+        width: auto !important;
+    }
+}
