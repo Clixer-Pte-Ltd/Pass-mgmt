@@ -8,7 +8,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">Return Pass Holder </h4>
+                    <h4 class="modal-title">Add account company </h4>
                 </div>
                 <form class="col-md-12 p-t-10" role="form" method="POST" action="{{ route('backpack.auth.add.account') }}" style="background: #ffffff">
                     <div class="modal-body">
@@ -75,7 +75,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-block btn-primary">
-                            {{ trans('backpack::base.register') }}
+                            Add account
                         </button>
                     </div>
                 </form>
