@@ -32,7 +32,7 @@
             {{--    number  --}}
             <div class="box dashboard dashboardChart">
                 @include('dashboard.includes.panel', ['id' => 'pass_holders_active', 'num' => $pass_holders_active->count(), 'total' => $pass_holders->count(), 'label' => 'Active Passes'])
-                @include('dashboard.includes.panel', ['id' => 'pass_holders_expireIn4Weeks', 'num' => $pass_holders_expireIn4Weeks->count(), 'total' => $pass_holders->count(), 'label' => 'Expired withim 4 weeks'])
+                @include('dashboard.includes.panel', ['id' => 'pass_holders_expireIn4Weeks', 'num' => $pass_holders_expireIn4Weeks->count(), 'total' => $pass_holders->count(), 'label' => 'Expired within 4 weeks'])
                 @include('dashboard.includes.panel', ['id' => 'pass_pending_return', 'num' => $pass_pending_return->count(), 'total' => $pass_holders->count(), 'label' => 'Pass pending Return'])
             </div>
         </div>
@@ -168,8 +168,8 @@
         var data1 = [{{ $pass_holders_active->count() }}, {{ $pass_holders->count() }}]
         newPanel(options, 'pass_holders_active', data1, ["#aee0f9", "#13a7fd"], ["#aee0f9", "#13a7fd"])
         var data2 = [{{ $pass_holders_expireIn4Weeks->count() }}, {{ $pass_holders->count() }}]
-        newPanel(options, 'pass_holders_expireIn4Weeks', data2, ["#febf72", "#13a7fd"], ["#febf72", "#13a7fd"])
+        newPanel(options, 'pass_holders_expireIn4Weeks', data2, ["#febf72", "#fb9e1b"], ["#febf72", "#fb9e1b"])
         var data3 = [{{ $pass_pending_return->count() }}, {{ $pass_holders->count() }}]
-        newPanel(options, 'pass_pending_return', data3, ["#7cd5bf", "#13a7fd"], ["#7cd5bf", "#13a7fd"])
+        newPanel(options, 'pass_pending_return', data3, ["#7cd5bf", "#00bc8c"], ["#7cd5bf", "#00bc8c"])
     </script>
 @endsection

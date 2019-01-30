@@ -96,6 +96,10 @@ nav[role='navigation'],
 
 .main-header .logo {
     background: #22333b;
+    z-index: 999999;
+    box-shadow: 6px -7px 7px 0px #ccc;
+    position: absolute;
+    height: 55px;
 }
 
 .main-footer {
@@ -718,6 +722,7 @@ footer.footer_menuside a {
 }
 .box.dashboard.dashboardChart {
     padding-bottom: 50px;
+    padding-top: 30px;
 }
 .box.dashboard .box-header.text-center {
     display: inline-block;
@@ -754,32 +759,47 @@ table.table.no-margin.table-striped.table-hover.dashboard tbody tr td {
     box-shadow: 0 -2px 8px 4px #ccc;
     padding: 25px 15px;
     border-radius: 5px;
+    display: flex;
 }
-.chartDashboard .title_chart {
+.chartDashboard .pass_holders_active,
+.chartDashboard .pass_holders_expireIn4Weeks,
+.chartDashboard .pass_pending_return
+ {
     float: left;
-    width: 42%;
     font-size: 26px;
     margin-top: 15%;
 }
-.chartDashboard .title_chart p {
+.chartDashboard .pass_holders_active p,
+.chartDashboard .pass_holders_expireIn4Weeks p,
+.chartDashboard .pass_pending_return p {
     margin-bottom: 0;
 }
-.chartDashboard.weeks .title_chart {
-    color: #ff9634;
+.chartDashboard .pass_holders_active p {
+    color: #12aefb;
 }
-.chartDashboard.return .title_chart {
-    color: #14bf93;
+.chartDashboard .pass_holders_expireIn4Weeks p {
+    color: #fc9d25;
 }
-.title_chart {
-    color: #5bc8f3;
+.chartDashboard .pass_pending_return p{
+    color: #01bd8b;
 }
-.title_chart:nth-of-type(2) {
-    color: #fc9d31 !important;
-}
-.title_chart:nth-of-type(3) {
-    color: #fc9d31;
-}   
+ 
 
+
+
+/* ===== RESPONSIVE  ======= */
+/**************************/
+
+
+@media(max-width: 1199px) {
+    .chartDashboard {
+        display: inline-block;
+    }
+    .chartDashboard .pass_holders_active, .chartDashboard .pass_holders_expireIn4Weeks, .chartDashboard .pass_pending_return {
+        width: 100%;
+        text-align: center;
+    }
+}
 
 
 @media (max-width: 991px) {
