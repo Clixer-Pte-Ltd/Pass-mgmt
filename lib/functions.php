@@ -66,3 +66,16 @@ function explodeCag($string = '')
 {
     return explode('-', $string);
 }
+
+function linkCollection($collect1, $collect2)
+{
+    $collect2->map(function($element, $index) use ($collect1) {
+        $collect1->push($element);
+    });
+    return $collect1;
+}
+
+function encodeNric($nric)
+{
+    return substr_replace($nric,"***",0, strlen($nric)-4);
+}

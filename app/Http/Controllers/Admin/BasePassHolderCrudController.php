@@ -54,6 +54,17 @@ class BasePassHolderCrudController extends CrudController
             'label' => 'Company',
             'type' => 'text'
         ]);
+        $this->crud->addColumn([
+            'name' => 'nric',
+            'label' => 'Nric',
+            'type' => 'closure',
+            'function' => function ($entry) {
+                if (backpack_user()->hasAnyRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE]) && $entry->nric) {
+                    return encodeNric($entry->nric);
+                }
+                return $entry->nric;
+            }
+        ]);
 
         $this->crud->setListView('crud::customize.list');
         $this->crud->removeButtonFromStack('create', 'top');
