@@ -4,7 +4,7 @@
     </a>
 </li>
 <li>
-    <a href="{{ route('admin.revisions.list') }}" id="">
+    <a href="{{ route('admin.setting.revisions') }}" id="">
         <i class="iconSetting"></i>
     </a>
 </li>
