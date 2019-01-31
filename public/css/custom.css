@@ -814,8 +814,12 @@ section.sidebar {
     .dataTables_filter input {
         width: auto !important;
     }
+    canvas {
+        margin: auto;
+    } 
 }
 @media (max-width: 767px) {
+    
     .main-header .logo {
         position: relative;
     }
@@ -825,10 +829,19 @@ section.sidebar {
         max-height: inherit;
     }
 }
-
+@media (min-width: 425px) and (max-width: 767px) {
+    .chartDashboard {
+        width: 370px;
+    }
+}
 @media (max-width: 425px) {
+    .box.dashboard .box-header.text-center {
+        width: 100%;
+    }
+
     .content_title_header span {
         font-size: 14px;
+    }
     .grad-primary {
         width: 100%;
         margin: 5px 0;
