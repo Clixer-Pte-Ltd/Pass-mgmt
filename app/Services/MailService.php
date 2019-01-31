@@ -16,21 +16,22 @@ class MailService
 		$this->accounts = $accounts;
 	}
 
-	public function passHolderNotify($passHolders, $extraData = [])
+	//send mail to all admins (Cag + Company)
+	public function passHolderNotifyToAllRelatedAdmin($passHolders, $extraData = [])
 	{
         if (!($passHolders instanceof Collection)) {
             $passHolders = collect()->push($passHolders);
         }
         $accountService = new AccountService();
         foreach ($passHolders as $passHolder) {
-            $accounts = $accountService->getAccountRelatedToPassHolder($passHolder);
+            $accounts = $accountService->getAllAccountRelatedToPassHolder($passHolder);
             $accounts->map(function($account, $index) use ($passHolder, $extraData) {
                 ProcessSendMail::dispatch($account->email, new $this->mailForm($passHolder, $account, $extraData));
             });
         }
 	}
 
-	public function companiesNotify($companies, $content = null)
+    public function companiesNotify($companies, $content = null)
     {
         if (!($companies instanceof Collection)) {
             $companies = collect()->push($companies);
@@ -53,9 +54,10 @@ class MailService
         }
     }
 
-    public function sendMailToMutilAccounts($content = null, $objectContent = null, $extraData = [])
+    public function sendMailToMutilAccounts($content = null, $objectContent = null, $extraData = [], $accountsParam = null)
     {
-        foreach ($this->accounts as $account) {
+        $accounts = is_null($accountsParam) ? $this->accounts : $accountsParam;
+        foreach ($accounts as $account) {
             ProcessSendMail::dispatch($account->email, new $this->mailForm ($objectContent, $account, $extraData, $content));
         }
     }

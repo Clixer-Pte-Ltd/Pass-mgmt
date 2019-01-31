@@ -28,7 +28,7 @@ class BaseListener
     {
         if (isset($mailFormName)) {
             $mailService = new MailService($mailFormName, null);
-            $mailService->passHolderNotify($passHolders);
+            $mailService->passHolderNotifyToAllRelatedAdmin($passHolders);
         }
     }
 
