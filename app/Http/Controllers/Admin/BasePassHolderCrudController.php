@@ -17,9 +17,8 @@ class BasePassHolderCrudController extends CrudController
     public function __construct()
     {
         parent::__construct();
-        $this->middleware('companyOwner')->only(['edit', 'update', 'store','destroy']);
-        $this->middleware('hasRoles:' . implodeCag([CAG_ADMIN_ROLE, CAG_STAFF_ROLE, COMPANY_CO_ROLE, COMPANY_AS_ROLE]))->only(['edit', 'create','update', 'store','destroy', 'import']);
-
+        $this->middleware('companyOwner')->only(['edit', 'update', 'store', 'destroy']);
+        $this->middleware('hasRoles:' . implodeCag([CAG_ADMIN_ROLE, CAG_STAFF_ROLE, COMPANY_CO_ROLE, COMPANY_AS_ROLE]))->only(['edit', 'create', 'update', 'store', 'destroy', 'import']);
     }
 
     public function setup()
@@ -41,19 +40,7 @@ class BasePassHolderCrudController extends CrudController
         // $this->crud->setFromDb();
 
         //List columns
-        $this->crud->addColumns(['applicant_name', 'nric']);
-        $this->crud->addColumn([
-            'name' => 'pass_expiry_date', // The db column name
-            'label' => 'Pass Expiry Date', // Table column heading
-            'type' => 'date',
-            'format' => DATE_FORMAT, // use something else than the base.default_date_format config value
-        ]);
-
-        $this->crud->addColumn([
-            'name' => 'company.name',
-            'label' => 'Company',
-            'type' => 'text'
-        ]);
+        $this->crud->addColumns(['applicant_name']);
         $this->crud->addColumn([
             'name' => 'nric',
             'label' => 'Nric',
@@ -66,10 +53,70 @@ class BasePassHolderCrudController extends CrudController
             }
         ]);
 
+        $this->crud->addColumn([
+            'name' => 'pass_expiry_date', // The db column name
+            'label' => 'Pass Expiry Date', // Table column heading
+            'type' => 'date',
+            'format' => DATE_FORMAT, // use something else than the base.default_date_format config value
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'country.name',
+            'label' => 'Country',
+            'type' => 'text',
+            'visibleInTable' => false,
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'company.name',
+            'label' => 'Company',
+            'type' => 'text'
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'ru_name',
+            'label' => 'RU Name',
+            'type' => 'text',
+            'visibleInTable' => false,
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'ru_email',
+            'label' => 'RU Email',
+            'type' => 'text',
+            'visibleInTable' => false,
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'as_name',
+            'label' => 'AS Name',
+            'type' => 'text',
+            'visibleInTable' => false,
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'as_email',
+            'label' => 'AS Email',
+            'type' => 'text',
+            'visibleInTable' => false,
+        ]);
+
+        $this->crud->addColumn([
+            // n-n relationship (with pivot table)
+            'label' => 'Zones', // Table column heading
+            'type' => 'select_multiple',
+            'name' => 'zones', // the method that defines the relationship in your Model
+            'entity' => 'zones', // the method that defines the relationship in your Model
+            'attribute' => 'name', // foreign key attribute that is shown to user
+            'model' => "App\Models\Zone", // foreign key model,
+            'visibleInTable' => false,
+        ]);
+
         $this->crud->setListView('crud::customize.list');
         $this->crud->removeButtonFromStack('create', 'top');
         $this->crud->allowAccess('show');
         $this->crud->setShowView('crud::pass-holders.show');
+        $this->crud->enableExportButtons();
     }
 
     protected function addRequired()
@@ -178,5 +225,4 @@ class BasePassHolderCrudController extends CrudController
         // use $this->data['entry'] or $this->crud->entry
         return $redirect_location;
     }
-
 }
