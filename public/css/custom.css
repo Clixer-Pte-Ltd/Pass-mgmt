@@ -848,4 +848,7 @@ section.sidebar {
     }
 }
 
-
+.info-box-icon {
+    width: 97px !important;
+    height: 97px !important;
+}
