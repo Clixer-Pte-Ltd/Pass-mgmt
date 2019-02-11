@@ -17,8 +17,7 @@ class BasePassHolderCrudController extends CrudController
     public function __construct()
     {
         parent::__construct();
-        $this->middleware('companyOwner')->only(['edit', 'update', 'store', 'destroy']);
-        $this->middleware('hasRoles:' . implodeCag([CAG_ADMIN_ROLE, CAG_STAFF_ROLE, COMPANY_CO_ROLE, COMPANY_AS_ROLE]))->only(['edit', 'create', 'update', 'store', 'destroy', 'import']);
+        $this->middleware('companyOwner');
     }
 
     public function setup()
@@ -117,6 +116,7 @@ class BasePassHolderCrudController extends CrudController
         $this->crud->allowAccess('show');
         $this->crud->setShowView('crud::pass-holders.show');
         $this->crud->enableExportButtons();
+        $this->crud->addButtonFromView('line', 'blacklist', 'blacklist', 'end');
     }
 
     protected function addRequired()

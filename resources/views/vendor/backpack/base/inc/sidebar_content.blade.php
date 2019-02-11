@@ -29,6 +29,22 @@
 </li>
 @endif
 
+{{-------------------pass holder, my company--------------}}
+@if(auth()->user()->hasAnyRole(config('backpack.company.roles')))
+    @if (auth()->user()->hasAnyRole([COMPANY_CO_ROLE, COMPANY_VIEWER_ROLE]))
+        <li><a href='{{ route("admin.tenant.my-company") }}'><i class='fa fa-building'></i> <span>My Company</span></a></li>
+    @endif
+    <li class="treeview">
+        <a href="#"><i class="fa fa-folder-open"></i> <span>Pass Holders Management</span> <i class="fa fa-angle-left pull-right"></i></a>
+        <ul class="treeview-menu">
+            <li><a href='{{ backpack_url('tenant-pass-holder') }}'><i class='fa fa-credit-card'></i> <span>Valid Pass Holders</span></a></li>
+            <li><a href='{{ backpack_url('tenant-expire-pass-holder') }}'><i class='fa fa-user-times'></i> <span>Expiring Pass Holder</span></a></li>
+            <li><a href='{{ backpack_url('tenant-blacklist-pass-holder') }}'><i class='fa fa-exclamation-circle'></i> <span>Expired Pass Holders</span></a></li>
+            <li><a href='{{ backpack_url('tenant-return-pass-holder') }}'><i class='fa fa-exchange'></i> <span>Returned Pass Holders</span></a></li>
+        </ul>
+    </li>
+@endif
+
 {{-------------------user-----------------------}}
 @if(auth()->user()->hasAnyRole([CAG_ADMIN_ROLE, COMPANY_CO_ROLE]))
 <li class="treeview">
@@ -43,31 +59,18 @@
 </li>
 @endif
 
+{{-------------------revisions-----------------------}}
+<li><a href="{{ backpack_url('revisions/list') }}"><i class="fa fa-sticky-note-o"></i> <span>Revisions</span></a></li>
+
 {{-------------------setting-----------------------}}
 @if(auth()->user()->hasAnyRole([CAG_ADMIN_ROLE]))
-<li><a href="{{ backpack_url('revisions/list') }}"><i class="fa fa-sticky-note-o"></i> <span>Revisions</span></a></li>
-<li class="header text-center">SETTING</li>
-<li><a href="{{ backpack_url('settings/revisions') }}"><i class="fa fa-asterisk"></i> <span>Revisions Setting</span></a></li>
-<li class="treeview">
-    <a href="#"><i class="fa fa-envelope"></i> <span>Email</span> <i class="fa fa-angle-left pull-right"></i></a>
-    <ul class="treeview-menu">
-        <li><a href="{{ backpack_url('settings/smtp') }}"><i class="fa fa-comments"></i> <span>SMTP Server</span></a></li>
-    </ul>
-</li>
+    <li class="header text-center">SETTING</li>
+    <li><a href="{{ backpack_url('settings/revisions') }}"><i class="fa fa-asterisk"></i> <span>Revisions Setting</span></a></li>
+    <li class="treeview">
+        <a href="#"><i class="fa fa-envelope"></i> <span>Email</span> <i class="fa fa-angle-left pull-right"></i></a>
+        <ul class="treeview-menu">
+            <li><a href="{{ backpack_url('settings/smtp') }}"><i class="fa fa-comments"></i> <span>SMTP Server</span></a></li>
+        </ul>
+    </li>
 @endif
 
-{{-------------------pass holder, my company--------------}}
-@if(auth()->user()->hasAnyRole(config('backpack.company.roles')))
-    @if (auth()->user()->hasAnyRole([COMPANY_CO_ROLE, COMPANY_VIEWER_ROLE]))
-        <li><a href='{{ route("admin.tenant.my-company") }}'><i class='fa fa-building'></i> <span>My Company</span></a></li>
-    @endif
-<li class="treeview">
-    <a href="#"><i class="fa fa-folder-open"></i> <span>Pass Holders Management</span> <i class="fa fa-angle-left pull-right"></i></a>
-    <ul class="treeview-menu">
-        <li><a href='{{ backpack_url('tenant-pass-holder') }}'><i class='fa fa-credit-card'></i> <span>Valid Pass Holders</span></a></li>
-        <li><a href='{{ backpack_url('tenant-expire-pass-holder') }}'><i class='fa fa-user-times'></i> <span>Expiring Pass Holder</span></a></li>
-        <li><a href='{{ backpack_url('tenant-blacklist-pass-holder') }}'><i class='fa fa-exclamation-circle'></i> <span>Expired Pass Holders</span></a></li>
-        <li><a href='{{ backpack_url('tenant-return-pass-holder') }}'><i class='fa fa-exchange'></i> <span>Returned Pass Holders</span></a></li>
-    </ul>
-</li>
-@endif

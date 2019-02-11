@@ -23,9 +23,7 @@ class TenantCrudController extends CrudController
     public function __construct()
     {
         parent::__construct();
-        $this->middleware('hasRoles:' . implodeCag(config('backpack.cag.roles')))->only('index');
-        $this->middleware('hasRoles:' . implodeCag([CAG_ADMIN_ROLE, CAG_STAFF_ROLE, COMPANY_CO_ROLE]))->only(['edit', 'create','update', 'store','destroy', 'newAccount', 'import', 'importAccount']);
-        $this->middleware('companyOwner')->only(['edit', 'update', 'store','destroy']);
+        $this->middleware('companyOwner');
     }
 
     public function setup()

@@ -54,6 +54,13 @@ class UserCrudController extends BaseUserCrudController
                 }
             }
         ]);
+        if (backpack_user()->hasCompany()) {
+            $this->crud->addField([
+                'name' => backpack_user()->tenant ? 'tenant_id' : 'sub_constructor_id',
+                'type' => 'hidden',
+                'value' => backpack_user()->getCompany()->id
+            ]);
+        }
         $this->crud->setListView('crud::customize.list');
         $this->crud->removeButtonFromStack('create', 'top');
         $this->crud->addButtonFromView('line', 'show_config_2fa', 'show_config_2fa', 'end');

@@ -15,6 +15,7 @@ class TenantBlacklistHoldersController extends BaseTenantPassHolderCrudControlle
         $this->crud->removeButtonFromStack('update', 'line');
         $this->crud->removeButtonFromStack('delete', 'line');
         $this->crud->addButtonFromView('line', 'return', 'return_pass');
+        $this->crud->addButtonFromView('line', 'renew', 'renew');
         $this->crud->setEditView('crud::pass-holders.renew');
         $this->crud->addField([
             'name' => 'pass_expiry_date',

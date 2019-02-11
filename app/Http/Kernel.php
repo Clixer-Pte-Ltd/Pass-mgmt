@@ -64,6 +64,7 @@ class Kernel extends HttpKernel
         'hasRoles' => \App\Http\Middleware\HasRoles::class,
         'companyOwner' => \App\Http\Middleware\CompanyOwner::class,
         'crudUser' => \App\Http\Middleware\CrudUser::class,
+        'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
     ];
 
     /**

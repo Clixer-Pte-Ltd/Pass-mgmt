@@ -16,7 +16,7 @@
 
 @section('content')
 @if ($crud->hasAccess('list'))
-    <a href="{{ starts_with(URL::previous(), url($crud->route)) ? URL::previous() : url($crud->route) }}" class="hidden-print"><i class="fa fa-angle-double-left"></i> Back</span></a>
+    <a href="{{ starts_with(URL::previous(), url($crud->route)) ? URL::previous() : url($crud->route) }}" class="hidden-print"><span><i class="fa fa-angle-double-left"></i> Back</span></a>
 @endif
 
 <div class="row m-t-20">

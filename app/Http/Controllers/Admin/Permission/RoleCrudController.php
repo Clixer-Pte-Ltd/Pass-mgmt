@@ -9,6 +9,12 @@ use Backpack\PermissionManager\app\Http\Requests\RoleCrudRequest as StoreRequest
 
 class RoleCrudController extends BaseRoleCrudController
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->middleware('hasRoles:' . CAG_ADMIN_ROLE);
+    }
+
     public function setup()
     {
         parent::setup();

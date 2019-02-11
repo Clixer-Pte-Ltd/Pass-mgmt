@@ -59,12 +59,12 @@ function getLogActions()
 
 function implodeCag($array = [])
 {
-    return implode('-', $array);
+    return implode('|', $array);
 }
 
 function explodeCag($string = '')
 {
-    return explode('-', $string);
+    return explode('|', $string);
 }
 
 function linkCollection($collect1, $collect2)
