@@ -107,11 +107,11 @@
                                 </div>
                             @endif
                             <input type="hidden" name="token" value="{{ @$account->token }}">
-                            @if(session()->has('tenant'))
+                            @if(session()->has(SESS_NEW_ACC_FROM_TENANT))
                                 <input type="hidden" name="tenant_id" value="{{ session()->get('tenant') }}">
                             @endif
 
-                            @if(session()->has('sub_constructor'))
+                            @if(session()->has(SESS_NEW_ACC_FROM_SUB_CONSTRUCTOR))
                                 <input type="hidden" name="sub_constructor_id" value="{{ session()->get('sub_constructor') }}">
                             @endif
 

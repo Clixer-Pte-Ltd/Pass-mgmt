@@ -20,7 +20,6 @@ class PassHolderCrudController extends BasePassHolderCrudController
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/pass-holder');
         $this->crud->setEntityNameStrings('Pass Holder', 'Pass Holders');
         $this->crud->addClause('whereStatus', PASS_STATUS_VALID);
-        $this->crud->addButtonFromView('line', 'blacklist', 'blacklist', 'end');
 //        $this->crud->addButtonFromView('line', 'collect', 'collect', 'end');
         $this->addFields();
         $this->addRequired();
@@ -47,13 +46,6 @@ class PassHolderCrudController extends BasePassHolderCrudController
             function($value) {
                 $this->crud->addClause('where', 'pass_expiry_date', $value);
             });
-    }
-
-    public function index()
-    {
-        $content = parent::index();
-        $this->crud->addButtonFromView('top', 'import_pass_holders', 'import_pass_holders', 'end');
-        return $content;
     }
 
     public function import(Request $request, Excel $excel)

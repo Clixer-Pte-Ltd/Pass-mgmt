@@ -25,7 +25,7 @@ class CrudUser
         $userId = intval($request->route('user'));
         if ($userId) {
             $user = BackpackUser::find($userId);
-            if ($user->hasCompany() && $user->getCompany()->id !== backpack_user()->getCompany()->id) {
+            if ($user && $user->hasCompany() && $user->getCompany()->id !== backpack_user()->getCompany()->id) {
                 abort(401);
             }
         }

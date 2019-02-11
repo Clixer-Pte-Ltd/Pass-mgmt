@@ -49,3 +49,14 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+@if(!empty(Session::get('not_have_file')) && Session::get('not_have_file') == 1)
+    <script>
+        showModal = true;
+        modalId = '#modal-pass-holder';
+    </script>
+@else
+    <script>
+        showModal = false;
+        modalId = '';
+    </script>
+@endif

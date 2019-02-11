@@ -24,10 +24,10 @@ class CompanyOwner
 
         $sub_constructor_id = intval($request->route('sub_constructor'));
         if ($sub_constructor_id && backpack_user()->hasRole(COMPANY_CO_ROLE)) {
-            if (!backpack_user()->tenant->subContructors->contains('id', $sub_constructor_id)) {
+            if (backpack_user()->tenant && !backpack_user()->tenant->subContructors->contains('id', $sub_constructor_id)) {
                 abort(401);
             }
-            if (backpack_user()->subConstructor->id !== $sub_constructor_id) {
+            if (backpack_user()->subConstructor && backpack_user()->subConstructor->id !== $sub_constructor_id) {
                 abort(401);
             }
         }
