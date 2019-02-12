@@ -31,9 +31,7 @@
 
 {{-------------------pass holder, my company--------------}}
 @if(auth()->user()->hasAnyRole(config('backpack.company.roles')))
-    @if (auth()->user()->hasAnyRole([COMPANY_CO_ROLE, COMPANY_VIEWER_ROLE]))
-        <li><a href='{{ route("admin.tenant.my-company") }}'><i class='fa fa-building'></i> <span>My Company</span></a></li>
-    @endif
+    <li><a href='{{ route("admin.tenant.my-company") }}'><i class='fa fa-building'></i> <span>My Company</span></a></li>
     <li class="treeview">
         <a href="#"><i class="fa fa-folder-open"></i> <span>Pass Holders Management</span> <i class="fa fa-angle-left pull-right"></i></a>
         <ul class="treeview-menu">

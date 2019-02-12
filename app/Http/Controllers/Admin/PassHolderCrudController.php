@@ -18,8 +18,9 @@ class PassHolderCrudController extends BasePassHolderCrudController
     {
         parent::setup();
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/pass-holder');
-        $this->crud->setEntityNameStrings('Pass Holder', 'Pass Holders');
+        $this->crud->setEntityNameStrings('Valid Pass Holder', 'Valid Pass Holders');
         $this->crud->addClause('whereStatus', PASS_STATUS_VALID);
+        $this->crud->addButtonFromView('line', 'blacklist', 'blacklist', 'end');
 //        $this->crud->addButtonFromView('line', 'collect', 'collect', 'end');
         $this->addFields();
         $this->addRequired();
@@ -35,7 +36,7 @@ class PassHolderCrudController extends BasePassHolderCrudController
                 $dates = json_decode($value);
                 $this->crud->addClause('where', 'pass_expiry_date', '>=', $dates->from);
                 $this->crud->addClause('where', 'pass_expiry_date', '<=', $dates->to . ' 23:59:59');
-            });
+        });
 
         $this->crud->addFilter([ // date filter
             'type' => 'date',
@@ -45,7 +46,7 @@ class PassHolderCrudController extends BasePassHolderCrudController
             false,
             function($value) {
                 $this->crud->addClause('where', 'pass_expiry_date', $value);
-            });
+        });
     }
 
     public function import(Request $request, Excel $excel)
@@ -84,4 +85,5 @@ class PassHolderCrudController extends BasePassHolderCrudController
         \Alert::info('Blacklist done.')->flash();
         return redirect()->back();
     }
+
 }

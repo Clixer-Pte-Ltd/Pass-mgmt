@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 // VALIDATION: change the requests to match your own file names if you need form validation
-use Backpack\CRUD\app\Http\Controllers\CrudController;
+use App\Http\Controllers\Backpack\CRUD\CrudController;
 use App\Http\Requests\StorePassHolderRequest as StoreRequest;
 use App\Http\Requests\UpdatePassHolderRequest as UpdateRequest;
+use App\Traits\Export;
+
 
 /**
  * Class PassHolderCrudController
@@ -14,6 +16,8 @@ use App\Http\Requests\UpdatePassHolderRequest as UpdateRequest;
  */
 class BasePassHolderCrudController extends CrudController
 {
+    use Export;
+
     public function __construct()
     {
         parent::__construct();
@@ -110,13 +114,13 @@ class BasePassHolderCrudController extends CrudController
             'model' => "App\Models\Zone", // foreign key model,
             'visibleInTable' => false,
         ]);
-
+//        $this->crud->addButtonFromView('top', 'export excel', 'export_excel', 'end');
+//        $this->crud->addButtonFromView('top', 'export pdf', 'export_pdf', 'end');
         $this->crud->setListView('crud::customize.list');
         $this->crud->removeButtonFromStack('create', 'top');
         $this->crud->allowAccess('show');
         $this->crud->setShowView('crud::pass-holders.show');
         $this->crud->enableExportButtons();
-        $this->crud->addButtonFromView('line', 'blacklist', 'blacklist', 'end');
     }
 
     protected function addRequired()
@@ -224,5 +228,25 @@ class BasePassHolderCrudController extends CrudController
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
         return $redirect_location;
+    }
+
+    public function filterExport($passHolders)
+    {
+        $exportData = [];
+        foreach ($passHolders as $pass) {
+            $countryName = $pass->country->name;
+            $pass = $pass->toArray();
+            unset($pass['country_id']);
+            unset($pass['status']);
+            $pass['zones'] = $pass['zones'] ? implodeCag(array_column($pass['zones'], 'name')) : '';
+            $pass['country'] = $countryName;
+            $pass['nric'] = backpack_user()->hasAnyRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE]) ? encodeNric($pass['nric']) : $pass['nric'];
+            $pass['pass_expiry_date'] = custom_date_format($pass['pass_expiry_date']);
+            $pass['created_at'] = custom_date_time_format($pass['created_at']);
+            $pass['updated_at'] = custom_date_time_format($pass['updated_at']);
+
+            $exportData[] = $pass;
+        }
+        return collect($exportData);
     }
 }

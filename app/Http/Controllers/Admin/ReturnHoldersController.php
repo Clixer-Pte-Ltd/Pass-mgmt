@@ -40,7 +40,7 @@ class ReturnHoldersController extends BasePassHolderCrudController
     public function index()
     {
         $content = parent::index();
-        $this->crud->removeAllButtonsFromStack('top');
+        $this->crud->removeButtonFromStack('import_pass_holders', 'top');
         return $content->with('hideCreatePanel', true);
     }
 }
