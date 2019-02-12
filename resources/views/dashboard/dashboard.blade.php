@@ -136,6 +136,43 @@
                     </div>
                 </div>
             </div>
+            @if (backpack_user()->hasAnyRole(config('backpack.cag.roles')))
+            <div class="col-md-6">
+
+                {{--Expiring Company Within 4 Weeks--}}
+                <div class="box dashboard">
+                    <div class="box-header text-center">
+                        <h2>Expiring tenants within 4 weeks</h2>
+                    </div>
+                    <div class="box-body dashboard">
+                        <div class="table-responsive">
+                            <table class="table no-margin table-striped table-hover dashboard">
+                                <thead class="bg-primary">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Uen</th>
+                                    <th>Type</th>
+                                    <th>Tenancy Start Date</th>
+                                    <th>Tenancy End Date</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($expiring_tenants_within_4_weeks as $company)
+                                    <tr>
+                                        <td>{{ $company->name }}</td>
+                                        <td>{{ $company->uen }}</td>
+                                        <td>{{ getTypeAttribute(get_class($company)) }}</td>
+                                        <td>{{ custom_date_format($pass->tenancy_start_date) }}</td>
+                                        <td>{{ custom_date_format($pass->tenancy_end_date) }}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 @endsection

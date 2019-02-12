@@ -6,6 +6,7 @@ use App\Models\PassHolder;
 use App\Models\Tenant;
 use Backpack\Base\app\Http\Controllers\Controller;
 use Carbon\Carbon;
+use App\Models\Company;
 
 class AdminController extends Controller
 {
@@ -37,6 +38,7 @@ class AdminController extends Controller
         $this->data['pass_holders_active'] = $pass_holders->where('status', PASS_STATUS_VALID);
         $this->data['pass_holders_expireIn4Weeks'] = $pass_holders->where('pass_expiry_date','<=', Carbon::now()->addWeeks(4))->where('pass_expiry_date','>', Carbon::now());
         $this->data['pass_pending_return'] = $pass_holders->whereIn('status', [PASS_STATUS_BLACKLISTED, PASS_STATUS_WAITING_CONFIRM_RETURN]);
+        $this->data['expiring_tenants_within_4_weeks'] = backpack_user()->hasAnyRole(config('backpack.cag.roles')) ? Company::getAllCompaniesWithin4Weeks() : null;
         return view('dashboard.dashboard', $this->data);
     }
 
