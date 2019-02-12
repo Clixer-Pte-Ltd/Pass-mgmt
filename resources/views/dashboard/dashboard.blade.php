@@ -34,7 +34,9 @@
                 @include('dashboard.includes.panel', ['id' => 'pass_holders_active', 'num' => $pass_holders_active->count(), 'total' => $pass_holders->count(), 'label' => 'Active Passes'])
                 @include('dashboard.includes.panel', ['id' => 'pass_holders_expireIn4Weeks', 'num' => $pass_holders_expireIn4Weeks->count(), 'total' => $pass_holders->count(), 'label' => 'Expired within 4 weeks'])
                 @include('dashboard.includes.panel', ['id' => 'pass_pending_return', 'num' => $pass_pending_return->count(), 'total' => $pass_holders->count(), 'label' => 'Pass pending Return'])
-                @include('dashboard.includes.panel', ['id' => 'expiring_tenants_within_4_weeks', 'num' => $expiring_tenants_within_4_weeks->count(), 'total' => $companies->count(), 'label' => 'Expiring tenants within 4 weeks'])
+                @if (backpack_user()->hasAnyRole(config('backpack.cag.roles')))
+                    @include('dashboard.includes.panel', ['id' => 'expiring_tenants_within_4_weeks', 'num' => $expiring_tenants_within_4_weeks->count(), 'total' => $companies->count(), 'label' => 'Expiring tenants within 4 weeks'])
+                @endif
             </div>
         </div>
         <div class="table_listDashboard">
@@ -207,7 +209,10 @@
         newPanel(options, 'pass_holders_expireIn4Weeks', data2, ["#febf72", "#fb9e1b"], ["#febf72", "#fb9e1b"])
         var data3 = [{{ $pass_pending_return->count() }}, {{ $pass_holders->count() }}]
         newPanel(options, 'pass_pending_return', data3, ["#7cd5bf", "#00bc8c"], ["#7cd5bf", "#00bc8c"])
+        @if (backpack_user()->hasAnyRole(config('backpack.cag.roles')))
         var data4 = [{{ $expiring_tenants_within_4_weeks->count() }}, {{ $companies->count() }}]
         newPanel(options, 'expiring_tenants_within_4_weeks', data4, ["#dd8f8f", "#d75c5c"], ["#dd8f8f", "#d75c5c"])
+        @endif
+
     </script>
 @endsection
