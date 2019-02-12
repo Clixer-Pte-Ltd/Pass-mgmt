@@ -723,7 +723,6 @@ footer.footer_menuside a {
     width: 100%;
 }
 .box.dashboard.dashboardChart {
-    padding-bottom: 50px;
     padding-top: 30px;
 }
 .box.dashboard .box-header.text-center {
@@ -756,34 +755,44 @@ table.table.no-margin.table-striped.table-hover.dashboard thead tr th {
 table.table.no-margin.table-striped.table-hover.dashboard tbody tr td {
     border: none;
 }
+.chartDashboard-box {
+    padding: 25px;
+}
+
 .chartDashboard {
     border: solid 1px #ccc;
     box-shadow: 0 -2px 8px 4px #ccc;
-    padding: 25px 15px;
-    border-radius: 5px;
-    display: flex;
+    height: 190px;
+    /*padding: 5px;*/
+    /*border-radius: 5px;*/
+    /*display: flex;*/
 }
-.chartDashboard .pass_holders_active,
-.chartDashboard .pass_holders_expireIn4Weeks,
-.chartDashboard .pass_pending_return
- {
-    float: left;
-    font-size: 26px;
-    margin-top: 15%;
+.chartDashboard-lable {
+    padding: 0;
+    font-size: 1.5vw;
 }
-.chartDashboard .pass_holders_active p,
-.chartDashboard .pass_holders_expireIn4Weeks p,
-.chartDashboard .pass_pending_return p {
-    margin-bottom: 0;
+.chartDashboard-graph {
+    text-align: center;
+    padding-right: 15px !important;
+    padding-left: 0 !important;
 }
-.chartDashboard .pass_holders_active p {
+.chartDashboard-graph canvas {
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    height: 75% !important;
+}
+.chartDashboard .pass_holders_active span {
     color: #12aefb;
 }
-.chartDashboard .pass_holders_expireIn4Weeks p {
+.chartDashboard .pass_holders_expireIn4Weeks span {
     color: #fc9d25;
 }
-.chartDashboard .pass_pending_return p{
+.chartDashboard .pass_pending_return span{
     color: #01bd8b;
+}
+.chartDashboard .expiring_tenants_within_4_weeks span{
+    color: #d75c5c;
 }
  
 section.sidebar {
@@ -795,17 +804,17 @@ section.sidebar {
 /* ===== RESPONSIVE  ======= */
 /**************************/
 
-
-@media(max-width: 1199px) {
-    .chartDashboard {
-        display: inline-block;
-    }
-    .chartDashboard .pass_holders_active, .chartDashboard .pass_holders_expireIn4Weeks, .chartDashboard .pass_pending_return {
-        width: 100%;
-        text-align: center;
+@media only screen and (min-width: 1080px){
+    .chartDashboard-graph canvas {
+        width: 150% !important;
     }
 }
 
+@media only screen and (max-width: 1080px) and (min-width: 992px){
+    .chartDashboard-graph canvas {
+        width: 175% !important;
+    }
+}
 
 @media (max-width: 991px) {
     .input-group.date {

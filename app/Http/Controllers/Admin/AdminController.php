@@ -38,7 +38,10 @@ class AdminController extends Controller
         $this->data['pass_holders_active'] = $pass_holders->where('status', PASS_STATUS_VALID);
         $this->data['pass_holders_expireIn4Weeks'] = $pass_holders->where('pass_expiry_date','<=', Carbon::now()->addWeeks(4))->where('pass_expiry_date','>', Carbon::now());
         $this->data['pass_pending_return'] = $pass_holders->whereIn('status', [PASS_STATUS_BLACKLISTED, PASS_STATUS_WAITING_CONFIRM_RETURN]);
-        $this->data['expiring_tenants_within_4_weeks'] = backpack_user()->hasAnyRole(config('backpack.cag.roles')) ? Company::getAllCompaniesWithin4Weeks() : null;
+
+        $this->data['companies'] = Company::getAllCompanies();
+        $expiring_tenants_within_4_weeks = backpack_user()->hasAnyRole(config('backpack.cag.roles')) ? Company::getAllCompaniesWithin4Weeks() : null;
+        $this->data['expiring_tenants_within_4_weeks'] = $expiring_tenants_within_4_weeks;
         return view('dashboard.dashboard', $this->data);
     }
 

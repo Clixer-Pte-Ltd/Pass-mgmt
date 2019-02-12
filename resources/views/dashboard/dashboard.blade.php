@@ -34,11 +34,11 @@
                 @include('dashboard.includes.panel', ['id' => 'pass_holders_active', 'num' => $pass_holders_active->count(), 'total' => $pass_holders->count(), 'label' => 'Active Passes'])
                 @include('dashboard.includes.panel', ['id' => 'pass_holders_expireIn4Weeks', 'num' => $pass_holders_expireIn4Weeks->count(), 'total' => $pass_holders->count(), 'label' => 'Expired within 4 weeks'])
                 @include('dashboard.includes.panel', ['id' => 'pass_pending_return', 'num' => $pass_pending_return->count(), 'total' => $pass_holders->count(), 'label' => 'Pass pending Return'])
+                @include('dashboard.includes.panel', ['id' => 'expiring_tenants_within_4_weeks', 'num' => $expiring_tenants_within_4_weeks->count(), 'total' => $companies->count(), 'label' => 'Expiring tenants within 4 weeks'])
             </div>
         </div>
         <div class="table_listDashboard">
             <div class="col-md-6">
-
                 {{--Expiring Pass Within 4 Weeks--}}
                 <div class="box dashboard">
                     <div class="box-header text-center">
@@ -137,41 +137,40 @@
                 </div>
             </div>
             @if (backpack_user()->hasAnyRole(config('backpack.cag.roles')))
-            <div class="col-md-6">
-
-                {{--Expiring Company Within 4 Weeks--}}
-                <div class="box dashboard">
-                    <div class="box-header text-center">
-                        <h2>Expiring tenants within 4 weeks</h2>
-                    </div>
-                    <div class="box-body dashboard">
-                        <div class="table-responsive">
-                            <table class="table no-margin table-striped table-hover dashboard">
-                                <thead class="bg-primary">
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Uen</th>
-                                    <th>Type</th>
-                                    <th>Tenancy Start Date</th>
-                                    <th>Tenancy End Date</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($expiring_tenants_within_4_weeks as $company)
+                <div class="col-md-6">
+                    {{--Expiring Company Within 4 Weeks--}}
+                    <div class="box dashboard">
+                        <div class="box-header text-center">
+                            <h2>Expiring tenants within 4 weeks</h2>
+                        </div>
+                        <div class="box-body dashboard">
+                            <div class="table-responsive">
+                                <table class="table no-margin table-striped table-hover dashboard">
+                                    <thead class="bg-primary">
                                     <tr>
-                                        <td>{{ $company->name }}</td>
-                                        <td>{{ $company->uen }}</td>
-                                        <td>{{ getTypeAttribute(get_class($company)) }}</td>
-                                        <td>{{ custom_date_format($pass->tenancy_start_date) }}</td>
-                                        <td>{{ custom_date_format($pass->tenancy_end_date) }}</td>
+                                        <th>Name</th>
+                                        <th>Uen</th>
+                                        <th>Type</th>
+                                        <th>Tenancy Start Date</th>
+                                        <th>Tenancy End Date</th>
                                     </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($expiring_tenants_within_4_weeks as $company)
+                                        <tr>
+                                            <td>{{ $company->name }}</td>
+                                            <td>{{ $company->uen }}</td>
+                                            <td>{{ getTypeAttribute(get_class($company)) }}</td>
+                                            <td>{{ custom_date_format($company->tenancy_start_date) }}</td>
+                                            <td>{{ custom_date_format($company->tenancy_end_date) }}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             @endif
         </div>
     </div>
@@ -197,7 +196,7 @@
         }
         var options = {
             // legend: false,
-            responsive: false,
+            responsive: true,
             tooltips: {
                 enabled: false,
             }
@@ -208,5 +207,7 @@
         newPanel(options, 'pass_holders_expireIn4Weeks', data2, ["#febf72", "#fb9e1b"], ["#febf72", "#fb9e1b"])
         var data3 = [{{ $pass_pending_return->count() }}, {{ $pass_holders->count() }}]
         newPanel(options, 'pass_pending_return', data3, ["#7cd5bf", "#00bc8c"], ["#7cd5bf", "#00bc8c"])
+        var data4 = [{{ $expiring_tenants_within_4_weeks->count() }}, {{ $companies->count() }}]
+        newPanel(options, 'expiring_tenants_within_4_weeks', data4, ["#dd8f8f", "#d75c5c"], ["#dd8f8f", "#d75c5c"])
     </script>
 @endsection
