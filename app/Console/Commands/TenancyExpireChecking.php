@@ -56,10 +56,13 @@ class TenancyExpireChecking extends Command
 
     private function checkingCompany($companyType)
     {
-        $query = $companyType->whereIn('status', $this->checkingStatusCondition())
+        $query = $companyType->with('passHolders')->whereIn('status', $this->checkingStatusCondition())
                                     ->where('tenancy_end_date', '<', Carbon::now());
         $companies = $query->get();
         $query->update(['status' => COMPANY_STATUS_EXPIRED]);
+        $companies->each(function($company, $key) {
+            $company->passHolders()->update(['status' => PASS_STATUS_BLACKLISTED]);
+        });
         event(new CompanyExpired($companies));
     }
 
