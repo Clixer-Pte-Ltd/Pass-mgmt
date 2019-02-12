@@ -12,6 +12,7 @@
         "backpack/crud": "^3.5",
         "backpack/permissionmanager": "^3.12",
         "bacon/bacon-qr-code": "^1.0.3",
+        "barryvdh/laravel-dompdf": "^0.8.3",
         "barryvdh/laravel-elfinder": "^0.4.1",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.7.*",

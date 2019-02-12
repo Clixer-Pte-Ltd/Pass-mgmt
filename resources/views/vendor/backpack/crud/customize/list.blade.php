@@ -275,4 +275,15 @@
   <!-- CRUD LIST CONTENT - crud_list_scripts stack -->
   @stack('crud_list_scripts')
   @stack('crud_fields_scripts')
+
+    <!-- Export -->
+    <script>
+        $(function() {
+            $(document).on('click', ".cag_export", function (event) {
+                event.preventDefault()
+                var parameter = $(location).attr('search')
+                $(location).attr('href', $(this).attr('href') + parameter)
+            })
+        })
+    </script>s
 @endsection
