@@ -12,16 +12,16 @@ class PassHolderExpireSoonMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $passHolder;
+    public $passHolders;
     public $account;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($passHolder, $account)
+    public function __construct($passHolders, $account)
     {
-        $this->passHolder = $passHolder;
+        $this->passHolders = $passHolders;
         $this->account = $account;
     }
 
@@ -32,8 +32,6 @@ class PassHolderExpireSoonMail extends Mailable
      */
     public function build()
     {
-        $dayRest = Carbon::now()
-                    ->diffInDays(Carbon::parse($this->passHolder->pass_expiry_date));
-        return $this->view('emails.expire_soon_pass_holder', ['dayRest' => $dayRest]);
+        return $this->view('emails.expire_soon_pass_holder');
     }
 }

@@ -3,11 +3,17 @@
 
 <div>Pass holder expired</div>
 <ul>
-    <li>
-        Pass holder name: {{ $passHolder->applicant_name }}
+    @foreach($passHolders as $pass)
+        <li>
+            Pass holder name: {{ $pass->applicant_name }}
+            <br>
+            Date expire: {{ $pass->pass_expiry_date }}
+            <br>
+            Company name:  {{ $pass->company->name }}
+        </li>
         <br>
-        Date expire: {{ $passHolder->pass_expiry_date }}
-    </li>
+    @endforeach
+
 </ul>
 
 <p>Thanks.</p>

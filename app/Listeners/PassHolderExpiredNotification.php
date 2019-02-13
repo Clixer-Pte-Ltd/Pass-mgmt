@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Models\Company;
 use App\Models\Zone;
 use App\Mail\Success;
 use App\Models\BackpackUser;
@@ -10,6 +11,7 @@ use App\Mail\PassHolderExpireSoonMail;
 use App\Services\AccountService;
 use App\Services\MailService;
 use App\Events\PassHolderExpired;
+use phpDocumentor\Reflection\Types\Null_;
 
 class PassHolderExpiredNotification extends BaseListener
 {
@@ -29,7 +31,18 @@ class PassHolderExpiredNotification extends BaseListener
      * @return void
      */
     public function handle(PassHolderExpired $event)
-    { 
-        $this->handlePassHolder($event->pass_holders, 'PassHolderExpiredMail');
+    {
+        $passholders = $event->pass_holders;
+        if ($passholders) {
+            $accountService = new AccountService();
+            $mailService = new MailService('PassHolderExpiredMail', null);
+
+            //send cag admin
+            $adminsCag = $accountService->allAirportAccounts();
+            $mailService->sendMailToMutilAccounts(null, $passholders, null, $adminsCag);
+
+            //send company admin
+            $mailService->sendMailListPassHoldersToAdminCompany($passholders);
+        }
     }
 }
