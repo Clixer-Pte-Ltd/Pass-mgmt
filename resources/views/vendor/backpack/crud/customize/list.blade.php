@@ -285,5 +285,5 @@
                 $(location).attr('href', $(this).attr('href') + parameter)
             })
         })
-    </script>s
+    </script>
 @endsection

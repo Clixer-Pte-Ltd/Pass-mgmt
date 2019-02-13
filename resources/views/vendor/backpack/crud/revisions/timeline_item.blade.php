@@ -22,7 +22,7 @@
     <div class="timeline-item"  id="timeline-created">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            <span href="#"> {{ $history->causer->name }} </span>
+            <span href="#"> {{ @$history->causer->name }} </span>
             {{ $history->description }}
             <span href="#"> {{ getTypeAttribute($history->subject_type) }} </span>
         </h3>
@@ -31,7 +31,7 @@
                 @php
                     $dataHistory = $history->changes->toArray();
                 @endphp
-                {{ $history->causer->name }} created new {{ getTypeAttribute($history->subject_type) }} with detail: <br>
+                {{ @$history->causer->name }} created new {{ getTypeAttribute($history->subject_type) }} with detail: <br>
 
                 @foreach(array_keys($dataHistory['attributes']) as $key)
                     <b>{{ $key }}</b>:&emsp; {{ $dataHistory['attributes'][$key] }}
@@ -55,7 +55,7 @@
 <div class="timeline-item" id="timeline-updated">
     <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
     <h3 class="timeline-header">
-        <span href="#"> {{ $history->causer->name }} </span>
+        <span href="#"> {{ @$history->causer->name }} </span>
         {{ $history->description }}
         <span href="#"> {{ getTypeAttribute($history->subject_type) }} </span>
         with id:
@@ -82,7 +82,7 @@
     <div class="timeline-item"  id="timeline-deleted">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            <span href="#"> {{ $history->causer->name }} </span>
+            <span href="#"> {{ @$history->causer->name }} </span>
             {{ $history->description }}
             <span href="#"> {{ getTypeAttribute($history->subject_type) }} </span>
             with id:
@@ -103,7 +103,7 @@
     <div class="timeline-item"  id="timeline-added-account">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            <span href="#"> {{ $history->causer->name }} </span>
+            <span href="#"> {{ @$history->causer->name }} </span>
             added account 
             with id:
             {{ $history->subject_id }}

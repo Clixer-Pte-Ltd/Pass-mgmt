@@ -69,6 +69,11 @@ class Company extends Model
     {
         return $this->morphTo(null, 'type', 'uen', 'uen');
     }
+
+    public function accounts()
+    {
+        return $this->companyable->accounts;
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES

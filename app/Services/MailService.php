@@ -4,6 +4,7 @@ namespace App\Services;
 use App\Jobs\ProcessSendMail;
 use Illuminate\Support\Collection;
 use App\Services\AccountService;
+use App\Models\Company;
 
 class MailService
 {
@@ -60,5 +61,20 @@ class MailService
         foreach ($accounts as $account) {
             ProcessSendMail::dispatch($account->email, new $this->mailForm ($objectContent, $account, $extraData, $content));
         }
+    }
+
+    public function sendMailListPassHoldersToAdminCompany($passholders)
+    {
+        $passholders->pluck('company_uen')->unique()->each(function($uen, $key) use ($passholders) {
+            $company = Company::where('uen', $uen)->first();
+            if ($company) {
+                $passHoldersCompany = $passholders->filter(function ($pass, $key) use ($company) {
+                    return $pass->company_uen == $company->uen;
+                });
+                if ($passHoldersCompany) {
+                    $this->sendMailToMutilAccounts(null, $passHoldersCompany, null, $company->accounts());
+                }
+            }
+        });
     }
 }

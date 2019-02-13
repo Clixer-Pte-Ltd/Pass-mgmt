@@ -10,16 +10,16 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class PassHolderExpiredMail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $passHolder;
+    public $passHolders;
     public $account;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($passHolder, $account)
+    public function __construct($passHolders, $account)
     {
-        $this->passHolder = $passHolder;
+        $this->passHolders = $passHolders;
         $this->account = $account;
     }
 
