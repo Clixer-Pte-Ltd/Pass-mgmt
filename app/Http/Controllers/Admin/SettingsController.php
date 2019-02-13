@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SmtpRequest;
 use App\Http\Requests\RetentationRateRevisionRequest;
 use Illuminate\Http\Request;
+use App\Models\Setting;
 
 class SettingsController extends Controller
 {
@@ -47,6 +48,20 @@ class SettingsController extends Controller
         updateSetting(REVISION_UPDATED, $request->has(REVISION_UPDATED) ? $request->get(REVISION_UPDATED) : 0);
         updateSetting(REVISION_DELETED, $request->has(REVISION_DELETED) ? $request->get(REVISION_DELETED) : 0);
         updateSetting(REVISION_CREATED, $request->has(REVISION_CREATED) ? $request->get(REVISION_CREATED) : 0);
+        \Alert::success('Update successful.')->flash();
+        \Artisan::call('config:cache');
+        return redirect()->back();
+    }
+
+    public function frequencyEmail()
+    {
+        return view('crud::settings.frequency-email');
+    }
+
+    public function updateExpiringPassHolderAlert(Request $request)
+    {
+        $timeCron = Setting::getCronTime($request->get('type-cron'), $request->all());
+        updateSetting(FREQUENCY_EXPIRING_PASS_EMAIL, $timeCron);
         \Alert::success('Update successful.')->flash();
         \Artisan::call('config:cache');
         return redirect()->back();

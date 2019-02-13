@@ -68,6 +68,7 @@
         <a href="#"><i class="fa fa-envelope"></i> <span>Email</span> <i class="fa fa-angle-left pull-right"></i></a>
         <ul class="treeview-menu">
             <li><a href="{{ backpack_url('settings/smtp') }}"><i class="fa fa-comments"></i> <span>SMTP Server</span></a></li>
+            <li><a href="{{ backpack_url('settings/frequency-email') }}"><i class="fa fa-refresh"></i> <span>Frequency Send</span></a></li>
         </ul>
     </li>
 @endif
