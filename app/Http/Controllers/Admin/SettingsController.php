@@ -76,4 +76,13 @@ class SettingsController extends Controller
         \Artisan::call('config:cache');
         return redirect()->back();
     }
+
+    public function updateRenewPassHolderAlert(Request $request)
+    {
+        $timeCron = Setting::getCronTime($request->get('type-cron'), $request->all());
+        updateSetting(FREQUENCY_RENEWED_PASS_EMAIL, $timeCron);
+        \Alert::success('Update successful.')->flash();
+        \Artisan::call('config:cache');
+        return redirect()->back();
+    }
 }

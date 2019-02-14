@@ -32,7 +32,8 @@
             <div class="col-md-12">
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#expiring-pass-holder-alert">Expiring Pass Holder Alert</a></li>
-                    <li><a data-toggle="tab" href="#terminated-pass-alert">Blacklisted Pass Alert</a></li>
+                    <li><a data-toggle="tab" href="#blacklisted-pass-alert">Blacklisted Pass Alert</a>
+                    <li><a data-toggle="tab" href="#renew-pass-alert ">Renew Pass Alert </a></li>
                     <li><a data-toggle="tab" href="#terminated-pass-alert">Terminated Pass Alert</a></li>
                 </ul>
 
@@ -42,6 +43,9 @@
                     </div><!-- /.box -->
                     <div id="blacklisted-pass-alert" class="tab-pane fade">
                         @include('vendor.backpack.crud.settings.cron_setting_form', ['route' => route('admin.setting.frequency-email.expiring-pass-holder-alert'), 'type' => 'blacklisted-pass-alert'])
+                    </div><!-- /.box -->
+                    <div id="renew-pass-alert" class="tab-pane fade">
+                        @include('vendor.backpack.crud.settings.cron_setting_form', ['route' => route('admin.setting.frequency-email.renew-pass-holder-alert'), 'type' => 'renew-pass-alert'])
                     </div><!-- /.box -->
                     <div id="terminated-pass-alert" class="tab-pane fade">
                         @include('vendor.backpack.crud.settings.cron_setting_form', ['route' => route('admin.setting.frequency-email.terminated-pass-alert'), 'type' => 'terminated-pass-alert'])
