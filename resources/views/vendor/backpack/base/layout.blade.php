@@ -31,7 +31,8 @@
 
         <!-- Main content -->
         <section class="content">
-          @yield('content')
+            @include('backpack::inc.notifications_content')
+            @yield('content')
 
         </section>
         <!-- /.content -->
