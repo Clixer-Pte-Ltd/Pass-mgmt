@@ -42,16 +42,11 @@ class CheckChangePassword extends Command
     {
         $changePasswordNo = Notification::getByName(CHANGE_PASSWORD_NOTIFICATION);
         if ($changePasswordNo) {
-            Notification::create(['name' => CHANGE_PASSWORD_NOTIFICATION, 'content' => 'Please change password',
-                'start_nofify_at' => Carbon::now(), 'end_notify_at' => Carbon::now()->addDay(),
-                'type' => NOTIFICATION_SYSTEM, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()
-            ]);
-            $changePasswordNo = Notification::getByName(CHANGE_PASSWORD_NOTIFICATION);
+            BackpackUser::all()->each(function($user, $index) use ($changePasswordNo) {
+                if (! $user->notifications->contains($changePasswordNo) && $user->last_modify_password_at->lt(Carbon::now()->subMonths(3))) {
+                    $user->notifications()->attach($changePasswordNo->id);
+                }
+            });
         }
-        BackpackUser::all()->each(function($user, $index) use ($changePasswordNo) {
-            if (! $user->notifications->contains($changePasswordNo)) {
-                $user->notifications()->attach($changePasswordNo->id);
-            }
-        });
     }
 }
