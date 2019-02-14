@@ -98,6 +98,7 @@ Route::group([
         Route::get('settings/frequency-email', 'SettingsController@frequencyEmail')->name('admin.setting.frequency-email');
         Route::post('settings/frequency-email/expiring-pass-holder-alert', 'SettingsController@updateExpiringPassHolderAlert')->name('admin.setting.frequency-email.expiring-pass-holder-alert');
         Route::post('settings/frequency-email/terminated-pass-alert', 'SettingsController@updateTerminatedPassAlert')->name('admin.setting.frequency-email.terminated-pass-alert');
+        Route::post('settings/frequency-email/renew-pass-holder-alert', 'SettingsController@updateRenewPassHolderAlert')->name('admin.setting.frequency-email.renew-pass-holder-alert');
     });
 
     Route::group(['middleware' => ['role:' . implodeCag(config('backpack.cag.roles'))]], function () {
