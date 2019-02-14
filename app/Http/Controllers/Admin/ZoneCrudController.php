@@ -25,6 +25,12 @@ class ZoneCrudController extends CrudController
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/zone');
         $this->crud->setEntityNameStrings('Zone', 'Zones');
 
+        $this->crud->addFilter([ // simple filter
+            'type' => 'text',
+            'name' => 'name',
+            'label'=> 'Name'
+        ]);
+
         /*
         |--------------------------------------------------------------------------
         | CrudPanel Configuration
