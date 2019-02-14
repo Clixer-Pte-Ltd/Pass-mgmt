@@ -18,7 +18,6 @@ class RemindChangePasswordSeeder extends Seeder
 
         \DB::table('notifications')->truncate();
         $data = [['name' => 'change password', 'content' => 'Please change password',
-                'start_notify_at' => Carbon::now(), 'end_notify_at' => Carbon::now(),
                 'type' => NOTIFICATION_SYSTEM, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()
                 ],
         ];

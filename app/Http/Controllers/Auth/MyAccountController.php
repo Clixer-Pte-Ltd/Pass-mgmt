@@ -17,9 +17,8 @@ class MyAccountController extends BaseMyAccountController
     {
         $user = $this->guard()->user();
         $user->password = $request->new_password;
-        $changePasswordNo = Notification::getByName(CHANGE_PASSWORD_NOTIFICATION);
-        $user->notifications()->detach($changePasswordNo->id);
-        $user->update(['last_modify_password_at', Carbon::now()]);
+        $user->detachNotification(CHANGE_PASSWORD_NOTIFICATION);
+        $user->update(['last_modify_password_at' => Carbon::now()]);
         if ($user->save()) {
             \Alert::success(trans('backpack::base.account_updated'))->flash();
         } else {

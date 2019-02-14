@@ -7,6 +7,7 @@ use Backpack\Base\app\Notifications\ResetPasswordNotification as ResetPasswordNo
 use Tightenco\Parental\HasParentModel;
 use App\Traits\LogsActivity;
 use Carbon\Carbon;
+use App\Models\Notification;
 
 class BackpackUser extends User
 {
@@ -55,9 +56,13 @@ class BackpackUser extends User
     
     public function getNotifications($type)
     {
-        return $this->notifications->where('start_notify_at', '<', Carbon::now())
-            ->where('end_notify_at', '>', Carbon::now())
-            ->where('type', $type);
+        return $this->notifications->where('type', $type);
+    }
+
+    public function detachNotification($name)
+    {
+        $notification = Notification::getByName($name);
+        return $notification ? $this->notifications()->detach($notification->id) : false;
     }
     /*
     |--------------------------------------------------------------------------

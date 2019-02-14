@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Permission;
 
+use App\Models\BackpackUser;
 use Backpack\PermissionManager\app\Http\Controllers\UserCrudController as BaseUserCrudController;
 use Backpack\PermissionManager\app\Http\Requests\UserStoreCrudRequest as StoreRequest;
 use Backpack\PermissionManager\app\Http\Requests\UserUpdateCrudRequest as UpdateRequest;
@@ -112,6 +113,7 @@ class UserCrudController extends BaseUserCrudController
         $this->handlePasswordInput($request);
         if ($request->has('password')) {
             $request->request->add(['last_modify_password_at' => Carbon::now()]);
+            BackpackUser::find($request->get('id'))->detachNotification(CHANGE_PASSWORD_NOTIFICATION);
         }
 
         return parent::updateCrud($request);
