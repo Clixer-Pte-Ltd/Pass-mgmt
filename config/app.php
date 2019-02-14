@@ -175,6 +175,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\CustomMailServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        App\Providers\CustomViewServiceProvider::class
     ],
 
     /*

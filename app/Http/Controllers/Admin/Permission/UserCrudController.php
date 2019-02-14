@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin\Permission;
 
 use Backpack\PermissionManager\app\Http\Controllers\UserCrudController as BaseUserCrudController;
 use Backpack\PermissionManager\app\Http\Requests\UserStoreCrudRequest as StoreRequest;
+use Backpack\PermissionManager\app\Http\Requests\UserUpdateCrudRequest as UpdateRequest;
 use App\Models\Role;
 use App\User;
+use Carbon\Carbon;
 
 class UserCrudController extends BaseUserCrudController
 {
@@ -68,6 +70,7 @@ class UserCrudController extends BaseUserCrudController
 
     public function store(StoreRequest $request)
     {
+        $request->request->add(['last_modify_password_at' => Carbon::now()]);
         // your additional operations before save here
         $redirect_location = parent::storeCrud($request);
         // your additional operations after save here
@@ -102,5 +105,15 @@ class UserCrudController extends BaseUserCrudController
 
         // Pass the QR barcode image to our view
         return view('google2fa.register', ['QR_Image' => $QR_Image, 'secret' => $registration_data['google2fa_secret']]);
+    }
+
+    public function update(UpdateRequest $request)
+    {
+        $this->handlePasswordInput($request);
+        if ($request->has('password')) {
+            $request->request->add(['last_modify_password_at' => Carbon::now()]);
+        }
+
+        return parent::updateCrud($request);
     }
 }

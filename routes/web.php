@@ -42,6 +42,9 @@ Route::group(
             Route::get('dashboard', 'Admin\AdminController@dashboard')->name('backpack.dashboard');
             Route::get('/', 'Admin\AdminController@redirect')->name('backpack');
         }
+
+        //Change Password
+        Route::post('user/change-password', 'Auth\MyAccountController@postChangePasswordForm')->name('backpack.auth.account.password');
     }
 );
 

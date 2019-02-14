@@ -1,7 +1,5 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: hm
- * Date: 14/02/2019
- * Time: 09:38
- */
+@if ($notificationsSystem->count())
+    @foreach($notificationsSystem as $notificaton)
+        <div style="background: red; color: #ffffff; border-radius: 5px; padding: 5px">{{ $notificaton->content }}</div>
+    @endforeach
+@endif
