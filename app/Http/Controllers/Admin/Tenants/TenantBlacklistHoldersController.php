@@ -46,6 +46,19 @@ class TenantBlacklistHoldersController extends BaseTenantPassHolderCrudControlle
             function($value) {
                 $this->crud->addClause('where', 'pass_expiry_date', $value);
             });
+
+        $this->crud->addFilter([ // simple filter
+            'type' => 'text',
+            'name' => 'applicant_name',
+            'label'=> 'Applicant Name'
+        ]);
+
+        $this->crud->addFilter([ // simple filter
+            'type' => 'text',
+            'name' => 'nric',
+            'label'=> 'Nric'
+        ]);
+
     }
 
     public function index()

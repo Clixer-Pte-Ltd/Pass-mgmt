@@ -16,7 +16,7 @@ class CustomViewServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer('*', function ($view) {
-            $view->with('notificationsSystem', backpack_user()->getNotifications(NOTIFICATION_SYSTEM));
+            $view->with('notificationsSystem', backpack_user() ? backpack_user()->getNotifications(NOTIFICATION_SYSTEM) : collect([]));
         });
     }
 
