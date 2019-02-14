@@ -6,6 +6,7 @@ use App\User;
 use Backpack\Base\app\Notifications\ResetPasswordNotification as ResetPasswordNotification;
 use Tightenco\Parental\HasParentModel;
 use App\Traits\LogsActivity;
+use Carbon\Carbon;
 
 class BackpackUser extends User
 {
@@ -51,6 +52,13 @@ class BackpackUser extends User
         $company = $this->hasCompany() && $this->tenant? $this->tenant : $this->subConstructor;
         return isset($company) ? $company : null;
     }
+    
+    public function getNotifications($type)
+    {
+        return $this->notifications->where('start_notify_at', '<', Carbon::now())
+            ->where('end_notify_at', '>', Carbon::now())
+            ->where('type', $type);
+    }
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
@@ -69,6 +77,11 @@ class BackpackUser extends User
     public function activityLogs()
     {
         return $this->morphMany('Spatie\Activitylog\Models\Activity', 'causer');
+    }
+
+    public function notifications()
+    {
+        return $this->belongsToMany(Notification::class, 'user_notification');
     }
     /*
     |--------------------------------------------------------------------------
