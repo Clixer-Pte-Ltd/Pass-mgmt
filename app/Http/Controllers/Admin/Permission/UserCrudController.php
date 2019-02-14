@@ -9,6 +9,7 @@ use Backpack\PermissionManager\app\Http\Requests\UserUpdateCrudRequest as Update
 use App\Models\Role;
 use App\User;
 use Carbon\Carbon;
+use App\Models\Company;
 
 class UserCrudController extends BaseUserCrudController
 {
@@ -64,6 +65,50 @@ class UserCrudController extends BaseUserCrudController
                 'value' => backpack_user()->getCompany()->id
             ]);
         }
+
+        $this->crud->addFilter([ // simple filter
+            'type' => 'text',
+            'name' => 'name',
+            'label'=> 'Name'
+        ]);
+
+        $this->crud->addFilter([ // simple filter
+            'type' => 'text',
+            'name' => 'email',
+            'label'=> 'Email'
+        ]);
+
+        $roles = backpack_user()->hasAnyRole(config('backpack.cag.roles')) ?
+            Role::pluck('name', 'id')->toArray() :
+            Role::whereIn('name', config('backpack.company.roles'))->pluck('name', 'id')->toArray();
+        $this->crud->addFilter([ // dropdown filter
+            'name' => 'roles',
+            'type' => 'dropdown',
+            'label'=> 'Roles'
+        ], $roles, function($value) {
+            $usersId = BackpackUser::whereHas('roles', function ($query) use ($value) {
+                $query->where('id', $value);
+            })->pluck('id')->toArray();
+            $this->crud->addClause('whereIn', 'id', $usersId);
+        });
+
+        if (backpack_user()->hasAnyRole(config('backpack.cag.roles'))) {
+            $companiesName = Company::getAllCompanies()->pluck('name', 'uen')->toArray();
+            $this->crud->addFilter([ // dropdown filter
+                'name' => 'uen',
+                'type' => 'dropdown',
+                'label'=> 'Company'
+            ], $companiesName, function($value) {
+                $usersId = Company::where('uen', $value)->first()->accounts()->pluck('id')->toArray();
+                $this->crud->addClause('whereIn', 'id', $usersId);
+            });
+        }
+
+        $this->crud->addFilter([ // simple filter
+            'type' => 'text',
+            'name' => 'phone',
+            'label'=> 'Phone'
+        ]);
         $this->crud->setListView('crud::customize.list');
         $this->crud->removeButtonFromStack('create', 'top');
         $this->crud->addButtonFromView('line', 'show_config_2fa', 'show_config_2fa', 'end');
