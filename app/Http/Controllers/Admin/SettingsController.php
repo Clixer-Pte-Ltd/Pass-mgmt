@@ -62,6 +62,7 @@ class SettingsController extends Controller
     {
         $timeCron = Setting::getCronTime($request->get('type-cron'), $request->all());
         updateSetting(FREQUENCY_EXPIRING_PASS_EMAIL, $timeCron);
+        updateSetting(FREQUENCY_BLACKLISTED_PASS_EMAIL, $timeCron);
         \Alert::success('Update successful.')->flash();
         \Artisan::call('config:cache');
         return redirect()->back();
