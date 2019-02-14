@@ -21,7 +21,7 @@ class Notification extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     // protected $guarded = ['id'];
-    protected $fillable = ['name', 'content', 'start_notify_at', 'end_notify_at', 'type'];
+    protected $fillable = ['name', 'content', 'type'];
     // protected $hidden = [];
     // protected $dates = [];
 

@@ -17,8 +17,6 @@ class CreateNotificationsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('content');
-            $table->dateTime('start_notify_at')->default('2019-01-01 00:00:00');
-            $table->dateTime('end_notify_at')->default('2019-01-01 00:00:00');
             $table->unsignedInteger('type')->default(NOTIFICATION_SYSTEM)->comment(NOTIFICATION_SYSTEM . ': system notification ');
             $table->timestamps();
         });
