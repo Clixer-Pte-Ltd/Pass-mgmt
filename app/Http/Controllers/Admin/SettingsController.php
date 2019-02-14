@@ -66,4 +66,13 @@ class SettingsController extends Controller
         \Artisan::call('config:cache');
         return redirect()->back();
     }
+
+    public function updateTerminatedPassAlert(Request $request)
+    {
+        $timeCron = Setting::getCronTime($request->get('type-cron'), $request->all());
+        updateSetting(FREQUENCY_TERMINATED_PASS_EMAIL, $timeCron);
+        \Alert::success('Update successful.')->flash();
+        \Artisan::call('config:cache');
+        return redirect()->back();
+    }
 }
