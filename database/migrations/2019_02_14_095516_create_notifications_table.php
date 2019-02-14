@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateNotificationsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('notifications', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('content');
+            $table->dateTime('start_notify_at')->default('2019-01-01 00:00:00');
+            $table->dateTime('end_notify_at')->default('2019-01-01 00:00:00');
+            $table->unsignedInteger('type')->default(NOTIFICATION_SYSTEM)->comment(NOTIFICATION_SYSTEM . ': system notification ');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('notifications');
+    }
+}
