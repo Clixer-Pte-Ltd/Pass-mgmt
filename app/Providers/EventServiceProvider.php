@@ -37,6 +37,8 @@ use App\Events\MailWasSentBiAnnual;
 use App\Listeners\MailWasSentBiAnnualNotification;
 use App\Events\PassHolderValidDaily;
 use App\Listeners\PassHolderValidDailyNotification;
+use App\Events\PassHolderListPendingReturn;
+use App\Listeners\PassHolderListPendingReturnNotification;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -94,6 +96,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         PassHolderValidDaily::class => [
             PassHolderValidDailyNotification::class
+        ],
+        PassHolderListPendingReturn::class => [
+            PassHolderListPendingReturnNotification::class
         ]
     ];
 

@@ -34,6 +34,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('cag:pass_holder:checking_returned_5_year')->dailyAt('00:00'); //xoa pass holder returned 5 nam
         $schedule->command('cag:mail:send_bi_annual_mail')->cron('0 1 * 1,6 *'); //gui email hang ngay
         $schedule->command('cag:pass_holder:valid_daily')->dailyAt('08:00'); // gui list valid pass holder
+        $schedule->command('cag:pass_holder:list_pending_return')->cron(getSettingValueByKey(FREQUENCY_TERMINATED_PASS_EMAIL)); // gui list pedding return pass holder
+
     }
 
     /**
