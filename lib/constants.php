@@ -63,3 +63,10 @@ define('FREQUENCY_EXPIRING_PASS_EMAIL', 'Frequency expiring pass email nofiticat
 define('FREQUENCY_BLACKLISTED_PASS_EMAIL', 'Frequency blacklisted pass email nofitication'); //when blackisted pass
 define('FREQUENCY_RENEWED_PASS_EMAIL', 'Frequency renewed pass email nofitication'); //when renewed pass
 define('FREQUENCY_TERMINATED_PASS_EMAIL', 'Frequency terminated pass email nofitication'); //when  PASS_STATUS_WAITING_CONFIRM_RETURN pass
+
+
+//notificaitons type
+define('NOTIFICATION_SYSTEM', 0);
+
+//notification name
+define('CHANGE_PASSWORD_NOTIFICATION', 'change password');

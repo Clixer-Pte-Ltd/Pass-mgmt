@@ -35,7 +35,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('cag:mail:send_bi_annual_mail')->cron('0 1 * 1,6 *'); //gui email hang ngay
         $schedule->command('cag:pass_holder:valid_daily')->cron(getSettingValueByKey(FREQUENCY_RENEWED_PASS_EMAIL)); // gui list valid pass holder
         $schedule->command('cag:pass_holder:list_pending_return')->cron(getSettingValueByKey(FREQUENCY_TERMINATED_PASS_EMAIL)); // gui list pedding return pass holder
-
+        $schedule->command('cag:user_check_change_password')->cron('0 0 01 */3 *'); // add notificaion change password
     }
 
     /**
