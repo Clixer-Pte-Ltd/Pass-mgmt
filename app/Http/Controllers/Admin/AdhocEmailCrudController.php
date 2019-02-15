@@ -99,7 +99,9 @@ class AdhocEmailCrudController extends CrudController
             'type' => 'text',
             'name' => 'body',
             'label'=> 'Message'
-        ]);
+        ], false, function($value) {
+             $this->crud->addClause('where', 'body', 'LIKE', "%" . strip_tags($value) . "%");
+        });
 
 
         //filter
