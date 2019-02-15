@@ -89,6 +89,32 @@ class AdhocEmailCrudController extends CrudController
             'label' => 'Message'
         ]);
 
+        $this->crud->addFilter([ // simple filter
+            'type' => 'text',
+            'name' => 'subject',
+            'label'=> 'Subject'
+        ]);
+
+        $this->crud->addFilter([ // simple filter
+            'type' => 'text',
+            'name' => 'body',
+            'label'=> 'Message'
+        ]);
+
+
+        //filter
+        $this->crud->addFilter([ // daterange filter
+            'type' => 'date_range',
+            'name' => 'created_at',
+            'label'=> 'Sent On'
+        ],
+            false,
+            function ($value) {
+                $dates = json_decode($value);
+                $this->crud->addClause('where', 'created_at', '>=', $dates->from);
+                $this->crud->addClause('where', 'created_at', '<=', $dates->to . ' 23:59:59');
+            });
+
         // add asterisk for fields that are required in AdhocEmailRequest
         $this->crud->setRequiredFields(StoreRequest::class, 'create');
         $this->crud->setRequiredFields(UpdateRequest::class, 'edit');

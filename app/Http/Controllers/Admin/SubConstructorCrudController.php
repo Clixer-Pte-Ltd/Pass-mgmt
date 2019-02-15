@@ -152,6 +152,18 @@ class SubConstructorCrudController extends CrudController
             function($value) {
                 $this->crud->addClause('where', 'tenancy_end_date', $value);
             });
+
+        $this->crud->addFilter([ // simple filter
+            'type' => 'text',
+            'name' => 'name',
+            'label'=> 'Name'
+        ]);
+
+        $this->crud->addFilter([ // simple filter
+            'type' => 'text',
+            'name' => 'uen',
+            'label'=> 'Uen'
+        ]);
     }
 
     public function index()

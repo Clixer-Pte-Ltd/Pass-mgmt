@@ -88,6 +88,30 @@ class ExpiredCompanyCrudController extends CrudController
             function($value) {
                 $this->crud->addClause('where', 'tenancy_end_date', $value);
             });
+
+        $this->crud->addFilter([ // simple filter
+            'type' => 'text',
+            'name' => 'name',
+            'label'=> 'Name'
+        ]);
+
+        $this->crud->addFilter([ // simple filter
+            'type' => 'text',
+            'name' => 'uen',
+            'label'=> 'Uen'
+        ]);
+
+        $this->crud->addFilter([ // custom filter view
+            'name' => 'type',
+            'type' => 'view',
+            'view' => 'vendor.backpack.crud.filters.radio', // or path to blade file
+            'label'=> 'Type',
+        ], [
+            'Tenant' => 'App\Models\Tenant',
+            'SubConstructor' => 'App\Models\SubConstructor'
+        ], function($value) {
+            $this->crud->addClause('where', 'type', $value);
+        });
     }
 
     public function index()

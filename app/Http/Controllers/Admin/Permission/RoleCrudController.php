@@ -18,6 +18,13 @@ class RoleCrudController extends BaseRoleCrudController
     public function setup()
     {
         parent::setup();
+
+        $this->crud->addFilter([ // simple filter
+            'type' => 'text',
+            'name' => 'name',
+            'label'=> 'Name'
+        ]);
+
         $this->crud->removeColumn('permissions');
         $this->crud->removeField('permissions');
         $this->crud->setListView('crud::customize.list');

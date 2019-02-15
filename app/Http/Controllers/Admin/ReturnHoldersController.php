@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Company;
+
 class ReturnHoldersController extends BasePassHolderCrudController
 {
     public function setup()
@@ -35,6 +37,27 @@ class ReturnHoldersController extends BasePassHolderCrudController
             function($value) {
                 $this->crud->addClause('where', 'pass_expiry_date', $value);
             });
+
+        $this->crud->addFilter([ // simple filter
+            'type' => 'text',
+            'name' => 'applicant_name',
+            'label'=> 'Applicant Name'
+        ]);
+
+        $this->crud->addFilter([ // simple filter
+            'type' => 'text',
+            'name' => 'nric',
+            'label'=> 'Nric'
+        ]);
+
+        if (backpack_user()->hasAnyRole(config('backpack.cag.roles'))) {
+            $companiesName = Company::getAllCompanies()->pluck('name', 'uen')->toArray();
+            $this->crud->addFilter([ // dropdown filter
+                'name' => 'company_uen',
+                'type' => 'dropdown',
+                'label'=> 'Company'
+            ], $companiesName);
+        }
     }
 
     public function index()
