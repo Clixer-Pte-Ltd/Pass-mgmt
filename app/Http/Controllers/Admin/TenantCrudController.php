@@ -101,6 +101,7 @@ class TenantCrudController extends CrudController
         $this->crud->setEditView('crud::tenant.edit');
         $this->crud->setListView('crud::customize.list');
         $this->crud->removeButtonFromStack('create', 'top');
+        $this->crud->addButtonFromView('line', 'show', 'manage', 'beginning');
 
         //filter
         $this->crud->addFilter(

@@ -36,6 +36,7 @@ class SubConstructorCrudController extends CrudController
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/sub-constructor');
         $this->crud->setEntityNameStrings('Sub Constructor', 'Sub Constructors');
         $this->crud->allowAccess('show');
+        $this->crud->addButtonFromView('line', 'show', 'manage', 'beginning');
 
         /*
         |--------------------------------------------------------------------------
