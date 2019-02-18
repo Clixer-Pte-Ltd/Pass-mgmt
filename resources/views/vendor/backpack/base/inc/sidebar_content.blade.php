@@ -58,12 +58,12 @@
 @endif
 
 {{-------------------revisions-----------------------}}
-<li><a href="{{ backpack_url('revisions/list') }}"><i class="fa fa-sticky-note-o"></i> <span>Revisions</span></a></li>
+<li><a href="{{ backpack_url('revisions/list') }}"><i class="fa fa-sticky-note-o"></i> <span>Audit Logs</span></a></li>
 
 {{-------------------setting-----------------------}}
 @if(auth()->user()->hasAnyRole([CAG_ADMIN_ROLE]))
     <li class="header text-center">SETTING</li>
-    <li><a href="{{ backpack_url('settings/revisions') }}"><i class="fa fa-asterisk"></i> <span>Revisions Setting</span></a></li>
+    <li><a href="{{ backpack_url('settings/revisions') }}"><i class="fa fa-asterisk"></i> <span>Audit Logs Setting</span></a></li>
     <li class="treeview">
         <a href="#"><i class="fa fa-envelope"></i> <span>Email</span> <i class="fa fa-angle-left pull-right"></i></a>
         <ul class="treeview-menu">
