@@ -30,6 +30,9 @@
     @case('Send Mail Company Expire Soon')
         <i class="fa fa-mail-forward icon_timeline" id="icon_timeline_send_company_expire_soon" style="color: #ffffff; background-color: #b427e6"></i>
     @break
+    @case('Send Mail Company Need Validate Mail')
+        <i class="fa fa-mail-forward icon_timeline" id="icon_timeline_send_company_need_validate" style="color: #ffffff; background-color: #b427e6"></i>
+    @break
     @default
         <i class="fa fa-calendar bg-default icon_timeline" id="icon_timeline_default" style="color: #ffffff; background-color: #dc3545"></i>
 @endswitch
@@ -254,6 +257,24 @@
     </div>
 @endif
 
+{{--send mail company need validate mail--}}
+@if ($history->description == 'Send Mail Company Need Validate Mail')
+    <div class="timeline-item"  id="timeline-send-mail-bi-annual">
+        <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
+        <h3 class="timeline-header">
+            @php
+                $dataHistory = $history->properties->toArray();
+            @endphp
+            System sended mail to <b>{{ @$history->subject->name }}</b> notify company <b>{{ $dataHistory['name'] }}</b> need validate
+        </h3>
+        <div style="padding: 10px">
+            <div class="timeline-body p-b-0">
+
+            </div>
+        </div>
+    </div>
+@endif
+
 @section('after_styles')
     <style>
         i.icon_timeline:after{
@@ -297,7 +318,7 @@
         /* mail */
         #icon_timeline_send_account_infor_mail::after,#icon_timeline_send_adhoc_mail::after
         ,#icon_timeline_send_bi_anual::after, #icon_timeline_companies_list_not_validate::after,#icon_timeline_send_company_expired::after
-        ,#icon_timeline_send_company_expire_soon::after
+        ,#icon_timeline_send_company_expire_soon::after, #icon_timeline_send_company_need_validate::after
         {
             border-left: 60px solid #b427e6;
         }
