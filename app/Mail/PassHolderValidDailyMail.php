@@ -32,6 +32,7 @@ class PassHolderValidDailyMail extends Mailable
      */
     public function build()
     {
+        app('logService')->logAction($this->account, null, $this->passHolders, 'Pass Holder Valid Daily Mail');
         return $this->markdown('emails.valid_pass_holders_daily');
     }
 }
