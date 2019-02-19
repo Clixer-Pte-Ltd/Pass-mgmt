@@ -34,6 +34,7 @@ class CompanyNeedValidateMail extends Mailable
         $link = ($this->company instanceof Tenant) ?
             route('admin.tenant.validate-company',['id' => $this->company->id]) :
             route('admin.sub-constructor.validate-company', ['id' => $this->company->id]);
+        app('logService')->logAction($this->account, null, $this->company->toArray(), 'Send Mail Company Need Validate Mail');
         return $this->view('emails.validate_company', ['link' => $link]);
     }
 }
