@@ -5,6 +5,8 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use App\Services\LogService;
+use App\Models\BackpackUser;
 
 class AccountInfo extends Mailable
 {
@@ -30,6 +32,7 @@ class AccountInfo extends Mailable
      */
     public function build()
     {
+        app('logService')->logAction($this->account, null, $this->account->toArray(), 'Send Mail Account Info');
         return $this->view('emails.account_info');
     }
 }

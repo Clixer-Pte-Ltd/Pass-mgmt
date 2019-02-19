@@ -38,6 +38,10 @@ class User extends Authenticatable
         $this->attributes['google2fa_secret'] = encrypt($value);
     }
 
+    protected $dispatchesEvents = [
+        'created' => UserCreated::class,
+    ];
+
     public function getGoogle2faSecretAttribute($value)
     {
         if (!$value) {

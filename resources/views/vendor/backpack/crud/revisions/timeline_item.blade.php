@@ -12,6 +12,9 @@
     @case('added-account')
         <i class="fa fa-address-book-o icon_timeline" id="icon_timeline_added-account" style="color: #ffffff; background-color: #dc3545"></i>
     @break
+    @case('Send Mail Account Info')
+        <i class="fa fa-plus-square icon_timeline" id="icon_timeline_send_account_infor_mail" style="color: #ffffff; background-color: #28a745"></i>
+    @break
     @default
         <i class="fa fa-calendar bg-default icon_timeline" id="icon_timeline_default" style="color: #ffffff; background-color: #dc3545"></i>
 @endswitch
@@ -120,6 +123,27 @@
     </div>
 @endif
 
+{{--account infor mail--}}
+@if ($history->description == 'Send Mail Account Info')
+    <div class="timeline-item"  id="timeline-send-mail-account-info">
+        <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
+        <h3 class="timeline-header">
+            System sended notify imported account infor mail
+            <br>
+            Account id:
+            {{ $history->subject_id }}
+        </h3>
+        <div style="padding: 10px">
+            <div class="timeline-body p-b-0">
+                @php
+                    $dataHistory = $history->properties->toArray();
+                @endphp
+                <b>Name:</b>:&emsp; <span>&emsp;'{{ $dataHistory['name'] }}'</span><br>
+                <b>Email:</b>:&emsp; <span>&emsp;'{{ $dataHistory['email'] }}'</span>
+            </div>
+        </div>
+    </div>
+@endif
 
 
 @section('after_styles')
@@ -143,7 +167,7 @@
         }
 
         /*created*/
-        #icon_timeline_created:after {
+        #icon_timeline_created:after,#icon_timeline_send_account_infor_mail::after {
             border-left: 60px solid #28a745;
         }
 
