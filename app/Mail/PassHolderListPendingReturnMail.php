@@ -30,6 +30,7 @@ class PassHolderListPendingReturnMail extends Mailable
      */
     public function build()
     {
+        app('logService')->logAction($this->account, null, $this->passHolders, 'Pass Holder List Pending Return Mail');
         return $this->view('emails.pedding_return_pass_holder');
     }
 }
