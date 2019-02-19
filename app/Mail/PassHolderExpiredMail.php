@@ -30,6 +30,7 @@ class PassHolderExpiredMail extends Mailable
      */
     public function build()
     {
+        app('logService')->logAction($this->account, null, $this->passHolders, 'Pass Holder Expired Mail');
         return $this->view('emails.expired_pass_holder');
     }
 }
