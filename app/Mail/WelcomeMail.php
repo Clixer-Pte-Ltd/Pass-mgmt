@@ -31,6 +31,7 @@ class WelcomeMail extends Mailable
     public function build()
     {
         $company = $this->account->tenant ?: $this->account->subConstructor;
+        app('logService')->logAction($this->account, null, $this->account->toArray(), 'WelcomeMail');
         return $this->view('emails.new_account_welcome',['company' => $company]);
     }
 }
