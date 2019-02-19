@@ -238,7 +238,6 @@ class RegisterController extends Controller
             \Alert::error('Create account error')->flash();
             return redirect()->back();
         }
-        event(new UserCreated($user));
 
         if (session()->has(SESS_NEW_ACC_FROM_TENANT)) {
             $id = session()->get(SESS_NEW_ACC_FROM_TENANT);
