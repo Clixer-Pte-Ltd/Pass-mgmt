@@ -34,6 +34,7 @@ class AdhocMail extends Mailable
      */
     public function build()
     {
+        app('logService')->logAction($this->account, null, $this->company->toArray(), 'Send Mail Adhoc Mail');
         return $this->subject(@$this->content->subject)->view('emails.adhoc');
     }
 }

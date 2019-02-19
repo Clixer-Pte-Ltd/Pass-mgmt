@@ -13,7 +13,10 @@
         <i class="fa fa-address-book-o icon_timeline" id="icon_timeline_added-account" style="color: #ffffff; background-color: #dc3545"></i>
     @break
     @case('Send Mail Account Info')
-        <i class="fa fa-plus-square icon_timeline" id="icon_timeline_send_account_infor_mail" style="color: #ffffff; background-color: #28a745"></i>
+        <i class="fa fa-mail-forward icon_timeline" id="icon_timeline_send_account_infor_mail" style="color: #ffffff; background-color: #b427e6"></i>
+    @break
+    @case('Send Mail Adhoc Mail')
+        <i class="fa fa-mail-forward icon_timeline" id="icon_timeline_send_adhoc_mail" style="color: #ffffff; background-color: #b427e6"></i>
     @break
     @default
         <i class="fa fa-calendar bg-default icon_timeline" id="icon_timeline_default" style="color: #ffffff; background-color: #dc3545"></i>
@@ -145,6 +148,25 @@
     </div>
 @endif
 
+{{--adhoc mail--}}
+@if ($history->description == 'Send Mail Adhoc Mail')
+    <div class="timeline-item"  id="timeline-send-mail-adhoc">
+        <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
+        <h3 class="timeline-header">
+            @php
+                $dataHistory = $history->properties->toArray();
+            @endphp
+            {{ @$history->subject->name }} sended adhoc mail to {{ @$dataHistory['name'] }}
+        </h3>
+        <div style="padding: 10px">
+            <div class="timeline-body p-b-0">
+
+            </div>
+        </div>
+    </div>
+@endif
+
+
 
 @section('after_styles')
     <style>
@@ -167,7 +189,7 @@
         }
 
         /*created*/
-        #icon_timeline_created:after,#icon_timeline_send_account_infor_mail::after {
+        #icon_timeline_created:after{
             border-left: 60px solid #28a745;
         }
 
@@ -184,6 +206,11 @@
         /*added-account*/
         #icon_timeline_added-account:after {
             border-left: 60px solid #dc3545;
+        }
+
+        /* mail */
+        #icon_timeline_send_account_infor_mail::after,#icon_timeline_send_adhoc_mail::after {
+            border-left: 60px solid #b427e6;
         }
     </style>
 @endsection
