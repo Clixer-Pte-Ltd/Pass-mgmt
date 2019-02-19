@@ -31,6 +31,7 @@ class BiAnnualMail extends Mailable
      */
     public function build()
     {
+        app('logService')->logAction($this->account, null, $this->account->toArray(), 'Send Mail Bi Annual Mail');
         return $this->view('emails.bi_annual_mail');
     }
 }

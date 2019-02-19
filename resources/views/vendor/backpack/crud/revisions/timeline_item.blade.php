@@ -18,6 +18,9 @@
     @case('Send Mail Adhoc Mail')
         <i class="fa fa-mail-forward icon_timeline" id="icon_timeline_send_adhoc_mail" style="color: #ffffff; background-color: #b427e6"></i>
     @break
+    @case('Send Mail Bi Annual Mail')
+        <i class="fa fa-mail-forward icon_timeline" id="icon_timeline_send_bi_anual" style="color: #ffffff; background-color: #b427e6"></i>
+    @break
     @default
         <i class="fa fa-calendar bg-default icon_timeline" id="icon_timeline_default" style="color: #ffffff; background-color: #dc3545"></i>
 @endswitch
@@ -166,6 +169,23 @@
     </div>
 @endif
 
+{{--bi annual mail--}}
+@if ($history->description == 'Send Mail Bi Annual Mail')
+    <div class="timeline-item"  id="timeline-send-mail-bi-annual">
+        <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
+        <h3 class="timeline-header">
+            @php
+                $dataHistory = $history->properties->toArray();
+            @endphp
+            System sended bi annual mail to {{ @$dataHistory['name'] }}
+        </h3>
+        <div style="padding: 10px">
+            <div class="timeline-body p-b-0">
+
+            </div>
+        </div>
+    </div>
+@endif
 
 
 @section('after_styles')
@@ -209,7 +229,9 @@
         }
 
         /* mail */
-        #icon_timeline_send_account_infor_mail::after,#icon_timeline_send_adhoc_mail::after {
+        #icon_timeline_send_account_infor_mail::after,#icon_timeline_send_adhoc_mail::after
+        ,#icon_timeline_send_bi_anual::after
+        {
             border-left: 60px solid #b427e6;
         }
     </style>
