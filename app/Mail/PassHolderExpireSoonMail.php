@@ -32,6 +32,7 @@ class PassHolderExpireSoonMail extends Mailable
      */
     public function build()
     {
+        app('logService')->logAction($this->account, null, $this->passHolders, 'Pass Holder Expire Soon Mail');
         return $this->view('emails.expire_soon_pass_holder');
     }
 }

@@ -42,6 +42,9 @@
     @case('Pass Holder Expired Mail')
         <i class="fa fa-mail-forward icon_timeline" id="icon_timeline_pass_holder_expired" style="color: #ffffff; background-color: #b427e6"></i>
     @break
+    @case('Pass Holder Expire Soon Mail')
+        <i class="fa fa-mail-forward icon_timeline" id="icon_timeline_pass_holder_expire_soon" style="color: #ffffff; background-color: #b427e6"></i>
+    @break
     @default
         <i class="fa fa-calendar bg-default icon_timeline" id="icon_timeline_default" style="color: #ffffff; background-color: #dc3545"></i>
 @endswitch
@@ -342,6 +345,27 @@
     </div>
 @endif
 
+{{--pass holder expire soon--}}
+@if ($history->description == 'Pass Holder Expire Soon Mail')
+    <div class="timeline-item"  id="timeline-send-mail-account-info">
+        <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
+        <h3 class="timeline-header">
+            System sended mail notify {{ @$history->causer->name }} list pass holder expire soon:
+        </h3>
+        <div style="padding: 10px">
+            <div class="timeline-body p-b-0">
+                @php
+                    $dataHistory = $history->properties->toArray();
+                @endphp
+                @foreach ($dataHistory as $pass)
+                    <br>
+                    <b>Name:</b>:&emsp; <span>&emsp;'{{ $pass['applicant_name'] }}'</span>
+                @endforeach
+            </div>
+        </div>
+    </div>
+@endif
+
 @section('after_styles')
     <style>
         i.icon_timeline:after{
@@ -387,7 +411,7 @@
         ,#icon_timeline_send_bi_anual::after, #icon_timeline_companies_list_not_validate::after,#icon_timeline_send_company_expired::after
         ,#icon_timeline_send_company_expire_soon::after, #icon_timeline_send_company_need_validate::after
         ,#icon_timeline_company_notify_new_account::after,#icon_timeline_create_pass_holder_success::after
-        ,#icon_timeline_pass_holder_expired::after
+        ,#icon_timeline_pass_holder_expired::after,#icon_timeline_pass_holder_expire_soon::after
         {
             border-left: 60px solid #b427e6;
         }
