@@ -390,6 +390,24 @@
     </div>
 @endif
 
+{{--pass holder confirm return pass holder--}}
+@if ($history->description == 'Pass Holder Need Confirm Return Mail')
+    <div class="timeline-item"  id="timeline-send-mail-account-info">
+        <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
+        <h3 class="timeline-header">
+            System sended mail notify {{ @$history->causer->name }} need confirm return passholder:
+        </h3>
+        <div style="padding: 10px">
+            <div class="timeline-body p-b-0">
+                @php
+                    $dataHistory = $history->properties->toArray();
+                @endphp
+                <b>Name:</b>:&emsp; <span>&emsp;'{{ $dataHistory['applicant_name'] }}'</span><br>
+            </div>
+        </div>
+    </div>
+@endif
+
 @section('after_styles')
     <style>
         i.icon_timeline:after{
