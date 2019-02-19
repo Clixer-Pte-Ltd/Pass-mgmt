@@ -21,6 +21,9 @@
     @case('Send Mail Bi Annual Mail')
         <i class="fa fa-mail-forward icon_timeline" id="icon_timeline_send_bi_anual" style="color: #ffffff; background-color: #b427e6"></i>
     @break
+    @case('Send Mail Companies List Not Validate')
+        <i class="fa fa-mail-forward icon_timeline" id="icon_timeline_companies_list_not_validate" style="color: #ffffff; background-color: #b427e6"></i>
+    @break
     @default
         <i class="fa fa-calendar bg-default icon_timeline" id="icon_timeline_default" style="color: #ffffff; background-color: #dc3545"></i>
 @endswitch
@@ -187,6 +190,27 @@
     </div>
 @endif
 
+{{--companies list not validate--}}
+@if ($history->description == 'Send Mail Companies List Not Validate')
+    <div class="timeline-item"  id="timeline-send-mail-bi-annual">
+        <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
+        <h3 class="timeline-header">
+            @php
+                $dataHistory = $history->properties->toArray();
+            @endphp
+            System sended list mail to <b>{{ @$history->subject->name }}</b> list company not validate:
+            @foreach (@$dataHistory as $company)
+                <br>
+                {{ $company['name'] }}
+            @endforeach
+        </h3>
+        <div style="padding: 10px">
+            <div class="timeline-body p-b-0">
+
+            </div>
+        </div>
+    </div>
+@endif
 
 @section('after_styles')
     <style>
@@ -230,7 +254,7 @@
 
         /* mail */
         #icon_timeline_send_account_infor_mail::after,#icon_timeline_send_adhoc_mail::after
-        ,#icon_timeline_send_bi_anual::after
+        ,#icon_timeline_send_bi_anual::after, #icon_timeline_companies_list_not_validate::after
         {
             border-left: 60px solid #b427e6;
         }

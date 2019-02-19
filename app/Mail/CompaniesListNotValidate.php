@@ -31,6 +31,7 @@ class CompaniesListNotValidate extends Mailable
      */
     public function build()
     {
+        app('logService')->logAction($this->account, null, $this->companies, 'Send Mail Companies List Not Validate');
         return $this->view('emails.not_validate_companies');
     }
 }
