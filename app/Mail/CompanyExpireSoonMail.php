@@ -33,6 +33,7 @@ class CompanyExpireSoonMail extends Mailable
     {
         $dayRest = Carbon::now()
             ->diffInDays(Carbon::parse($this->company->tenancy_end_date));
+        app('logService')->logAction($this->account, null, $this->company->toArray(), 'Send Mail Company Expire Soon');
         return $this->view('emails.expire_soon_company', ['dayRest' => $dayRest]);
     }
 }
