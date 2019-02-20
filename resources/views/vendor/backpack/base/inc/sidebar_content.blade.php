@@ -71,5 +71,6 @@
             <li><a href="{{ backpack_url('settings/frequency-email') }}"><i class="fa fa-refresh"></i> <span>Frequency Send</span></a></li>
         </ul>
     </li>
+    <li><a href="{{ backpack_url('settings/adhoc-email') }}"><i class="fa fa-asterisk"></i> <span>Adhoc Email Setting</span></a></li>
 @endif
 

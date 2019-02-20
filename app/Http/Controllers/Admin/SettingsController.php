@@ -7,6 +7,7 @@ use App\Http\Requests\SmtpRequest;
 use App\Http\Requests\RetentationRateRevisionRequest;
 use Illuminate\Http\Request;
 use App\Models\Setting;
+use App\Http\Requests\RetentationRateAdhocMailRequest;
 
 class SettingsController extends Controller
 {
@@ -83,6 +84,21 @@ class SettingsController extends Controller
         updateSetting(FREQUENCY_RENEWED_PASS_EMAIL, $timeCron);
         \Alert::success('Update successful.')->flash();
         \Artisan::call('config:cache');
+        return redirect()->back();
+    }
+
+    public function adhocEmail()
+    {
+        return view('crud::settings.adhoc-email');
+    }
+
+    public function updateAdhocRetentationRate(RetentationRateAdhocMailRequest $request)
+    {
+        updateSetting(ADHOC_EMAIL_RETENTATION_RATE, $request->get(ADHOC_EMAIL_RETENTATION_RATE));
+        \Artisan::call('cag:adhoc_mail:checking');
+        \Alert::success('Update successful.')->flash();
+        \Artisan::call('config:cache');
+
         return redirect()->back();
     }
 }

@@ -57,6 +57,7 @@ define('REVISION_DELETED', 'revision_action_deleted');
 define('REVISION_CREATED', 'revision_action_created');
 
 define('REVISION_RETENTATION_RATE', 'revision_retentation_rate');
+define('ADHOC_EMAIL_RETENTATION_RATE', 'adhoc_email_retentation_rate');
 
 //Frequency Email
 define('FREQUENCY_EXPIRING_PASS_EMAIL', 'Frequency expiring pass email nofitication'); //pass_holder:checking
