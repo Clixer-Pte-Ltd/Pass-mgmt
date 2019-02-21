@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\User;
 
-class DashboardTest extends TestCase
+class DashboardTest extends CrudTest
 {
     /**
      * A basic test example.
@@ -16,25 +16,7 @@ class DashboardTest extends TestCase
      */
     public function testDashboard()
     {
-        $email = readline('Email Correct: ');
-        $password = readline('Password Correct: ');
-        $user = factory(User::class)->make([
-            'email' => $email,
-            'password' => bcrypt($password),
-        ]);
-
-        $response = $this->from('/admin/login')->post('/admin/login', [
-            'email' => $user->email,
-            'password' => $password,
-        ]);
-
-        $response->assertRedirect('/admin/dashboard');
-        $code = readline('2fa Code: ');
-
-        $this->from('/admin')->post('/2fa', [
-           'one_time_password' => $code
-        ]);
-
+        $this->testlogin();
         $this->get('admin/dashboard')->assertViewIs('dashboard.dashboard');
     }
 }
