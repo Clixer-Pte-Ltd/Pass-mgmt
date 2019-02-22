@@ -79,3 +79,8 @@ function encodeNric($nric)
 {
     return substr_replace($nric,"***",0, strlen($nric)-4);
 }
+
+function convertFormatDate($dateString, $format1, $format2)
+{
+    return date_format(date_create_from_format($format1, $dateString), $format2);
+}

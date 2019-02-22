@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\User;
+use Illuminate\Http\UploadedFile;
 
 class CrudTest extends TestCase
 {
@@ -62,5 +63,51 @@ class CrudTest extends TestCase
         $this->get('/admin/' . $this->baseUri)->assertStatus(200);
         $this->from('/admin/' . $this->baseUri)->post('/admin/' . $this->baseUri . '/' . $model->id, ['_method' => 'DELETE'])->assertStatus(200);
         $this->assertDatabaseMissing($this->table, $this->dataCheck);
+    }
+
+    /**
+     * A basic test example.
+     *
+     */
+    protected function prepareFile($filename)
+    {
+        $stub = $this->preparePathFileExport($filename);
+        $name = str_random(8).'.xlsx';
+        $path = sys_get_temp_dir().'/'.$name;
+        copy($stub, $path);
+        $file = new UploadedFile($path, $name, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', null, true);
+        return $file;
+    }
+
+    /**
+     * A basic test example.
+     *
+     */
+    protected function preparePathFileExport($filename)
+    {
+        return public_path() . '/exports/' . $filename;
+    }
+
+    /**
+     * A basic test example.
+     *
+     * @return void
+     */
+    public function testImport($filename)
+    {
+        $this->testlogin();
+        $file = $this->prepareFile($filename);
+        $this->get('/admin/' . $this->baseUri)->assertStatus(200);
+        $this->from('/admin/' . $this->baseUri)->post('/admin/' .  $this->baseUri . '/import', [
+            'import_file' => $file
+        ])->assertStatus(302);
+        foreach ($this->dataCheck as $data) {
+            $data['tenancy_start_date'] = convertFormatDate($data['tenancy_start_date'], 'd/m/Y', 'Y-m-d');
+            $data['tenancy_end_date'] = convertFormatDate($data['tenancy_end_date'], 'd/m/Y', 'Y-m-d');
+            if (isset($data['tenant_uen'])) {
+                unset($data['tenant_uen']);
+            }
+            $this->assertDatabaseHas($this->table, $data);
+        }
     }
 }
