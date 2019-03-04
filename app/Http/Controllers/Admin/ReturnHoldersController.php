@@ -14,7 +14,14 @@ class ReturnHoldersController extends BasePassHolderCrudController
         $this->crud->addClause('whereStatus', PASS_STATUS_RETURNED);
         $this->crud->removeButton('delete');
         $this->crud->removeButton('update');
-
+        //column
+        $this->crud->addColumn([
+            'name' => 'returned_at', // The db column name
+            'label' => 'Return Date', // Table column heading
+            'type' => 'date',
+            'format' => DATE_FORMAT, // use something else than the base.default_date_format config value
+        ]);
+        
         //filter
         $this->crud->addFilter([ // daterange filter
             'type' => 'date_range',
