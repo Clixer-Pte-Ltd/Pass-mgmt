@@ -30,11 +30,19 @@ class BlacklistHoldersController extends BasePassHolderCrudController
             'name' => 'blacklist_reason',
             'label' => 'Blacklist Reason'
         ]);
+
+        $this->crud->addField([
+            'name' => 'nric',
+            'type' => 'text',
+            'label' => 'Pass Number'
+        ]);
+
         $this->crud->addField([
             'name' => 'pass_expiry_date',
             'type' => 'date_picker',
             'label' => 'Pass Expiry Date'
         ]);
+
 
         $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
 
