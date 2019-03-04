@@ -46,7 +46,7 @@ class BasePassHolderCrudController extends CrudController
         $this->crud->addColumns(['applicant_name']);
         $this->crud->addColumn([
             'name' => 'nric',
-            'label' => 'Nric',
+            'label' => 'Pass Number',
             'type' => 'closure',
             'function' => function ($entry) {
                 if (backpack_user()->hasAnyRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE]) && $entry->nric) {
@@ -142,7 +142,7 @@ class BasePassHolderCrudController extends CrudController
         $this->crud->addField([
             'name' => 'nric',
             'type' => 'text',
-            'label' => 'NRIC'
+            'label' => 'Pass Number'
         ]);
 
         $this->crud->addField([
