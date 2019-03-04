@@ -54,7 +54,11 @@ class TenantCrudController extends CrudController
                 return "<a href='" . url($this->crud->route . '/' . $entry->getKey()) . "'>{$entry->name}</a>";
             }
         ]);
-        $this->crud->addColumns(['uen']);
+        $this->crud->addColumn([
+            'name' => 'uen',
+            'type' => 'text',
+            'label' => 'Company Code'
+        ]);
         $this->crud->addColumn([
             'name' => 'tenancy_start_date', // The db column name
             'label' => 'Tenancy Start Date', // Table column heading
@@ -77,7 +81,7 @@ class TenantCrudController extends CrudController
         $this->crud->addField([
             'name' => 'uen',
             'type' => 'text',
-            'label' => 'UEN'
+            'label' => 'Company Code'
         ]);
 
         $this->crud->addField([
@@ -102,6 +106,7 @@ class TenantCrudController extends CrudController
         $this->crud->setListView('crud::customize.list');
         $this->crud->removeButtonFromStack('create', 'top');
         $this->crud->addButtonFromView('line', 'show', 'manage', 'beginning');
+        $this->crud->enableExportButtons();
 
         //filter
         $this->crud->addFilter(
@@ -139,7 +144,7 @@ class TenantCrudController extends CrudController
         $this->crud->addFilter([ // simple filter
             'type' => 'text',
             'name' => 'uen',
-            'label'=> 'Uen'
+            'label'=> 'Company Code'
         ]);
 
     }
