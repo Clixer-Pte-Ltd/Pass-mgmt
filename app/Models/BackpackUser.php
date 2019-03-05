@@ -88,6 +88,11 @@ class BackpackUser extends User
     {
         return $this->belongsToMany(Notification::class, 'user_notification');
     }
+
+    public function tenants()
+    {
+        return $this->belongsToMany(Tenant::class, 'user_tenants');
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES

@@ -36,7 +36,7 @@ Route::group([
     Route::get('tenant-return-pass-holder/export-excel', 'Tenants\TenantReturnHoldersController@exportExcel')->name('admin.tenant-return-pass-holder.export-excel');
     Route::get('tenant-return-pass-holder/export-pdf', 'Tenants\TenantReturnHoldersController@exportPdf')->name('admin.tenant-return-pass-holder.export-pdf');
 
-    Route::group(['middleware' => ['role:' . CAG_ADMIN_ROLE . '|'. CAG_STAFF_ROLE . '|' . COMPANY_CO_ROLE]], function () {
+    Route::group(['middleware' => ['role:' . CAG_ADMIN_ROLE . '|'. CAG_STAFF_ROLE . '|' . COMPANY_CO_ROLE . '|' . COMPANY_AS_ROLE]], function () {
         //Company
         Route::get('company/{uen}/renew', 'CompanyCrudController@renew')->name('admin.company.renew');
         Route::post('company/renew', 'CompanyCrudController@updateExpiry')->name('admin.company.updateExpiry');
@@ -53,6 +53,8 @@ Route::group([
         Route::get('tenant/import/demo', 'TenantCrudController@importDemo')->name('admin.tenant.import.demo');
         Route::post('tenant/account/import', 'TenantCrudController@importAccount')->name('admin.tenant.account.import');
         Route::get('tenant/account/import/demo', 'TenantCrudController@importAccountDemo')->name('admin.tenant.account.import.demo');
+        Route::post('tenant/account/add-user-as', 'TenantCrudController@addUserAs')->name('admin.tenant.account.add-user-as');
+        Route::get('tenant/detail/ajax', 'TenantCrudController@showDetailAjax')->name('admin.tenant.detail.ajax');
 
         // Sub-Constructors
         CRUD::resource('sub-constructor', 'SubConstructorCrudController');
@@ -63,8 +65,11 @@ Route::group([
         Route::post('sub-constructor/account/import', 'SubConstructorCrudController@importAccount')->name('admin.sub-constructor.account.import');
         Route::get('sub-constructor/account/import/demo', 'SubConstructorCrudController@importAccountDemo')->name('admin.sub-constructor.account.import.demo');
         Route::get('/sub-constructor/{id}/validate', 'SubConstructorCrudController@validateCompany')->name('admin.sub-constructor.validate-company');
+    });
 
-        //Zone
+    Route::group(['middleware' => ['role:' . CAG_ADMIN_ROLE . '|'. CAG_STAFF_ROLE . '|' . COMPANY_CO_ROLE]], function () {
+
+            //Zone
         CRUD::resource('zone', 'ZoneCrudController');
 
         //Pass Holders

@@ -304,4 +304,22 @@ class TenantCrudController extends CrudController
         \Alert::success('Validate done')->flash();
         return $content;
     }
+
+    public function addUserAs(Request $request)
+    {
+        if ($request->has('tenant_id') && $request->has('user_as_ids')) {
+            $entry = $this->crud->getEntry($request->tenant_id);
+            $entry->asAccounts()->sync($request->user_as_ids);
+            \Alert::success('Add AS Users done')->flash();
+            return redirect()->back();
+        }
+    }
+
+    public function showDetailAjax(Request $request)
+    {
+        if ($request->ajax() && $request->has('tenant_select_id') && backpack_user()->hasRole(COMPANY_AS_ROLE)) {
+            $tenant = backpack_user()->tenants()->where('id', $request->tenant_select_id)->first();
+            return view('partials.company_detail_content', ["entry" => $tenant])->render();
+        }
+    }
 }
