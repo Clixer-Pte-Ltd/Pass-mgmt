@@ -41,7 +41,18 @@ class BasePassHolderCrudController extends CrudController
 
         // TODO: remove setFromDb() and manually define Fields and Columns
         // $this->crud->setFromDb();
+        $this->setColumns();
 
+//        $this->crud->addButtonFromView('top', 'export excel', 'export_excel', 'end');
+//        $this->crud->addButtonFromView('top', 'export pdf', 'export_pdf', 'end');
+        $this->crud->setListView('crud::customize.list');
+        $this->crud->removeButtonFromStack('create', 'top');
+        $this->crud->allowAccess('show');
+        $this->crud->setShowView('crud::pass-holders.show');
+        $this->crud->enableExportButtons();
+    }
+    public function setColumns()
+    {
         //List columns
         $this->crud->addColumn([
             'name' => 'applicant_name',
@@ -127,15 +138,7 @@ class BasePassHolderCrudController extends CrudController
             'model' => "App\Models\Zone", // foreign key model,
             'visibleInTable' => false,
         ]);
-//        $this->crud->addButtonFromView('top', 'export excel', 'export_excel', 'end');
-//        $this->crud->addButtonFromView('top', 'export pdf', 'export_pdf', 'end');
-        $this->crud->setListView('crud::customize.list');
-        $this->crud->removeButtonFromStack('create', 'top');
-        $this->crud->allowAccess('show');
-        $this->crud->setShowView('crud::pass-holders.show');
-        $this->crud->enableExportButtons();
     }
-
     protected function addRequired()
     {
         // add asterisk for fields that are required in StorePassHolderRequest

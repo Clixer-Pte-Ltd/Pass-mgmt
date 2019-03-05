@@ -47,6 +47,25 @@ class TenantCrudController extends CrudController
 
         // TODO: remove setFromDb() and manually define Fields and Columns
         // $this->crud->setFromDb();
+        $this->setColumns();
+        $this->setFields();
+        $this->setFilters();
+
+        // add asterisk for fields that are required in TenantRequest
+        $this->crud->setRequiredFields(StoreRequest::class, 'create');
+        $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
+
+        // Overwrite view
+        $this->crud->setShowView('crud::tenant.show');
+        $this->crud->setEditView('crud::tenant.edit');
+        $this->crud->setListView('crud::customize.list');
+        $this->crud->removeButtonFromStack('create', 'top');
+        $this->crud->addButtonFromView('line', 'show', 'manage', 'beginning');
+        $this->crud->enableExportButtons();
+    }
+
+    public function setColumns()
+    {
         $this->crud->addColumn([
             'name' => 'name',
             'label' => 'Name',
@@ -76,7 +95,10 @@ class TenantCrudController extends CrudController
             'format' => DATE_FORMAT, // use something else than the base.default_date_format config value,
             'searchLogic' => 'text'
         ]);
+    }
 
+    public function setFields()
+    {
         $this->crud->addField([
             'name' => 'name',
             'type' => 'text',
@@ -100,19 +122,10 @@ class TenantCrudController extends CrudController
             'type' => 'date_picker',
             'label' => 'Tenancy End Date'
         ]);
+    }
 
-        // add asterisk for fields that are required in TenantRequest
-        $this->crud->setRequiredFields(StoreRequest::class, 'create');
-        $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
-
-        // Overwrite view
-        $this->crud->setShowView('crud::tenant.show');
-        $this->crud->setEditView('crud::tenant.edit');
-        $this->crud->setListView('crud::customize.list');
-        $this->crud->removeButtonFromStack('create', 'top');
-        $this->crud->addButtonFromView('line', 'show', 'manage', 'beginning');
-        $this->crud->enableExportButtons();
-
+    public function setFilters()
+    {
         //filter
         $this->crud->addFilter(
             [ // daterange filter
@@ -151,7 +164,6 @@ class TenantCrudController extends CrudController
             'name' => 'uen',
             'label'=> 'Company Code'
         ]);
-
     }
 
     public function index()

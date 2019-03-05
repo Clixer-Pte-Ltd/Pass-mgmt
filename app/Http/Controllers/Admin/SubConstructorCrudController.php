@@ -46,7 +46,24 @@ class SubConstructorCrudController extends CrudController
 
         // TODO: remove setFromDb() and manually define Fields and Columns
         // $this->crud->setFromDb();
+        $this->setColumns();
+        $this->setFields();
+        $this->setFilters();
 
+        // add asterisk for fields that are required in SubConstructorRequest
+        $this->crud->setRequiredFields(StoreRequest::class, 'create');
+        $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
+
+        // Overwrite view
+        $this->crud->setShowView('crud::sub-constructor.show');
+        $this->crud->setCreateView('crud::sub-constructor.create');
+        $this->crud->setEditView('crud::sub-constructor.edit');
+        $this->crud->setListView('crud::customize.list');
+        $this->crud->removeButtonFromStack('create', 'top');
+    }
+
+    public function setColumns()
+    {
         $this->crud->addColumn([
             'name' => 'name',
             'label' => 'Name',
@@ -78,7 +95,10 @@ class SubConstructorCrudController extends CrudController
             'format' => DATE_FORMAT, // use something else than the base.default_date_format config value
             'searchLogic' => 'text'
         ]);
+    }
 
+    public function setFields()
+    {
         $this->crud->addField([
             'name' => 'name',
             'type' => 'text',
@@ -129,18 +149,10 @@ class SubConstructorCrudController extends CrudController
                 'model' => "App\Models\Tenant", // foreign key model,
             ]);
         }
+    }
 
-        // add asterisk for fields that are required in SubConstructorRequest
-        $this->crud->setRequiredFields(StoreRequest::class, 'create');
-        $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
-
-        // Overwrite view
-        $this->crud->setShowView('crud::sub-constructor.show');
-        $this->crud->setCreateView('crud::sub-constructor.create');
-        $this->crud->setEditView('crud::sub-constructor.edit');
-        $this->crud->setListView('crud::customize.list');
-        $this->crud->removeButtonFromStack('create', 'top');
-
+    public function setFilters()
+    {
         //filter
         $this->crud->addFilter([ // daterange filter
             'type' => 'date_range',

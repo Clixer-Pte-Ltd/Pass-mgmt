@@ -33,7 +33,23 @@ class ExpiredCompanyCrudController extends CrudController
 
         // TODO: remove setFromDb() and manually define Fields and Columns
         // $this->crud->setFromDb();
+        $this->setColumns();
+        $this->setFilters();
 
+        // add asterisk for fields that are required in ExpiredCompanyRequest
+        $this->crud->setRequiredFields(StoreRequest::class, 'create');
+        $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
+
+        $this->crud->removeAllButtonsFromStack('top');
+        $this->crud->addButtonFromView('line', 'renew', 'renew_company');
+        $this->crud->removeButton('update');
+        $this->crud->setListView('crud::customize.list');
+        $this->crud->removeButtonFromStack('create', 'top');
+
+    }
+
+    public function setColumns()
+    {
         $this->crud->addColumn([
             'name' => 'name',
             'label' => 'Name',
@@ -72,17 +88,10 @@ class ExpiredCompanyCrudController extends CrudController
             'format' => DATE_FORMAT, // use something else than the base.default_date_format config value,
             'searchLogic' => 'text'
         ]);
+    }
 
-        // add asterisk for fields that are required in ExpiredCompanyRequest
-        $this->crud->setRequiredFields(StoreRequest::class, 'create');
-        $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
-
-        $this->crud->removeAllButtonsFromStack('top');
-        $this->crud->addButtonFromView('line', 'renew', 'renew_company');
-        $this->crud->removeButton('update');
-        $this->crud->setListView('crud::customize.list');
-        $this->crud->removeButtonFromStack('create', 'top');
-
+    public function setFilters()
+    {
         //filter
         $this->crud->addFilter([ // daterange filter
             'type' => 'date_range',

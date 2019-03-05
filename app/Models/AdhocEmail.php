@@ -31,7 +31,12 @@ class AdhocEmail extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-
+    public function scopeSearchByDestinations($query, $column, $searchTerm)
+    {
+        return $query->orWhereHas('destinations', function ($q) use ($column, $searchTerm) {
+            $q->where('name', 'like', '%'.$searchTerm.'%');
+        });
+    }
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
