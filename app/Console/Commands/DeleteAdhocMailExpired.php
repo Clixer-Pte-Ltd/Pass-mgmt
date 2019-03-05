@@ -6,21 +6,21 @@ use Illuminate\Console\Command;
 use App\Models\AdhocEmail;
 use Carbon\Carbon;
 
-class AdhocMailExpireChecking extends Command
+class DeleteAdhocMailExpired extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'cag:adhoc_mail:checking';
+    protected $signature = 'cag:adhoc_mail:delete';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Checking adhoc mail expiry';
+    protected $description = 'Delete adhoc mail expired';
 
     /**
      * Create a new command instance.
@@ -39,7 +39,6 @@ class AdhocMailExpireChecking extends Command
      */
     public function handle()
     {
-        $adhocMailRetentationRateMonths = getSettingValueByKey(ADHOC_EMAIL_RETENTATION_RATE);
-        AdhocEmail::where('created_at','<', Carbon::now()->subMonths($adhocMailRetentationRateMonths))->update(['status' => ARCHIVE_ADHOC_EMAIL]);
+        AdhocEmail::where('status', ARCHIVE_ADHOC_EMAIL)->where('updated_at','<', Carbon::now()->subYears(5))->delete();
     }
 }
