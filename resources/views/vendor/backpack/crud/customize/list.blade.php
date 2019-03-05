@@ -57,7 +57,7 @@
                                 <div class="btn-group">
                                     <button type="submit" class="btn btn-success grad-success">
                                         <span class="fa fa-save" role="presentation" aria-hidden="true"></span> &nbsp;
-                                        <span data-value="save_and_back">Save</span>
+                                        <span data-value="save_and_back">{{ isset($label_button_create) ? $label_button_create : 'Save' }}</span>
                                     </button>
                                 </div>
                             </div>

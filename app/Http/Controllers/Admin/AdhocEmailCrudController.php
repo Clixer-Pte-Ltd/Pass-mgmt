@@ -126,6 +126,13 @@ class AdhocEmailCrudController extends CrudController
         $this->crud->removeButtonFromStack('create', 'top');
     }
 
+    public function index()
+    {
+        $content = parent::index();
+        $content->with(['label_button_create' => 'Save and send']);
+        return $content;
+    }
+
     public function store(StoreRequest $request)
     {
         // your additional operations before save here
