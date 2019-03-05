@@ -11,6 +11,7 @@ use App\Http\Requests\StoreTenantRequest as StoreRequest;
 use App\Http\Requests\UpdateTenantRequest as UpdateRequest;
 use App\Imports\TenantsImport;
 use App\Imports\TenantAccountsImport;
+use App\Models\Tenant;
 
 
 /**
@@ -318,7 +319,8 @@ class TenantCrudController extends CrudController
     public function showDetailAjax(Request $request)
     {
         if ($request->ajax() && $request->has('tenant_select_id') && backpack_user()->hasRole(COMPANY_AS_ROLE)) {
-            $tenant = backpack_user()->tenants()->where('id', $request->tenant_select_id)->first();
+            $tenant = Tenant::find($request->tenant_select_id);
+            session()->put(SESS_TENANT_SUB_CONSTRUCTOR, $tenant->id);
             return view('partials.company_detail_content', ["entry" => $tenant])->render();
         }
     }
