@@ -308,12 +308,15 @@ class TenantCrudController extends CrudController
 
     public function addUserAs(Request $request)
     {
-        if ($request->has('tenant_id') && $request->has('user_as_ids')) {
+        $user_as_ids = $request->has('user_as_ids') ? $request->user_as_ids : [];
+        if ($request->has('tenant_id')) {
             $entry = $this->crud->getEntry($request->tenant_id);
-            $entry->asAccounts()->sync($request->user_as_ids);
+            $entry->asAccounts()->sync($user_as_ids);
             \Alert::success('Add AS Users done')->flash();
-            return redirect()->back();
+        } else {
+            \Alert::error('Error add AS Users')->flash();
         }
+        return redirect()->back();
     }
 
     public function showDetailAjax(Request $request)
