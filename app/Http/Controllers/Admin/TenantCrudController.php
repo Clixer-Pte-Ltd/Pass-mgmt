@@ -53,24 +53,28 @@ class TenantCrudController extends CrudController
             'type' => 'closure',
             'function' => function ($entry) {
                 return "<a href='" . url($this->crud->route . '/' . $entry->getKey()) . "'>{$entry->name}</a>";
-            }
+            },
+            'searchLogic' => 'text'
         ]);
         $this->crud->addColumn([
             'name' => 'uen',
             'type' => 'text',
-            'label' => 'Company Code'
+            'label' => 'Company Code',
+            'searchLogic' => 'text'
         ]);
         $this->crud->addColumn([
             'name' => 'tenancy_start_date', // The db column name
             'label' => 'Tenancy Start Date', // Table column heading
             'type' => 'date',
             'format' => DATE_FORMAT, // use something else than the base.default_date_format config value
+            'searchLogic' => 'text'
         ]);
         $this->crud->addColumn([
             'name' => 'tenancy_end_date', // The db column name
             'label' => 'Tenancy End Date', // Table column heading
             'type' => 'date',
-            'format' => DATE_FORMAT, // use something else than the base.default_date_format config value
+            'format' => DATE_FORMAT, // use something else than the base.default_date_format config value,
+            'searchLogic' => 'text'
         ]);
 
         $this->crud->addField([

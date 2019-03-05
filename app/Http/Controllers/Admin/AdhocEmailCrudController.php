@@ -39,13 +39,15 @@ class AdhocEmailCrudController extends CrudController
         $this->crud->addColumn([
             'name' => 'subject',
             'type' => 'text',
-            'label' => 'Subject'
+            'label' => 'Subject',
+            'searchLogic' => 'text'
         ]);
 
         $this->crud->addColumn([
             'name' => 'body',
             'type' => 'text',
-            'label' => 'Message'
+            'label' => 'Message',
+            'searchLogic' => 'text'
         ]);
 
         $this->crud->addColumn([
@@ -56,13 +58,19 @@ class AdhocEmailCrudController extends CrudController
             'entity' => 'destinations', // the method that defines the relationship in your Model
             'attribute' => 'name', // foreign key attribute that is shown to user
             'model' => "App\Models\Company", // foreign key model
+            'searchLogic' => function ($query, $column, $searchTerm) {
+                $query->orWhereHas('destinations', function ($q) use ($column, $searchTerm) {
+                    $q->where('name', 'like', '%'.$searchTerm.'%');
+                });
+            }
         ]);
 
         $this->crud->addColumn([
             'name' => 'created_at', // The db column name
             'label' => 'Sent On', // Table column heading
             'type' => 'date',
-            'format' => DATE_TIME_FORMAT, // use something else than the base.default_date_format config value
+            'format' => DATE_TIME_FORMAT, // use something else than the base.default_date_format config value,
+            'searchLogic' => 'text'
         ]);
 
         //FORM FIELDS

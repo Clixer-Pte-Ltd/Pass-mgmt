@@ -43,7 +43,13 @@ class BasePassHolderCrudController extends CrudController
         // $this->crud->setFromDb();
 
         //List columns
-        $this->crud->addColumns(['applicant_name']);
+        $this->crud->addColumn([
+            'name' => 'applicant_name',
+            'label' => 'Name',
+            'type' => 'text',
+            'searchLogic' => 'text'
+        ]);
+
         $this->crud->addColumn([
             'name' => 'nric',
             'label' => 'Pass Number',
@@ -53,14 +59,16 @@ class BasePassHolderCrudController extends CrudController
                     return encodeNric($entry->nric);
                 }
                 return $entry->nric;
-            }
+            },
+            'searchLogic' => 'text'
         ]);
 
         $this->crud->addColumn([
             'name' => 'pass_expiry_date', // The db column name
             'label' => 'Pass Expiry Date', // Table column heading
             'type' => 'date',
-            'format' => DATE_FORMAT, // use something else than the base.default_date_format config value
+            'format' => DATE_FORMAT, // use something else than the base.default_date_format config value,
+            'searchLogic' => 'text'
         ]);
 
         $this->crud->addColumn([
@@ -73,7 +81,12 @@ class BasePassHolderCrudController extends CrudController
         $this->crud->addColumn([
             'name' => 'company.name',
             'label' => 'Company',
-            'type' => 'text'
+            'type' => 'text',
+            'searchLogic' => function ($query, $column, $searchTerm) {
+                $query->orWhereHas('company', function ($q) use ($column, $searchTerm) {
+                    $q->where('name', 'like', '%'.$searchTerm.'%');
+                });
+            }
         ]);
 
         $this->crud->addColumn([

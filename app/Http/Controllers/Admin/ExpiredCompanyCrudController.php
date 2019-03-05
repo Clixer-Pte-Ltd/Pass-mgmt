@@ -34,7 +34,22 @@ class ExpiredCompanyCrudController extends CrudController
         // TODO: remove setFromDb() and manually define Fields and Columns
         // $this->crud->setFromDb();
 
-        $this->crud->addColumns(['name', 'uen']);
+        $this->crud->addColumn([
+            'name' => 'name',
+            'label' => 'Name',
+            'type' => 'closure',
+            'function' => function ($entry) {
+                return "<a href='" . url($this->crud->route . '/' . $entry->getKey()) . "'>{$entry->name}</a>";
+            },
+            'searchLogic' => 'text'
+        ]);
+        $this->crud->addColumn([
+            'name' => 'uen',
+            'type' => 'text',
+            'label' => 'Company Code',
+            'searchLogic' => 'text'
+        ]);
+
         $this->crud->addColumn([
             'name' => 'type',
             'label' => 'type',
@@ -47,13 +62,15 @@ class ExpiredCompanyCrudController extends CrudController
             'name' => 'tenancy_start_date', // The db column name
             'label' => 'Tenancy Start Date', // Table column heading
             'type' => 'date',
-            'format' => DATE_FORMAT, // use something else than the base.default_date_format config value
+            'format' => DATE_FORMAT, // use something else than the base.default_date_format config value,
+            'searchLogic' => 'text'
         ]);
         $this->crud->addColumn([
             'name' => 'tenancy_end_date', // The db column name
             'label' => 'Tenancy End Date', // Table column heading
             'type' => 'date',
-            'format' => DATE_FORMAT, // use something else than the base.default_date_format config value
+            'format' => DATE_FORMAT, // use something else than the base.default_date_format config value,
+            'searchLogic' => 'text'
         ]);
 
         // add asterisk for fields that are required in ExpiredCompanyRequest
