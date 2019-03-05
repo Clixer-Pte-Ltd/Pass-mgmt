@@ -73,6 +73,10 @@ class Tenant extends Model
         return $this->morphOne(Company::class, 'companyable', 'type', 'uen', 'uen');
     }
 
+    public function asAccounts()
+    {
+        return $this->belongsToMany(User::class, 'user_tenants');
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES

@@ -97,7 +97,7 @@ class SubConstructorCrudController extends CrudController
             if (session()->has(SESS_TENANT_SUB_CONSTRUCTOR)) {
                 $value = session()->get(SESS_TENANT_SUB_CONSTRUCTOR);
             } else {
-                if (backpack_user()->hasRole(COMPANY_CO_ROLE)) {
+                if (backpack_user()->hasAnyRole([COMPANY_CO_ROLE, COMPANY_AS_ROLE])) {
                     $value = session()->get(SESS_TENANT_MY_COMPANY);
                 } else {
                     $value = backpack_user()->subConstructor->tenant_id;

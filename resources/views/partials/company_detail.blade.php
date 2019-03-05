@@ -37,7 +37,7 @@
         <!-- /.row -->
         <div class="row text-center">
             <hr>
-            @if(backpack_user()->hasAnyRole([CAG_ADMIN_ROLE, CAG_STAFF_ROLE, COMPANY_CO_ROLE]))
+            @if(backpack_user()->hasAnyRole([CAG_ADMIN_ROLE, CAG_STAFF_ROLE, COMPANY_CO_ROLE, COMPANY_AS_ROLE]))
                 @if ($entry instanceof App\Models\Tenant)
                     <a href="{{ route('crud.tenant.edit', [$entry->id]) }}" class="btn btn-primary grad-blue"><i class="fa fa-edit"></i> Edit</a>
                     @include('vendor.backpack.crud.buttons.add_account')
