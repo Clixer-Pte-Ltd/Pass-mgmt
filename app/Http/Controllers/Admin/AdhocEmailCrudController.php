@@ -34,18 +34,34 @@ class AdhocEmailCrudController extends CrudController
 
         // TODO: remove setFromDb() and manually define Fields and Columns
         // $this->crud->setFromDb();
+        $this->setupColumns();
+        $this->setupFields();
+        $this->setupFilters();
 
+        // add asterisk for fields that are required in AdhocEmailRequest
+        $this->crud->setRequiredFields(StoreRequest::class, 'create');
+        $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
+        $this->crud->removeButtonFromStack('update', 'line');
+        $this->crud->removeButtonFromStack('delete', 'line');
+        $this->crud->setListView('crud::customize.list');
+        $this->crud->removeButtonFromStack('create', 'top');
+    }
+
+    public function setupColumns()
+    {
         // List Columns
         $this->crud->addColumn([
             'name' => 'subject',
             'type' => 'text',
-            'label' => 'Subject'
+            'label' => 'Subject',
+            'searchLogic' => 'text'
         ]);
 
         $this->crud->addColumn([
             'name' => 'body',
             'type' => 'text',
-            'label' => 'Message'
+            'label' => 'Message',
+            'searchLogic' => 'text'
         ]);
 
         $this->crud->addColumn([
@@ -56,15 +72,22 @@ class AdhocEmailCrudController extends CrudController
             'entity' => 'destinations', // the method that defines the relationship in your Model
             'attribute' => 'name', // foreign key attribute that is shown to user
             'model' => "App\Models\Company", // foreign key model
+            'searchLogic' => function ($query, $column, $searchTerm) {
+                $query->searchByDestinations($column, $searchTerm);
+            }
         ]);
 
         $this->crud->addColumn([
             'name' => 'created_at', // The db column name
             'label' => 'Sent On', // Table column heading
             'type' => 'date',
-            'format' => DATE_TIME_FORMAT, // use something else than the base.default_date_format config value
+            'format' => DATE_TIME_FORMAT, // use something else than the base.default_date_format config value,
+            'searchLogic' => 'text'
         ]);
+    }
 
+    public function setupFields()
+    {
         //FORM FIELDS
         $this->crud->addField([       // Select2Multiple = n-n relationship (with pivot table)
             'label' => 'To Email Address',
@@ -88,7 +111,10 @@ class AdhocEmailCrudController extends CrudController
             'type' => 'ckeditor',
             'label' => 'Message'
         ]);
+    }
 
+    public function setupFilters()
+    {
         $this->crud->addFilter([ // simple filter
             'type' => 'text',
             'name' => 'subject',
@@ -100,7 +126,7 @@ class AdhocEmailCrudController extends CrudController
             'name' => 'body',
             'label'=> 'Message'
         ], false, function($value) {
-             $this->crud->addClause('where', 'body', 'LIKE', "%" . strip_tags($value) . "%");
+            $this->crud->addClause('where', 'body', 'LIKE', "%" . strip_tags($value) . "%");
         });
 
 
@@ -116,14 +142,6 @@ class AdhocEmailCrudController extends CrudController
                 $this->crud->addClause('where', 'created_at', '>=', $dates->from);
                 $this->crud->addClause('where', 'created_at', '<=', $dates->to . ' 23:59:59');
             });
-
-        // add asterisk for fields that are required in AdhocEmailRequest
-        $this->crud->setRequiredFields(StoreRequest::class, 'create');
-        $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
-        $this->crud->removeButtonFromStack('update', 'line');
-        $this->crud->removeButtonFromStack('delete', 'line');
-        $this->crud->setListView('crud::customize.list');
-        $this->crud->removeButtonFromStack('create', 'top');
     }
 
     public function index()

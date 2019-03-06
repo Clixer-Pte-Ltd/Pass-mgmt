@@ -46,29 +46,59 @@ class SubConstructorCrudController extends CrudController
 
         // TODO: remove setFromDb() and manually define Fields and Columns
         // $this->crud->setFromDb();
+        $this->setupColumns();
+        $this->setupFields();
+        $this->setupFilters();
 
+        // add asterisk for fields that are required in SubConstructorRequest
+        $this->crud->setRequiredFields(StoreRequest::class, 'create');
+        $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
+
+        // Overwrite view
+        $this->crud->setShowView('crud::sub-constructor.show');
+        $this->crud->setCreateView('crud::sub-constructor.create');
+        $this->crud->setEditView('crud::sub-constructor.edit');
+        $this->crud->setListView('crud::customize.list');
+        $this->crud->removeButtonFromStack('create', 'top');
+    }
+
+    public function setupColumns()
+    {
         $this->crud->addColumn([
             'name' => 'name',
             'label' => 'Name',
             'type' => 'closure',
             'function' => function ($entry) {
                 return "<a href='" . url($this->crud->route . '/' . $entry->getKey()) . "'>{$entry->name}</a>";
-            }
+            },
+            'searchLogic' => 'text'
         ]);
-        $this->crud->addColumns(['uen']);
+
+        $this->crud->addColumn([
+            'name' => 'uen',
+            'type' => 'text',
+            'label' => 'Company Code',
+            'searchLogic' => 'text'
+        ]);
+
         $this->crud->addColumn([
             'name' => 'tenancy_start_date', // The db column name
             'label' => 'Tenancy Start Date', // Table column heading
             'type' => 'date',
             'format' => DATE_FORMAT, // use something else than the base.default_date_format config value
+            'searchLogic' => 'text'
         ]);
         $this->crud->addColumn([
             'name' => 'tenancy_end_date', // The db column name
             'label' => 'Tenancy End Date', // Table column heading
             'type' => 'date',
             'format' => DATE_FORMAT, // use something else than the base.default_date_format config value
+            'searchLogic' => 'text'
         ]);
+    }
 
+    public function setupFields()
+    {
         $this->crud->addField([
             'name' => 'name',
             'type' => 'text',
@@ -119,18 +149,10 @@ class SubConstructorCrudController extends CrudController
                 'model' => "App\Models\Tenant", // foreign key model,
             ]);
         }
+    }
 
-        // add asterisk for fields that are required in SubConstructorRequest
-        $this->crud->setRequiredFields(StoreRequest::class, 'create');
-        $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
-
-        // Overwrite view
-        $this->crud->setShowView('crud::sub-constructor.show');
-        $this->crud->setCreateView('crud::sub-constructor.create');
-        $this->crud->setEditView('crud::sub-constructor.edit');
-        $this->crud->setListView('crud::customize.list');
-        $this->crud->removeButtonFromStack('create', 'top');
-
+    public function setupFilters()
+    {
         //filter
         $this->crud->addFilter([ // daterange filter
             'type' => 'date_range',
