@@ -33,39 +33,41 @@
 
         @if(isset($hideCreatePanel))
         @else
-        <div class="box box-info collapsed-box m-b-20 z-depth-0">
-            <div class="box-header with-border grad-success-panel">
-                <h3 class="box-title" style="color: #ffffff">
-                <span class="fa fa-fw fa-plus"></span> Add {{ $crud->entity_name }} </h3>
-                <button type="button" class="btn btn-box-tool" data-widget="collapse" style="position: absolute; top: 4px; right: 0; width: 100%; text-align: right; margin-top: -5px; height: 100%; padding-right: 10px; outline: 0;">
-                </button>
-            </div>
-            <div class="box-body">
-                <form method="post" action="{{ url($crud->route) }}"
-                    @if ($crud->hasUploadFields('create'))
-				        enctype="multipart/form-data"
-				    @endif
-		  		>
-		            {!! csrf_field() !!}
-		            <div class="col-md-12">
-		                <div class="row">
-		                    <!-- load the view from the application if it exists, otherwise load the one in the package -->
-		      	            @include('crud::customize.form_content', [ 'fields' => $crud->getFields('create'), 'action' => 'create' ])
-		                </div><!-- /.box-body -->
-                        <div class="text-center">
-                            <div id="saveActions" class="form-group">
-                                <div class="btn-group">
-                                    <button type="submit" class="btn btn-success grad-success">
-                                        <span class="fa fa-save" role="presentation" aria-hidden="true"></span> &nbsp;
-                                        <span data-value="save_and_back">{{ isset($label_button_create) ? $label_button_create : 'Save' }}</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-		            </div><!-- /.box -->
-		        </form>
-            </div>
-        </div>
+          @if (!backpack_user()->hasAnyRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE]))
+              <div class="box box-info collapsed-box m-b-20 z-depth-0">
+                  <div class="box-header with-border grad-success-panel">
+                      <h3 class="box-title" style="color: #ffffff">
+                          <span class="fa fa-fw fa-plus"></span> Add {{ $crud->entity_name }} </h3>
+                      <button type="button" class="btn btn-box-tool" data-widget="collapse" style="position: absolute; top: 4px; right: 0; width: 100%; text-align: right; margin-top: -5px; height: 100%; padding-right: 10px; outline: 0;">
+                      </button>
+                  </div>
+                  <div class="box-body">
+                      <form method="post" action="{{ url($crud->route) }}"
+                            @if ($crud->hasUploadFields('create'))
+                            enctype="multipart/form-data"
+                              @endif
+                      >
+                          {!! csrf_field() !!}
+                          <div class="col-md-12">
+                              <div class="row">
+                                  <!-- load the view from the application if it exists, otherwise load the one in the package -->
+                                  @include('crud::customize.form_content', [ 'fields' => $crud->getFields('create'), 'action' => 'create' ])
+                              </div><!-- /.box-body -->
+                              <div class="text-center">
+                                  <div id="saveActions" class="form-group">
+                                      <div class="btn-group">
+                                          <button type="submit" class="btn btn-success grad-success">
+                                              <span class="fa fa-save" role="presentation" aria-hidden="true"></span> &nbsp;
+                                              <span data-value="save_and_back">{{ isset($label_button_create) ? $label_button_create : 'Save' }}</span>
+                                          </button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div><!-- /.box -->
+                      </form>
+                  </div>
+              </div>
+          @endif
         @endif
 
         <div>
@@ -159,6 +161,7 @@
   <!-- CRUD LIST CONTENT - crud_list_styles stack -->
   @stack('crud_list_styles')
   @stack('crud_fields_styles')
+  @stack('crud_button_styles')
 @endsection
 
 @section('after_scripts')

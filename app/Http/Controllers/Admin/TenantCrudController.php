@@ -38,7 +38,10 @@ class TenantCrudController extends CrudController
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/tenant');
         $this->crud->setEntityNameStrings('Tenant', 'Tenants');
         $this->crud->allowAccess('show');
-
+        if (backpack_user()->hasAnyRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE])) {
+            $this->crud->denyAccess('delete');
+            $this->crud->denyAccess('update');
+        }
         /*
         |--------------------------------------------------------------------------
         | CrudPanel Configuration
@@ -169,8 +172,10 @@ class TenantCrudController extends CrudController
     public function index()
     {
         $content = parent::index();
-        $this->crud->addButtonFromView('top', 'import_tenants', 'import_tenants', 'end');
-        $this->crud->addButtonFromView('top', 'import_tenant_accounts', 'import_tenant_accounts', 'end');
+        if (!backpack_user()->hasAnyRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE])) {
+            $this->crud->addButtonFromView('top', 'import_tenants', 'import_tenants', 'end');
+            $this->crud->addButtonFromView('top', 'import_tenant_accounts', 'import_tenant_accounts', 'end');
+        }
         return $content;
     }
 

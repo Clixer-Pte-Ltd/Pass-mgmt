@@ -37,6 +37,10 @@ class SubConstructorCrudController extends CrudController
         $this->crud->setEntityNameStrings('Sub Constructor', 'Sub Constructors');
         $this->crud->allowAccess('show');
         $this->crud->addButtonFromView('line', 'show', 'manage', 'beginning');
+        if (backpack_user()->hasAnyRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE])) {
+            $this->crud->denyAccess('delete');
+            $this->crud->denyAccess('update');
+        }
 
         /*
         |--------------------------------------------------------------------------
@@ -193,8 +197,10 @@ class SubConstructorCrudController extends CrudController
     {
         $content = parent::index();
         session()->forget(SESS_TENANT_SUB_CONSTRUCTOR);
-        $this->crud->addButtonFromView('top', 'import_sub_constructors', 'import_sub_constructors', 'end');
-        $this->crud->addButtonFromView('top', 'import_sub_constructor_accounts', 'import_sub_constructor_accounts', 'end');
+        if (!backpack_user()->hasAnyRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE])) {
+            $this->crud->addButtonFromView('top', 'import_sub_constructors', 'import_sub_constructors', 'end');
+            $this->crud->addButtonFromView('top', 'import_sub_constructor_accounts', 'import_sub_constructor_accounts', 'end');
+        }
 
         return $content;
     }

@@ -45,7 +45,10 @@ class ExpiredCompanyCrudController extends CrudController
         $this->crud->removeButton('update');
         $this->crud->setListView('crud::customize.list');
         $this->crud->removeButtonFromStack('create', 'top');
-
+        if (backpack_user()->hasAnyRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE])) {
+            $this->crud->denyAccess('delete');
+            $this->crud->denyAccess('update');
+        }
     }
 
     public function setupColumns()

@@ -250,6 +250,9 @@ class RegisterController extends Controller
         }
 
         if (session()->has(SESS_NEW_ACC_FROM_SUB_CONSTRUCTOR)) {
+            if (!backpack_user()->hasAnyRole(config('backpack.cag.roles'))) {
+                return redirect()->route('admin.tenant.my-company');
+            }
             $id = session()->get(SESS_NEW_ACC_FROM_SUB_CONSTRUCTOR);
             session()->forget(SESS_NEW_ACC_FROM_SUB_CONSTRUCTOR);
             return redirect()->route('crud.sub-constructor.show', [$id]);
