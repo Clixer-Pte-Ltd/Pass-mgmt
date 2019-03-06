@@ -40,6 +40,6 @@ class RevisionExpireChecking extends Command
     public function handle()
     {
         $revisionRetentationRateMonths = getSettingValueByKey(REVISION_RETENTATION_RATE);
-        Activity::where('created_at','<', Carbon::now()->subMonths($revisionRetentationRateMonths))->update(['status' => ARCHIVE_ADHOC_EMAIL]);
+        Activity::where('created_at','<', Carbon::now()->subMonths($revisionRetentationRateMonths))->update(['status' => ARCHIVE_ACTIVITY_LOG]);
     }
 }
