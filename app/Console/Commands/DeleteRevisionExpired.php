@@ -6,21 +6,21 @@ use Illuminate\Console\Command;
 use Spatie\Activitylog\Models\Activity;
 use Carbon\Carbon;
 
-class RevisionExpireChecking extends Command
+class DeleteRevisionExpired extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'cag:revision:checking';
+    protected $signature = 'cag:revision:delete';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Checking revision expiry';
+    protected $description = 'Delete revision expired';
 
     /**
      * Create a new command instance.
@@ -39,7 +39,6 @@ class RevisionExpireChecking extends Command
      */
     public function handle()
     {
-        $revisionRetentationRateMonths = getSettingValueByKey(REVISION_RETENTATION_RATE);
-        Activity::where('created_at','<', Carbon::now()->subMonths($revisionRetentationRateMonths))->update(['status' => ARCHIVE_ACTIVITY_LOG]);
+        Activity::where('status', ARCHIVE_ACTIVITY_LOG)->where('updated_at','<', Carbon::now()->subYears(5))->delete();
     }
 }

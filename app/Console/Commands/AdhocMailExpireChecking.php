@@ -40,6 +40,6 @@ class AdhocMailExpireChecking extends Command
     public function handle()
     {
         $adhocMailRetentationRateMonths = getSettingValueByKey(ADHOC_EMAIL_RETENTATION_RATE);
-        AdhocEmail::where('created_at','<', Carbon::now()->subMonths($adhocMailRetentationRateMonths))->delete();
+        AdhocEmail::where('created_at','<', Carbon::now()->subMonths($adhocMailRetentationRateMonths))->update(['status' => ARCHIVE_ADHOC_EMAIL]);
     }
 }

@@ -37,6 +37,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('cag:pass_holder:list_pending_return')->cron(getSettingValueByKey(FREQUENCY_TERMINATED_PASS_EMAIL)); // gui list pedding return pass holder
         $schedule->command('cag:user_check_change_password')->daily(); // add notificaion change password
         $schedule->command('cag:adhoc_mail:checking')->dailyAt('00:00'); //xoa adhoc qua han
+        $schedule->command('cag:revision:delete')->dailyAt('00:00'); //xoa revision qua han
+        $schedule->command('cag:adhoc_mail:delete')->dailyAt('00:00'); //xoa adhoc qua han
     }
 
     /**
