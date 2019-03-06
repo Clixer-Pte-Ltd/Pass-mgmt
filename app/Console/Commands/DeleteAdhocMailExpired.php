@@ -3,24 +3,24 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Spatie\Activitylog\Models\Activity;
+use App\Models\AdhocEmail;
 use Carbon\Carbon;
 
-class RevisionExpireChecking extends Command
+class DeleteAdhocMailExpired extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'cag:revision:checking';
+    protected $signature = 'cag:adhoc_mail:delete';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Checking revision expiry';
+    protected $description = 'Delete adhoc mail expired';
 
     /**
      * Create a new command instance.
@@ -39,7 +39,6 @@ class RevisionExpireChecking extends Command
      */
     public function handle()
     {
-        $revisionRetentationRateMonths = getSettingValueByKey(REVISION_RETENTATION_RATE);
-        Activity::where('created_at','<', Carbon::now()->subMonths($revisionRetentationRateMonths))->update(['status' => ARCHIVE_ACTIVITY_LOG]);
+        AdhocEmail::where('status', ARCHIVE_ADHOC_EMAIL)->where('updated_at','<', Carbon::now()->subYears(5))->delete();
     }
 }
