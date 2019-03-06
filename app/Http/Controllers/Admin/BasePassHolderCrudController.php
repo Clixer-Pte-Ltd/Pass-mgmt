@@ -48,6 +48,10 @@ class BasePassHolderCrudController extends CrudController
         $this->crud->setListView('crud::customize.list');
         $this->crud->removeButtonFromStack('create', 'top');
         $this->crud->allowAccess('show');
+        if (backpack_user()->hasAnyRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE])) {
+            $this->crud->denyAccess('delete');
+            $this->crud->denyAccess('update');
+        }
         $this->crud->setShowView('crud::pass-holders.show');
         $this->crud->enableExportButtons();
     }
@@ -224,7 +228,9 @@ class BasePassHolderCrudController extends CrudController
     public function index()
     {
         $content = parent::index();
-        $this->crud->addButtonFromView('top', 'import_pass_holders', 'import_pass_holders', 'end');
+        if (!backpack_user()->hasAnyRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE])) {
+            $this->crud->addButtonFromView('top', 'import_pass_holders', 'import_pass_holders', 'end');
+        }
         return $content;
     }
 

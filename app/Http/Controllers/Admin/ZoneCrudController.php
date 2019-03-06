@@ -45,6 +45,10 @@ class ZoneCrudController extends CrudController
         $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
         $this->crud->setListView('crud::customize.list');
         $this->crud->removeButtonFromStack('create', 'top');
+        if (backpack_user()->hasAnyRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE])) {
+            $this->crud->denyAccess('delete');
+            $this->crud->denyAccess('update');
+        }
     }
 
     public function store(StoreRequest $request)
