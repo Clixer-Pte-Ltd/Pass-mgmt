@@ -47,9 +47,9 @@ class TenantCrudController extends CrudController
 
         // TODO: remove setFromDb() and manually define Fields and Columns
         // $this->crud->setFromDb();
-        $this->setColumns();
-        $this->setFields();
-        $this->setFilters();
+        $this->setupColumns();
+        $this->setupFields();
+        $this->setupFilters();
 
         // add asterisk for fields that are required in TenantRequest
         $this->crud->setRequiredFields(StoreRequest::class, 'create');
@@ -64,7 +64,7 @@ class TenantCrudController extends CrudController
         $this->crud->enableExportButtons();
     }
 
-    public function setColumns()
+    public function setupColumns()
     {
         $this->crud->addColumn([
             'name' => 'name',
@@ -97,7 +97,7 @@ class TenantCrudController extends CrudController
         ]);
     }
 
-    public function setFields()
+    public function setupFields()
     {
         $this->crud->addField([
             'name' => 'name',
@@ -124,7 +124,7 @@ class TenantCrudController extends CrudController
         ]);
     }
 
-    public function setFilters()
+    public function setupFilters()
     {
         //filter
         $this->crud->addFilter(

@@ -34,9 +34,9 @@ class AdhocEmailCrudController extends CrudController
 
         // TODO: remove setFromDb() and manually define Fields and Columns
         // $this->crud->setFromDb();
-        $this->setColumns();
-        $this->setFields();
-        $this->setFilters();
+        $this->setupColumns();
+        $this->setupFields();
+        $this->setupFilters();
 
         // add asterisk for fields that are required in AdhocEmailRequest
         $this->crud->setRequiredFields(StoreRequest::class, 'create');
@@ -47,7 +47,7 @@ class AdhocEmailCrudController extends CrudController
         $this->crud->removeButtonFromStack('create', 'top');
     }
 
-    public function setColumns()
+    public function setupColumns()
     {
         // List Columns
         $this->crud->addColumn([
@@ -86,7 +86,7 @@ class AdhocEmailCrudController extends CrudController
         ]);
     }
 
-    public function setFields()
+    public function setupFields()
     {
         //FORM FIELDS
         $this->crud->addField([       // Select2Multiple = n-n relationship (with pivot table)
@@ -113,7 +113,7 @@ class AdhocEmailCrudController extends CrudController
         ]);
     }
 
-    public function setFilters()
+    public function setupFilters()
     {
         $this->crud->addFilter([ // simple filter
             'type' => 'text',

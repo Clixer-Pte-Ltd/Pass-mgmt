@@ -41,7 +41,7 @@ class BasePassHolderCrudController extends CrudController
 
         // TODO: remove setFromDb() and manually define Fields and Columns
         // $this->crud->setFromDb();
-        $this->setColumns();
+        $this->setupColumns();
 
 //        $this->crud->addButtonFromView('top', 'export excel', 'export_excel', 'end');
 //        $this->crud->addButtonFromView('top', 'export pdf', 'export_pdf', 'end');
@@ -51,7 +51,7 @@ class BasePassHolderCrudController extends CrudController
         $this->crud->setShowView('crud::pass-holders.show');
         $this->crud->enableExportButtons();
     }
-    public function setColumns()
+    public function setupColumns()
     {
         //List columns
         $this->crud->addColumn([

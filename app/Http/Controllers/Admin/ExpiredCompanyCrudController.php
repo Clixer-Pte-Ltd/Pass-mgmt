@@ -33,8 +33,8 @@ class ExpiredCompanyCrudController extends CrudController
 
         // TODO: remove setFromDb() and manually define Fields and Columns
         // $this->crud->setFromDb();
-        $this->setColumns();
-        $this->setFilters();
+        $this->setupColumns();
+        $this->setupFilters();
 
         // add asterisk for fields that are required in ExpiredCompanyRequest
         $this->crud->setRequiredFields(StoreRequest::class, 'create');
@@ -48,7 +48,7 @@ class ExpiredCompanyCrudController extends CrudController
 
     }
 
-    public function setColumns()
+    public function setupColumns()
     {
         $this->crud->addColumn([
             'name' => 'name',
@@ -90,7 +90,7 @@ class ExpiredCompanyCrudController extends CrudController
         ]);
     }
 
-    public function setFilters()
+    public function setupFilters()
     {
         //filter
         $this->crud->addFilter([ // daterange filter

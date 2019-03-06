@@ -46,9 +46,9 @@ class SubConstructorCrudController extends CrudController
 
         // TODO: remove setFromDb() and manually define Fields and Columns
         // $this->crud->setFromDb();
-        $this->setColumns();
-        $this->setFields();
-        $this->setFilters();
+        $this->setupColumns();
+        $this->setupFields();
+        $this->setupFilters();
 
         // add asterisk for fields that are required in SubConstructorRequest
         $this->crud->setRequiredFields(StoreRequest::class, 'create');
@@ -62,7 +62,7 @@ class SubConstructorCrudController extends CrudController
         $this->crud->removeButtonFromStack('create', 'top');
     }
 
-    public function setColumns()
+    public function setupColumns()
     {
         $this->crud->addColumn([
             'name' => 'name',
@@ -97,7 +97,7 @@ class SubConstructorCrudController extends CrudController
         ]);
     }
 
-    public function setFields()
+    public function setupFields()
     {
         $this->crud->addField([
             'name' => 'name',
@@ -151,7 +151,7 @@ class SubConstructorCrudController extends CrudController
         }
     }
 
-    public function setFilters()
+    public function setupFilters()
     {
         //filter
         $this->crud->addFilter([ // daterange filter
