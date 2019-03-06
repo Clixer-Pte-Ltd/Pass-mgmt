@@ -71,3 +71,11 @@ define('NOTIFICATION_SYSTEM', 0);
 
 //notification name
 define('CHANGE_PASSWORD_NOTIFICATION', 'change password');
+
+//adhoc-email status
+define('ACTIVE_ADHOC_EMAIL', 0);
+define('ARCHIVE_ADHOC_EMAIL', 1);
+
+//activity log status
+define('ACTIVE_ACTIVITY_LOG', 0);
+define('ARCHIVE_ACTIVITY_LOG', 1);
