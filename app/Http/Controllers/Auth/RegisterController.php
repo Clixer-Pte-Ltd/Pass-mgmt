@@ -47,13 +47,16 @@ class RegisterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showRegistrationForm($token = null)
+    public function showRegistrationForm($token)
     {
         // if registration is closed, deny access
         if (!config('backpack.base.registration_open')) {
             abort(403, trans('backpack::base.registration_closed'));
         }
-
+        $userToken = BackpackUser::where('token', $token)->first();
+        if (is_null($userToken)) {
+            abort(404);
+        }
         $this->data['title'] = trans('backpack::base.register'); // set the page title
         $this->data['token'] = $token;
 
@@ -140,7 +143,7 @@ class RegisterController extends Controller
         $this->validatorNewAccount($registration_data)->validate();
 
         if (!isset($registration_data['token'])) {
-            $registration_data['token'] = str_random(40);
+            $registration_data['token'] = uniqid() . str_random(40);
         }
         // Initialise the 2FA class
         $google2fa = app('pragmarx.google2fa');
@@ -183,7 +186,7 @@ class RegisterController extends Controller
         $this->validateAddAccountByCompany($request->all())->validate();
 
         $data = $request->all();
-        $data['token'] = str_random(40);
+        $data['token'] = uniqid() . str_random(40);
 
         $user = $this->create($data);
         $user->assignRole($request->role);
@@ -257,7 +260,7 @@ class RegisterController extends Controller
             session()->forget(SESS_NEW_ACC_FROM_SUB_CONSTRUCTOR);
             return redirect()->route('crud.sub-constructor.show', [$id]);
         }
-
+        $user->update(['token' => uniqid() . str_random(40)]);
         $this->guard()->login($user);
 
         return redirect($this->redirectPath());
