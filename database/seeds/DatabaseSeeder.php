@@ -19,6 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(FrequencyEmailSettingSeeder::class);
         $this->call(RemindChangePasswordSeeder::class);
         $this->call(AdhocMailSettingSeeder::class);
-
+        $this->call(UserTableSeeder::class);
     }
 }

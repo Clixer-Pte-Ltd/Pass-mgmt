@@ -24,7 +24,7 @@ Route::group(
     ],
     function () {
         // Registration Routes...
-        Route::get('register/scaffold/{token?}', 'Auth\RegisterController@showRegistrationForm')->name('backpack.auth.register');
+        Route::get('register/scaffold/{token}', 'Auth\RegisterController@showRegistrationForm')->name('backpack.auth.register');
         Route::get('register', function () {
             return 'Forbidden';
         });

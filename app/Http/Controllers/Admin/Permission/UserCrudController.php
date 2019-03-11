@@ -51,12 +51,12 @@ class UserCrudController extends BaseUserCrudController
             'pivot' => true, // on create&update, do you need to add/delete pivot table entries?]
             'number_columns' => 3, //can be 1,2,3,4,6
             'function' => function() {
-                if (backpack_user()->hasRole(COMPANY_CO_ROLE)) {
+//                if (backpack_user()->hasRole(COMPANY_CO_ROLE)) {
                     return Role::whereIn('name', config('backpack.company.roles'))->get();
-                }
-                if (backpack_user()->hasRole(CAG_ADMIN_ROLE)) {
-                    return Role::all();
-                }
+//                }
+//                if (backpack_user()->hasRole(CAG_ADMIN_ROLE)) {
+//                    return Role::all();
+//                }
             }
         ]);
         if (backpack_user()->hasCompany()) {
