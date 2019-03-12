@@ -25,7 +25,7 @@
                         <form class="col-md-6 p-t-10 p-b-10 p-r-10 p-l-10 fromLogin " role="form" method="POST" action="{{ route('backpack.auth.login') }}">
                             {!! csrf_field() !!}
                             <h3 class="text-center m-b-20">
-                                <img class="img_logo" src="{{ asset('/storage/imgs/logo-mini2.png') }}" style="width:100px; height: auto">
+                                <img class="img_logo" src="{{ asset('/storage/imgs/logo-mini2.png') }}" style="margin-bottom: 24px; width:100px; height: auto">
                                 {{ trans('backpack::base.login') }}
                             </h3>
                             <div class="form-group{{ $errors->has($username) ? ' has-error' : '' }}">
