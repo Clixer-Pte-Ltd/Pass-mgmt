@@ -1,4 +1,4 @@
-<p>Dear {{ $account->name }},</p>
+<p>Dear Airport Pass Coordinator/Authorized Signatory</p>
 
 <div>Pass has been terminated.</div>
 <br>
@@ -19,7 +19,4 @@
     </tr>
 </table>
 
-<p>Thanks.</p>
-
-<div>Regards,</div>
-<div>CAG Pass Management Mailer</div>
+@include('emails.signature')

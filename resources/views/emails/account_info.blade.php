@@ -19,7 +19,4 @@
     Please change password after first login.
 </p>
 
-<p>Thanks.</p>
-
-<div>Regards,</div>
-<div>CAG Pass Management Mailer</div>
+@include('emails.signature')

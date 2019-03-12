@@ -1,6 +1,6 @@
-<p>Dear {{ $account->name }},</p>
+<p>Dear Airport Pass Coordinator/Authorized Signatory</p>
 
-<div>These are pass holders that are going to expire in the next 4 week.</div>
+<div>Please note that the following Seasonal Airport Pass sponsored by your company will be expiring in 4 weeks.</div>
 <br>
 <table style="font-family: arial, sans-serif; border-collapse: collapse; width: 100%; ">
     <tr style="background: #1975dc; color: #ffffff">
@@ -26,7 +26,8 @@
         @endphp
     @endforeach
 </table>
-<p>Thanks.</p>
-
-<div>Regards,</div>
-<div>CAG Pass Management Mailer</div>
+<p>As the sponsor of this/these Airport Pass/es, you are required to retrieve the pass/es from the passholder upon expiry of the pass and/or when the pass is no longer needed for the purpose it was issued.<br>
+    Failure to return the expired airport pass constitutes a breach of the Letter of Undertaking which you signed on behalf of the company.  CAG as the Issuing Authority for airport pass reserves the right to take necessary actions it deems fit which includes, but not limited to cancellation of your airport pass account and withdrawal of all airport pass sponsored by your company. <br>
+    ManagerAviation Security ManagerChangi Airport Group (S) Pte Ltd
+</p>
+@include('emails.signature')
