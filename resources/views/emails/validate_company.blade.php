@@ -1,4 +1,4 @@
-<p>Dear {{ $account->name }},</p>
+<p>Dear Airport Pass Coordinator/Authorized Signatory</p>
 
 <div>Please validate your company.</div>
 <br>
@@ -23,7 +23,4 @@
 <br>
 <a href="{{ $link }}">Validate company</a>
 
-<p>Thanks.</p>
-
-<div>Regards,</div>
-<div>CAG Pass Management Mailer</div>
+@include('emails.signature')

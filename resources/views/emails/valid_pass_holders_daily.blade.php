@@ -1,4 +1,4 @@
-<p>Dear {{ $account->name }},</p>
+<p>Dear Airport Pass Coordinator/Authorized Signatory</p>
 
 <div>List pass valid today.</div>
 <br>
@@ -27,7 +27,4 @@
     @endforeach
 </table>
 
-<p>Thanks.</p>
-
-<div>Regards,</div>
-<div>CAG Pass Management Mailer</div>
+@include('emails.signature')
