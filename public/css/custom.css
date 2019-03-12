@@ -72,12 +72,13 @@
 .main-sidebar,
 nav[role='navigation'],
 .main-footer {
-    background: #22333b;
+    background: #842588;
 }
 
 .main-sidebar {
     position: absolute;
     box-shadow: 5px 8px 4px 1px #ccc;
+    /*background: ;*/
 }
 
 .main-sidebar:after {
@@ -190,7 +191,8 @@ ul.sidebar-menu>li>ul>li>a:hover {
 }
 
 .content-header {
-    background-image: linear-gradient(to right, #5b524b, #5b524b, #5b524b85);
+    background: #6c594a;
+    /*background-image: linear-gradient(to right, #5b524b, #5b524b, #5b524b85);*/
     padding: 17px 20px;
     z-index: 999;
 }
@@ -574,11 +576,14 @@ ul.nav.nav-pills.nav-stacked li a:hover {
 /**************************/
 
 
-span.text-capitalize,
+
 small.content_title_header {
-    color: #e3d2c8;
+    color: #ffffff;
 }
 
+span.text-capitalize {
+    color: #ffffff;
+}
 small.content_title_header {
 
     font-size: 15px;
@@ -646,7 +651,7 @@ i.iconMail {
     background-image: url('/storage/imgs/envelope_top.png');
     width: 25px !important;
     height: 25px !important;
-    border: solid 1px #e88075;
+    border: solid 1px #ed202b;
     border-radius: 20px;
     padding: 9px;
     background-size: 60% !important;
@@ -727,7 +732,7 @@ footer.footer_menuside a {
 }
 .box.dashboard .box-header.text-center {
     display: inline-block;
-    background-color: #ed695a;
+    background-color: #ed202b;
     color: white;
     border-radius: 5px;
     border-bottom-left-radius: 0;
@@ -744,10 +749,10 @@ footer.footer_menuside a {
     padding: 0;
 }
 table.table.no-margin.table-striped.table-hover.dashboard {
-    border: solid 1px #ed695a;
+    border: solid 1px #ed202b;
 }
 table.table.no-margin.table-striped.table-hover.dashboard thead {
-    background-color: #ed695a;
+    background-color: #ed202b;
 }
 table.table.no-margin.table-striped.table-hover.dashboard thead tr th {
     border: none;
