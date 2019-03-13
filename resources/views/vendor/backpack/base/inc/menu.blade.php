@@ -13,7 +13,8 @@
     </ul>
 </div>
 
-
+<!-- Sidebar user panel -->
+@include('backpack::inc.sidebar_user_panel')
 <div class="navbar-custom-menu pull-right header_Support">
     <ul class="nav navbar-nav">
         <!-- ========================================================= -->
