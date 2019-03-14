@@ -14,7 +14,6 @@
 </div>
 
 <!-- Sidebar user panel -->
-@include('backpack::inc.sidebar_user_panel')
 <div class="navbar-custom-menu pull-right header_Support">
     <ul class="nav navbar-nav">
         <!-- ========================================================= -->
@@ -37,3 +36,4 @@
         <!-- ========== End of top menu right items ========== -->
     </ul>
 </div>
+@include('backpack::inc.sidebar_user_panel')
