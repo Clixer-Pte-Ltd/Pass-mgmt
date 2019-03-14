@@ -47,16 +47,16 @@ class RegisterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showRegistrationForm($token)
+    public function showRegistrationForm($token = null)
     {
         // if registration is closed, deny access
         if (!config('backpack.base.registration_open')) {
             abort(403, trans('backpack::base.registration_closed'));
         }
-        $userToken = BackpackUser::where('token', $token)->first();
-        if (is_null($userToken)) {
-            abort(404);
-        }
+//        $userToken = BackpackUser::where('token', $token)->first();
+//        if (is_null($userToken)) {
+//            abort(404);
+//        }
         $this->data['title'] = trans('backpack::base.register'); // set the page title
         $this->data['token'] = $token;
 
