@@ -72,7 +72,7 @@
 .main-sidebar,
 nav[role='navigation'],
 .main-footer {
-    background: #842588;
+    background: #48185A;
 }
 
 .main-sidebar {
@@ -96,9 +96,9 @@ nav[role='navigation'],
 }
 
 .main-header .logo {
-    background: #371c43;
+    background: #48185A;
     z-index: 999999;
-    box-shadow: 6px -7px 7px 0px #ccc;
+    /*box-shadow: 6px -7px 7px 0px #ccc;*/
     position: absolute;
     height: 55px;
 }
@@ -110,7 +110,7 @@ nav[role='navigation'],
 }
 
 .main-header .navbar {
-    background-color: white;
+    background-color: #48185A;
 }
 
 .sidebar a {
@@ -126,7 +126,7 @@ nav[role='navigation'],
 .sidebar-toggle:focus,
 .sidebar-toggle:hover
  {
-    color: #5b524b !important;
+    color: #ffffff !important;
 }
 
 .navbar-custom-menu>ul>li>a {
@@ -191,7 +191,7 @@ ul.sidebar-menu>li>ul>li>a:hover {
 }
 
 .content-header {
-    background: #6c594a;
+    background: #ffffff;
     /*background-image: linear-gradient(to right, #5b524b, #5b524b, #5b524b85);*/
     padding: 17px 20px;
     z-index: 999;
@@ -542,6 +542,9 @@ ul.nav.nav-pills.nav-stacked li a:hover {
     box-shadow: none;
 }
 
+.user-panel a{
+    color: #ffffff;
+}
 .box-body.backpack-profile-form {
     padding: 0;
 }
@@ -578,11 +581,11 @@ ul.nav.nav-pills.nav-stacked li a:hover {
 
 
 small.content_title_header {
-    color: #ffffff;
+    color: #989898;
 }
 
 span.text-capitalize {
-    color: #ffffff;
+    color: #989898;
 }
 small.content_title_header {
 
@@ -679,7 +682,7 @@ i.iconSupport {
 }
 
 .content_title_header span {
-    color: #6c594a;
+    color: #ffffff;
     font-size: 18px;
     margin-bottom: 0;
     font-weight: 400;
@@ -732,7 +735,7 @@ footer.footer_menuside a {
 }
 .box.dashboard .box-header.text-center {
     display: inline-block;
-    background-color: #ed202b;
+    background-color: #6C594D;
     color: white;
     border-radius: 5px;
     border-bottom-left-radius: 0;
@@ -749,10 +752,10 @@ footer.footer_menuside a {
     padding: 0;
 }
 table.table.no-margin.table-striped.table-hover.dashboard {
-    border: solid 1px #ed202b;
+    border: solid 1px #6C594D;
 }
 table.table.no-margin.table-striped.table-hover.dashboard thead {
-    background-color: #ed202b;
+    background-color: #6C594D;
 }
 table.table.no-margin.table-striped.table-hover.dashboard thead tr th {
     border: none;
