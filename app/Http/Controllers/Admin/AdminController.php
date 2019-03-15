@@ -42,11 +42,12 @@ class AdminController extends Controller
             ->where('created_at', '>=', Carbon::now()->subDay(7))
             ->orderBy('created_at', 'asc')
             ->get();
+        $this->data['pass_holders_active_count'] = [];
         foreach ($logsActivePassHolder as $log) {
             $this->data['pass_holders_active_count'][] = $log->properties->count();
         }
-
         $this->data['pass_holders_expireIn4Weeks'] = $pass_holders->where('pass_expiry_date','<=', Carbon::now()->addWeeks(4))->where('pass_expiry_date','>', Carbon::now());
+        $this->data['pass_holders_expireIn4Weeks_count'] = [];
         for ($i = 7; $i >=0 ; $i--) {
             $this->data['pass_holders_expireIn4Weeks_count'][] = $pass_holders->where('pass_expiry_date','<=', Carbon::now()->subDay($i)->addWeeks(4))->where('pass_expiry_date','>', Carbon::now())->count();
         }
