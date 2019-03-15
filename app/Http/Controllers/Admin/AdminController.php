@@ -7,6 +7,7 @@ use App\Models\Tenant;
 use Backpack\Base\app\Http\Controllers\Controller;
 use Carbon\Carbon;
 use App\Models\Company;
+use Spatie\Activitylog\Models\Activity;
 
 class AdminController extends Controller
 {
@@ -35,8 +36,22 @@ class AdminController extends Controller
             $pass_holders = PassHolder::where('company_uen', $uen)->get();
         }
         $this->data['pass_holders'] = $pass_holders;
-        $this->data['pass_holders_active'] = $pass_holders->where('status', PASS_STATUS_VALID);
+
+        $logsActivePassHolder = Activity::where('description', 'Pass Holder Valid Daily Mail')
+            ->where('created_at', '<=', Carbon::now())
+            ->where('created_at', '>=', Carbon::now()->subDay(7))
+            ->orderBy('created_at', 'asc')
+            ->get();
+        foreach ($logsActivePassHolder as $log) {
+            $this->data['pass_holders_active_count'][] = $log->properties->count();
+        }
+
         $this->data['pass_holders_expireIn4Weeks'] = $pass_holders->where('pass_expiry_date','<=', Carbon::now()->addWeeks(4))->where('pass_expiry_date','>', Carbon::now());
+        for ($i = 7; $i >=0 ; $i--) {
+            $this->data['pass_holders_expireIn4Weeks_count'][] = $pass_holders->where('pass_expiry_date','<=', Carbon::now()->subDay($i)->addWeeks(4))->where('pass_expiry_date','>', Carbon::now())->count();
+        }
+
+        $this->data['pass_holders_active'] = $pass_holders->where('status', PASS_STATUS_VALID);
         $this->data['pass_pending_return'] = $pass_holders->whereIn('status', [PASS_STATUS_BLACKLISTED, PASS_STATUS_WAITING_CONFIRM_RETURN]);
 
         $this->data['companies'] = Company::getAllCompanies();
