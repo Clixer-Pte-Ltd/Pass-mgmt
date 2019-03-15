@@ -48,10 +48,9 @@ class AdminController extends Controller
         }
         $this->data['pass_holders_expireIn4Weeks'] = $pass_holders->where('pass_expiry_date','<=', Carbon::now()->addWeeks(4))->where('pass_expiry_date','>', Carbon::now());
         $this->data['pass_holders_expireIn4Weeks_count'] = [];
-        for ($i = 7; $i >=0 ; $i--) {
+        for ($i = 6; $i >=0 ; $i--) {
             $this->data['pass_holders_expireIn4Weeks_count'][] = $pass_holders->where('pass_expiry_date','<=', Carbon::now()->subDay($i)->addWeeks(4))->where('pass_expiry_date','>', Carbon::now())->count();
         }
-
         $this->data['pass_holders_active'] = $pass_holders->where('status', PASS_STATUS_VALID);
         $this->data['pass_pending_return'] = $pass_holders->whereIn('status', [PASS_STATUS_BLACKLISTED, PASS_STATUS_WAITING_CONFIRM_RETURN]);
 

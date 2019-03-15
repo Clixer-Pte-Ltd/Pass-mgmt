@@ -302,6 +302,7 @@
                             maxTicksLimit: 5,
                             padding: 20,
                             min:0,
+                            max: {{ max(max($pass_holders_expireIn4Weeks_count), max($pass_holders_active_count)) }} + 1,
                             stepSize: 1,
                         },
                         gridLines: {
