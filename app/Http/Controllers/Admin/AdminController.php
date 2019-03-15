@@ -37,14 +37,14 @@ class AdminController extends Controller
         }
         $this->data['pass_holders'] = $pass_holders;
 
-        $logsActivePassHolder = Activity::where('description', 'Pass Holder Valid Daily Mail')
+        $logsActivePassHolder = Activity::where('description', 'Pass Holder Valid Daily Count')
             ->where('created_at', '<=', Carbon::now())
             ->where('created_at', '>=', Carbon::now()->subDay(7))
             ->orderBy('created_at', 'asc')
             ->get();
         $this->data['pass_holders_active_count'] = [];
         foreach ($logsActivePassHolder as $log) {
-            $this->data['pass_holders_active_count'][] = $log->properties->count();
+            $this->data['pass_holders_active_count'][] = $log->getExtraProperty('count');
         }
         $this->data['pass_holders_expireIn4Weeks'] = $pass_holders->where('pass_expiry_date','<=', Carbon::now()->addWeeks(4))->where('pass_expiry_date','>', Carbon::now());
         $this->data['pass_holders_expireIn4Weeks_count'] = [];

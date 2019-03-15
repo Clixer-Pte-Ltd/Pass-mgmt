@@ -39,6 +39,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('cag:adhoc_mail:checking')->dailyAt('00:00'); //xoa adhoc qua han
         $schedule->command('cag:revision:delete')->dailyAt('00:00'); //xoa revision qua han
         $schedule->command('cag:adhoc_mail:delete')->dailyAt('00:00'); //xoa adhoc qua han
+        $schedule->command('cag:pass_holder:valid_daily_count')->dailyAt('00:00'); //xoa adhoc qua han
     }
 
     /**

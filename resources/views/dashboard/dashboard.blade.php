@@ -248,7 +248,7 @@
 
         var dateNow = Date.now();
         var date = [];
-        for (i = 7; i >= 0 ; i--) {
+        for (i = 6; i >= 0 ; i--) {
             date.push(moment(dateNow).subtract(i , 'day').format("YYYY/MM/DD"))
         }
         var myChart = new Chart(ctx, {
