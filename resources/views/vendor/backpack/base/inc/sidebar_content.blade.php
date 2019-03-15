@@ -62,7 +62,7 @@
 
 {{-------------------setting-----------------------}}
 @if(auth()->user()->hasAnyRole([CAG_ADMIN_ROLE]))
-    <li class="header text-center">SETTING</li>
+    <li class="header text-left">SETTING</li>
     <li><a href="{{ backpack_url('settings/revisions') }}"><i class="fa fa-asterisk"></i> <span>Audit Logs Setting</span></a></li>
     <li class="treeview">
         <a href="#"><i class="fa fa-envelope"></i> <span>Email</span> <i class="fa fa-angle-left pull-right"></i></a>

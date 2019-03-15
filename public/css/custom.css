@@ -78,13 +78,13 @@ nav[role='navigation'],
 .main-sidebar {
     position: absolute;
     box-shadow: 5px 8px 4px 1px #ccc;
+    padding-top: 100px;
     /*background: ;*/
 }
 
 .main-sidebar:after {
     display: inline-block;
     content: '';
-    background-image: url(/storage/imgs/logo_bottom.png);
     width: 90%;
     height: 37%;
     background-repeat: no-repeat;
@@ -100,7 +100,13 @@ nav[role='navigation'],
     z-index: 999999;
     /*box-shadow: 6px -7px 7px 0px #ccc;*/
     position: absolute;
-    height: 55px;
+    height: 80px;
+    padding: 0;
+}
+
+.logo-lg {
+    display: block;
+    position: relative;
 }
 
 .main-footer {
@@ -152,8 +158,6 @@ nav[role='navigation'],
 
 li.header {
     background: transparent !important;
-    border-top: #ffffff dashed 1px;
-    border-bottom: #ffffff dashed 1px;
     color: white !important;
     font-weight: bold !important;
     font-size: 16px !important;
@@ -171,7 +175,7 @@ ul.sidebar-menu>li>a {
 ul.sidebar-menu>li>ul,
 ul.sidebar-menu>li>a {
     background: transparent !important;
-    color: #ffffff !important;
+    color: #CCCCCC !important;
 }
 
 ul.sidebar-menu>li>ul>li.active {
@@ -185,9 +189,9 @@ ul.sidebar-menu>li>ul>li.active>a {
 
 ul.sidebar-menu>li>a:hover,
 ul.sidebar-menu>li>ul>li>a:hover {
-    background: #ffffff !important;
-    color: #5F5148 !important;
-    border-right: 1px solid #5F5148;
+    /*background: #ffffff !important;*/
+    color: #ffffff !important;
+    /*border-right: 1px solid #5F5148;*/
 }
 
 .content-header {
@@ -644,6 +648,7 @@ div#datatable_search_stack {
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
+    color: #ffffff;
 }
 
 .navbar-custom-menu.pull-right.header_Support ul.nav.navbar-nav li {
@@ -654,7 +659,7 @@ i.iconMail {
     background-image: url('/storage/imgs/envelope_top.png');
     width: 25px !important;
     height: 25px !important;
-    border: solid 1px #ed202b;
+    border: solid 1px #ffffff;
     border-radius: 20px;
     padding: 9px;
     background-size: 60% !important;

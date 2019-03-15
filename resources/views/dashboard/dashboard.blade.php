@@ -28,7 +28,7 @@
 @section('content')
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             {{--    number  --}}
             <div class="box dashboard dashboardChart">
                 @include('dashboard.includes.panel', ['id' => 'pass_holders_active', 'num' => $pass_holders_active->count(), 'total' => $pass_holders->count(), 'label' => 'Active Passes'])
@@ -37,113 +37,22 @@
                 @if (backpack_user()->hasAnyRole(config('backpack.cag.roles')))
                     @include('dashboard.includes.panel', ['id' => 'expiring_tenants_within_4_weeks', 'num' => $expiring_tenants_within_4_weeks->count(), 'total' => $companies->count(), 'label' => 'Expiring tenants within 4 weeks'])
                 @endif
+                <div class="col-md-12">
+                    <div class="wrapper">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                    <a href="https://vanila.io" target="_blank">vanila.io</a>
+                </div>
+
             </div>
         </div>
-        <div class="table_listDashboard">
-            <div class="col-md-6">
-                {{--Expiring Pass Within 4 Weeks--}}
-                <div class="box dashboard">
-                    <div class="box-header text-center">
-                        <h2>Expiring Pass Within 4 Weeks</h2>
-                    </div>
-                    <div class="box-body dashboard">
-                        <div class="table-responsive">
-                            <table class="table no-margin table-striped table-hover dashboard">
-                                <thead class="bg-primary">
-                                <tr>
-                                    <th>Name</th>
-                                    <th>NRIC</th>
-                                    <th>Issue Date</th>
-                                    <th>Expiry Date</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($pass_holders_expireIn4Weeks as $pass)
-                                    <tr>
-                                        <td>{{ $pass->applicant_name }}</td>
-                                        <td>{{ $pass->nric }}</td>
-                                        <td>{{ custom_date_format($pass->created_at) }}</td>
-                                        <td>{{ custom_date_format($pass->pass_expiry_date) }}</td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-
-                {{--Sub-Contractor Expiring Pass--}}
-                <div class="box dashboard">
-                    <div class="box-header text-center">
-                        <h2>Sub-Contractor Expiring Pass</h2>
-                    </div>
-                    <div class="box-body dashboard">
-                        <div class="table-responsive">
-                            <table class="table no-margin table-striped table-hover dashboard">
-                                <thead class="bg-primary">
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Tenant/Sub-Contractor</th>
-                                    <th>Contac</th>
-                                    <th>Expiry Date</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($pass_holders_expireIn4Weeks as $pass)
-                                    <tr>
-                                        <td>{{ $pass->applicant_name }}</td>
-                                        <td>{{ isset($pass->company) ? $pass->company->name : '' }}</td>
-                                        <td>{{ custom_date_format($pass->created_at) }}</td>
-                                        <td>{{ custom_date_format($pass->pass_expiry_date) }}</td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="col-md-6">
-                {{--Black listed Pass--}}
-                <div class="box dashboard">
-                    <div class="box-header text-center">
-                        <h2>Black listed Pass</h2>
-                    </div>
-                    <div class="box-body dashboard">
-                        <div class="table-responsive">
-                            <table class="table no-margin table-striped table-hover dashboard">
-                                <thead class="bg-primary">
-                                <tr>
-                                    <th>Name</th>
-                                    <th>NRIC</th>
-                                    <th>Issue Date</th>
-                                    <th>Expiry Date</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($pass_holders->where('status', PASS_STATUS_BLACKLISTED) as $pass)
-                                        <tr>
-                                            <td>{{ $pass->applicant_name }}</td>
-                                            <td>{{ $pass->nric }}</td>
-                                            <td>{{ custom_date_format($pass->created_at) }}</td>
-                                            <td>{{ custom_date_format($pass->pass_expiry_date) }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @if (backpack_user()->hasAnyRole(config('backpack.cag.roles')))
-                <div class="col-md-6">
-                    {{--Expiring Company Within 4 Weeks--}}
+        <div class="col-md-6">
+            <div class="table_listDashboard">
+                <div class="col-md-12">
+                    {{--Expiring Pass Within 4 Weeks--}}
                     <div class="box dashboard">
                         <div class="box-header text-center">
-                            <h2>Expiring tenants within 4 weeks</h2>
+                            <h2>Expiring Pass Within 4 Weeks</h2>
                         </div>
                         <div class="box-body dashboard">
                             <div class="table-responsive">
@@ -151,20 +60,18 @@
                                     <thead class="bg-primary">
                                     <tr>
                                         <th>Name</th>
-                                        <th>Uen</th>
-                                        <th>Type</th>
-                                        <th>Tenancy Start Date</th>
-                                        <th>Tenancy End Date</th>
+                                        <th>NRIC</th>
+                                        <th>Issue Date</th>
+                                        <th>Expiry Date</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($expiring_tenants_within_4_weeks as $company)
+                                    @foreach($pass_holders_expireIn4Weeks as $pass)
                                         <tr>
-                                            <td>{{ $company->name }}</td>
-                                            <td>{{ $company->uen }}</td>
-                                            <td>{{ getTypeAttribute(get_class($company)) }}</td>
-                                            <td>{{ custom_date_format($company->tenancy_start_date) }}</td>
-                                            <td>{{ custom_date_format($company->tenancy_end_date) }}</td>
+                                            <td>{{ $pass->applicant_name }}</td>
+                                            <td>{{ $pass->nric }}</td>
+                                            <td>{{ custom_date_format($pass->created_at) }}</td>
+                                            <td>{{ custom_date_format($pass->pass_expiry_date) }}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -173,12 +80,115 @@
                         </div>
                     </div>
                 </div>
-            @endif
+                <div class="col-md-12">
+
+                    {{--Sub-Contractor Expiring Pass--}}
+                    <div class="box dashboard">
+                        <div class="box-header text-center">
+                            <h2>Sub-Contractor Expiring Pass</h2>
+                        </div>
+                        <div class="box-body dashboard">
+                            <div class="table-responsive">
+                                <table class="table no-margin table-striped table-hover dashboard">
+                                    <thead class="bg-primary">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Tenant/Sub-Contractor</th>
+                                        <th>Contac</th>
+                                        <th>Expiry Date</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($pass_holders_expireIn4Weeks as $pass)
+                                        <tr>
+                                            <td>{{ $pass->applicant_name }}</td>
+                                            <td>{{ isset($pass->company) ? $pass->company->name : '' }}</td>
+                                            <td>{{ custom_date_format($pass->created_at) }}</td>
+                                            <td>{{ custom_date_format($pass->pass_expiry_date) }}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    {{--Black listed Pass--}}
+                    <div class="box dashboard">
+                        <div class="box-header text-center">
+                            <h2>Black listed Pass</h2>
+                        </div>
+                        <div class="box-body dashboard">
+                            <div class="table-responsive">
+                                <table class="table no-margin table-striped table-hover dashboard">
+                                    <thead class="bg-primary">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>NRIC</th>
+                                        <th>Issue Date</th>
+                                        <th>Expiry Date</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($pass_holders->where('status', PASS_STATUS_BLACKLISTED) as $pass)
+                                        <tr>
+                                            <td>{{ $pass->applicant_name }}</td>
+                                            <td>{{ $pass->nric }}</td>
+                                            <td>{{ custom_date_format($pass->created_at) }}</td>
+                                            <td>{{ custom_date_format($pass->pass_expiry_date) }}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @if (backpack_user()->hasAnyRole(config('backpack.cag.roles')))
+                    <div class="col-md-12">
+                        {{--Expiring Company Within 4 Weeks--}}
+                        <div class="box dashboard">
+                            <div class="box-header text-center">
+                                <h2>Expiring tenants within 4 weeks</h2>
+                            </div>
+                            <div class="box-body dashboard">
+                                <div class="table-responsive">
+                                    <table class="table no-margin table-striped table-hover dashboard">
+                                        <thead class="bg-primary">
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Uen</th>
+                                            <th>Type</th>
+                                            <th>Tenancy Start Date</th>
+                                            <th>Tenancy End Date</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($expiring_tenants_within_4_weeks as $company)
+                                            <tr>
+                                                <td>{{ $company->name }}</td>
+                                                <td>{{ $company->uen }}</td>
+                                                <td>{{ getTypeAttribute(get_class($company)) }}</td>
+                                                <td>{{ custom_date_format($company->tenancy_start_date) }}</td>
+                                                <td>{{ custom_date_format($company->tenancy_end_date) }}</td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            </div>
         </div>
     </div>
 @endsection
 @section('after_scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.min.js"></script>
+    <script src="{{ asset('vendor/adminlte/bower_components/moment/moment.js') }}"></script>
     <script type="text/javascript">
         var newPanel = function(options, id, data, backgroundColor, hoverBackgroundColor) {
             new Chart($("#" + id), {
@@ -214,5 +224,105 @@
         newPanel(options, 'expiring_tenants_within_4_weeks', data4, ["#dd8f8f", "#d75c5c"], ["#dd8f8f", "#d75c5c"])
         @endif
 
+    </script>
+
+    <script>
+        var ctx = document.getElementById('myChart').getContext("2d");
+
+        var gradientStroke1 = ctx.createLinearGradient(500, 0, 100, 0);
+        gradientStroke1.addColorStop(0, '#13a6fd');
+        gradientStroke1.addColorStop(1, '#c7f2f4');
+
+        var gradientFill1 = ctx.createLinearGradient(500, 0, 100, 0);
+        gradientFill1.addColorStop(0, "rgba(128, 182, 244, 0.1)");
+        gradientFill1.addColorStop(1, "rgba(244, 144, 128, 0.1)");
+
+
+        var gradientStroke2 = ctx.createLinearGradient(500, 0, 100, 0);
+        gradientStroke2.addColorStop(0, '#d75b5c');
+        gradientStroke2.addColorStop(1, '#f4dbf1');
+
+        var gradientFill2 = ctx.createLinearGradient(500, 0, 100, 0);
+        gradientFill2.addColorStop(0, "rgba(128, 182, 244, 0.1)");
+        gradientFill2.addColorStop(1, "rgba(244, 144, 128, 0.1)");
+
+        var dateNow = Date.now();
+        var date = [];
+        for (i = 7; i >= 0 ; i--) {
+            date.push(moment(dateNow).subtract(i , 'day').format("YYYY/MM/DD"))
+        }
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: date,
+                datasets: [
+                    {
+                        label: "No Pass Active",
+                        borderColor: gradientStroke1,
+                        pointBorderColor: gradientStroke1,
+                        pointBackgroundColor: gradientStroke1,
+                        pointHoverBackgroundColor: gradientStroke1,
+                        pointHoverBorderColor: gradientStroke1,
+                        pointBorderWidth: 10,
+                        pointHoverRadius: 10,
+                        pointHoverBorderWidth: 1,
+                        pointRadius: 3,
+                        fill: true,
+                        backgroundColor: gradientFill1,
+                        borderWidth: 4,
+                        data: {{ json_encode($pass_holders_active_count) }}
+                    },
+                    {
+                        label: "No Pass Expiring",
+                        borderColor: gradientStroke2,
+                        pointBorderColor: gradientStroke2,
+                        pointBackgroundColor: gradientStroke2,
+                        pointHoverBackgroundColor: gradientStroke2,
+                        pointHoverBorderColor: gradientStroke2,
+                        pointBorderWidth: 10,
+                        pointHoverRadius: 10,
+                        pointHoverBorderWidth: 1,
+                        pointRadius: 3,
+                        fill: true,
+                        backgroundColor: gradientFill2,
+                        borderWidth: 4,
+                        data: {{ json_encode($pass_holders_expireIn4Weeks_count) }}
+                    }
+                ]},
+            options: {
+                legend: {
+                    position: "bottom"
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            fontColor: "rgba(0,0,0,0.5)",
+                            fontStyle: "bold",
+                            beginAtZero: true,
+                            maxTicksLimit: 5,
+                            padding: 20,
+                            min:0,
+                            stepSize: 1,
+                        },
+                        gridLines: {
+                            drawTicks: false,
+                            display: false
+                        }
+
+                    }],
+                    xAxes: [{
+                        gridLines: {
+                            zeroLineColor: "transparent"
+                        },
+                        ticks: {
+                            padding: 20,
+                            fontColor: "rgba(0,0,0,0.5)",
+                            fontStyle: "bold",
+                            beginAtZero: true,
+                        }
+                    }]
+                }
+            }
+        });
     </script>
 @endsection
