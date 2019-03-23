@@ -251,6 +251,17 @@
         for (i = 6; i >= 0 ; i--) {
             date.push(moment(dateNow).subtract(i , 'day').format("YYYY/MM/DD"))
         }
+
+        var pass_holders_expireIn4Weeks_count = @json($pass_holders_expireIn4Weeks_count);
+        var pass_holders_active_count = @json($pass_holders_active_count);
+
+        if (pass_holders_expireIn4Weeks_count.length < 7) {
+            pass_holders_expireIn4Weeks_count.unshift(...Array(7-pass_holders_expireIn4Weeks_count.length).fill(0))
+        }
+
+        if (pass_holders_active_count.length < 7) {
+            pass_holders_active_count.unshift(...Array(7-pass_holders_active_count.length).fill(0))
+        }
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -270,7 +281,7 @@
                         fill: true,
                         backgroundColor: gradientFill1,
                         borderWidth: 4,
-                        data: {{ json_encode($pass_holders_active_count) }}
+                        data: pass_holders_active_count
                     },
                     {
                         label: "No Pass Expiring",
@@ -286,7 +297,7 @@
                         fill: true,
                         backgroundColor: gradientFill2,
                         borderWidth: 4,
-                        data: {{ json_encode($pass_holders_expireIn4Weeks_count) }}
+                        data: pass_holders_expireIn4Weeks_count
                     }
                 ]},
             options: {
@@ -302,7 +313,7 @@
                             maxTicksLimit: 5,
                             padding: 20,
                             min:0,
-                            max: {{ max(max($pass_holders_expireIn4Weeks_count), max($pass_holders_active_count)) }} + 1,
+                            max: Math.max(...pass_holders_expireIn4Weeks_count, ...pass_holders_active_count) + 1,
                             stepSize: 1,
                         },
                         gridLines: {
