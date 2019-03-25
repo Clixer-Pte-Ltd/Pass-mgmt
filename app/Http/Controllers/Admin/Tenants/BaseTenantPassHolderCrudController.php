@@ -16,7 +16,10 @@ class BaseTenantPassHolderCrudController extends BasePassHolderCrudController
     public function setup()
     {
         parent::setup();
-        $uen = backpack_user()->tenant ? backpack_user()->tenant->uen : backpack_user()->subConstructor->uen;
-        $this->crud->addClause('whereCompanyUen', $uen);
+        $company = backpack_user()->tenant ?? backpack_user()->subConstructor ?? null;
+        if (is_null($company)) {
+            return abort(404);
+        }
+        $this->crud->addClause('whereCompanyUen', $company->uen);
     }
 }
