@@ -32,7 +32,7 @@ class AdminController extends Controller
         if(backpack_user()->hasAnyRole(config('backpack.cag.roles'))) {
             $pass_holders = PassHolder::all();
         } else {
-            $uen = backpack_user()->tenant ? backpack_user()->tenant->uen : backpack_user()->subConstructor->uen;
+            $uen = backpack_user()->tenant->uen ?? backpack_user()->subConstructor->uen ?? null;
             $pass_holders = PassHolder::where('company_uen', $uen)->get();
         }
         $this->data['pass_holders'] = $pass_holders;
