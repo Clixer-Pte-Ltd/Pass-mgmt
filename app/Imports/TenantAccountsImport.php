@@ -5,15 +5,19 @@ namespace App\Imports;
 use App\Models\Tenant;
 use App\Models\BackpackUser;
 use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Validators\Failure;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
-use Maatwebsite\Excel\Concerns\WithMultipleSheets;
+use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Concerns\SkipsFailures;
 
-class TenantAccountsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnError, SkipsOnFailure, WithMultipleSheets
+
+class TenantAccountsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnError, SkipsOnFailure
 {
+    use Importable, SkipsFailures;
+
+    public $error = [];
     /**
     * @param array $row
     *
@@ -24,7 +28,7 @@ class TenantAccountsImport implements ToModel, WithHeadingRow, WithValidation, S
         try {
             $password = DEFAULT_PASSWORD;
             $google2fa_secret = app('pragmarx.google2fa')->generateSecretKey();
-            $uen = $row['company_uen'];
+            $uen = $row['company_code'];
             $id = Tenant::where('uen', $uen)->first()->id;
             return new BackpackUser([
                 'name' => $row['name'],
@@ -36,6 +40,7 @@ class TenantAccountsImport implements ToModel, WithHeadingRow, WithValidation, S
                 'is_imported' => true,
             ]);
         } catch (\Exception $ex) {
+            $this->error[] = 'Company code <b>' . @$uen . '</b> not found';
             return null;
         }
     }
@@ -49,21 +54,17 @@ class TenantAccountsImport implements ToModel, WithHeadingRow, WithValidation, S
         ];
     }
 
-    public function sheets(): array
-    {
-        return [
-            // Select by sheet index
-            0 => new TenantAccountsImport(),
-        ];
-    }
+//    public function sheets(): array
+//    {
+//        return [
+//            // Select by sheet index
+//            0 => new TenantAccountsImport(),
+//        ];
+//    }
 
     public function onError(\Throwable $e)
     {
-        dd($e);
+
     }
 
-    public function onFailure(Failure ...$failures)
-    {
-        dd($failures);
-    }
 }
