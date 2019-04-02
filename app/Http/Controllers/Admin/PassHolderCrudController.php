@@ -89,10 +89,8 @@ class PassHolderCrudController extends BasePassHolderCrudController
 
         $import = new PassHoldersImport();
         $import->import($request->file('import_file'));
-        if ($import->failures()->count()) {
-            $error = view('errors.error_import', ['failures' => $import->failures(), 'errors' => $import->error])->render();
-            file_put_contents(storage_path('app/public/error_imports/error.html'), $error);
-            return redirect(\Storage::url('error_imports/error.html'));
+        if ($import->failures()->count() || count($import->error)) {
+            return view('errors.error_import', ['failures' => $import->failures(), 'errors' => $import->error]);
         }
 
         \Alert::success('Import successful.')->flash();
