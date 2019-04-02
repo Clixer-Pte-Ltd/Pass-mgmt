@@ -5,15 +5,17 @@ namespace App\Imports;
 use Carbon\Carbon;
 use App\Models\Tenant;
 use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Validators\Failure;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
-use Maatwebsite\Excel\Concerns\WithMultipleSheets;
+use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Concerns\SkipsFailures;
 
-class TenantsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnError, SkipsOnFailure, WithMultipleSheets
+class TenantsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnError, SkipsOnFailure
 {
+    use Importable, SkipsFailures;
+
     /**
     * @param array $row
     *
@@ -24,7 +26,7 @@ class TenantsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnE
         try {
             return new Tenant([
                 'name' => $row['name'],
-                'uen' => $row['uen'],
+                'uen' => $row['company_code'],
                 'tenancy_start_date' => Carbon::createFromFormat(DATE_FORMAT, $row['tenancy_start_date']),
                 'tenancy_end_date' => Carbon::createFromFormat(DATE_FORMAT, $row['tenancy_end_date'])
             ]);
@@ -37,17 +39,9 @@ class TenantsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnE
     {
         return [
             'name' => 'required',
-            'uen' => 'required|unique:tenants,uen|unique:sub_constructors,uen',
+            'company_code' => 'required|unique:tenants,uen|unique:sub_constructors,uen',
             'tenancy_start_date' => 'required',
             'tenancy_end_date' => 'required',
-        ];
-    }
-
-    public function sheets(): array
-    {
-        return [
-            // Select by sheet index
-            0 => new TenantsImport(),
         ];
     }
 
@@ -56,8 +50,4 @@ class TenantsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnE
         // Handle the exception how you'd like.
     }
 
-    public function onFailure(Failure ...$failures)
-    {
-        // Handle the failures how you'd like.
-    }
 }

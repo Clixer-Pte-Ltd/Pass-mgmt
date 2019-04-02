@@ -301,8 +301,15 @@ class SubConstructorCrudController extends CrudController
             \Alert::error('You must choose excel file')->flash();
             return redirect()->back()->with('not_have_file', 1);
         }
-        $excel->import(new SubContructorsImport, $request->file('import_file'));
+//        $excel->import(new SubContructorsImport, $request->file('import_file'));
 
+        $import = new SubContructorsImport();
+        $import->import($request->file('import_file'));
+        if ($import->failures()->count()) {
+            $error = view('errors.error_import', ['failures' => $import->failures()])->render();
+            file_put_contents(storage_path('app/public/error_imports/error.html'), $error);
+            return redirect(\Storage::url('error_imports/error.html'));
+        }
         \Alert::success('Import successful.')->flash();
 
         return redirect()->route('crud.sub-constructor.index');
@@ -327,7 +334,14 @@ class SubConstructorCrudController extends CrudController
             \Alert::error('You must choose excel file')->flash();
             return redirect()->back()->with('not_have_file', 1);
         }
-        $excel->import(new SubContructorAccountsImport, $request->file('import_file'));
+//        $excel->import(new SubContructorAccountsImport, $request->file('import_file'));
+        $import = new SubContructorAccountsImport();
+        $import->import($request->file('import_file'));
+        if ($import->failures()->count() || count($import->error)) {
+            $error = view('errors.error_import', ['failures' => $import->failures(), 'errors' => $import->error])->render();
+            file_put_contents(storage_path('app/public/error_imports/error.html'), $error);
+            return redirect(\Storage::url('error_imports/error.html'));
+        }
 
         \Alert::success('Import successful. Email will be sent out to imported accounts soon...')->flash();
 

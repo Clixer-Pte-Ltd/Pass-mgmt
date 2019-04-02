@@ -260,7 +260,7 @@ class TenantCrudController extends CrudController
         return view('google2fa.register', ['QR_Image' => $QR_Image, 'secret' => $registration_data['google2fa_secret']]);
     }
 
-    public function import(Request $request, Excel $excel)
+    public function import(Request $request)
     {
         if (is_null($request->file('import_file'))) {
             \Alert::error('You must choose file')->flash();
@@ -275,7 +275,14 @@ class TenantCrudController extends CrudController
             return redirect()->back()->with('not_have_file', 1);
         }
 
-        $excel->import(new TenantsImport, $request->file('import_file'));
+        $import = new TenantsImport();
+        $import->import($request->file('import_file'));
+        if ($import->failures()->count()) {
+            $error = view('errors.error_import', ['failures' => $import->failures()])->render();
+            file_put_contents(storage_path('app/public/error_imports/error.html'), $error);
+            return redirect(\Storage::url('error_imports/error.html'));
+        }
+
         \Alert::success('Import successful.')->flash();
 
         return redirect()->route('crud.tenant.index');
@@ -300,7 +307,15 @@ class TenantCrudController extends CrudController
             \Alert::error('You must choose excel file')->flash();
             return redirect()->back()->with('not_have_file', 1);
         }
-        $excel->import(new TenantAccountsImport, $request->file('import_file'));
+//        $excel->import(new TenantAccountsImport, $request->file('import_file'));
+
+        $import = new TenantAccountsImport();
+        $import->import($request->file('import_file'));
+        if ($import->failures()->count()) {
+            $error = view('errors.error_import', ['failures' => $import->failures(), 'errors' => $import->error])->render();
+            file_put_contents(storage_path('app/public/error_imports/error.html'), $error);
+            return redirect(\Storage::url('error_imports/error.html'));
+        }
 
         \Alert::success('Import successful. Email will be sent out to imported accounts soon...')->flash();
 
