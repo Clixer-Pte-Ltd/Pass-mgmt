@@ -12,11 +12,27 @@ function custom_date_time_format($date)
 
 function getUserRole($user)
 {
-    if ($user->hasAnyRole([CAG_ADMIN_ROLE])) {
-        return 'Admin';
+    if ($user->hasRole(CAG_ADMIN_ROLE)) {
+        return 'CAG Admin';
     }
+    if ($user->hasRole(CAG_STAFF_ROLE)) {
+        return 'CAG Staff';
+    }
+
+    if ($user->hasRole(CAG_VIEWER_ROLE)) {
+        return 'CAG Viewer';
+    }
+
     if ($user->hasRole(COMPANY_CO_ROLE)) {
-        return 'Company';
+        return 'Company Co';
+    }
+
+    if ($user->hasRole(COMPANY_AS_ROLE)) {
+        return 'Company As';
+    }
+
+    if ($user->hasRole(COMPANY_VIEWER_ROLE)) {
+        return 'Company Viewer';
     }
 }
 
