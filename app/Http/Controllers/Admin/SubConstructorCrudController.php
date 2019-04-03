@@ -305,10 +305,8 @@ class SubConstructorCrudController extends CrudController
 
         $import = new SubContructorsImport();
         $import->import($request->file('import_file'));
-        if ($import->failures()->count()) {
-            $error = view('errors.error_import', ['failures' => $import->failures()])->render();
-            file_put_contents(storage_path('app/public/error_imports/error.html'), $error);
-            return redirect(\Storage::url('error_imports/error.html'));
+        if ($import->failures()->count() || count($import->error)) {
+            return view('errors.error_import', ['failures' => $import->failures(), 'errors' => $import->error]);
         }
         \Alert::success('Import successful.')->flash();
 
@@ -338,9 +336,7 @@ class SubConstructorCrudController extends CrudController
         $import = new SubContructorAccountsImport();
         $import->import($request->file('import_file'));
         if ($import->failures()->count() || count($import->error)) {
-            $error = view('errors.error_import', ['failures' => $import->failures(), 'errors' => $import->error])->render();
-            file_put_contents(storage_path('app/public/error_imports/error.html'), $error);
-            return redirect(\Storage::url('error_imports/error.html'));
+            return view('errors.error_import', ['failures' => $import->failures(), 'errors' => $import->error]);
         }
 
         \Alert::success('Import successful. Email will be sent out to imported accounts soon...')->flash();

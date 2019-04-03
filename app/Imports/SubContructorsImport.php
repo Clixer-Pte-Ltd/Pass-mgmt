@@ -16,6 +16,8 @@ use Maatwebsite\Excel\Concerns\SkipsFailures;
 class SubContructorsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnError, SkipsOnFailure
 {
     use Importable, SkipsFailures;
+
+    public $error;
     /**
     * @param array $row
     *
@@ -24,7 +26,7 @@ class SubContructorsImport implements ToModel, WithHeadingRow, WithValidation, S
     public function model(array $row)
     {
         try {
-            $tenant_id = Tenant::where('uen', $row['tenant_uen'])->first()->id;
+            $tenant_id = Tenant::where('uen', $row['tenant_company_code'])->first()->id;
             return new SubConstructor([
                 'name' => $row['name'],
                 'uen' => $row['company_code'],
@@ -33,6 +35,9 @@ class SubContructorsImport implements ToModel, WithHeadingRow, WithValidation, S
                 'tenant_id' => $tenant_id,
             ]);
         } catch (\Exception $ex) {
+            if (is_null(Tenant::where('uen', $row['tenant_company_code'])->first())) {
+                $this->error[] = 'Tenant Company code <b>' . @$row['tenant_company_code'] . '</b> not found';
+            }
             return null;
         }
     }
@@ -44,6 +49,7 @@ class SubContructorsImport implements ToModel, WithHeadingRow, WithValidation, S
             'company_code' => 'required|unique:tenants,uen|unique:sub_constructors,uen',
             'tenancy_start_date' => 'required',
             'tenancy_end_date' => 'required',
+            'tenant_company_code' => 'required'
         ];
     }
 
