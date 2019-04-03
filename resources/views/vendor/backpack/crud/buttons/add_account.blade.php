@@ -111,7 +111,7 @@
                                                     class="select2_add_accounts form-control select2_multiple"
                                                     multiple>
                                                 @foreach (App\Models\BackpackUser::role(COMPANY_AS_ROLE)->get() as $user)
-                                                    <option class="option_add_account" value="{{ $user->id }}" {{ !is_null($entry->asAccounts) && $entry->asAccounts->contains('id', $user->id) ? 'selected' : '' }}>{{ $user->name }}</option>
+                                                    <option class="option_add_account" value="{{ $user->id }}" {{ $entry->getAllAccounts()->contains('id', $user->id) ? 'selected' : '' }}>{{ $user->name }}</option>
                                                 @endforeach
                                             </select>
                                             <a class="btn btn-xs btn-default select_all" style="margin-top:5px;"><i

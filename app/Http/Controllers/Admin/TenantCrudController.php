@@ -343,6 +343,7 @@ class TenantCrudController extends CrudController
         $user_as_ids = $request->has('user_as_ids') ? $request->user_as_ids : [];
         if ($request->has('tenant_id')) {
             $entry = $this->crud->getEntry($request->tenant_id);
+            User::role(COMPANY_AS_ROLE)->where('tenant_id', $entry->id)->update(['tenant_id' => NULL]);
             $entry->asAccounts()->sync($user_as_ids);
             \Alert::success('Add AS Users done')->flash();
         } else {

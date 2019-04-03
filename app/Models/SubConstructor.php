@@ -36,6 +36,11 @@ class SubConstructor extends Model
     {
         return $this->accounts->contains($account);
     }
+
+    public function getAllAccounts()
+    {
+        return $this->accounts;
+    }
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
