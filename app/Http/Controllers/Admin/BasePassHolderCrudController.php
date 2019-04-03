@@ -47,6 +47,9 @@ class BasePassHolderCrudController extends CrudController
 //        $this->crud->addButtonFromView('top', 'export pdf', 'export_pdf', 'end');
         $this->crud->setListView('crud::customize.list');
         $this->crud->removeButtonFromStack('create', 'top');
+        if (backpack_user()->hasAnyRole([COMPANY_CO_ROLE, COMPANY_AS_ROLE])) {
+            $this->crud->removeButtonFromStack('delete', 'line');
+        }
         $this->crud->allowAccess('show');
         if (backpack_user()->hasAnyRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE])) {
             $this->crud->denyAccess('delete');
