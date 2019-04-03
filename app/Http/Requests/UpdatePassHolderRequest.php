@@ -27,7 +27,7 @@ class UpdatePassHolderRequest extends FormRequest
         $except = request()->get('id');
         return [
             'applicant_name' => 'required',
-            'nric' => "required|unique:pass_holders,nric,{$except}|regex:/^[A-Z][0-9]{7}[A-Z]$/",
+            'nric' => "required|unique:pass_holders,nric,{$except}",
             'pass_expiry_date' => 'required|date|after:today',
             'country_id' => 'required',
             'company_uen' => 'required',
