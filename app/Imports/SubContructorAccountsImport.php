@@ -30,15 +30,17 @@ class SubContructorAccountsImport implements ToModel, WithHeadingRow, WithValida
             $google2fa_secret = app('pragmarx.google2fa')->generateSecretKey();
             $uen = $row['company_code'];
             $id = SubConstructor::where('uen', $uen)->first()->id;
-            return new BackpackUser([
+            $user = BackpackUser::create([
                 'name' => $row['name'],
                 'email' => $row['email'],
                 'phone' => $row['phone'],
-                'password' => \Hash::make($password),
+                'password' => $password,
                 'google2fa_secret' => $google2fa_secret,
                 'sub_constructor_id' => $id,
                 'is_imported' => true,
-            ]);
+            ])->refresh();
+            $user->assignRole($row['role']);
+            return $user;
         } catch (\Exception $ex) {
             $this->error[] = 'Company code <b>' . @$uen . '</b> not found';
             return null;

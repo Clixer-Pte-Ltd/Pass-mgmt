@@ -30,11 +30,21 @@ class TenantAccountsImport implements ToModel, WithHeadingRow, WithValidation, S
             $google2fa_secret = app('pragmarx.google2fa')->generateSecretKey();
             $uen = $row['company_code'];
             $id = Tenant::where('uen', $uen)->first()->id;
+            $user = BackpackUser::create([
+                'name' => $row['name'],
+                'email' => $row['email'],
+                'phone' => $row['phone'],
+                'password' => $password,
+                'google2fa_secret' => $google2fa_secret,
+                'tenant_id' => $id,
+                'is_imported' => true,
+            ])->refresh();
+            $user->assignRole($row['role']);
             return new BackpackUser([
                 'name' => $row['name'],
                 'email' => $row['email'],
                 'phone' => $row['phone'],
-                'password' => \Hash::make($password),
+                'password' => $password,
                 'google2fa_secret' => $google2fa_secret,
                 'tenant_id' => $id,
                 'is_imported' => true,
@@ -51,6 +61,7 @@ class TenantAccountsImport implements ToModel, WithHeadingRow, WithValidation, S
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'phone' => 'required|digits:8',
+            'role' => 'required'
         ];
     }
 
