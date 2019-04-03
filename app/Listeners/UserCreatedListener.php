@@ -38,7 +38,6 @@ class UserCreatedListener
         if (!$user->hasAnyRole(Role::all())
             && (session()->has(SESS_NEW_ACC_FROM_TENANT) || session()->has(SESS_NEW_ACC_FROM_SUB_CONSTRUCTOR))
             && (isset($user->tenant_id) || isset($user->sub_constructor_id) )) {
-            $user->assignRole(COMPANY_CO_ROLE_ID);
         }
 
         if ($user->is_imported) {
