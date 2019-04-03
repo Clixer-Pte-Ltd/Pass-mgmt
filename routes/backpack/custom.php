@@ -38,8 +38,8 @@ Route::group([
 
     Route::group(['middleware' => ['role:' . CAG_ADMIN_ROLE . '|'. CAG_STAFF_ROLE . '|' . COMPANY_CO_ROLE . '|' . COMPANY_AS_ROLE]], function () {
         //Company
-        Route::get('company/{uen}/renew', 'CompanyCrudController@renew')->name('admin.company.renew');
-        Route::post('company/renew', 'CompanyCrudController@updateExpiry')->name('admin.company.updateExpiry');
+        Route::get('company/{uen}/renew', 'ExpiredCompanyCrudController@renew')->name('admin.company.renew');
+        Route::post('company/renew', 'ExpiredCompanyCrudController@updateExpiry')->name('admin.company.updateExpiry');
 
         //Expired Company
         CRUD::resource('expired-company', 'ExpiredCompanyCrudController');
