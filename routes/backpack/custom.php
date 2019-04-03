@@ -37,9 +37,10 @@ Route::group([
     Route::get('tenant-return-pass-holder/export-pdf', 'Tenants\TenantReturnHoldersController@exportPdf')->name('admin.tenant-return-pass-holder.export-pdf');
 
     Route::group(['middleware' => ['role:' . CAG_ADMIN_ROLE . '|'. CAG_STAFF_ROLE . '|' . COMPANY_CO_ROLE . '|' . COMPANY_AS_ROLE]], function () {
+
         //Company
-        Route::get('company/{uen}/renew', 'ExpiredCompanyCrudController@renew')->name('admin.company.renew');
-        Route::post('company/renew', 'ExpiredCompanyCrudController@updateExpiry')->name('admin.company.updateExpiry');
+        Route::get('expired-company/{uen}/renew', 'ExpiredCompanyCrudController@renew')->name('admin.expired-company.renew');
+        Route::post('expired-company/renew', 'ExpiredCompanyCrudController@updateExpiry')->name('admin.expired-company.updateExpiry');
 
         //Expired Company
         CRUD::resource('expired-company', 'ExpiredCompanyCrudController');

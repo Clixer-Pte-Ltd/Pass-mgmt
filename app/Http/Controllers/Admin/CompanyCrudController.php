@@ -9,7 +9,6 @@
 namespace App\Http\Controllers\Admin;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-use App\Http\Requests\RenewCompanyRequest as RenewRequest;
 
 class CompanyCrudController extends CrudController
 {
@@ -23,6 +22,5 @@ class CompanyCrudController extends CrudController
         $this->crud->setModel('App\Models\ExpiredCompany');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/company');
         $this->crud->setEntityNameStrings('Expire Company', 'Expire Company');
-        $this->crud->setEditView('crud::companies.renew');
     }
 }
