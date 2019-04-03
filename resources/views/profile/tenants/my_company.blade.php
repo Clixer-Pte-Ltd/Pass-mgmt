@@ -18,7 +18,7 @@
 			<div class="col-md-12">
 				<label>Select Tenant: </label>
 				<select name="tenant_select_id" style="width: 100%" class="form-control select2_tenant_ajax" id="select2_ajax_tenant_select_id">
-					@foreach (backpack_user()->tenants as $tenant)
+					@foreach (backpack_user()->tenantsOfAs as $tenant)
 						<option value="{{ $tenant->id }}" {{ ($tenant->id == $entry->id) ? 'selected' : '' }}>{{ $tenant->name }}</option>
 					@endforeach
 				</select>

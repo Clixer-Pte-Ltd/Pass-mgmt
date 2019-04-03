@@ -81,13 +81,13 @@
                                             </div>
 
                                             {{--company id--}}
-                                            @if(session()->has('tenant'))
+                                            @if(session()->has(SESS_NEW_ACC_FROM_TENANT))
                                                 <input type="hidden" name="tenant_id"
-                                                       value="{{ session()->get('tenant') }}">
+                                                       value="{{ session()->get(SESS_NEW_ACC_FROM_TENANT) }}">
                                             @endif
-                                            @if(session()->has('sub_constructor'))
+                                            @if(session()->has(SESS_NEW_ACC_FROM_SUB_CONSTRUCTOR))
                                                 <input type="hidden" name="sub_constructor_id"
-                                                       value="{{ session()->get('sub_constructor') }}">
+                                                       value="{{ session()->get(SESS_NEW_ACC_FROM_SUB_CONSTRUCTOR) }}">
                                             @endif
                                         </div>
                                     </div>
@@ -111,7 +111,9 @@
                                                     class="select2_add_accounts form-control select2_multiple"
                                                     multiple>
                                                 @foreach (App\Models\BackpackUser::role(COMPANY_AS_ROLE)->get() as $user)
-                                                    <option class="option_add_account" value="{{ $user->id }}" {{ $entry->getAllAccounts()->contains('id', $user->id) ? 'selected' : '' }}>{{ $user->name }}</option>
+                                                    @if (!$entry->getAllAccounts()->contains('id', $user->id))
+                                                        <option class="option_add_account" value="{{ $user->id }}">{{ $user->name }}</option>
+                                                    @endif
                                                 @endforeach
                                             </select>
                                             <a class="btn btn-xs btn-default select_all" style="margin-top:5px;"><i

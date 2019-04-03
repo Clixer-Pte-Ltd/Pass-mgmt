@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Collection;
 
 class CompanyOwner
 {
@@ -44,8 +45,13 @@ class CompanyOwner
 
     public function handlePassHolder($pass_holder_id)
     {
-        if ($pass_holder_id && backpack_user()->hasCompany() && backpack_user()->getCompany()->passholders->contains('id', $pass_holder_id)) {
-            return true;
+        $companies = backpack_user()->getCompany() instanceof Collection ? backpack_user()->getCompany() : collect(backpack_user()->getCompany());
+        if ($pass_holder_id && backpack_user()->hasCompany() && $companies) {
+            foreach ($companies as $company) {
+                if ($company->passholders->contains('id', $pass_holder_id)) {
+                    return true;
+                }
+            }
         }
         return false;
     }

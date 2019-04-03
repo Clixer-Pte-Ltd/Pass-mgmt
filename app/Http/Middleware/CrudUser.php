@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Models\BackpackUser;
+use Illuminate\Support\Collection;
 
 class CrudUser
 {
@@ -25,7 +26,7 @@ class CrudUser
         $userId = intval($request->route('user'));
         if ($userId) {
             $user = BackpackUser::find($userId);
-            if ($user && $user->hasCompany() && $user->getCompany()->id !== backpack_user()->getCompany()->id) {
+            if ($user && $user->hasCompany() && !($user->getCompany() instanceof Collection) && $user->getCompany()->id !== backpack_user()->getCompany()->id) {
                 abort(401);
             }
         }

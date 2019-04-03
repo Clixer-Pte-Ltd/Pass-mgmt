@@ -28,15 +28,6 @@ class TenantPassHolderCrudController extends BaseTenantPassHolderCrudController
 
         $this->crud->removeField('company_uen');
 
-        $uen = backpack_user()->tenant ? backpack_user()->tenant->uen : backpack_user()->subConstructor->uen;
-
-        $this->crud->addField([
-            'label' => 'Company',
-            'name' => 'company_uen',
-            'type' => 'hidden',
-            'value' => $uen
-        ]);
-
         //filter
         $this->crud->addFilter([ // daterange filter
             'type' => 'date_range',
@@ -123,4 +114,14 @@ class TenantPassHolderCrudController extends BaseTenantPassHolderCrudController
         // use $this->data['entry'] or $this->crud->entry
         return redirect()->route('crud.tenant-pass-holder.index');
     }
+
+    public function update(UpdateRequest $request)
+    {
+        // your additional operations before save here
+        $redirect_location = parent::updateCrud($request);
+        // your additional operations after save here
+        // use $this->data['entry'] or $this->crud->entry
+        return $redirect_location;
+    }
+
 }

@@ -11,6 +11,7 @@ use App\User;
 use Carbon\Carbon;
 use App\Models\Company;
 use App\Events\CompanyAddAccount;
+use Illuminate\Support\Collection;
 
 class UserCrudController extends BaseUserCrudController
 {
@@ -32,7 +33,17 @@ class UserCrudController extends BaseUserCrudController
                 'label' => 'Company',
                 'type' => 'closure',
                 'function' => function($entry) {
-                    return $entry->hasCompany() ? $entry->getCompany()->name : null;
+                    if ($entry->hasCompany()) {
+                        if ($entry->getCompany() instanceof Collection) {
+                            $name = implode(' ; ', $entry->getCompany()->pluck('name')->toArray());
+                        } else {
+                            $name = $entry->getCompany()->name;
+                        }
+                    } else {
+                        $name = null;
+                    }
+
+                    return $name;
                 }
             ]);
         $this->crud->removeColumn('permissions');
@@ -60,13 +71,13 @@ class UserCrudController extends BaseUserCrudController
                 }
             }
         ]);
-        if (backpack_user()->hasCompany()) {
-            $this->crud->addField([
-                'name' => backpack_user()->tenant ? 'tenant_id' : 'sub_constructor_id',
-                'type' => 'hidden',
-                'value' => backpack_user()->getCompany()->id
-            ]);
-        }
+//        if (backpack_user()->hasCompany()) {
+//            $this->crud->addField([
+//                'name' => backpack_user()->tenant ? 'tenant_id' : 'sub_constructor_id',
+//                'type' => 'hidden',
+//                'value' => backpack_user()->getCompany()->id
+//            ]);
+//        }
 
         $this->crud->addFilter([ // simple filter
             'type' => 'text',

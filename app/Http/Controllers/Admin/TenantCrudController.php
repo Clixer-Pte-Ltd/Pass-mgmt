@@ -344,7 +344,7 @@ class TenantCrudController extends CrudController
         if ($request->has('tenant_id')) {
             $entry = $this->crud->getEntry($request->tenant_id);
             User::role(COMPANY_AS_ROLE)->where('tenant_id', $entry->id)->update(['tenant_id' => NULL]);
-            $entry->asAccounts()->sync($user_as_ids);
+            $entry->asAccounts()->attach($user_as_ids);
             \Alert::success('Add AS Users done')->flash();
         } else {
             \Alert::error('Error add AS Users')->flash();
@@ -356,7 +356,10 @@ class TenantCrudController extends CrudController
     {
         if ($request->ajax() && $request->has('tenant_select_id') && backpack_user()->hasRole(COMPANY_AS_ROLE)) {
             $tenant = Tenant::find($request->tenant_select_id);
-            session()->put(SESS_TENANT_SUB_CONSTRUCTOR, $tenant->id);
+            session()->put(SESS_TENANT_MY_COMPANY, $tenant->id);
+            session()->forget(SESS_NEW_ACC_FROM_SUB_CONSTRUCTOR);
+            session()->forget(SESS_TENANT_SUB_CONSTRUCTOR);
+            session()->put(SESS_NEW_ACC_FROM_TENANT, $tenant->id);
             return view('partials.company_detail_content', ["entry" => $tenant])->render();
         }
     }
