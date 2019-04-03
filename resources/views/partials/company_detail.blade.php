@@ -39,11 +39,15 @@
             <hr>
             @if(backpack_user()->hasAnyRole([CAG_ADMIN_ROLE, CAG_STAFF_ROLE, COMPANY_CO_ROLE, COMPANY_AS_ROLE]))
                 @if ($entry instanceof App\Models\Tenant)
-                    <a href="{{ route('crud.tenant.edit', [$entry->id]) }}" class="btn btn-primary grad-blue"><i class="fa fa-edit"></i> Edit</a>
+                    @if(backpack_user()->hasAnyRole([CAG_ADMIN_ROLE, CAG_STAFF_ROLE,]))
+                        <a href="{{ route('crud.tenant.edit', [$entry->id]) }}" class="btn btn-primary grad-blue"><i class="fa fa-edit"></i> Edit</a>
+                    @endif
                     @include('vendor.backpack.crud.buttons.add_account')
                     <a href="{{ route('admin.tenant.sub-constructor.create', [$entry->id]) }}" class="btn btn-warning grad-warning"><i class="fa fa-building"></i> Add More Sub Constructor</a>
                 @else
-                    <a href="{{ route('crud.sub-constructor.edit', [$entry->id]) }}" class="btn btn-primary grad-blue"><i class="fa fa-edit"></i> Edit</a>
+                    @if(backpack_user()->hasAnyRole([CAG_ADMIN_ROLE, CAG_STAFF_ROLE,]))
+                        <a href="{{ route('crud.sub-constructor.edit', [$entry->id]) }}" class="btn btn-primary grad-blue"><i class="fa fa-edit"></i> Edit</a>
+                    @endif
                     @include('vendor.backpack.crud.buttons.add_account')
                 @endif
             @endif
