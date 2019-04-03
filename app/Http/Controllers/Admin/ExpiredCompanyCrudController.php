@@ -6,6 +6,8 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 // VALIDATION: change the requests to match your own file names if you need form validation
 use App\Http\Requests\ExpiredCompanyRequest as StoreRequest;
 use App\Http\Requests\ExpiredCompanyRequest as UpdateRequest;
+use App\Http\Requests\RenewCompanyRequest as RenewRequest;
+
 
 /**
  * Class ExpiredCompanyCrudController
@@ -49,6 +51,7 @@ class ExpiredCompanyCrudController extends CrudController
             $this->crud->denyAccess('delete');
             $this->crud->denyAccess('update');
         }
+        $this->crud->setEditView('crud::companies.renew');
     }
 
     public function setupColumns()

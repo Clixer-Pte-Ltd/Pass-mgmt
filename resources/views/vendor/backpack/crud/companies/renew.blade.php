@@ -30,7 +30,7 @@
             @include('crud::inc.grouped_errors')
 
             <form method="post"
-                  action="{{ route('admin.company.updateExpiry', [$entry->getKey()]) }}"
+                  action="{{ route('admin.expired-company.updateExpiry', [$entry->getKey()]) }}"
                   @if ($crud->hasUploadFields('update', $entry->getKey()))
                   enctype="multipart/form-data"
                     @endif
