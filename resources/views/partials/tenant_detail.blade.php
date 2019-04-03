@@ -12,7 +12,7 @@
 						<div class="tab-pane active" id="tab_1">
 								<div class="row">
 									<div class="box no-padding no-border">
-										@foreach($entry->accounts()->whereNotNull('phone')->get() as $account)
+										@foreach($entry->getAllAccounts()->where('phone', '!=', NULL) as $account)
 												<div class="col-md-6">
 													<div class="info-box bg-green">
 															<span class="info-box-icon"><i class="fa fa-user"></i></span>
@@ -42,7 +42,7 @@
 						<div class="tab-pane" id="tab_2">
 							<div class="row">
 								<div class="box no-padding no-border">
-									@foreach($entry->accounts()->whereNull('phone')->get() as $account)
+									@foreach($entry->getAllAccounts()->where('phone', '==', NULL) as $account)
 										<div class="col-md-6">
 											<div class="info-box bg-green">
 												<span class="info-box-icon"><i class="fa fa-user"></i></span>
@@ -61,8 +61,6 @@
 												<!-- /.info-box-content -->
 											</div>
 										</div>
-
-
 									@endforeach
 
 								</div>

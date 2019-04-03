@@ -35,7 +35,22 @@ class Tenant extends Model
     */
     public function hasAccount($account)
     {
-        return $this->accounts->contains($account);
+        return $this->getAllAccounts()->contains($account);
+    }
+
+    public function getAllAccounts()
+    {
+        $asAccounts = $this->asAccounts;
+        $accounts = $this->accounts;
+        foreach ($asAccounts as $account) {
+            $accounts->push($account);
+        }
+        return $accounts->unique();
+    }
+
+    public function getAllAsAcounts()
+    {
+        return User::role(COMPANY_AS_ROLE)->get()->intersect($this->getAllAccounts());
     }
     /*
     |--------------------------------------------------------------------------
