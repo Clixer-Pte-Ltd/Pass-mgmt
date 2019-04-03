@@ -10,6 +10,7 @@ use App\Models\Role;
 use App\User;
 use Carbon\Carbon;
 use App\Models\Company;
+use App\Events\CompanyAddAccount;
 
 class UserCrudController extends BaseUserCrudController
 {
@@ -117,9 +118,10 @@ class UserCrudController extends BaseUserCrudController
 
     public function store(StoreRequest $request)
     {
-        $request->request->add(['last_modify_password_at' => Carbon::now()]);
+        $request->request->add(['last_modify_password_at' => Carbon::now(), 'token' => uniqid() . str_random(40)]);
         // your additional operations before save here
-        $redirect_location = parent::storeCrud($request);
+        parent::storeCrud($request);
+        event(new CompanyAddAccount($this->crud->entry));
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
         return redirect()->route('crud.user.index');
