@@ -162,13 +162,17 @@ class BasePassHolderCrudController extends CrudController
         $this->crud->addField([
             'name' => 'nric',
             'type' => 'text',
-            'label' => 'Pass Number'
+            'label' => 'Pass Number',
+            'attributes' => backpack_user()->hasAnyRole([COMPANY_CO_ROLE, COMPANY_AS_ROLE]) &&  \Route::current()->getName() == "crud.tenant-pass-holder.edit" ?
+                ['readonly'=>'readonly', 'disabled'=>'disabled'] : []
         ]);
 
         $this->crud->addField([
             'name' => 'pass_expiry_date',
             'type' => 'date_picker',
-            'label' => 'Pass Expiry Date'
+            'label' => 'Pass Expiry Date',
+            'attributes' => backpack_user()->hasAnyRole([COMPANY_CO_ROLE, COMPANY_AS_ROLE]) &&  \Route::current()->getName() == "crud.tenant-pass-holder.edit" ?
+                ['readonly'=>'readonly', 'disabled'=>'disabled'] : []
         ]);
 
         $this->crud->addField([  // Select2
@@ -222,6 +226,8 @@ class BasePassHolderCrudController extends CrudController
             'model' => "App\Models\Zone", // foreign key model
             'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
             'select_all' => true, // show Select All and Clear buttons?
+            'attributes' => backpack_user()->hasAnyRole([COMPANY_CO_ROLE, COMPANY_AS_ROLE]) &&  \Route::current()->getName() == "crud.tenant-pass-holder.edit" ?
+                ['readonly'=>'readonly', 'disabled'=>'disabled'] : []
         ]);
     }
 
