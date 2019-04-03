@@ -182,6 +182,10 @@
                         });
                     }
                 });
+                let errors = @json($errors->all());
+                if (errors.length) {
+                    $("#modal-return-{{ $entry->id }}").modal('show');
+                }
             });
         </script>
     @endpush
