@@ -25,10 +25,17 @@ class UpdatePassHolderRequest extends FormRequest
     public function rules()
     {
         $except = request()->get('id');
+        if (backpack_user()->hasAnyRole([COMPANY_CO_ROLE, COMPANY_AS_ROLE]) &&  \Route::current()->getName() == "crud.tenant-pass-holder.update") {
+            $nric = "unique:pass_holders,nric,{$except}";
+            $pass_expiry_date = "date|after:today";
+        } else {
+            $nric = "required|unique:pass_holders,nric,{$except}";
+            $pass_expiry_date = "required|date|after:today";
+        }
         return [
             'applicant_name' => 'required',
-            'nric' => "required|unique:pass_holders,nric,{$except}",
-            'pass_expiry_date' => 'required|date|after:today',
+            'nric' => $nric,
+            'pass_expiry_date' => $pass_expiry_date,
             'country_id' => 'required',
             'company_uen' => 'required',
             'ru_name' => 'required',
