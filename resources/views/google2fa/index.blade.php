@@ -25,6 +25,9 @@
                                     <button type="submit" class="btn btn-primary">
                                         Verify Code
                                     </button>
+                                    <a href="{{ route('backpack.auth.logout') }}" class="btn btn-danger">
+                                        Cancel
+                                    </a>
                                 </div>
                             </div>
                         </form>
