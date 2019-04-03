@@ -45,12 +45,12 @@ class BackpackUser extends User
     */
     public function hasCompany()
     {
-        return is_null($this->tenant) && is_null($this->subConstructor) ? false : true; // false if user is admin or airport pass team
+        return is_null($this->tenant) && is_null($this->subConstructor) && !$this->tenantsOfAs->count() ? false : true; // false if user is admin or airport pass team
     }
 
     public function getCompany()
     {
-        $company = $this->hasCompany() && $this->tenant? $this->tenant : $this->subConstructor;
+        $company = $this->tenant ?? $this->tenantsOfAs ?? $this->subConstructor;
         return isset($company) ? $company : null;
     }
     
@@ -89,7 +89,7 @@ class BackpackUser extends User
         return $this->belongsToMany(Notification::class, 'user_notification');
     }
 
-    public function tenants()
+    public function tenantsOfAs()
     {
         return $this->belongsToMany(Tenant::class, 'user_tenants');
     }
