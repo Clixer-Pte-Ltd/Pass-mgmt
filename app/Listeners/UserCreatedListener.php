@@ -48,8 +48,8 @@ class UserCreatedListener
     }
     private function handleAdminAccount($user)
     {
-        if (!isset($user->tenant_id) && !isset($user->sub_constructor_id)) {
-            $user->assignRole(CAG_ADMIN_ROLE);
-        }
+//        if (!$user->hasAnyRole($roles)) {
+//            $user->assignRole(CAG_ADMIN_ROLE);
+//        }
     }
 }
