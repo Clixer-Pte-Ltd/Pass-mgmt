@@ -903,3 +903,7 @@ section.sidebar {
     width: 97px !important;
     height: 97px !important;
 }
+
+.datepicker.datepicker-dropdown.dropdown-menu {
+    z-index: 2000 !important;
+}
