@@ -103,9 +103,10 @@ class RegisterController extends Controller
         $user = $user_model_fqn::where('token', $data['token'])->first();
         $users_table = 'users';
         $email_validation = backpack_authentication_column() == 'email' ? 'email|' : '';
+        
         return Validator::make($data, [
             'name' => 'required|max:255',
-            backpack_authentication_column() => 'required|' . $email_validation . 'max:255|unique:' . $users_table .',email,' . @$user->id,
+            backpack_authentication_column() => 'required|' . $email_validation . 'max:255|unique:' . $users_table .',email',
             'password' => 'required|min:6|confirmed',
             'phone' => 'required|digits:8'
         ]);
