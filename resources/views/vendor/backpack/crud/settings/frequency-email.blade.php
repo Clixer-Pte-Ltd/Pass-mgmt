@@ -36,19 +36,29 @@
                     <li><a data-toggle="tab" href="#renew-pass-alert ">Renew Pass Alert </a></li>
                     <li><a data-toggle="tab" href="#terminated-pass-alert">Terminated Pass Alert</a></li>
                 </ul>
-
                 <div class="tab-content">
                     <div id="expiring-pass-holder-alert" class="tab-pane fade in active">
-                        @include('vendor.backpack.crud.settings.cron_setting_form', ['route' => route('admin.setting.frequency-email.expiring-pass-holder-alert'), 'type' => 'expiring-pass-holder-alert'])
+                        @include('vendor.backpack.crud.settings.cron_setting_form', ['route' => route('admin.setting.frequency-email.expiring-pass-holder-alert'),
+                            'type' => 'expiring-pass-holder-alert',
+                            'value' =>  getSettingValueByKey(FREQUENCY_EXPIRING_PASS_EMAIL)])
                     </div><!-- /.box -->
                     <div id="blacklisted-pass-alert" class="tab-pane fade">
-                        @include('vendor.backpack.crud.settings.cron_setting_form', ['route' => route('admin.setting.frequency-email.expiring-pass-holder-alert'), 'type' => 'blacklisted-pass-alert'])
+                        @include('vendor.backpack.crud.settings.cron_setting_form', ['route' => route('admin.setting.frequency-email.expiring-pass-holder-alert'),
+                            'type' => 'blacklisted-pass-alert',
+                            'value' =>  getSettingValueByKey(FREQUENCY_BLACKLISTED_PASS_EMAIL)])
+                        ])
                     </div><!-- /.box -->
                     <div id="renew-pass-alert" class="tab-pane fade">
-                        @include('vendor.backpack.crud.settings.cron_setting_form', ['route' => route('admin.setting.frequency-email.renew-pass-holder-alert'), 'type' => 'renew-pass-alert'])
+                        @include('vendor.backpack.crud.settings.cron_setting_form', ['route' => route('admin.setting.frequency-email.renew-pass-holder-alert'),
+                            'type' => 'renew-pass-alert',
+                            'value' =>  getSettingValueByKey(FREQUENCY_RENEWED_PASS_EMAIL)])
+                        ])
                     </div><!-- /.box -->
                     <div id="terminated-pass-alert" class="tab-pane fade">
-                        @include('vendor.backpack.crud.settings.cron_setting_form', ['route' => route('admin.setting.frequency-email.terminated-pass-alert'), 'type' => 'terminated-pass-alert'])
+                        @include('vendor.backpack.crud.settings.cron_setting_form', ['route' => route('admin.setting.frequency-email.terminated-pass-alert'),
+                            'type' => 'terminated-pass-alert',
+                            'value' =>  getSettingValueByKey(FREQUENCY_TERMINATED_PASS_EMAIL)])
+                        ])
                     </div><!-- /.box -->
                 </div>
             </div>
@@ -101,6 +111,8 @@
 @section('after_scripts')
     <script src="{{ asset('vendor/adminlte/bower_components/bootstrap-datatimepicker/dist/js/moment.min.js') }}"></script>
     <script src="{{ asset('vendor/adminlte/bower_components/bootstrap-datatimepicker/dist/js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script src="{{ asset('vendor/backpack/cron/later.js') }}"></script>
+    <script src="{{ asset('vendor/backpack/cron/prettycron.js') }}"></script>
     <script type="text/javascript">
         $(function () {
             $('.cron-setting').css("display", "none")
@@ -187,6 +199,11 @@
                 var months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
                 $('#time-value-month').text(months[$(this).val()-1])
             })
+
+            $('.old_value').each(function(index) {
+                let value = $(this).attr('value');
+                $(this).text(prettyCron.toString(value));
+            });
         });
     </script>
 @endsection
