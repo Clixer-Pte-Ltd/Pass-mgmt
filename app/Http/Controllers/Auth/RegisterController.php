@@ -100,13 +100,14 @@ class RegisterController extends Controller
     protected function validatorNewAccount(array $data)
     {
         $user_model_fqn = config('backpack.base.user_model_fqn');
-        $user = $user_model_fqn::where('token', $data['token'])->first();
+        $user = $data['token'] ? $user_model_fqn::where('token', $data['token'])->first() : null;
         $users_table = 'users';
         $email_validation = backpack_authentication_column() == 'email' ? 'email|' : '';
-        
+        $email_validation = $user ? 'required|' . $email_validation . 'max:255|unique:' . $users_table .',email,' . @$user->id
+            : 'required|' . $email_validation . 'max:255|unique:' . $users_table .',email';
         return Validator::make($data, [
             'name' => 'required|max:255',
-            backpack_authentication_column() => 'required|' . $email_validation . 'max:255|unique:' . $users_table .',email',
+            backpack_authentication_column() => $email_validation,
             'password' => 'required|min:6|confirmed',
             'phone' => 'required|digits:8'
         ]);
@@ -189,7 +190,14 @@ class RegisterController extends Controller
         $data = $request->all();
         $data['token'] = uniqid() . str_random(40);
 
+        if ($request->role == COMPANY_AS_ROLE_ID && isset($data['tenant_id'])) {
+            $companyId = $data['tenant_id'];
+            unset($data['tenant_id']);
+        }
         $user = $this->create($data);
+        if (isset($companyId)) {
+            $user->tenantsOfAs()->attach($companyId);
+        }
         $user->assignRole($request->role);
 
         //send mail to user
