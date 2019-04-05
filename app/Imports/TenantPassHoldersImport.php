@@ -5,6 +5,7 @@ namespace App\Imports;
 use Carbon\Carbon;
 use App\Models\Country;
 use App\Models\PassHolder;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
@@ -12,6 +13,7 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
+use App\Models\Company;
 
 class TenantPassHoldersImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnError, SkipsOnFailure
 {
@@ -26,9 +28,27 @@ class TenantPassHoldersImport implements ToModel, WithHeadingRow, WithValidation
     public function model(array $row)
     {
         try {
-            $country_id = Country::where('name', $row['nationality'])->first()->id;
-            $uen = backpack_user()->tenant ? backpack_user()->tenant->uen : backpack_user()->subConstructor->uen;
-            $company_uen = $uen;
+            $country = Country::where('name', $row['nationality'])->first();
+            if (is_null($country)) {
+                throw new \Exception('Country <b>' . @$row['nationality'] . '</b> not found');
+            } else {
+                $country_id = $country->id;
+            }
+
+            $company_uen_in = strtolower($row['company']);
+            $company = Company::whereRaw('lower(name) = ?', [$company_uen_in])->first();
+            if (is_null($company)) {
+                throw new \Exception('Company <b>' . @$row['company'] . '</b> not found');
+            } else {
+                $company_uen = $company->uen;
+            }
+
+            $currentCompany = backpack_user()->getCompany();
+            $uens = $currentCompany instanceof Collection ? $currentCompany->pluck('uen')->toArray() : [$currentCompany->uen];
+            if (!in_array($company_uen, $uens)) {
+                throw new \Exception('Not allow import pass holder in company ' . $row['company'] . '<br>');
+            }
+
             $zones = explode(',', $row['zone']);
             session()->put(SESS_ZONES, $zones);
 
@@ -44,9 +64,7 @@ class TenantPassHoldersImport implements ToModel, WithHeadingRow, WithValidation
                 'as_email' => $row['as_email']
             ]);
         } catch (\Exception $ex) {
-            if (is_null(Country::where('name', $row['nationality'])->first())) {
-                $this->error[] = 'Country <b>' . @$row['nationality'] . '</b> not found';
-            }
+            $this->error[] = $ex->getMessage();
             return null;
         }
     }

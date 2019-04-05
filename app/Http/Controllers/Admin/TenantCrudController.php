@@ -277,7 +277,7 @@ class TenantCrudController extends CrudController
 
         $import = new TenantsImport();
         $import->import($request->file('import_file'));
-        if ($import->failures()->count()) {
+        if ($import->failures()->count() || count($import->error)) {
             return view('errors.error_import', ['failures' => $import->failures()]);
         }
 

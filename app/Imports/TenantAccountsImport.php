@@ -29,7 +29,14 @@ class TenantAccountsImport implements ToModel, WithHeadingRow, WithValidation, S
             $password = DEFAULT_PASSWORD;
             $google2fa_secret = app('pragmarx.google2fa')->generateSecretKey();
             $uen = $row['company_code'];
-            $id = Tenant::where('uen', $uen)->first()->id;
+
+            $teCompany = Tenant::where('uen', $uen)->first();
+            if (is_null($teCompany)) {
+                throw new \Exception( 'Company code <b>' . @$uen . '</b> not found');
+            } else {
+                $id = $teCompany->id;
+            }
+
             $user = BackpackUser::create([
                 'name' => $row['name'],
                 'email' => $row['email'],
@@ -50,7 +57,7 @@ class TenantAccountsImport implements ToModel, WithHeadingRow, WithValidation, S
                 'is_imported' => true,
             ]);
         } catch (\Exception $ex) {
-            $this->error[] = 'Company code <b>' . @$uen . '</b> not found';
+            $this->error[] = $ex->getMessage();
             return null;
         }
     }

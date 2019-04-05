@@ -47,6 +47,8 @@ class ExpiredCompanyCrudController extends CrudController
         $this->crud->removeButton('update');
         $this->crud->setListView('crud::customize.list');
         $this->crud->removeButtonFromStack('create', 'top');
+        $this->crud->enableExportButtons();
+
         if (backpack_user()->hasAnyRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE])) {
             $this->crud->denyAccess('delete');
             $this->crud->denyAccess('update');
@@ -181,7 +183,7 @@ class ExpiredCompanyCrudController extends CrudController
         $this->crud->addField([
             'name' => 'tenancy_end_date',
             'type' => 'date_picker',
-            'label' => 'Tenancy End Date'
+            'label' => 'Tenancy End Date',
         ]);
         $content = parent::edit($uen);
         return $content;

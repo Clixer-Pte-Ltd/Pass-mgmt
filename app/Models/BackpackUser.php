@@ -50,7 +50,13 @@ class BackpackUser extends User
 
     public function getCompany()
     {
-        $company = $this->tenant ?? $this->tenantsOfAs ?? $this->subConstructor;
+        $tenants = collect([$this->tenant]);
+        $tenantsOfAss= $this->tenantsOfAs;
+        foreach ($tenantsOfAss as $tenant) {
+            $tenants->push($tenant);
+        }
+        $tenants = $tenants->unique()->filter();
+        $company = $tenants->count() ? $tenants :  $this->subConstructor;
         return isset($company) ? $company : null;
     }
     

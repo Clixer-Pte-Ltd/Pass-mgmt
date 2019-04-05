@@ -64,6 +64,7 @@ class SubConstructorCrudController extends CrudController
         $this->crud->setEditView('crud::sub-constructor.edit');
         $this->crud->setListView('crud::customize.list');
         $this->crud->removeButtonFromStack('create', 'top');
+        $this->crud->enableExportButtons();
     }
 
     public function setupColumns()
