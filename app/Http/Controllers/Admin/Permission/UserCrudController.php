@@ -112,8 +112,8 @@ class UserCrudController extends BaseUserCrudController
                 'type' => 'dropdown',
                 'label'=> 'Company'
             ], $companiesName, function($value) {
-                $usersId = Company::where('uen', $value)->first()->accounts()->pluck('id')->toArray();
-                $this->crud->addClause('whereIn', 'id', $usersId);
+                $ids = Company::where('uen', $value)->first()->companyable->getAllAccounts()->pluck('id')->toArray();
+                $this->crud->addClause('whereIn', 'id', $ids);
             });
         }
 
