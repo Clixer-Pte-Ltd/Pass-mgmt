@@ -30,7 +30,7 @@ class TenantExpireIn4WeekPassHolderCrudController extends BaseTenantPassHolderCr
 
         $this->crud->addFilter([ // date filter
             'type' => 'date',
-            'name' => 'date_end_pickup',
+            'name' => 'date',
             'label'=> 'Pass Holder Expiry Date Pickup'
         ],
             false,
