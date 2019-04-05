@@ -38,7 +38,7 @@ class ExpireIn4WeekPassHolderCrudController extends BasePassHolderCrudController
 
         $this->crud->addFilter([ // date filter
             'type' => 'date',
-            'name' => 'date_end_pickup',
+            'name' => 'date',
             'label'=> 'Pass Holder Expiry Date Pickup'
         ],
             false,

@@ -173,7 +173,7 @@ class SubConstructorCrudController extends CrudController
 
         $this->crud->addFilter([ // date filter
             'type' => 'date',
-            'name' => 'date_end_pickup',
+            'name' => 'date',
             'label'=> 'Sub Constructor End Date Pickup'
         ],
             false,

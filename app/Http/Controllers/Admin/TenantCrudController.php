@@ -147,7 +147,7 @@ class TenantCrudController extends CrudController
         $this->crud->addFilter(
             [ // date filter
                 'type' => 'date',
-                'name' => 'date_end_pickup',
+                'name' => 'date',
                 'label' => 'Tenancy End Date Pickup'
             ],
             false,
