@@ -16,6 +16,7 @@ class TenantsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnE
 {
     use Importable, SkipsFailures;
 
+    public $error;
     /**
     * @param array $row
     *
@@ -31,6 +32,7 @@ class TenantsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnE
                 'tenancy_end_date' => Carbon::createFromFormat(DATE_FORMAT, $row['tenancy_end_date'])
             ]);
         } catch (\Exception $ex) {
+            $this->error[] = $ex->getMessage();
             return null;
         }
     }

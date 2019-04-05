@@ -26,7 +26,12 @@ class SubContructorsImport implements ToModel, WithHeadingRow, WithValidation, S
     public function model(array $row)
     {
         try {
-            $tenant_id = Tenant::where('uen', $row['tenant_company_code'])->first()->id;
+            $teCompany = Tenant::where('uen', $row['tenant_company_code'])->first();
+            if (is_null($teCompany)) {
+                throw new \Exception('Tenant Company code <b>' . @$row['tenant_company_code'] . '</b> not found');
+            } else {
+                $tenant_id = $teCompany->id;
+            }
             return new SubConstructor([
                 'name' => $row['name'],
                 'uen' => $row['company_code'],
@@ -35,9 +40,7 @@ class SubContructorsImport implements ToModel, WithHeadingRow, WithValidation, S
                 'tenant_id' => $tenant_id,
             ]);
         } catch (\Exception $ex) {
-            if (is_null(Tenant::where('uen', $row['tenant_company_code'])->first())) {
-                $this->error[] = 'Tenant Company code <b>' . @$row['tenant_company_code'] . '</b> not found';
-            }
+            $this->error[] = $ex->getMessage();
             return null;
         }
     }

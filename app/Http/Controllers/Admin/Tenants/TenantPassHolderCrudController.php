@@ -26,8 +26,6 @@ class TenantPassHolderCrudController extends BaseTenantPassHolderCrudController
         $this->addFields();
         $this->addRequired();
 
-        $this->crud->removeField('company_uen');
-
         //filter
         $this->crud->addFilter([ // daterange filter
             'type' => 'date_range',
@@ -62,7 +60,6 @@ class TenantPassHolderCrudController extends BaseTenantPassHolderCrudController
             'name' => 'nric',
             'label'=> 'Nric'
         ]);
-
     }
 
     public function index()

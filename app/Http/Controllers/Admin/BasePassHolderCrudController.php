@@ -7,6 +7,7 @@ use App\Http\Controllers\Backpack\CRUD\CrudController;
 use App\Http\Requests\StorePassHolderRequest as StoreRequest;
 use App\Http\Requests\UpdatePassHolderRequest as UpdateRequest;
 use App\Traits\Export;
+use Illuminate\Support\Collection;
 
 
 /**
@@ -187,14 +188,27 @@ class BasePassHolderCrudController extends CrudController
             'model' => "App\Models\Country", // foreign key model,
         ]);
 
-        $this->crud->addField([  // Select2
-            'label' => 'Company',
-            'type' => 'select2',
-            'name' => 'company_uen', // the db column for the foreign key
-            'entity' => 'company', // the method that defines the relationship in your Model
-            'attribute' => 'name', // foreign key attribute that is shown to user
-            'model' => "App\Models\Company", // foreign key model,
-        ]);
+        if (backpack_user()->hasAnyRole(config('backpack.cag.roles'))) {
+            $this->crud->addField([  // Select2
+                'label' => 'Company',
+                'type' => 'select2',
+                'name' => 'company_uen', // the db column for the foreign key
+                'entity' => 'company', // the method that defines the relationship in your Model
+                'attribute' => 'name', // foreign key attribute that is shown to user
+                'model' => "App\Models\Company", // foreign key model,
+            ]);
+        } else {
+            $company = backpack_user()->getCompany();
+            $company_uen = $company instanceof Collection ? $company->pluck('name', 'uen')->toArray() : [$company->uen => $company->name];
+            $this->crud->addField([ // select_from_array
+                'name' => 'company_uen',
+                'label' => "Company",
+                'type' => 'select2_from_array',
+                'options' => $company_uen,
+                'allows_null' => false,
+            ]);
+        }
+
 
         $this->crud->addField([
             'name' => 'ru_name',

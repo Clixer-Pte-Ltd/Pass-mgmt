@@ -29,9 +29,20 @@ class PassHoldersImport implements ToModel, WithHeadingRow, WithValidation, Skip
     public function model(array $row)
     {
         try {
-            $country_id = Country::where('name', $row['nationality'])->first()->id;
+            $country = Country::where('name', $row['nationality'])->first();
+            if (is_null($country)) {
+                throw new \Exception('Country <b>' . @$row['nationality'] . '</b> not found');
+            } else {
+                $country_id = $country->id;
+            }
+
             $company_uen_in = strtolower($row['company']);
-            $company_uen = Company::whereRaw('lower(name) = ?', [$company_uen_in])->first()->uen;
+            $company =  Company::whereRaw('lower(name) = ?', [$company_uen_in])->first();
+            if (is_null(Company::whereRaw('lower(name) = ?', [$company_uen_in])->first())) {
+                throw new \Exception('Company code <b>' . @$company_uen_in . '</b> not found');
+            } else {
+                $company_uen = $company->uen;
+            }
             $zones = explode(',', $row['zone']);
             session()->put(SESS_ZONES, $zones);
 
@@ -47,12 +58,7 @@ class PassHoldersImport implements ToModel, WithHeadingRow, WithValidation, Skip
                 'as_email' => $row['as_email']
             ]);
         } catch (\Exception $ex) {
-            if (is_null(Country::where('name', $row['nationality'])->first())) {
-                $this->error[] = 'Country <b>' . @$row['nationality'] . '</b> not found';
-            }
-            if (is_null(Company::whereRaw('lower(name) = ?', [$company_uen_in])->first())) {
-                $this->error[] = 'Company code <b>' . @$company_uen_in . '</b> not found';
-            }
+            $this->error[] = $ex->getMessage();
             return null;
         }
     }

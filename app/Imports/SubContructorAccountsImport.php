@@ -29,7 +29,12 @@ class SubContructorAccountsImport implements ToModel, WithHeadingRow, WithValida
             $password = DEFAULT_PASSWORD;
             $google2fa_secret = app('pragmarx.google2fa')->generateSecretKey();
             $uen = $row['company_code'];
-            $id = SubConstructor::where('uen', $uen)->first()->id;
+            $subCompany = SubConstructor::where('uen', $uen)->first();
+            if (is_null($subCompany)) {
+                throw new \Exception('Company code <b>' . @$uen . '</b> not found');
+            } else {
+                $id = $subCompany->id;
+            }
             $user = BackpackUser::create([
                 'name' => $row['name'],
                 'email' => $row['email'],
@@ -42,7 +47,7 @@ class SubContructorAccountsImport implements ToModel, WithHeadingRow, WithValida
             $user->assignRole($row['role']);
             return $user;
         } catch (\Exception $ex) {
-            $this->error[] = 'Company code <b>' . @$uen . '</b> not found';
+            $this->error[] = $ex->getMessage();
             return null;
         }
     }
