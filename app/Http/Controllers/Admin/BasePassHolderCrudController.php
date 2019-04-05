@@ -242,7 +242,7 @@ class BasePassHolderCrudController extends CrudController
             'attribute' => 'name', // foreign key attribute that is shown to user
             'model' => "App\Models\Zone", // foreign key model
             'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
-            'select_all' => true, // show Select All and Clear buttons?
+            'select_all' => false, // show Select All and Clear buttons?
             'attributes' => backpack_user()->hasAnyRole([COMPANY_CO_ROLE, COMPANY_AS_ROLE]) &&  \Route::current()->getName() == "crud.tenant-pass-holder.edit" ?
                 ['readonly'=>'readonly', 'disabled'=>'disabled'] : []
         ]);
