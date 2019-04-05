@@ -33,7 +33,7 @@
 
         @if(isset($hideCreatePanel))
         @else
-          @if (!backpack_user()->hasAnyRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE]))
+          @if (backpack_user()->hasAnyRole([CAG_ADMIN_ROLE, CAG_STAFF_ROLE, COMPANY_CO_ROLE, COMPANY_AS_ROLE]) && \Request::route()->getName() !== 'crud.user.index')
               <div class="box box-info collapsed-box m-b-20 z-depth-0">
                   <div class="box-header with-border grad-success-panel">
                       <h3 class="box-title" style="color: #ffffff">
