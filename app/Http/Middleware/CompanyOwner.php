@@ -45,7 +45,7 @@ class CompanyOwner
 
     public function handlePassHolder($pass_holder_id)
     {
-        $companies = backpack_user()->getCompany() instanceof Collection ? backpack_user()->getCompany() : collect(backpack_user()->getCompany());
+        $companies = backpack_user()->getCompany() instanceof Collection ? backpack_user()->getCompany() : collect([backpack_user()->getCompany()]);
         if ($pass_holder_id && backpack_user()->hasCompany() && $companies) {
             foreach ($companies as $company) {
                 if ($company->passholders->contains('id', $pass_holder_id)) {

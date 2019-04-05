@@ -10,7 +10,6 @@ class TenantReturnHoldersController extends BaseTenantPassHolderCrudController
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/tenant-return-pass-holder');
         $this->crud->setEntityNameStrings('Returned Pass Holder', 'Returned Pass Holders');
         $this->crud->addClause('whereStatus', PASS_STATUS_RETURNED);
-
         //filter
         $this->crud->addFilter([ // daterange filter
             'type' => 'date_range',
@@ -52,7 +51,6 @@ class TenantReturnHoldersController extends BaseTenantPassHolderCrudController
     {
         $content = parent::index();
         $this->crud->removeButtonFromStack('import_pass_holders', 'top');
-        $this->crud->removeAllButtonsFromStack('line');
         return $content;
     }
 }
