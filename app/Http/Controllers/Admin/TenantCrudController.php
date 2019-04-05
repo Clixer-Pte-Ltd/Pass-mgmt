@@ -111,19 +111,25 @@ class TenantCrudController extends CrudController
         $this->crud->addField([
             'name' => 'uen',
             'type' => 'text',
-            'label' => 'Company Code'
+            'label' => 'Company Code',
+            'attributes' => backpack_user()->hasAnyRole([COMPANY_CO_ROLE, COMPANY_AS_ROLE]) &&  \Route::current()->getName() == "crud.tenant.edit" ?
+                ['readonly'=>'readonly', 'disabled'=>'disabled'] : []
         ]);
 
         $this->crud->addField([
             'name' => 'tenancy_start_date',
             'type' => 'date_picker',
-            'label' => 'Tenancy Start Date'
+            'label' => 'Tenancy Start Date',
+            'attributes' => backpack_user()->hasAnyRole([COMPANY_CO_ROLE, COMPANY_AS_ROLE]) &&  \Route::current()->getName() == "crud.tenant.edit" ?
+                ['readonly'=>'readonly', 'disabled'=>'disabled'] : []
         ]);
 
         $this->crud->addField([
             'name' => 'tenancy_end_date',
             'type' => 'date_picker',
-            'label' => 'Tenancy End Date'
+            'label' => 'Tenancy End Date',
+            'attributes' => backpack_user()->hasAnyRole([COMPANY_CO_ROLE, COMPANY_AS_ROLE]) &&  \Route::current()->getName() == "crud.tenant.edit" ?
+                ['readonly'=>'readonly', 'disabled'=>'disabled'] : []
         ]);
     }
 
