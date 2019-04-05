@@ -25,8 +25,8 @@ class UserCrudController extends BaseUserCrudController
         parent::setup();
         $this->crud->addClause('whereNotIn', 'id', [backpack_user()->id]);
         if (backpack_user()->hasRole(COMPANY_CO_ROLE) && backpack_user()->hasCompany()) {
-            $companyId = backpack_user()->getCompany()->id;
-            $this->crud->addClause(backpack_user()->tenant ? 'whereTenantId' : 'whereSubConstructorId', $companyId);
+            $ids = backpack_user()->getCompany()->first()->getAllAccounts()->pluck('id')->toArray();
+            $this->crud->addClause( 'whereIn', 'id', $ids);
         }
         $this->crud->addColumn([
                 'name' => 'company',
