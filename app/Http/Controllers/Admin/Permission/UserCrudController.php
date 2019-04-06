@@ -129,6 +129,14 @@ class UserCrudController extends BaseUserCrudController
 
     public function store(StoreRequest $request)
     {
+        $request->validate(
+            [
+                'password' => 'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,}$/',
+            ],
+            [
+                'password.regex' => 'New password must minimum 8 character with 1 uppercase, 1 symbol, 1 number',
+            ]
+        );
         $request->request->add(['last_modify_password_at' => Carbon::now(), 'token' => uniqid() . str_random(40)]);
         // your additional operations before save here
         parent::storeCrud($request);
@@ -169,6 +177,14 @@ class UserCrudController extends BaseUserCrudController
 
     public function update(UpdateRequest $request)
     {
+        $request->validate(
+            [
+                'password' => 'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,}$/',
+            ],
+            [
+                'password.regex' => 'New password must minimum 8 character with 1 uppercase, 1 symbol, 1 number',
+            ]
+        );
         $this->handlePasswordInput($request);
         if ($request->has('password')) {
             $request->request->add(['last_modify_password_at' => Carbon::now()]);

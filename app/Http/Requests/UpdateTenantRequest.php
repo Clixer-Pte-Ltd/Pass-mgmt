@@ -25,12 +25,17 @@ class UpdateTenantRequest extends FormRequest
     public function rules()
     {
         $except = request()->get('id');
-
+        $uen = $tenancy_start_date = $tenancy_end_date = '';
+        if (!backpack_user()->hasAnyRole([COMPANY_CO_ROLE, COMPANY_AS_ROLE])) {
+            $uen =  "required|unique:tenants,uen,{$except}|unique:sub_constructors,uen";
+            $tenancy_start_date = 'required|date';
+            $tenancy_end_date = 'required|date|after:today|after:tenancy_start_date';
+        }
         return [
             'name' => 'required',
-            'uen' => "required|unique:tenants,uen,{$except}|unique:sub_constructors,uen",
-            'tenancy_start_date' => 'required|date',
-            'tenancy_end_date' => 'required|date|after:today|after:tenancy_start_date',
+            'uen' => $uen,
+            'tenancy_start_date' => $tenancy_start_date,
+            'tenancy_end_date' => $tenancy_end_date,
         ];
     }
 

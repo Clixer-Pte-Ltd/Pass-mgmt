@@ -15,6 +15,13 @@ class MyAccountController extends BaseMyAccountController
      */
     public function postChangePasswordForm(ChangePasswordRequest $request)
     {
+        $request->validate(
+            [
+                'new_password' => 'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,}$/',
+            ],
+            [
+                'new_password.regex' => 'New password must minimum 8 character with 1 uppercase, 1 symbol, 1 number',
+            ]);
         $user = $this->guard()->user();
         $user->password = $request->new_password;
         $user->detachNotification(CHANGE_PASSWORD_NOTIFICATION);

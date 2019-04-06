@@ -22,13 +22,12 @@
 
                                 <div class="input_register name_register">
                                     <input type="text" class="form-control" name="name" value="{{ is_null($account) ? old('name') : $account->name }}">
-
-                                    @if ($errors->has('name'))
-                                        <span class="help-block">
+                                </div>
+                                @if ($errors->has('name'))
+                                    <span class="help-block">
                                             <strong>{{ $errors->first('name') }}</strong>
                                         </span>
-                                    @endif
-                                </div>
+                                @endif
                             </div>
 
                             <div class="form-group{{ $errors->has(backpack_authentication_column()) ? ' has-error' : '' }}">
@@ -36,13 +35,12 @@
 
                                 <div class='input_register email_register'>
                                     <input type="{{ backpack_authentication_column()=='email'?'email':'text'}}" class="form-control" name="{{ backpack_authentication_column() }}" value="{{ is_null($account) ? old(backpack_authentication_column()) : $account->email }}">
-
-                                    @if ($errors->has(backpack_authentication_column()))
-                                        <span class="help-block">
+                                </div>
+                                @if ($errors->has(backpack_authentication_column()))
+                                    <span class="help-block">
                                             <strong>{{ $errors->first(backpack_authentication_column()) }}</strong>
                                         </span>
-                                    @endif
-                                </div>
+                                @endif
                             </div>
                             @if($isAddAccount)
                                 <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
@@ -69,13 +67,12 @@
 
                                     <div class="input_register phone_register">
                                         <input type="text" class="form-control" name="phone" value="{{ old('phone') }}">
-
-                                        @if ($errors->has('phone'))
-                                            <span class="help-block">
+                                    </div>
+                                    @if ($errors->has('phone'))
+                                        <span class="help-block">
                                                 <strong>{{ $errors->first('phone') }}</strong>
                                             </span>
-                                        @endif
-                                    </div>
+                                    @endif
                                 </div>
 
                                 <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
@@ -83,13 +80,12 @@
 
                                     <div class="input_register pwd_register">
                                         <input type="password" class="form-control" name="password">
-
-                                        @if ($errors->has('password'))
-                                            <span class="help-block">
+                                    </div>
+                                    @if ($errors->has('password'))
+                                        <span class="help-block">
                                                 <strong>{{ $errors->first('password') }}</strong>
                                             </span>
-                                        @endif
-                                    </div>
+                                    @endif
                                 </div>
 
                                 <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
@@ -97,13 +93,12 @@
 
                                     <div class="input_register pwd_register">
                                         <input type="password" class="form-control" name="password_confirmation">
-
-                                        @if ($errors->has('password_confirmation'))
-                                            <span class="help-block">
+                                    </div>
+                                    @if ($errors->has('password_confirmation'))
+                                        <span class="help-block">
                                                 <strong>{{ $errors->first('password_confirmation') }}</strong>
                                             </span>
-                                        @endif
-                                    </div>
+                                    @endif
                                 </div>
                             @endif
                             <input type="hidden" name="token" value="{{ @$account->token }}">

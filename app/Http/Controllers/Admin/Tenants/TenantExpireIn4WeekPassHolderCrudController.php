@@ -47,7 +47,7 @@ class TenantExpireIn4WeekPassHolderCrudController extends BaseTenantPassHolderCr
         $this->crud->addFilter([ // simple filter
             'type' => 'text',
             'name' => 'nric',
-            'label'=> 'Nric'
+            'label'=> 'Pass Number'
         ]);
 
     }
