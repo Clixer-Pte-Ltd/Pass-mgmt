@@ -131,7 +131,7 @@ class UserCrudController extends BaseUserCrudController
     {
         $request->validate(
             [
-                'password' => 'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,}$/',
+                'password' => 'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
             ],
             [
                 'password.regex' => 'New password must minimum 8 character with 1 uppercase, 1 symbol, 1 number',
@@ -179,7 +179,7 @@ class UserCrudController extends BaseUserCrudController
     {
         $request->validate(
             [
-                'password' => 'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,}$/',
+                'password' => 'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
             ],
             [
                 'password.regex' => 'New password must minimum 8 character with 1 uppercase, 1 symbol, 1 number',
