@@ -58,7 +58,7 @@ class TenantPassHolderCrudController extends BaseTenantPassHolderCrudController
         $this->crud->addFilter([ // simple filter
             'type' => 'text',
             'name' => 'nric',
-            'label'=> 'Nric'
+            'label'=> 'Pass Number'
         ]);
     }
 

@@ -54,7 +54,7 @@ class ReturnHoldersController extends BasePassHolderCrudController
         $this->crud->addFilter([ // simple filter
             'type' => 'text',
             'name' => 'nric',
-            'label'=> 'Nric'
+            'label'=> 'Pass Number'
         ]);
 
         if (backpack_user()->hasAnyRole(config('backpack.cag.roles'))) {
