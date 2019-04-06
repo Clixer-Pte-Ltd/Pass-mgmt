@@ -18,7 +18,7 @@ class AdminController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['2fa', backpack_middleware()]);
+        $this->middleware(['2fa', backpack_middleware(), 'checkChangePasswordFirst']);
     }
 
     /**

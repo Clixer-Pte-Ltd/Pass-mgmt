@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'google2fa_secret', 'phone', 'tenant_id', 'sub_constructor_id', 'is_imported', 'token', 'last_modify_password_at'
+        'name', 'email', 'password', 'google2fa_secret', 'phone', 'tenant_id', 'sub_constructor_id', 'is_imported', 'token', 'last_modify_password_at', 'change_first_pass_done'
     ];
     protected $dates = ['last_modify_password_at'];
 

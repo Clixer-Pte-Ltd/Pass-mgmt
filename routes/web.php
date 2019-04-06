@@ -37,6 +37,9 @@ Route::group(
 
         Route::get('logout', 'Auth\LoginController@logout')->name('backpack.auth.logout');
         Route::post('logout', 'Auth\LoginController@logout');
+
+        Route::get('change-first-password', 'Auth\MyAccountController@changeFirstPassword')->name('admin.user.changeFirstPassword');
+
         // if not otherwise configured, setup the dashboard routes
         if (config('backpack.base.setup_dashboard_routes')) {
             Route::get('dashboard', 'Admin\AdminController@dashboard')->name('backpack.dashboard');
