@@ -108,7 +108,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => 'required|max:255',
             backpack_authentication_column() => $email_validation,
-            'password' => 'required|min:6|confirmed|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,}$/',
+            'password' => 'required|min:6|confirmed|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
             'phone' => 'required|digits:8'
         ], ['password.regex' => 'New password must minimum 8 character with 1 uppercase, 1 symbol, 1 number']);
     }

@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'companyOwner' => \App\Http\Middleware\CompanyOwner::class,
         'crudUser' => \App\Http\Middleware\CrudUser::class,
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+        'checkChangePasswordFirst' => \App\Http\Middleware\CheckChangePasswordFirst::class,
     ];
 
     /**

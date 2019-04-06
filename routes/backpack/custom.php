@@ -8,7 +8,7 @@
 
 Route::group([
     'prefix' => config('backpack.base.route_prefix', 'admin'),
-    'middleware' => ['web', config('backpack.base.middleware_key', 'admin'), '2fa'],
+    'middleware' => ['web', config('backpack.base.middleware_key', 'admin'), '2fa', 'checkChangePasswordFirst'],
     'namespace' => 'App\Http\Controllers\Admin',
 ], function () {
     //Export
