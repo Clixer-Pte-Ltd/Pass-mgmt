@@ -40,13 +40,6 @@ class CheckChangePassword extends Command
      */
     public function handle()
     {
-        $changePasswordNo = Notification::getByName(CHANGE_PASSWORD_NOTIFICATION);
-        if ($changePasswordNo) {
-            BackpackUser::all()->each(function($user, $index) use ($changePasswordNo) {
-                if (! $user->notifications->contains($changePasswordNo) && $user->last_modify_password_at->lt(Carbon::now()->subMonths(3))) {
-                    $user->notifications()->attach($changePasswordNo->id);
-                }
-            });
-        }
+        BackpackUser::where('last_modify_password_at', '<=', Carbon::now()->subMonths(9))->update(['change_first_pass_done' => 0]);
     }
 }
