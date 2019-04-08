@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Events\AccountImported;
 use App\Models\Tenant;
 use App\Models\BackpackUser;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -26,7 +27,7 @@ class TenantAccountsImport implements ToModel, WithHeadingRow, WithValidation, S
     public function model(array $row)
     {
         try {
-            $password = DEFAULT_PASSWORD;
+            $password = uniqid() . str_random(10);
             $google2fa_secret = app('pragmarx.google2fa')->generateSecretKey();
             $uen = $row['company_code'];
 
@@ -36,7 +37,6 @@ class TenantAccountsImport implements ToModel, WithHeadingRow, WithValidation, S
             } else {
                 $id = $teCompany->id;
             }
-
             $user = BackpackUser::create([
                 'name' => $row['name'],
                 'email' => $row['email'],
@@ -45,17 +45,11 @@ class TenantAccountsImport implements ToModel, WithHeadingRow, WithValidation, S
                 'google2fa_secret' => $google2fa_secret,
                 'tenant_id' => $id,
                 'is_imported' => true,
+                'first_password' => $password
             ])->refresh();
             $user->assignRole($row['role']);
-            return new BackpackUser([
-                'name' => $row['name'],
-                'email' => $row['email'],
-                'phone' => $row['phone'],
-                'password' => $password,
-                'google2fa_secret' => $google2fa_secret,
-                'tenant_id' => $id,
-                'is_imported' => true,
-            ]);
+            event(new AccountImported($user));
+            return $user;
         } catch (\Exception $ex) {
             $this->error[] = $ex->getMessage();
             return null;
