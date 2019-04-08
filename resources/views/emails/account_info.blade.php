@@ -8,7 +8,7 @@
         Email: {{ $account->email }}
     </li>
     <li>
-        Password: {{ DEFAULT_PASSWORD }}
+        Password: {{ $account->first_password }}
     </li>
     <li>
         Google Authenticator Key: {{ $account->google2fa_secret}}

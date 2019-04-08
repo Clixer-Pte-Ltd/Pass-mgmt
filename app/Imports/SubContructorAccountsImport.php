@@ -12,6 +12,7 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
+use App\Events\AccountImported;
 
 class SubContructorAccountsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnError, SkipsOnFailure
 {
@@ -26,7 +27,7 @@ class SubContructorAccountsImport implements ToModel, WithHeadingRow, WithValida
     public function model(array $row)
     {
         try {
-            $password = DEFAULT_PASSWORD;
+            $password = $password = uniqid() . str_random(10);
             $google2fa_secret = app('pragmarx.google2fa')->generateSecretKey();
             $uen = $row['company_code'];
             $subCompany = SubConstructor::where('uen', $uen)->first();
@@ -43,8 +44,10 @@ class SubContructorAccountsImport implements ToModel, WithHeadingRow, WithValida
                 'google2fa_secret' => $google2fa_secret,
                 'sub_constructor_id' => $id,
                 'is_imported' => true,
+                'first_password' => $password
             ])->refresh();
             $user->assignRole($row['role']);
+            event(new AccountImported($user));
             return $user;
         } catch (\Exception $ex) {
             $this->error[] = $ex->getMessage();
