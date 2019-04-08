@@ -71,9 +71,10 @@ class TenantPassHoldersImport implements ToModel, WithHeadingRow, WithValidation
 
     public function rules(): array
     {
+        $except = request()->get('pass_number');
         return [
             'applicant_name' => 'required',
-            'pass_number' => 'required',
+            'pass_number' => "required|unique:pass_holders,nric,{$except}",
             'passexpirydate' => 'required',
             'nationality' => 'required',
             'ru_name' => 'required',
