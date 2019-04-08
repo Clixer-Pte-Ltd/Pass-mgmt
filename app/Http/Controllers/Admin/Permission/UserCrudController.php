@@ -134,7 +134,7 @@ class UserCrudController extends BaseUserCrudController
                 'password' => 'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
             ],
             [
-                'password.regex' => 'New password must minimum 8 character with 1 uppercase, 1 symbol, 1 number',
+                'password.regex' => 'New password must minimum 8 character with 1 uppercase and lowercase, 1 symbol, 1 number',
             ]
         );
         $request->request->add(['last_modify_password_at' => Carbon::now(), 'token' => uniqid() . str_random(40)]);
@@ -182,7 +182,7 @@ class UserCrudController extends BaseUserCrudController
                 'password' => 'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
             ],
             [
-                'password.regex' => 'New password must minimum 8 character with 1 uppercase, 1 symbol, 1 number',
+                'password.regex' => 'New password must minimum 8 character with 1 uppercase and lowercase, 1 symbol, 1 number',
             ]
         );
         $this->handlePasswordInput($request);
