@@ -70,7 +70,6 @@
                         @endforeach
                         @if ($crud->buttons->where('stack', 'line')->count())
                             <tr>
-                                <td><strong>{{ trans('backpack::crud.actions') }}</strong></td>
                                 <td>
                                     @if ($entry->status != PASS_STATUS_RETURNED)
                                         @if (backpack_user()->hasAnyRole([CAG_ADMIN_ROLE, CAG_STAFF_ROLE]))
