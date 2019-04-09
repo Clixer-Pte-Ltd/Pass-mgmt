@@ -70,6 +70,11 @@ class BackpackUser extends User
         $notification = Notification::getByName($name);
         return $notification ? $this->notifications()->detach($notification->id) : false;
     }
+
+    public function checkRestrictionPassField()
+    {
+        return backpack_user()->hasAnyRole([COMPANY_CO_ROLE, COMPANY_AS_ROLE]) && !in_array(\Route::current()->getName(), ["crud.pass-holder.edit", "crud.tenant-pass-holder.index"]);
+    }
     /*
     |--------------------------------------------------------------------------
     | RELATIONS

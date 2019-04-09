@@ -74,7 +74,8 @@ class AdhocEmailCrudController extends CrudController
             'model' => "App\Models\Company", // foreign key model
             'searchLogic' => function ($query, $column, $searchTerm) {
                 $query->searchByDestinations($column, $searchTerm);
-            }
+            },
+            'limit' => 100
         ]);
 
         $this->crud->addColumn([
