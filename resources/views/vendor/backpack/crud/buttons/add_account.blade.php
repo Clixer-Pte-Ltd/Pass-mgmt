@@ -145,7 +145,7 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-@if (backpack_user()->hasAnyRole([CAG_ADMIN_ROLE, COMPANY_CO_ROLE]) && !is_null($entry->asAccounts))
+@if (backpack_user()->hasAnyRole([CAG_ADMIN_ROLE, COMPANY_CO_ROLE, COMPANY_AS_ROLE]))
     @push('crud_show_company_styles')
         <!-- include select2 css-->
         <link href="{{ asset('vendor/adminlte/bower_components/select2/dist/css/select2.min.css') }}" rel="stylesheet"

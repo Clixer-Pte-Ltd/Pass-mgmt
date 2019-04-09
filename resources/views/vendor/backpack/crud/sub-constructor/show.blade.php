@@ -162,6 +162,7 @@
 @section('after_styles')
 	<link rel="stylesheet" href="{{ asset('vendor/backpack/crud/css/crud.css') }}">
 	<link rel="stylesheet" href="{{ asset('vendor/backpack/crud/css/show.css') }}">
+	@stack('crud_show_company_styles')
 @endsection
 
 @section('after_scripts')
@@ -219,4 +220,5 @@
 	// make it so that the function above is run after each DataTable draw event
 	// crud.addFunctionToDataTablesDrawEventQueue('deleteEntry');
 </script>
+	@stack('crud_show_company_scripts')
 @endsection
