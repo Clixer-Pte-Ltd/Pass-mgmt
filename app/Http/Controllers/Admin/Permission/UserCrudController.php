@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use App\Models\Company;
 use App\Events\CompanyAddAccount;
 use Illuminate\Support\Collection;
+use Illuminate\Http\Request;
 
 class UserCrudController extends BaseUserCrudController
 {
@@ -177,14 +178,16 @@ class UserCrudController extends BaseUserCrudController
 
     public function update(UpdateRequest $request)
     {
-        $request->validate(
-            [
-                'password' => 'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
-            ],
-            [
-                'password.regex' => 'New password must minimum 8 characters with 1 uppercase and lowercase, 1 symbol, 1 number',
-            ]
-        );
+        if (!is_null($request->password)) {
+            $request->validate(
+                [
+                    'password' => 'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
+                ],
+                [
+                    'password.regex' => 'New password must minimum 8 characters with 1 uppercase and lowercase, 1 symbol, 1 number',
+                ]
+            );
+        }
         $this->handlePasswordInput($request);
         if ($request->has('password')) {
             $request->request->add(['last_modify_password_at' => Carbon::now()]);
@@ -192,5 +195,23 @@ class UserCrudController extends BaseUserCrudController
         }
 
         return parent::updateCrud($request);
+    }
+
+    /**
+     * Handle password input fields.
+     *
+     * @param Request $request
+     */
+    protected function handlePasswordInput(Request $request)
+    {
+        // Remove fields not present on the user.
+        $request->request->remove('password_confirmation');
+
+        // Encrypt password if specified.
+        if ($request->input('password')) {
+            $request->request->set('password', $request->input('password'));
+        } else {
+            $request->request->remove('password');
+        }
     }
 }

@@ -69,7 +69,7 @@ class PassHoldersImport implements ToModel, WithHeadingRow, WithValidation, Skip
         return [
             'applicant_name' => 'required',
             'pass_number' => "required|unique:pass_holders,nric,{$except}",
-            'passexpirydate' => 'required',
+            'passexpirydate' => 'required|after:today',
             'nationality' => 'required',
             'company' => 'required',
             'ru_name' => 'required',
