@@ -20,7 +20,7 @@ class MyAccountController extends BaseMyAccountController
                 'new_password' => 'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
             ],
             [
-                'new_password.regex' => 'New password must minimum 8 character with 1 uppercase and lowercase, 1 symbol, 1 number',
+                'new_password.regex' => 'New password must minimum 8 characters with 1 uppercase and lowercase, 1 symbol, 1 number',
             ]
         );
         $user = $this->guard()->user();
