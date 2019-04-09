@@ -1,19 +1,19 @@
 {{-- relationships with pivot table (n-n) --}}
 @php
     $results = data_get($entry, $column['name']);
-    $limit = $column['limit'] ?? 100;
 @endphp
 
 <span>
     <?php
     if ($results && $results->count()) {
         $results_array = $results->pluck($column['attribute']);
-        $str = implode(', ', $results_array->toArray());
-        $strRs = substr($str, 0, $limit);
-        if (strlen($str) > $limit) {
-            $strRs .= '...';
+        $list = $results_array->toArray();
+        $len = count($list);
+        $str = '';
+        for ($i = 0; $i < $len; $i+=3) {
+            $str .= implode(', ', array_filter([$list[$i], @$list[$i+1], @$list[$i+2]])) . "<br>";
         }
-        echo $strRs;
+        echo $str;
     } else {
         echo '-';
     }
