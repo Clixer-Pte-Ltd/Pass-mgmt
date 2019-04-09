@@ -145,17 +145,24 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-@if (backpack_user()->hasAnyRole([CAG_ADMIN_ROLE, COMPANY_CO_ROLE, COMPANY_AS_ROLE]))
-    @push('crud_show_company_styles')
-        <!-- include select2 css-->
-        <link href="{{ asset('vendor/adminlte/bower_components/select2/dist/css/select2.min.css') }}" rel="stylesheet"
-              type="text/css"/>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css"
-              rel="stylesheet" type="text/css"/>
-    @endpush
-
-    @push('crud_show_company_scripts')
-        <!-- include select2 js-->
+@push('crud_show_company_styles')
+    <!-- include select2 css-->
+    <link href="{{ asset('vendor/adminlte/bower_components/select2/dist/css/select2.min.css') }}" rel="stylesheet"
+          type="text/css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css"
+          rel="stylesheet" type="text/css"/>
+@endpush
+@push('crud_show_company_scripts')
+    <!-- include select2 js-->
+    <script>
+        jQuery(document).ready(function ($) {
+            let errors = @json($errors->all());
+            if (errors.length) {
+                $("#modal-return-{{ $entry->id }}").modal('show');
+            }
+        });
+    </script>
+    @if (backpack_user()->hasAnyRole([CAG_ADMIN_ROLE, COMPANY_CO_ROLE]))
         <script src="{{ asset('vendor/adminlte/bower_components/select2/dist/js/select2.min.js') }}"></script>
         <script>
             jQuery(document).ready(function ($) {
@@ -169,13 +176,6 @@
                         var options = $(".option_add_account").map(function() {
                             return $(this).attr("value");
                         }).get();
-                        console.log(options)
-                        {{--@if (count($options))--}}
-                        {{--@foreach ($options as $option)--}}
-                        {{--options.push('{{ $option->getKey() }}');--}}
-                        {{--@endforeach--}}
-                        {{--@endif--}}
-
                         $(obj).parent().find('.clear').on("click", function () {
                             $obj.val([]).trigger("change");
                         });
@@ -184,11 +184,7 @@
                         });
                     }
                 });
-                let errors = @json($errors->all());
-                if (errors.length) {
-                    $("#modal-return-{{ $entry->id }}").modal('show');
-                }
             });
         </script>
-    @endpush
-@endif
+    @endif
+@endpush

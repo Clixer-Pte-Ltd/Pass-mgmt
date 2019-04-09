@@ -59,7 +59,7 @@ class AdhocEmailCrudController extends CrudController
 
         $this->crud->addColumn([
             'name' => 'body',
-            'type' => 'text',
+            'type' => 'text_html',
             'label' => 'Message',
             'searchLogic' => 'text'
         ]);
@@ -67,15 +67,14 @@ class AdhocEmailCrudController extends CrudController
         $this->crud->addColumn([
             // n-n relationship (with pivot table)
             'label' => 'To Email Address', // Table column heading
-            'type' => 'select_multiple',
+            'type' => 'select_multiple_custom',
             'name' => 'destinations', // the method that defines the relationship in your Model
             'entity' => 'destinations', // the method that defines the relationship in your Model
             'attribute' => 'name', // foreign key attribute that is shown to user
             'model' => "App\Models\Company", // foreign key model
             'searchLogic' => function ($query, $column, $searchTerm) {
                 $query->searchByDestinations($column, $searchTerm);
-            },
-            'limit' => 100
+            }
         ]);
 
         $this->crud->addColumn([
