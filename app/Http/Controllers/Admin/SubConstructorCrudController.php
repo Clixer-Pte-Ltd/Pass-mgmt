@@ -91,14 +91,18 @@ class SubConstructorCrudController extends CrudController
             'label' => 'Tenancy Start Date', // Table column heading
             'type' => 'date',
             'format' => DATE_FORMAT, // use something else than the base.default_date_format config value
-            'searchLogic' => 'text'
+            'searchLogic' => function ($query, $column, $searchTerm) {
+                $query->orWhereRaw("DATE_FORMAT(tenancy_start_date, \"%m %d %Y\") like ? ", "%" . $searchTerm . "%");
+            }
         ]);
         $this->crud->addColumn([
             'name' => 'tenancy_end_date', // The db column name
             'label' => 'Tenancy End Date', // Table column heading
             'type' => 'date',
             'format' => DATE_FORMAT, // use something else than the base.default_date_format config value
-            'searchLogic' => 'text'
+            'searchLogic' => function ($query, $column, $searchTerm) {
+                $query->orWhereRaw("DATE_FORMAT(tenancy_end_date, \"%m %d %Y\") like ? ", "%" . $searchTerm . "%");
+            }
         ]);
     }
 

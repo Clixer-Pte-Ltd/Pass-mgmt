@@ -82,7 +82,9 @@ class AdhocEmailCrudController extends CrudController
             'label' => 'Sent On', // Table column heading
             'type' => 'date',
             'format' => DATE_TIME_FORMAT, // use something else than the base.default_date_format config value,
-            'searchLogic' => 'text'
+            'searchLogic' => function ($query, $column, $searchTerm) {
+                $query->orWhereRaw("DATE_FORMAT(created_at, \"%m %d %Y\") like ? ", "%" . $searchTerm . "%");
+            }
         ]);
     }
 
