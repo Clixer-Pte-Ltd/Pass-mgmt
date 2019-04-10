@@ -14,7 +14,7 @@
         "bacon/bacon-qr-code": "^1.0.3",
         "barryvdh/laravel-dompdf": "^0.8.3",
         "barryvdh/laravel-elfinder": "^0.4.1",
-        "fideloper/proxy": "^4.0",
+        "fideloper/proxy": "~4.0",
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
         "maatwebsite/excel": "^3.1",
