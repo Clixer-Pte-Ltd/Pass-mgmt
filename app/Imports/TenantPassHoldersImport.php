@@ -75,7 +75,7 @@ class TenantPassHoldersImport implements ToModel, WithHeadingRow, WithValidation
         return [
             'applicant_name' => 'required',
             'pass_number' => "required|unique:pass_holders,nric,{$except}",
-            'passexpirydate' => 'required|after:today',
+            'passexpirydate' => 'required|date_format:' . DATE_FORMAT . '|after:today',
             'nationality' => 'required',
             'ru_name' => 'required',
             'ru_email' => 'required',
