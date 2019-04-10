@@ -27,8 +27,10 @@ class RoleCrudController extends BaseRoleCrudController
 
         $this->crud->removeColumn('permissions');
         $this->crud->removeField('permissions');
-        $this->crud->setListView('crud::customize.list');
         $this->crud->removeButtonFromStack('create', 'top');
+        $this->crud->denyAccess('update');
+        $this->crud->denyAccess('delete');
+        $this->crud->denyAccess('create');
     }
 
     public function store(StoreRequest $request)
