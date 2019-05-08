@@ -199,7 +199,7 @@ class TenantCrudController extends CrudController
         session()->put('tenant', $this->crud->entry->id);
         session()->forget('sub_constructor');
 
-        return redirect()->route('backpack.auth.register');
+        return redirect()->back();
     }
 
     public function update(UpdateRequest $request)
