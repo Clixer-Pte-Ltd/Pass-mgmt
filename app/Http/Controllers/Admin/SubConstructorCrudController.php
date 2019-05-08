@@ -218,7 +218,7 @@ class SubConstructorCrudController extends CrudController
         // use $this->data['entry'] or $this->crud->entry
         session()->put('sub_constructor', $this->crud->entry->id);
         session()->forget('tenant');
-        return redirect()->route('backpack.auth.register');
+        return redirect()->back();
     }
 
     public function update(UpdateRequest $request)
