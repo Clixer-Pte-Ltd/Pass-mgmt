@@ -99,7 +99,7 @@
 																			<span class="info-box-text">Email: {{ $account->email }}</span>
 																			<span class="text-right info-box-text">
 																				<a href="{{ route('admin.sub-constructor.account.2fa', [$entry->id, $account->id]) }}" class="btn btn-xs btn-default"><i class="fa fa-google-plus-square"></i> Config 2FA</a>
-																				@if($account->id !== auth()->user()->id)
+																				@if($account->id !== auth()->user()->id && !backpack_user()->hasRole(CAG_VIEWER_ROLE))
 																					<a href="javascript:void(0)" onclick="deleteEntry(this)" data-route="{{ route('crud.user.destroy', [$account->id]) }}" class="btn btn-xs btn-danger" data-button-type="delete"><i class="fa fa-trash"></i> Delete</a>
 																				@endif
 																			</span>
@@ -129,7 +129,7 @@
 															<span class="info-box-text">Contact: {{ $account->phone }}</span>
 															<span class="info-box-text">Email: {{ $account->email }}</span>
 															<span class="text-right info-box-text">
-																@if($account->id !== auth()->user()->id)
+																@if($account->id !== auth()->user()->id && !backpack_user()->hasRole(CAG_VIEWER_ROLE))
 																	<a href="javascript:void(0)" onclick="deleteEntry(this)" data-route="{{ route('crud.user.destroy', [$account->id]) }}" class="btn btn-xs btn-danger" data-button-type="delete"><i class="fa fa-trash"></i> Delete</a>
 																@endif
 															</span>
