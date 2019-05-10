@@ -52,7 +52,7 @@ class BasePassHolderCrudController extends CrudController
             $this->crud->removeButtonFromStack('delete', 'line');
         }
         $this->crud->allowAccess('show');
-        if (backpack_user()->hasAnyRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE])) {
+        if (backpack_user()->hasAnyRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE, COMPANY_AS_ROLE, COMPANY_CO_ROLE])) {
             $this->crud->denyAccess('delete');
             $this->crud->denyAccess('update');
         }

@@ -67,6 +67,6 @@ class TenantBlacklistHoldersController extends BaseTenantPassHolderCrudControlle
     {
         $content = parent::index();
         $this->crud->removeButtonFromStack('import_pass_holders', 'top');
-        return $content;
+        return $content->with('hideCreatePanel', true);
     }
 }

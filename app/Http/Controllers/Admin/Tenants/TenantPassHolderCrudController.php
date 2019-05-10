@@ -66,6 +66,7 @@ class TenantPassHolderCrudController extends BaseTenantPassHolderCrudController
     {
         $content = parent::index();
         $this->crud->removeButtonFromStack('import_pass_holders', 'top');
+        $this->crud->removeButtonFromStack('update', 'line');
         if (!backpack_user()->hasAnyRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE])) {
             $this->crud->addButtonFromView('top', 'tenant_import_pass_holders', 'tenant_import_pass_holders', 'end');
         }

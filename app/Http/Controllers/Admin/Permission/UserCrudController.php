@@ -41,9 +41,9 @@ class UserCrudController extends BaseUserCrudController
                             $name = $entry->getCompany()->name;
                         }
                     } else {
+
                         $name = null;
                     }
-
                     return $name;
                 }
             ]);
@@ -126,6 +126,10 @@ class UserCrudController extends BaseUserCrudController
         $this->crud->setListView('crud::customize.list');
         $this->crud->removeButtonFromStack('create', 'top');
         $this->crud->addButtonFromView('line', 'show_config_2fa', 'show_config_2fa', 'end');
+        if (backpack_user()->hasAnyRole(config('backpack.company.roles'))) {
+            $this->crud->denyAccess('update');
+            $this->crud->denyAccess('delete');
+        }
     }
 
     public function store(StoreRequest $request)
