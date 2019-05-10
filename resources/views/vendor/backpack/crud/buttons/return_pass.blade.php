@@ -1,13 +1,20 @@
 @if ($crud->hasAccess('delete'))
-	<button type="button" class="btn btn-info grad-blue" data-toggle="modal" data-target="#modal-return-{{ $entry->id }}">
-	<span class="fa fa-trash">
-		@if ($entry->status == PASS_STATUS_WAITING_CONFIRM_RETURN && backpack_user()->hasAnyRole([CAG_ADMIN_ROLE, CAG_STAFF_ROLE]))
-			Confirm
-		@else
-			Return
-		@endif
-	</span>
-	</button>
+	@if ($entry->status == PASS_STATUS_WAITING_CONFIRM_RETURN && backpack_user()->hasAnyRole([CAG_ADMIN_ROLE, CAG_STAFF_ROLE]))
+		<button type="button" class="btn btn-info grad-blue" data-toggle="modal" data-target="#modal-return-{{ $entry->id }}">
+		<span class="fa fa-trash">
+				Confirm
+		</span>
+		</button>
+	@elseif ($entry->status == PASS_STATUS_BLACKLISTED && backpack_user()->hasAnyRole([COMPANY_CO_ROLE, COMPANY_AS_ROLE]))
+		<button type="button" class="btn btn-info grad-blue" data-toggle="modal" data-target="#modal-return-{{ $entry->id }}">
+		<span class="fa fa-trash">
+				Return
+		</span>
+		</button>
+	@else
+
+	@endif
+
 	<div class="modal modal-default fade" id="modal-return-{{ $entry->id }}" datasqstyle="{'bottom':null}" datasqbottom="40" style="bottom: 40px; display: none;">
 		<div class="modal-dialog">
 			<div class="modal-content">

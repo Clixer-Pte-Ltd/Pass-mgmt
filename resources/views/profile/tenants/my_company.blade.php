@@ -18,7 +18,7 @@
 			<div class="col-md-12">
 				<label>Select Tenant: </label>
 				@php
-					$companies = backpack_user()->getCompany();
+					$companies = backpack_user()->getAllTenants();
                     $companies = $companies instanceof \Illuminate\Support\Collection ?  $companies : [$companies];
 				@endphp
 				<select name="tenant_select_id" style="width: 100%" class="form-control select2_tenant_ajax" id="select2_ajax_tenant_select_id">
