@@ -60,7 +60,7 @@
                                     <thead class="bg-primary">
                                     <tr>
                                         <th>Name</th>
-                                        <th>NRIC</th>
+                                        <th>Pass Number</th>
                                         <th>Issue Date</th>
                                         <th>Expiry Date</th>
                                     </tr>
@@ -126,7 +126,7 @@
                                     <thead class="bg-primary">
                                     <tr>
                                         <th>Name</th>
-                                        <th>NRIC</th>
+                                        <th>Pass Number</th>
                                         <th>Issue Date</th>
                                         <th>Expiry Date</th>
                                     </tr>

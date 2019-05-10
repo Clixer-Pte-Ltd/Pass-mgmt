@@ -19,7 +19,7 @@
                     <p>Note: 
                         <ul>
                             <li>
-                                Make sure your excel file contains header in first row (Applicant Name, NRIC, PassExpirydate, Nationality, Company, RU Name, RU Email, AS Name, AS Email, Zone)
+                                Make sure your excel file contains header in first row (Passholder Name, Pass Number, PassExpirydate, Nationality, Company, RU Name, RU Email, AS Name, AS Email, Zone)
                             </li>
                             <li>
                                 Make sure you place single quote in begin of date's cell (PassExpirydate)

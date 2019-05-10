@@ -162,7 +162,7 @@ class BasePassHolderCrudController extends CrudController
         $this->crud->addField([
             'name' => 'applicant_name',
             'type' => 'text',
-            'label' => 'Applicant Name'
+            'label' => 'Passholder Name'
         ]);
 
         $this->crud->addField([
