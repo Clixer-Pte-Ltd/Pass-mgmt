@@ -30,10 +30,9 @@ class StorePassHolderRequest extends FormRequest
             'pass_expiry_date' => 'required|date|after:today',
             'country_id' => 'required',
             'company_uen' => 'required',
-            'ru_name' => 'required',
-            'ru_email' => 'required',
             'as_name' => 'required',
             'as_email' => 'required',
+            'zones' => 'required'
         ];
     }
 
