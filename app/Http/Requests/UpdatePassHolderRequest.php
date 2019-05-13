@@ -51,7 +51,8 @@ class UpdatePassHolderRequest extends FormRequest
     public function attributes()
     {
         return [
-            'nric' => 'Pass Number'
+            'nric' => 'Pass Number',
+            'applicant_name' => 'Passholder Name'
         ];
     }
 }

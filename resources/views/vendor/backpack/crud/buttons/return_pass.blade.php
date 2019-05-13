@@ -4,7 +4,7 @@
 			Confirm
 	</span>
 	</button>
-@elseif ($entry->status == PASS_STATUS_BLACKLISTED && backpack_user()->hasAnyRole([COMPANY_CO_ROLE, COMPANY_AS_ROLE]))
+@elseif ($entry->status == PASS_STATUS_BLACKLISTED && backpack_user()->hasAnyRole([COMPANY_CO_ROLE, COMPANY_AS_ROLE, CAG_ADMIN_ROLE, CAG_STAFF_ROLE]))
 	<button type="button" class="btn btn-info grad-blue" data-toggle="modal" data-target="#modal-return-{{ $entry->id }}">
 	<span class="fa fa-trash">
 			Return
