@@ -204,7 +204,6 @@ class SubConstructorCrudController extends CrudController
         session()->forget(SESS_TENANT_SUB_CONSTRUCTOR);
         if (!backpack_user()->hasAnyRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE])) {
             $this->crud->addButtonFromView('top', 'import_sub_constructors', 'import_sub_constructors', 'end');
-            $this->crud->addButtonFromView('top', 'import_sub_constructor_accounts', 'import_sub_constructor_accounts', 'end');
         }
 
         return $content;
