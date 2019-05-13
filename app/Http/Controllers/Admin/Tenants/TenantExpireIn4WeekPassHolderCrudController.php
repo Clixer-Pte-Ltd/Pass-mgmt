@@ -12,6 +12,7 @@ class TenantExpireIn4WeekPassHolderCrudController extends BaseTenantPassHolderCr
         $this->crud->setEntityNameStrings('Teant Expire in 4 weeks Pass Holder', 'Tenant Expire in 4 weeks Pass Holder');
         $this->crud->addClause('where', 'pass_expiry_date', '<=', Carbon::now()->addWeeks(4));
         $this->crud->addClause('where', 'pass_expiry_date', '>', Carbon::now());
+        $this->crud->addClause('whereStatus', PASS_STATUS_VALID);
         $this->crud->removeButtonFromStack('delete', 'line');
         $this->addFields();
         $this->addRequired();

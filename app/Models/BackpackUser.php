@@ -50,14 +50,41 @@ class BackpackUser extends User
 
     public function getCompany()
     {
-        $tenants = collect([$this->tenant]);
+        $companies = collect([$this->tenant]);
         $tenantsOfAss= $this->tenantsOfAs;
         foreach ($tenantsOfAss as $tenant) {
-            $tenants->push($tenant);
+            $companies->push($tenant);
         }
-        $tenants = $tenants->unique()->filter();
-        $company = $tenants->count() ? $tenants :  $this->subConstructor;
-        return isset($company) ? $company : null;
+        if ($this->tenant) {
+            $this->tenant->subContructors->each(function($item, $key) use ($companies) {
+                $companies->push($item);
+            });
+        }
+
+        if ($this->tenantsOfAs->count()) {
+            $this->tenantsOfAs->each(function($tenant, $key) use ($companies){
+                $tenant->subContructors->each(function($item, $k) use ($companies) {
+                    $companies->push($item);
+                });
+            });
+
+        }
+        $companies = $companies->unique()->filter();
+        return isset($companies) ? $companies : null;
+    }
+
+    public function getAllTenants()
+    {
+        $companies = $this->getCompany();
+        if ($companies) {
+            $tenants = collect([]);
+            $companies->each(function($item, $key) use ($tenants) {
+                if ($item instanceof Tenant) {
+                    $tenants->push($item);
+                }
+            });
+            return $tenants;
+        }
     }
     
     public function getNotifications($type)
@@ -73,7 +100,8 @@ class BackpackUser extends User
 
     public function checkRestrictionPassField()
     {
-        return backpack_user()->hasAnyRole([COMPANY_CO_ROLE, COMPANY_AS_ROLE]) && !in_array(\Route::current()->getName(), ["crud.pass-holder.edit", "crud.tenant-pass-holder.index"]);
+        return backpack_user()->hasAnyRole([COMPANY_CO_ROLE, COMPANY_AS_ROLE]) && !in_array(\Route::current()->getName(),
+                ["crud.pass-holder.edit", "crud.tenant-pass-holder.index"]);
     }
     /*
     |--------------------------------------------------------------------------

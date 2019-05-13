@@ -37,10 +37,9 @@ class UpdatePassHolderRequest extends FormRequest
             'nric' => $nric,
             'pass_expiry_date' => $pass_expiry_date,
             'country_id' => 'required',
-            'ru_name' => 'required',
-            'ru_email' => 'required',
             'as_name' => 'required',
             'as_email' => 'required',
+            'zones' => 'required'
         ];
     }
 }

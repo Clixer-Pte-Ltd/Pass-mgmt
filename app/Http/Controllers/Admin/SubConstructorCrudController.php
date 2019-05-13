@@ -251,7 +251,7 @@ class SubConstructorCrudController extends CrudController
             $this->crud->removeButtonFromStack('update', 'line');
         }
 
-        $this->crud->addButtonFromView('line', 'add_account', 'add_account', 'end');
+//        $this->crud->addButtonFromView('line', 'add_account', 'add_account', 'end');
         return $content;
     }
 

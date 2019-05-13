@@ -52,7 +52,7 @@ class BasePassHolderCrudController extends CrudController
             $this->crud->removeButtonFromStack('delete', 'line');
         }
         $this->crud->allowAccess('show');
-        if (backpack_user()->hasAnyRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE])) {
+        if (backpack_user()->hasAnyRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE, COMPANY_AS_ROLE, COMPANY_CO_ROLE])) {
             $this->crud->denyAccess('delete');
             $this->crud->denyAccess('update');
         }
@@ -209,17 +209,16 @@ class BasePassHolderCrudController extends CrudController
             ]);
         }
 
-
-        $this->crud->addField([
-            'name' => 'ru_name',
-            'type' => 'text',
-            'label' => 'RU Name'
-        ]);
-
-        $this->crud->addField([
-            'name' => 'ru_email',
-            'type' => 'text',
-            'label' => 'RU Email'
+        $this->crud->addField([       // Select2Multiple = n-n relationship (with pivot table)
+            'label' => 'Zones',
+            'type' => 'select2_multiple',
+            'name' => 'zones', // the method that defines the relationship in your Model
+            'entity' => 'zones', // the method that defines the relationship in your Model
+            'attribute' => 'name', // foreign key attribute that is shown to user
+            'model' => "App\Models\Zone", // foreign key model
+            'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
+            'select_all' => false, // show Select All and Clear buttons?
+            'attributes' => backpack_user()->checkRestrictionPassField() ? ['readonly'=>'readonly', 'disabled'=>'disabled'] : []
         ]);
 
         $this->crud->addField([
@@ -234,16 +233,16 @@ class BasePassHolderCrudController extends CrudController
             'label' => 'AS Email'
         ]);
 
-        $this->crud->addField([       // Select2Multiple = n-n relationship (with pivot table)
-            'label' => 'Zones',
-            'type' => 'select2_multiple',
-            'name' => 'zones', // the method that defines the relationship in your Model
-            'entity' => 'zones', // the method that defines the relationship in your Model
-            'attribute' => 'name', // foreign key attribute that is shown to user
-            'model' => "App\Models\Zone", // foreign key model
-            'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
-            'select_all' => false, // show Select All and Clear buttons?
-            'attributes' => backpack_user()->checkRestrictionPassField() ? ['readonly'=>'readonly', 'disabled'=>'disabled'] : []
+        $this->crud->addField([
+            'name' => 'ru_name',
+            'type' => 'text',
+            'label' => 'RU Name'
+        ]);
+
+        $this->crud->addField([
+            'name' => 'ru_email',
+            'type' => 'text',
+            'label' => 'RU Email'
         ]);
     }
 
