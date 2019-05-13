@@ -38,7 +38,7 @@ class RenewPassHolderRequest extends FormRequest
     public function attributes()
     {
         return [
-            //
+            'nric' => 'Pass Number'
         ];
     }
 

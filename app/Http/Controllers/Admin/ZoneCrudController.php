@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 // VALIDATION: change the requests to match your own file names if you need form validation
 use App\Http\Requests\ZoneRequest as StoreRequest;
-use App\Http\Requests\ZoneRequest as UpdateRequest;
+use App\Http\Requests\UpdateZoneRequest as UpdateRequest;
 
 /**
  * Class ZoneCrudController

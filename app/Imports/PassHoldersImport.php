@@ -47,7 +47,7 @@ class PassHoldersImport implements ToModel, WithHeadingRow, WithValidation, Skip
             session()->put(SESS_ZONES, $zones);
 
             return new PassHolder([
-                'applicant_name' => $row['applicant_name'],
+                'applicant_name' => $row['passholder_name'],
                 'nric' => $row['pass_number'],
                 'pass_expiry_date' => Carbon::createFromFormat(DATE_FORMAT, $row['passexpirydate']),
                 'country_id' => $country_id,
@@ -67,13 +67,11 @@ class PassHoldersImport implements ToModel, WithHeadingRow, WithValidation, Skip
     {
         $except = request()->get('pass_number');
         return [
-            'applicant_name' => 'required',
+            'passholder_name' => 'required',
             'pass_number' => "required|unique:pass_holders,nric,{$except}",
             'passexpirydate' => 'required|date_format:' . DATE_FORMAT . '|after:today',
             'nationality' => 'required',
             'company' => 'required',
-            'ru_name' => 'required',
-            'ru_email' => 'required',
             'as_name' => 'required',
             'as_email' => 'required',
         ];
