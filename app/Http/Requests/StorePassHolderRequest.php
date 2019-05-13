@@ -44,7 +44,7 @@ class StorePassHolderRequest extends FormRequest
     public function attributes()
     {
         return [
-            //
+            'nric' => 'Pass Number'
         ];
     }
 
