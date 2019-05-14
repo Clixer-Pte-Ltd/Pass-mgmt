@@ -289,7 +289,7 @@ class TenantCrudController extends CrudController
         $import = new TenantsImport();
         $import->import($request->file('import_file'));
         if ($import->failures()->count() || count($import->error)) {
-            return view('errors.error_import', ['failures' => $import->failures()]);
+            return view('errors.error_import', ['failures' => $import->failures(), 'errors' => $import->error]);
         }
 
         \Alert::success('Import successful.')->flash();
