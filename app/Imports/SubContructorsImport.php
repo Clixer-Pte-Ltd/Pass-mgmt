@@ -26,6 +26,14 @@ class SubContructorsImport implements ToModel, WithHeadingRow, WithValidation, S
     public function model(array $row)
     {
         try {
+            $tenancyStartDate = Carbon::createFromFormat('d/m/Y', $row['tenancy_start_date']);
+            $tenancyEndDate = Carbon::createFromFormat('d/m/Y', $row['tenancy_end_date']);
+            if ($tenancyEndDate < $tenancyStartDate) {
+                throw new \Exception("Tenant <b>{$row['name']}</b> has tenancy end date must after tenancy start date");
+            };
+            if ($tenancyEndDate < Carbon::now()) {
+                throw new \Exception("Tenant <b>{$row['name']}</b> has tenancy end date must after now");
+            };
             $teCompany = Tenant::where('uen', $row['tenant_company_code'])->first();
             if (is_null($teCompany)) {
                 throw new \Exception('Tenant Company code <b>' . @$row['tenant_company_code'] . '</b> not found');

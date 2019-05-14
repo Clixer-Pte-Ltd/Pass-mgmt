@@ -29,6 +29,11 @@ class PassHoldersImport implements ToModel, WithHeadingRow, WithValidation, Skip
     public function model(array $row)
     {
         try {
+            $expireDate = Carbon::createFromFormat('d/m/Y', $row['passexpirydate']);
+            if ($expireDate < Carbon::now()) {
+                throw new \Exception("Passholder <b>{$row['passholder_name']}</b> has pass expiry date must after now");
+            };
+
             $country = Country::where('name', $row['nationality'])->first();
             if (is_null($country)) {
                 throw new \Exception('Country <b>' . @$row['nationality'] . '</b> not found');
@@ -69,7 +74,7 @@ class PassHoldersImport implements ToModel, WithHeadingRow, WithValidation, Skip
         return [
             'passholder_name' => 'required',
             'pass_number' => "required|unique:pass_holders,nric,{$except}",
-            'passexpirydate' => 'required|date_format:' . DATE_FORMAT . '|after:today',
+            'passexpirydate' => 'required',
             'nationality' => 'required',
             'company' => 'required',
             'as_name' => 'required',
