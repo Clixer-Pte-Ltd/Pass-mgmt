@@ -4,7 +4,7 @@
     <div class="row display-flex-wrap">
         <div class="box col-md-12 padding-10 p-t-20">
             <div class="form-group col-xs-12 required" id="time-show-box">
-                <p><b>Old value:  &nbsp;&nbsp;&nbsp;</b><span style="color: #189eff" class="old_value" value="{{ $value }}"></span></p>
+                <p><b>Current Frequency:  &nbsp;&nbsp;&nbsp;</b><span style="color: #189eff" class="old_value" value="{{ $value }}"></span></p>
                 <label>Frequency Send Email : </label>
                 &emsp;
                 <span style="color: red" id="time-lable">Every Minutes&emsp;</span>
