@@ -52,9 +52,11 @@ class BasePassHolderCrudController extends CrudController
             $this->crud->removeButtonFromStack('delete', 'line');
         }
         $this->crud->allowAccess('show');
-        if (backpack_user()->hasAnyRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE, COMPANY_AS_ROLE, COMPANY_CO_ROLE])) {
-            $this->crud->denyAccess('delete');
+        if (backpack_user()->hasAnyRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE])) {
             $this->crud->denyAccess('update');
+        }
+        if (backpack_user()->hasAnyRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE, COMPANY_CO_ROLE, COMPANY_AS_ROLE])) {
+            $this->crud->denyAccess('delete');
         }
         $this->crud->setShowView('crud::pass-holders.show');
         $this->crud->enableExportButtons();
@@ -169,14 +171,14 @@ class BasePassHolderCrudController extends CrudController
             'name' => 'nric',
             'type' => 'text',
             'label' => 'Pass Number',
-            'attributes' => backpack_user()->checkRestrictionPassField() ? ['readonly'=>'readonly', 'disabled'=>'disabled'] : []
+//            'attributes' => backpack_user()->checkRestrictionPassField() ? ['readonly'=>'readonly', 'disabled'=>'disabled'] : []
         ]);
 
         $this->crud->addField([
             'name' => 'pass_expiry_date',
             'type' => 'date_picker',
             'label' => 'Pass Expiry Date',
-            'attributes' =>  backpack_user()->checkRestrictionPassField() ? ['readonly'=>'readonly', 'disabled'=>'disabled'] : []
+//            'attributes' =>  backpack_user()->checkRestrictionPassField() ? ['readonly'=>'readonly', 'disabled'=>'disabled'] : []
         ]);
 
         $this->crud->addField([  // Select2
@@ -218,7 +220,7 @@ class BasePassHolderCrudController extends CrudController
             'model' => "App\Models\Zone", // foreign key model
             'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
             'select_all' => false, // show Select All and Clear buttons?
-            'attributes' => backpack_user()->checkRestrictionPassField() ? ['readonly'=>'readonly', 'disabled'=>'disabled'] : []
+//            'attributes' => backpack_user()->checkRestrictionPassField() ? ['readonly'=>'readonly', 'disabled'=>'disabled'] : []
         ]);
 
         $this->crud->addField([
