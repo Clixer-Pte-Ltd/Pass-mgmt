@@ -110,7 +110,7 @@ class PassHolderCrudController extends BasePassHolderCrudController
         $entry->status = PASS_STATUS_BLACKLISTED;
         $entry->blacklist_reason = $request->get('blacklist_reason');
         $entry->save();
-        \Alert::info('Blacklist done.')->flash();
+        \Alert::info('De-List done.')->flash();
         return redirect()->back();
     }
 

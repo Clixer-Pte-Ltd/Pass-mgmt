@@ -118,7 +118,7 @@
                     {{--Black listed Pass--}}
                     <div class="box dashboard">
                         <div class="box-header text-center">
-                            <h2>Black listed Pass</h2>
+                            <h2>De-Listed Pass</h2>
                         </div>
                         <div class="box-body dashboard">
                             <div class="table-responsive">
