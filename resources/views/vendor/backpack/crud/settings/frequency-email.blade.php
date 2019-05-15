@@ -32,7 +32,7 @@
             <div class="col-md-12">
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#expiring-pass-holder-alert">Expiring Pass Holder Alert</a></li>
-                    <li><a data-toggle="tab" href="#blacklisted-pass-alert">Blacklisted Pass Alert</a>
+                    <li><a data-toggle="tab" href="#blacklisted-pass-alert">De-Listed Pass Alert</a>
                     <li><a data-toggle="tab" href="#renew-pass-alert ">Renew Pass Alert </a></li>
                     <li><a data-toggle="tab" href="#terminated-pass-alert">Terminated Pass Alert</a></li>
                 </ul>
