@@ -50,18 +50,18 @@ class AccountService
         return $query->get();
     }
 
-//    //get company account has role relate pass holder
-//    public function getCompanyAccountRelatedToPassHolder($passHolder = null, $roles = [])
-//    {
-//        if (!is_null($passHolder) && !is_null($passHolder->company)) {
-//
-//            $companyId = $passHolder->company->companyable->id;
-//            $companyColumn = $passHolder->company->companyable instanceof Tenant ? 'tenant_id' : 'sub_constructor_id';
-//
-//            return $this->getAccountsHasRoles($roles)->where($companyColumn, $companyId)->get();
-//        }
-//        return collect([]);
-//    }
+    //get company account has role relate pass holder
+    public function getCompanyAccountRelatedToPassHolder($passHolder = null, $roles = [])
+    {
+        if (!is_null($passHolder) && !is_null($passHolder->company)) {
+
+            $companyId = $passHolder->company->companyable->id;
+            $companyColumn = $passHolder->company->companyable instanceof Tenant ? 'tenant_id' : 'sub_constructor_id';
+
+            return $this->getAccountsHasRoles($roles)->where($companyColumn, $companyId)->get();
+        }
+        return collect([]);
+    }
 
 //    //get all account has role relate passholder
 //    public function getAccountRelatedToPassHolder($passHolder = null, $cagAdmin = false, $cagStaff = false, $cagWiewer = false,
@@ -87,7 +87,7 @@ class AccountService
 //    }
 
     //get all account of company contants passholder
-	private function allCompanyAccountsOfPassHolder($passHolder)
+	public function allCompanyAccountsOfPassHolder($passHolder)
 	{
 	    if (isset($passHolder->company)) {
             $companyOfPassHolder = $passHolder->company->companyable;

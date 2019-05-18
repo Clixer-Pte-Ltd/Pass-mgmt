@@ -2,7 +2,8 @@
 
 namespace App\Listeners;
 
-use App\Mail\Success;
+use App\Services\AccountService;
+use App\Services\MailService;
 
 class PassHolderCreatedListener extends BaseListener
 {
@@ -24,6 +25,15 @@ class PassHolderCreatedListener extends BaseListener
      */
     public function handle($event)
     {
-        $this->handlePassHolder($event->model, 'CreatePassHolderSuccessMail');
+        $passholder = $event->model;
+        if ($passholder) {
+            $accountService = new AccountService();
+            $mailService = new MailService('CreatePassHolderSuccessMail', null);
+
+            //send company admin
+            $admins = $accountService->getCompanyAccountRelatedToPassHolder($passholder, $roles = [COMPANY_CO_ROLE, COMPANY_AS_ROLE]);
+            $mailService->sendMailToMutilAccounts(null, $passholder, null, $admins);
+        }
+//        $this->handlePassHolder($event->model, 'CreatePassHolderSuccessMail');
     }
 }

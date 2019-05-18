@@ -14,12 +14,16 @@
 					@csrf
 					<div class="form-group" style="width: 90%">
 						<label>Reason</label>
-						<select name="blacklist_reason" class="form-control" style="width: 100%" required>
+						<select name="blacklist_reason" class="form-control" style="width: 100%" id="black_list_select" required>
 							<option value="Resigned">Resigned</option>
 							<option value="End of Contract">End of Contract</option>
 							<option value="Terminated">Terminated</option>
 							<option value="Others">Others</option>
 						</select>
+						<div style="padding: 4px 3px;; width: 100%; display: none" id="black_list_input">
+							<label>Others</label>
+							<input type="text" style="display: inline-block; width: 100%" class="form-control" name="blacklist_reason" required>
+						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -32,3 +36,16 @@
 	</div>
 	<!-- /.modal-dialog -->
 </div>
+<script>
+	$(function() {
+		$(document).on('change', '#black_list_select', function() {
+			if ($(this).val() === 'Others') {
+				$(this).attr('name', '');
+				$('#black_list_input').css('display', 'block');
+			} else {
+				$(this).attr('name', 'blacklist_reason');
+				$('#black_list_input').css('display', 'none');
+			}
+		})
+	});
+</script>
