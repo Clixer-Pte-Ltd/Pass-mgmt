@@ -14,13 +14,13 @@
 					@csrf
 					<div class="form-group" style="width: 90%">
 						<label>Reason</label>
-						<select name="blacklist_reason" class="form-control" style="width: 100%" id="black_list_select" required>
+						<select name="blacklist_reason" class="form-control black_list_select" style="width: 100%" required>
 							<option value="Resigned">Resigned</option>
 							<option value="End of Contract">End of Contract</option>
 							<option value="Terminated">Terminated</option>
 							<option value="Others">Others</option>
 						</select>
-						<div style="padding: 4px 3px;; width: 100%; display: none" id="black_list_input">
+						<div style="padding: 4px 3px;; width: 100%; display: none" class="black_list_input">
 							<label>Others</label>
 							<input type="text" style="display: inline-block; width: 100%" class="form-control" name="blacklist_reason" required>
 						</div>
@@ -38,13 +38,13 @@
 </div>
 <script>
 	$(function() {
-		$(document).on('change', '#black_list_select', function() {
+		$(document).on('change', '.black_list_select', function() {
 			if ($(this).val() === 'Others') {
 				$(this).attr('name', '');
-				$('#black_list_input').css('display', 'block');
+				$(this).siblings('.black_list_input').css('display', 'block');
 			} else {
 				$(this).attr('name', 'blacklist_reason');
-				$('#black_list_input').css('display', 'none');
+				$(this).siblings('.black_list_input').css('display', 'none');
 			}
 		})
 	});
