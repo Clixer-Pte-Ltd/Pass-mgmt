@@ -187,7 +187,7 @@
     </div>
 @endsection
 @section('after_scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.min.js"></script>
+    <script src="{{ asset('js/chart.min.js') }}"></script>
     <script src="{{ asset('vendor/adminlte/bower_components/moment/moment.js') }}"></script>
     <script type="text/javascript">
         var newPanel = function(options, id, data, backgroundColor, hoverBackgroundColor) {
