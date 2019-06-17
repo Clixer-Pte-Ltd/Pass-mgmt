@@ -17,7 +17,7 @@ class TenantsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnE
 {
     use Importable, SkipsFailures;
 
-    public $error;
+    public $error = [];
     /**
     * @param array $row
     *

@@ -8,7 +8,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "7.3.5",
+        "php": "7.3.6",
         "backpack/crud": "^3.5",
         "backpack/permissionmanager": "^3.12",
         "bacon/bacon-qr-code": "^1.0.3",
@@ -17,8 +17,8 @@
         "fideloper/proxy": "~4.0",
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
-        "maatwebsite/excel": "^3.1",
-        "pragmarx/google2fa-laravel": "^0.2.0",
+        "maatwebsite/excel": "3.1.10",
+        "pragmarx/google2fa-laravel": "v0.2.0",
         "spatie/laravel-activitylog": "^3.1",
         "webpatser/laravel-countries": "^1.5"
     },
