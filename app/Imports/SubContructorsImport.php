@@ -17,7 +17,7 @@ class SubContructorsImport implements ToModel, WithHeadingRow, WithValidation, S
 {
     use Importable, SkipsFailures;
 
-    public $error;
+    public $error = [];
     /**
     * @param array $row
     *
