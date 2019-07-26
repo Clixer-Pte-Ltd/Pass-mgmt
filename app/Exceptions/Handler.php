@@ -4,6 +4,8 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use PragmaRX\Google2FALaravel\Exceptions\InvalidOneTimePassword;
+use PragmaRX\Google2FALaravel\Exceptions\InvalidSecretKey;
 
 class Handler extends ExceptionHandler
 {
@@ -46,6 +48,9 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof InvalidOneTimePassword || $exception instanceof InvalidSecretKey) {
+            abort(500);
+        }
         return parent::render($request, $exception);
     }
 }
