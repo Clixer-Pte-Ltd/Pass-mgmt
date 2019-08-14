@@ -29,7 +29,7 @@ class StorePassHolderRequest extends FormRequest
             'nric' => 'required|unique:pass_holders,nric',
             'pass_expiry_date' => 'required|date|after:today',
             'country_id' => 'required',
-            'company_uen' => 'required',
+            'company_uen' => 'required|max:150',
             'as_name' => 'required',
             'as_email' => 'required',
             'zones' => 'required'
