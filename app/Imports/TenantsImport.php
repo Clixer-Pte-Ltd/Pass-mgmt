@@ -50,7 +50,7 @@ class TenantsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnE
     {
         return [
             'name' => 'required',
-            'company_code' => 'required|unique:tenants,uen|unique:sub_constructors,uen',
+            'company_code' => 'required|unique:tenants,uen|unique:sub_constructors,uen|max:150',
             'tenancy_start_date' => 'required',
             'tenancy_end_date' => 'required',
         ];

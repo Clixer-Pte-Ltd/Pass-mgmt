@@ -26,7 +26,7 @@ class StoreTenantRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'uen' => 'required|unique:tenants,uen|unique:sub_constructors,uen',
+            'uen' => 'required|unique:tenants,uen|unique:sub_constructors,uen|max:150',
             'tenancy_start_date' => 'required|date',
             'tenancy_end_date' => 'required|date|after:today|after:tenancy_start_date',
         ];
