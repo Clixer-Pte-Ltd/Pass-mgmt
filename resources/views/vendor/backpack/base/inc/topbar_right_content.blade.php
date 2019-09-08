@@ -9,7 +9,7 @@
     </a>
 </li>
 <li>
-    <a href="#" title="">
+    <a href="{{ route('admin.download.guide') }}" title="">
         <i class="iconSupport"></i>
     </a>
 </li>
