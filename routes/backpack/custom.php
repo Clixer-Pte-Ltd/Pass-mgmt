@@ -17,7 +17,7 @@ Route::group([
             return \Storage::download('For_CAG_Admin.zip');
         }
         if (backpack_user()->hasAnyRole([COMPANY_CO_ROLE, COMPANY_AS_ROLE])) {
-            return \Storage::download('For_CAG_Admin.zip');
+            return \Storage::download('For_CAG_CO_AS.zip');
         }
         abort(403);
     })->name('admin.download.guide');
