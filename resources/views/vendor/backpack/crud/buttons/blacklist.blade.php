@@ -22,7 +22,7 @@
 						</select>
 						<div style="padding: 4px 3px;; width: 100%; display: none" class="black_list_input">
 							<label>Others</label>
-							<input type="text" style="display: inline-block; width: 100%" class="form-control" name="blacklist_reason" required>
+							<input type="text" style="display: inline-block; width: 100%" class="form-control" name="blacklist_reason">
 						</div>
 					</div>
 				</div>
