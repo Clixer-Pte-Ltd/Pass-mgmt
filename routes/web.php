@@ -48,6 +48,9 @@ Route::group(
 
         //Change Password
         Route::post('user/change-password', 'Auth\MyAccountController@postChangePasswordForm')->name('backpack.auth.account.password');
+
+        // Password Reset Routes...
+        Route::post('password/reset', 'Auth\ResetPasswordController@reset');
     }
 );
 

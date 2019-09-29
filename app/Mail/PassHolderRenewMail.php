@@ -24,13 +24,17 @@ class PassHolderRenewMail extends Mailable
     }
 
     /**
-     * Build the message.
-     *
-     * @return $this
+     * @return PassHolderRenewMail
+     * @throws \Throwable
      */
     public function build()
     {
-        app('logService')->logAction($this->account, null, $this->passHolder->toArray(), 'Pass Holder Renew Mail');
+        $emailViewRender = view('emails.renew_pass_holder',
+            [
+                'account' => $this->account,
+                'passHolder' => $this->passHolder
+            ])->render();
+        app('logService')->logAction($this->account, null, $emailViewRender, 'Pass Holder Renew Mail');
         return $this->view('emails.renew_pass_holder');
     }
 }

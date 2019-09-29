@@ -17,7 +17,10 @@ class SubConstructor extends Model
     | GLOBAL VARIABLES
     |--------------------------------------------------------------------------
     */
-
+    const FIELD_LOG = [
+        'name', 'uen'
+    ];
+    public $routeName = 'sub-constructor';
     protected $table = 'sub_constructors';
     // protected $primaryKey = 'id';
     // public $timestamps = false;

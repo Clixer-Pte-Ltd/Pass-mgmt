@@ -25,13 +25,18 @@ class PassHolderTerminateMail extends Mailable
     }
 
     /**
-     * Build the message.
-     *
-     * @return $this
+     * @return PassHolderTerminateMail
+     * @throws \Throwable
      */
     public function build()
     {
-        app('logService')->logAction($this->account, null, $this->passHolder->toArray(), 'Pass Holder Terminate Mail');
+        $emailViewRender = view('emails.terminate_pass_holder',
+            [
+                'account' => $this->account,
+                'passHolder' => $this->passHolder
+            ])->render();
+
+        app('logService')->logAction($this->account, null, $emailViewRender, 'Pass Holder Terminate Mail');
         return $this->view('emails.terminate_pass_holder');
     }
 }

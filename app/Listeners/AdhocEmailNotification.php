@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\AdhocEmailCreated;
+use App\Models\BackpackUser;
 
 class AdhocEmailNotification extends BaseListener
 {

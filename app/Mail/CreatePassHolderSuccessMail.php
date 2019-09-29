@@ -25,13 +25,18 @@ class CreatePassHolderSuccessMail extends Mailable
     }
 
     /**
-     * Build the message.
-     *
-     * @return $this
+     * @return CreatePassHolderSuccessMail
+     * @throws \Throwable
      */
     public function build()
     {
-        app('logService')->logAction($this->account, null, $this->passHolder->toArray(), 'Create Pass Holder Success Mail');
+        $emailViewRender = view('emails.new_pass_holder_created',
+            [
+                'account' => $this->account,
+                'passHolder' => $this->passHolder
+            ])->render();
+
+        app('logService')->logAction($this->account, null, $emailViewRender, 'Create Pass Holder Success Mail');
         return $this->view('emails.new_pass_holder_created');
     }
 }

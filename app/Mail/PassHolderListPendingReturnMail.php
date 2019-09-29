@@ -24,13 +24,18 @@ class PassHolderListPendingReturnMail extends Mailable
     }
 
     /**
-     * Build the message.
-     *
-     * @return $this
+     * @return PassHolderListPendingReturnMail
+     * @throws \Throwable
      */
     public function build()
     {
-        app('logService')->logAction($this->account, null, $this->passHolders, 'Pass Holder List Pending Return Mail');
+        $emailViewRender = view('emails.pedding_return_pass_holder',
+            [
+                'account' => $this->account,
+                'passHolders' => $this->passHolders
+            ])->render();
+
+        app('logService')->logAction($this->account, null, $emailViewRender, 'Pass Holder List Pending Return Mail');
         return $this->view('emails.pedding_return_pass_holder');
     }
 }

@@ -40,6 +40,6 @@ class CheckChangePassword extends Command
      */
     public function handle()
     {
-        BackpackUser::where('last_modify_password_at', '<=', Carbon::now()->subMonths(9))->update(['change_first_pass_done' => 0]);
+        BackpackUser::where('last_modify_password_at', '<=', Carbon::now()->subMonths(3))->update(['change_first_pass_done' => 0]);
     }
 }

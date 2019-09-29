@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\BackpackUser;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -15,9 +16,9 @@ class AdhocEmailCreated
     public $email;
 
     /**
-     * Create a new event instance.
-     *
-     * @return void
+     * AdhocEmailCreated constructor.
+     * @param AdhocEmail $email
+     * @param $senderId
      */
     public function __construct(AdhocEmail $email)
     {

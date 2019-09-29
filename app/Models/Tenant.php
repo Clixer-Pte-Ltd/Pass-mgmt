@@ -18,7 +18,10 @@ class Tenant extends Model
     | GLOBAL VARIABLES
     |--------------------------------------------------------------------------
     */
-
+    const FIELD_LOG = [
+        'name', 'uen'
+    ];
+    public $routeName = 'tenant';
     protected $table = 'tenants';
     // protected $primaryKey = 'id';
     // public $timestamps = false;

@@ -12,7 +12,7 @@ use App\Http\Requests\UpdateTenantRequest as UpdateRequest;
 use App\Imports\TenantsImport;
 use App\Imports\TenantAccountsImport;
 use App\Models\Tenant;
-
+use App\CrudPanel;
 
 /**
  * Class TenantCrudController

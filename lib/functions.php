@@ -100,3 +100,14 @@ function convertFormatDate($dateString, $format1, $format2)
 {
     return date_format(date_create_from_format($format1, $dateString), $format2);
 }
+
+function getObjectType($object = null)
+{
+    $objectType = '';
+    if ($object) {
+        $className = explode("\\", get_class($object));
+        $objectType = end($className);
+        if ($objectType == 'BackpackUser') $objectType = 'User';
+    }
+    return $objectType;
+}

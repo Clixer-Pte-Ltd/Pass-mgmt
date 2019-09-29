@@ -14,6 +14,10 @@ class BackpackUser extends User
     use HasParentModel;
     use LogsActivity;
 
+    const FIELD_LOG = [
+        'name', 'email', 'phone'
+    ];
+    public $routeName = 'user';
     protected $table = 'users';
     protected static $logFillable = true;
 
@@ -86,7 +90,7 @@ class BackpackUser extends User
             return $tenants;
         }
     }
-    
+
     public function getNotifications($type)
     {
         return $this->notifications->where('type', $type);
