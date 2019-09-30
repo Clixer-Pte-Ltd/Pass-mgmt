@@ -7,7 +7,9 @@ use App\Http\Controllers\Backpack\CRUD\CrudController;
 use App\Http\Requests\StorePassHolderRequest as StoreRequest;
 use App\Http\Requests\UpdatePassHolderRequest as UpdateRequest;
 use App\Traits\Export;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Illuminate\Support\Collection;
+use App\CrudPanel;
 
 
 /**
@@ -293,5 +295,12 @@ class BasePassHolderCrudController extends CrudController
             $exportData[] = $pass;
         }
         return collect($exportData);
+    }
+
+    public function show($id)
+    {
+        $response = parent::show($id);
+        $this->crud->removeColumns(['country_id', 'company_uen', 'status']);
+        return $response;
     }
 }

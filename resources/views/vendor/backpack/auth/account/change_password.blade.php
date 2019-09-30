@@ -86,7 +86,7 @@
 
                     <div class="form-group">
                         @php
-                            $label = trans('backpack::base.confirm_password');
+                            $label = trans('backpack::crud.confirm_password');
                             $field = 'confirm_password';
                         @endphp
                         <label class="required">{{ $label }}</label>

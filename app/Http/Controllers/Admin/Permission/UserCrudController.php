@@ -29,6 +29,7 @@ class UserCrudController extends BaseUserCrudController
             $ids = backpack_user()->getCompany()->first()->getAllAccounts()->pluck('id')->toArray();
             $this->crud->addClause( 'whereIn', 'id', $ids);
         }
+        $this->crud->allowAccess('show');
         $this->crud->addColumn([
                 'name' => 'company',
                 'label' => 'Company',
@@ -217,5 +218,14 @@ class UserCrudController extends BaseUserCrudController
         } else {
             $request->request->remove('password');
         }
+    }
+
+    public function show($id)
+    {
+        $response = parent::show($id);
+        $this->crud->removeColumns(['tenant_id', 'sub_constructor_id', 'is_imported', 'token',
+            'last_modify_password_at', 'change_first_pass_done', 'first_password']);
+        $this->crud->removeAllButtons();
+        return $response;
     }
 }

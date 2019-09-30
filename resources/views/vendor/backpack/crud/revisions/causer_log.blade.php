@@ -1,0 +1,1 @@
+<a href="{{ route('crud.user.show', $history->causer->id ?? 0) }}">{{ $history->causer->name ?? $history->causer->applicant_name ?? '' }} {{ $history->causer && $history->causer instanceof \App\Models\BackpackUser ? '('.getUserRole($history->causer) . ')' : ''  }}</a>

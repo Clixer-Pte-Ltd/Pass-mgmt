@@ -156,4 +156,5 @@ return [
 
     // File manager
     'file_manager' => 'File Manager',
+    'confirm_password' => 'Retype new Password'
 ];

@@ -16,7 +16,10 @@ class Zone extends Model
     | GLOBAL VARIABLES
     |--------------------------------------------------------------------------
     */
-
+    const FIELD_LOG = [
+        'name'
+    ];
+    public $routeName = 'zone';
     protected $table = 'zones';
     // protected $primaryKey = 'id';
     // public $timestamps = false;

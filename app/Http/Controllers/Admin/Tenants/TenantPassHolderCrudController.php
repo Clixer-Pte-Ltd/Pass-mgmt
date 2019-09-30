@@ -22,7 +22,9 @@ class TenantPassHolderCrudController extends BaseTenantPassHolderCrudController
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/tenant-pass-holder');
         $this->crud->setEntityNameStrings('Pass Holder', 'Pass Holders');
         $this->crud->addClause('whereStatus', PASS_STATUS_VALID);
-        $this->crud->addButtonFromView('line', 'blacklist', 'blacklist', 'end');
+        if (!backpack_user()->hasRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE])) {
+            $this->crud->addButtonFromView('line', 'blacklist', 'blacklist', 'end');
+        }
         $this->addFields();
         $this->addRequired();
 

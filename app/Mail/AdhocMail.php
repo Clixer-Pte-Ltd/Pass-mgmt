@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\BackpackUser;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -28,13 +29,18 @@ class AdhocMail extends Mailable
     }
 
     /**
-     * Build the message.
-     *
-     * @return $this
+     * @return AdhocMail
+     * @throws \Throwable
      */
     public function build()
     {
-        app('logService')->logAction($this->account, null, $this->company->toArray(), 'Send Mail Adhoc Mail');
+        $emailViewRender = view('emails.adhoc',
+            [
+                'account' => $this->account,
+                'content' => $this->content,
+                'company' => $this->company
+            ])->render();
+        app('logService')->logAction($this->account, null, $emailViewRender, 'Send Mail Adhoc Mail');
         return $this->subject(@$this->content->subject)->view('emails.adhoc');
     }
 }

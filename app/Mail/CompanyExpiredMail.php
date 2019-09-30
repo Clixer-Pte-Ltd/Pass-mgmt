@@ -24,13 +24,17 @@ class CompanyExpiredMail extends Mailable
     }
 
     /**
-     * Build the message.
-     *
-     * @return $this
+     * @return CompanyExpiredMail
+     * @throws \Throwable
      */
     public function build()
     {
-        app('logService')->logAction($this->account, null, $this->company->toArray(), 'Send Mail Company Expired Mail');
+        $emailViewRender = view('emails.expired_company',
+            [
+                'account' => $this->account,
+                'company' => $this->company
+            ])->render();
+        app('logService')->logAction($this->account, null, $emailViewRender, 'Send Mail Company Expired Mail');
         return $this->view('emails.expired_company');
     }
 }

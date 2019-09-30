@@ -70,31 +70,16 @@
     <div class="timeline-item"  id="timeline-created">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            <span href="#"> {{ @$history->causer->name }} </span>
-            {{ $history->description }}
-            <span href="#"> {{ getTypeAttribute($history->subject_type) }} </span>
+            @include('crud::revisions.causer_log', ['history' => $history])
+            created new
+            {{ getObjectType($history->subject) }}:
+            @include('crud::revisions.subject_log', ['history' => $history])
         </h3>
         <div style="padding: 10px">
             <div class="timeline-body p-b-0">
-                @php
-                    $dataHistory = $history->changes->toArray();
-                @endphp
-                {{ @$history->causer->name }} created new {{ getTypeAttribute($history->subject_type) }} with detail: <br>
-
-                @foreach(array_keys($dataHistory['attributes']) as $key)
-                    <b>{{ $key }}</b>:&emsp; {{ $dataHistory['attributes'][$key] }}
-                    <br>
-                @endforeach
-
+                @include('crud::revisions.object_created_log', ['history' => $history])
             </div>
         </div>
-        {{--<div class="timeline-footer p-t-0">--}}
-            {{--<form method="post" action="{{ url(\Request::url().'/'.$history->id.'/restore') }}">--}}
-            {{--{!! csrf_field() !!}--}}
-            {{--<spanutton type="submit" class="btn btn-primary btn-sm restore-btn" data-entry-id="{{ $entry->id }}" data-revision-id="{{ $history->id }}" onclick="onRestoreClick(event)">--}}
-            {{--<i class="fa fa-undo"></i> {{ trans('backpack::crud.undo') }}</button>--}}
-            {{--</form>--}}
-        {{--</div>--}}
     </div>
 @endif
 
@@ -103,23 +88,14 @@
 <div class="timeline-item" id="timeline-updated">
     <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
     <h3 class="timeline-header">
-        <span href="#"> {{ @$history->causer->name }} </span>
-        {{ $history->description }}
-        <span href="#"> {{ getTypeAttribute($history->subject_type) }} </span>
-        with id:
-        {{ $history->subject_id }}
+        @include('crud::revisions.causer_log', ['history' => $history])
+        updated
+        {{ getObjectType($history->subject) }}:
+        @include('crud::revisions.subject_log', ['history' => $history])
     </h3>
     <div style="padding: 10px">
         <div class="timeline-body p-b-0">
-            @php
-                $dataHistory = $history->changes->toArray();
-            @endphp
-            @foreach(array_keys($dataHistory['attributes']) as $key)
-                @if ($dataHistory['attributes'][$key] !== $dataHistory['old'][$key] )
-                    <b>{{ $key }}</b>:&emsp; from <span>&emsp;'{{ $dataHistory['old'][$key] }}'&emsp;</span> to  <span>&emsp;'{{ $dataHistory['attributes'][$key] }}'&emsp;</span>
-                    <br>
-                @endif
-            @endforeach
+{{--            @include('crud::revisions.object_updated_log', ['history' => $history])--}}
         </div>
     </div>
 </div>
@@ -130,17 +106,14 @@
     <div class="timeline-item"  id="timeline-deleted">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            <span href="#"> {{ @$history->causer->name }} </span>
-            {{ $history->description }}
-            <span href="#"> {{ getTypeAttribute($history->subject_type) }} </span>
-            with id:
-            {{ $history->subject_id }}
+            @include('crud::revisions.causer_log', ['history' => $history])
+            deleted
+            {{ getObjectType($history->subject) }}:
+            @include('crud::revisions.subject_log', ['history' => $history])
         </h3>
         <div style="padding: 10px">
             <div class="timeline-body p-b-0">
-                @php
-                    $dataHistory = $history->changes->toArray();
-                @endphp
+                @include('crud::revisions.object_deleted_log', ['history' => $history])
             </div>
         </div>
     </div>
@@ -151,18 +124,13 @@
     <div class="timeline-item"  id="timeline-added-account">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            <span href="#"> {{ @$history->causer->name }} </span>
-            added account 
-            with id:
-            {{ $history->subject_id }}
+            @include('crud::revisions.causer_log', ['history' => $history])
+            added account
+            {{ getObjectType($history->subject) }}:
+            @include('crud::revisions.subject_log', ['history' => $history])
         </h3>
         <div style="padding: 10px">
             <div class="timeline-body p-b-0">
-                @php
-                    $dataHistory = $history->properties->toArray();
-                @endphp
-                <b>Name:</b>:&emsp; <span>&emsp;'{{ $dataHistory['name'] }}'</span><br>
-                <b>Email:</b>:&emsp; <span>&emsp;'{{ $dataHistory['email'] }}'</span>
             </div>
         </div>
     </div>
@@ -175,18 +143,10 @@
         <h3 class="timeline-header">
             System sended notify imported account infor mail
             <br>
-            Account id:
-            {{ $history->subject_id }}
+            Account :
+            @include('crud::revisions.subject_mail_log', ['history' => $history])
         </h3>
-        <div style="padding: 10px">
-            <div class="timeline-body p-b-0">
-                @php
-                    $dataHistory = $history->properties->toArray();
-                @endphp
-                <b>Name:</b>:&emsp; <span>&emsp;'{{ $dataHistory['name'] }}'</span><br>
-                <b>Email:</b>:&emsp; <span>&emsp;'{{ $dataHistory['email'] }}'</span>
-            </div>
-        </div>
+        @include('crud::revisions.mail_log', ['history' => $history])
     </div>
 @endif
 
@@ -195,16 +155,10 @@
     <div class="timeline-item"  id="timeline-send-mail-adhoc">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            @php
-                $dataHistory = $history->properties->toArray();
-            @endphp
-            {{ @$history->subject->name }} sended adhoc mail to {{ @$dataHistory['name'] }}
+            New adhoc mail sended to
+            @include('crud::revisions.subject_mail_log', ['history' => $history])
         </h3>
-        <div style="padding: 10px">
-            <div class="timeline-body p-b-0">
-
-            </div>
-        </div>
+        @include('crud::revisions.mail_log', ['history' => $history])
     </div>
 @endif
 
@@ -213,16 +167,10 @@
     <div class="timeline-item"  id="timeline-send-mail-bi-annual">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            @php
-                $dataHistory = $history->properties->toArray();
-            @endphp
-            System sended bi annual mail to {{ @$dataHistory['name'] }}
+            System sended bi annual mail to
+            @include('crud::revisions.subject_mail_log', ['history' => $history])
         </h3>
-        <div style="padding: 10px">
-            <div class="timeline-body p-b-0">
-
-            </div>
-        </div>
+        @include('crud::revisions.mail_log', ['history' => $history])
     </div>
 @endif
 
@@ -231,20 +179,11 @@
     <div class="timeline-item"  id="timeline-send-mail-bi-annual">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            @php
-                $dataHistory = $history->properties->toArray();
-            @endphp
-            System sended mail to <b>{{ @$history->subject->name }}</b> list company not validate:
-            @foreach (@$dataHistory as $company)
-                <br>
-                {{ $company['name'] }}
-            @endforeach
+            System sended mail to
+            <a href="{{ route('crud.user.show', $history->subject->id ?? 0) }}">{{ @$history->subject->name }} ({{ $history->subject ? getUserRole($history->subject) : '' }})</a>
+            list company not validate
         </h3>
-        <div style="padding: 10px">
-            <div class="timeline-body p-b-0">
-
-            </div>
-        </div>
+        @include('crud::revisions.mail_log', ['history' => $history])
     </div>
 @endif
 
@@ -253,16 +192,11 @@
     <div class="timeline-item"  id="timeline-send-mail-bi-annual">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            @php
-                $dataHistory = $history->properties->toArray();
-            @endphp
-            System sended mail to <b>{{ @$history->subject->name }}</b> notify company <b>{{ $dataHistory['name'] }}</b> was expired
+            System sended mail to
+            @include('crud::revisions.subject_mail_log', ['history' => $history])
+            notify company was expired
         </h3>
-        <div style="padding: 10px">
-            <div class="timeline-body p-b-0">
-
-            </div>
-        </div>
+        @include('crud::revisions.mail_log', ['history' => $history])
     </div>
 @endif
 
@@ -271,16 +205,11 @@
     <div class="timeline-item"  id="timeline-send-mail-bi-annual">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            @php
-                $dataHistory = $history->properties->toArray();
-            @endphp
-            System sended mail to <b>{{ @$history->subject->name }}</b> notify company <b>{{ $dataHistory['name'] }}</b> expire soon
+            System sended mail to
+            @include('crud::revisions.subject_mail_log', ['history' => $history])
+            notify company expire soon
         </h3>
-        <div style="padding: 10px">
-            <div class="timeline-body p-b-0">
-
-            </div>
-        </div>
+        @include('crud::revisions.mail_log', ['history' => $history])
     </div>
 @endif
 
@@ -289,16 +218,11 @@
     <div class="timeline-item"  id="timeline-send-mail-bi-annual">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            @php
-                $dataHistory = $history->properties->toArray();
-            @endphp
-            System sended mail to <b>{{ @$history->subject->name }}</b> notify company <b>{{ $dataHistory['name'] }}</b> need validate
+            System sended mail to
+            @include('crud::revisions.subject_mail_log', ['history' => $history])
+            notify company need validate
         </h3>
-        <div style="padding: 10px">
-            <div class="timeline-body p-b-0">
-
-            </div>
-        </div>
+        @include('crud::revisions.mail_log', ['history' => $history])
     </div>
 @endif
 
@@ -307,17 +231,11 @@
     <div class="timeline-item"  id="timeline-send-mail-account-info">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            System sended mail notify {{ @$history->causer->name }} add account:
+            System sended mail notify
+            @include('crud::revisions.subject_mail_log', ['history' => $history])
+            add account
         </h3>
-        <div style="padding: 10px">
-            <div class="timeline-body p-b-0">
-                @php
-                    $dataHistory = $history->properties->toArray();
-                @endphp
-                <b>Name:</b>:&emsp; <span>&emsp;'{{ $dataHistory['name'] }}'</span><br>
-                <b>Email:</b>:&emsp; <span>&emsp;'{{ $dataHistory['email'] }}'</span>
-            </div>
-        </div>
+        @include('crud::revisions.mail_log', ['history' => $history])
     </div>
 @endif
 
@@ -326,16 +244,11 @@
     <div class="timeline-item"  id="timeline-send-mail-account-info">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            System sended mail notify {{ @$history->causer->name }} create new pass holder:
+            System sended mail notify
+            @include('crud::revisions.subject_mail_log', ['history' => $history])
+            create new pass holder:
         </h3>
-        <div style="padding: 10px">
-            <div class="timeline-body p-b-0">
-                @php
-                    $dataHistory = $history->properties->toArray();
-                @endphp
-                <b>Name:</b>:&emsp; <span>&emsp;'{{ $dataHistory['applicant_name'] }}'</span><br>
-            </div>
-        </div>
+        @include('crud::revisions.mail_log', ['history' => $history])
     </div>
 @endif
 
@@ -344,19 +257,11 @@
     <div class="timeline-item"  id="timeline-send-mail-account-info">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            System sended mail notify {{ @$history->causer->name }} list pass holder expired:
+            System sended mail notify
+            @include('crud::revisions.subject_mail_log', ['history' => $history])
+            list pass holder expired:
         </h3>
-        <div style="padding: 10px">
-            <div class="timeline-body p-b-0">
-                @php
-                    $dataHistory = $history->properties->toArray();
-                @endphp
-                @foreach ($dataHistory as $pass)
-                    <br>
-                    <b>Name:</b>:&emsp; <span>&emsp;'{{ $pass['applicant_name'] }}'</span>
-                @endforeach
-            </div>
-        </div>
+        @include('crud::revisions.mail_log', ['history' => $history])
     </div>
 @endif
 
@@ -365,19 +270,11 @@
     <div class="timeline-item"  id="timeline-send-mail-account-info">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            System sended mail notify {{ @$history->causer->name }} list pass holder expire soon:
+            System sended mail notify
+            @include('crud::revisions.subject_mail_log', ['history' => $history])
+            list pass holder expire soon:
         </h3>
-        <div style="padding: 10px">
-            <div class="timeline-body p-b-0">
-                @php
-                    $dataHistory = $history->properties->toArray();
-                @endphp
-                @foreach ($dataHistory as $pass)
-                    <br>
-                    <b>Name:</b>:&emsp; <span>&emsp;'{{ $pass['applicant_name'] }}'</span>
-                @endforeach
-            </div>
-        </div>
+        @include('crud::revisions.mail_log', ['history' => $history])
     </div>
 @endif
 
@@ -386,19 +283,11 @@
     <div class="timeline-item"  id="timeline-send-mail-account-info">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            System sended mail notify {{ @$history->causer->name }} list pass holder pendding return:
+            System sended mail notify
+            @include('crud::revisions.subject_mail_log', ['history' => $history])
+            list pass holder pendding return:
         </h3>
-        <div style="padding: 10px">
-            <div class="timeline-body p-b-0">
-                @php
-                    $dataHistory = $history->properties->toArray();
-                @endphp
-                @foreach ($dataHistory as $pass)
-                    <br>
-                    <b>Name:</b>:&emsp; <span>&emsp;'{{ $pass['applicant_name'] }}'</span>
-                @endforeach
-            </div>
-        </div>
+        @include('crud::revisions.mail_log', ['history' => $history])
     </div>
 @endif
 
@@ -425,16 +314,11 @@
     <div class="timeline-item"  id="timeline-send-mail-account-info">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            System sended mail notify {{ @$history->causer->name }} pass holder was renewed:
+            System sended mail notify
+            @include('crud::revisions.subject_mail_log', ['history' => $history])
+            pass holder was renewed
         </h3>
-        <div style="padding: 10px">
-            <div class="timeline-body p-b-0">
-                @php
-                    $dataHistory = $history->properties->toArray();
-                @endphp
-                <b>Name:</b>:&emsp; <span>&emsp;'{{ $dataHistory['applicant_name'] }}'</span><br>
-            </div>
-        </div>
+        @include('crud::revisions.mail_log', ['history' => $history])
     </div>
 @endif
 
@@ -443,16 +327,11 @@
     <div class="timeline-item"  id="timeline-send-mail-account-info">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            System sended mail notify {{ @$history->causer->name }} pass holder was terminated:
+            System sended mail notify
+            @include('crud::revisions.subject_mail_log', ['history' => $history])
+            pass holder was terminated
         </h3>
-        <div style="padding: 10px">
-            <div class="timeline-body p-b-0">
-                @php
-                    $dataHistory = $history->properties->toArray();
-                @endphp
-                <b>Name:</b>:&emsp; <span>&emsp;'{{ $dataHistory['applicant_name'] }}'</span><br>
-            </div>
-        </div>
+        @include('crud::revisions.mail_log', ['history' => $history])
     </div>
 @endif
 
@@ -461,19 +340,11 @@
     <div class="timeline-item"  id="timeline-send-mail-account-info">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            System sended mail notify {{ @$history->causer->name }} list pass holder valid daily:
+            System sended mail notify
+            @include('crud::revisions.subject_mail_log', ['history' => $history])
+            list pass holder valid daily
         </h3>
-        <div style="padding: 10px">
-            <div class="timeline-body p-b-0">
-                @php
-                    $dataHistory = $history->properties->toArray();
-                @endphp
-                @foreach ($dataHistory as $pass)
-                    <br>
-                    <b>Name:</b>:&emsp; <span>&emsp;'{{ $pass['applicant_name'] }}'</span>
-                @endforeach
-            </div>
-        </div>
+        @include('crud::revisions.mail_log', ['history' => $history])
     </div>
 @endif
 
@@ -482,17 +353,9 @@
     <div class="timeline-item"  id="timeline-send-mail-account-info">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            System sended welcome mail:
+            System sended welcome mail
         </h3>
-        <div style="padding: 10px">
-            <div class="timeline-body p-b-0">
-                @php
-                    $dataHistory = $history->properties->toArray();
-                @endphp
-                <b>Name:</b>:&emsp; <span>&emsp;'{{ $dataHistory['name'] }}'</span><br>
-                <b>Email:</b>:&emsp; <span>&emsp;'{{ $dataHistory['email'] }}'</span>
-            </div>
-        </div>
+        @include('crud::revisions.mail_log', ['history' => $history])
     </div>
 @endif
 

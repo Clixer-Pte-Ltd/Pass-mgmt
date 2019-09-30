@@ -16,7 +16,10 @@ class AdhocEmail extends Model
     | GLOBAL VARIABLES
     |--------------------------------------------------------------------------
     */
-
+    const FIELD_LOG = [
+        'subject', 'body'
+    ];
+    public $routeName = 'adhoc-email';
     protected $table = 'adhoc_emails';
     // protected $primaryKey = 'id';
     // public $timestamps = false;

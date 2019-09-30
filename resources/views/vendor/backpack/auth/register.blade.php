@@ -89,7 +89,7 @@
                                 </div>
 
                                 <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                                    <label class="control-label">{{ trans('backpack::base.confirm_password') }}</label>
+                                    <label class="control-label">{{ trans('backpack::crud.confirm_password') }}</label>
 
                                     <div class="input_register pwd_register">
                                         <input type="password" class="form-control" name="password_confirmation">
@@ -120,7 +120,7 @@
                         </form>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>

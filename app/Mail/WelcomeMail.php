@@ -24,14 +24,18 @@ class WelcomeMail extends Mailable
     }
 
     /**
-     * Build the message.
-     *
-     * @return $this
+     * @return WelcomeMail
+     * @throws \Throwable
      */
     public function build()
     {
         $company = $this->account->tenant ?: $this->account->subConstructor;
-        app('logService')->logAction($this->account, null, $this->account->toArray(), 'WelcomeMail');
-        return $this->view('emails.new_account_welcome',['company' => $company]);
+        $emailViewRender = view('emails.new_account_welcome',
+            [
+                'account' => $this->account,
+                'company' => $company
+            ])->render();
+        app('logService')->logAction($this->account, null, $emailViewRender, 'WelcomeMail');
+        return $this->view('emails.new_account_welcome', ['company' => $company]);
     }
 }

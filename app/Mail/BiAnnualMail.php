@@ -25,13 +25,18 @@ class BiAnnualMail extends Mailable
     }
 
     /**
-     * Build the message.
-     *
-     * @return $this
+     * @return BiAnnualMail
+     * @throws \Throwable
      */
     public function build()
     {
-        app('logService')->logAction($this->account, null, $this->account->toArray(), 'Send Mail Bi Annual Mail');
+        $emailViewRender = view('emails.bi_annual_mail',
+            [
+                'account' => $this->account,
+                'company' => $this->company
+            ])->render();
+
+        app('logService')->logAction($this->account, null, $emailViewRender, 'Send Mail Bi Annual Mail');
         return $this->view('emails.bi_annual_mail');
     }
 }

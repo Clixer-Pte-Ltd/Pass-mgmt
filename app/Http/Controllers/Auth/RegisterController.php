@@ -109,8 +109,12 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             backpack_authentication_column() => $email_validation,
             'password' => 'required|min:6|confirmed|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
+            'password_confirmation' => 'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
             'phone' => 'required|digits:8'
-        ], ['password.regex' => 'New password must minimum 8 characters with 1 uppercase and lowercase, 1 symbol, 1 number']);
+        ], [
+            'password.regex' => 'New password must minimum 8 characters with 1 uppercase and lowercase, 1 symbol, 1 number',
+            'password_confirmation.regex' => 'New password must minimum 8 characters with 1 uppercase and lowercase, 1 symbol, 1 number'
+        ]);
     }
 
     /**
@@ -254,7 +258,7 @@ class RegisterController extends Controller
         if (session()->has(SESS_NEW_ACC_FROM_TENANT)) {
             $id = session()->get(SESS_NEW_ACC_FROM_TENANT);
             session()->forget(SESS_NEW_ACC_FROM_TENANT);
-            
+
             if (session()->has(SESS_TENANT_MY_COMPANY)) {
                 return redirect()->route('admin.tenant.my-company');
             }

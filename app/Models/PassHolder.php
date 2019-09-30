@@ -16,7 +16,10 @@ class PassHolder extends Model
     | GLOBAL VARIABLES
     |--------------------------------------------------------------------------
     */
-
+    const FIELD_LOG = [
+        'applicant_name', 'nric', 'pass_expiry_date', 'ru_name', 'ru_email', 'as_name', 'as_email'
+    ];
+    public $routeName = 'pass-holder';
     protected $table = 'pass_holders';
     // protected $primaryKey = 'id';
     // public $timestamps = false;

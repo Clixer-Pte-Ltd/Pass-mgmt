@@ -9,7 +9,7 @@
                         <div class="col-md-6">
                             <div class="title_login">
                                 <h1 class="text-center title">
-                                    Welcome to <br>CAG Pass Management 
+                                    Welcome to <br>CAG Airport Pass Tracking Portal
                                 </h1>
                                 <div class="content_title">
                                     <ul>
@@ -21,7 +21,7 @@
                                     To keep connected with us, please login with your personal info by email address and password
                                 </div>
                             </div>
-                        </div>  
+                        </div>
                         <form class="col-md-6 p-t-10 p-b-10 p-r-10 p-l-10 fromLogin " role="form" method="POST" action="{{ route('backpack.auth.login') }}">
                             {!! csrf_field() !!}
                             <h3 class="text-center m-b-20">
@@ -72,6 +72,7 @@
                                         {{ trans('backpack::base.login') }}
                                     </button>
                                 </div>
+                                <div class="text-center m-t-10"><a href="{{ route('backpack.auth.password.reset') }}">{{ trans('backpack::base.forgot_your_password') }}</a></div>
                             </div>
                         </form>
                     </div>

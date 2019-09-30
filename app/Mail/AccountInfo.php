@@ -26,13 +26,23 @@ class AccountInfo extends Mailable
     }
 
     /**
-     * Build the message.
-     *
-     * @return $this
+     * @return AccountInfo
+     * @throws \Throwable
      */
     public function build()
     {
-        app('logService')->logAction($this->account, null, $this->account->toArray(), 'Send Mail Account Info');
-        return $this->view('emails.account_info');
+        $qrCode = app('pragmarx.google2fa')->getQRCodeInline(
+            config('app.name'),
+            $this->account->email,
+            $this->account->google2fa_secret
+        );
+        $emailViewRender = view('emails.account_info',
+            [
+                'account' => $this->account,
+                'qrCode' => $qrCode,
+                'showPass' => false
+            ])->render();
+        app('logService')->logAction($this->account, null, $emailViewRender, 'Send Mail Account Info');
+        return $this->view('emails.account_info', ['qrCode' => $qrCode, 'showPass' => true]);
     }
 }
