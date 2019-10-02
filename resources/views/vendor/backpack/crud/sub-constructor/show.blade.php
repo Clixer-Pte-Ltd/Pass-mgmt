@@ -45,7 +45,9 @@
 						<div class="col-sm-4 border-right">
 							<div class="description-block">
 								<h5 class="description-header">Tenancy Start Date</h5>
-								<span class="description-text">{{ custom_date_format($entry->tenancy_start_date) }}</span>
+                                @if($entry->tenancy_start_date)
+								    <span class="description-text">{{ custom_date_format($entry->tenancy_start_date) }}</span>
+                                @endif
 							</div>
 						<!-- /.description-block -->
 						</div>
@@ -61,7 +63,9 @@
 						<div class="col-sm-4">
 							<div class="description-block">
 								<h5 class="description-header">Tenancy End Date</h5>
-								<span class="description-text">{{ custom_date_format($entry->tenancy_end_date) }}</span>
+                                @if($entry->tenancy_end_date)
+								    <span class="description-text">{{ custom_date_format($entry->tenancy_end_date) }}</span>
+                                @endif
 							</div>
 							<!-- /.description-block -->
 						</div>

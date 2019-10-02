@@ -58,8 +58,8 @@ class SubContructorsImport implements ToModel, WithHeadingRow, WithValidation, S
         return [
             'name' => 'required',
             'company_code' => 'required|unique:tenants,uen|unique:sub_constructors,uen|max:150',
-            'tenancy_start_date' => 'required',
-            'tenancy_end_date' => 'required',
+            'tenancy_start_date' => 'nullable',
+            'tenancy_end_date' => 'nullable',
             'tenant_company_code' => 'required'
         ];
     }
