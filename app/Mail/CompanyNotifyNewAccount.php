@@ -33,7 +33,8 @@ class CompanyNotifyNewAccount extends Mailable
         $emailViewRender = view('emails.create_user_account',
             [
                 'account' => $this->account,
-                'link' => $link
+                'link' => $link,
+                'company' => $this->account->tenant->name
             ])->render();
 
         app('logService')->logAction($this->account, null, $emailViewRender, 'Company Notify New Account');
