@@ -14,10 +14,10 @@ Route::group([
     //Download
     Route::get('download-guide', function() {
         if (backpack_user()->hasAnyRole([CAG_ADMIN_ROLE, CAG_STAFF_ROLE])) {
-            return \Storage::download('For_CAG_Admin.pdf');
+            return \Storage::download('CAG_Pass_Portal_User_Guide_Admin.pdf');
         }
         if (backpack_user()->hasAnyRole([COMPANY_CO_ROLE, COMPANY_AS_ROLE])) {
-            return \Storage::download('For_CAG_CO_AS.pdf');
+            return \Storage::download('CAG_Pass_Portal_User_Guide_CO_AS.pdf');
         }
         abort(403);
     })->name('admin.download.guide');
