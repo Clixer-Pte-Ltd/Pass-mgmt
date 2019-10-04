@@ -38,6 +38,6 @@ class CompanyNotifyNewAccount extends Mailable
             ])->render();
 
         app('logService')->logAction($this->account, null, $emailViewRender, 'Company Notify New Account');
-        return $this->view('emails.create_user_account', ['link' => $link]);
+        return $this->view('emails.create_user_account', ['link' => $link, 'company' => $this->account->tenant->name]);
     }
 }
