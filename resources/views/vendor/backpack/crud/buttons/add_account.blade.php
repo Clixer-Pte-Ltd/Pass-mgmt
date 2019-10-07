@@ -62,6 +62,23 @@
                                                 </div>
                                             </div>
 
+                                            {{--phone--}}
+                                            <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                                                <p class="text-left"><label
+                                                        class="control-label">Contact number</label>
+                                                </p>
+                                                <div class='input_register email_register'>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           name="phone">
+                                                    @if ($errors->has('phone')))
+                                                        <span class="help-block">
+                                            <strong>{{ $errors->first('phone') }}</strong>
+                                        </span>
+                                                    @endif
+                                                </div>
+                                            </div>
+
                                             {{--role--}}
                                             <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
                                                 <p class="text-left"><label for="select-role">Role Account</label></p>
