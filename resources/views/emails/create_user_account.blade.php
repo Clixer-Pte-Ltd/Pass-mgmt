@@ -1,6 +1,4 @@
 <p>Dear Airport Pass Coordinator/Authorized Signatory</p>
-
-
 <div>Your company have just added you to company {{ $companyName }}.</div>
 <div>Please create account follow link: </div>
 <ul>
