@@ -67,7 +67,7 @@
                                                 <p class="text-left"><label
                                                         class="control-label">Contact number</label>
                                                 </p>
-                                                <div class='input_register email_register'>
+                                                <div class='input_register phone_register'>
                                                     <input type="text"
                                                            class="form-control"
                                                            name="phone">
