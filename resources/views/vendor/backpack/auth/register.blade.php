@@ -63,10 +63,10 @@
                             @endif
                             @if(!$isAddAccount)
                                 <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-                                    <label class="control-label">Phone</label>
+                                    <label class="control-label">Contact number</label>
 
                                     <div class="input_register phone_register">
-                                        <input type="text" class="form-control" name="phone" value="{{ old('phone') }}">
+                                        <input type="text" class="form-control" name="phone" value="{{ is_null($account) ? old('phone') : $account->phone }}">
                                     </div>
                                     @if ($errors->has('phone'))
                                         <span class="help-block">
