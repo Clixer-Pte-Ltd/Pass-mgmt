@@ -85,7 +85,8 @@ class RegisterController extends Controller
 
         return Validator::make($data, [
             'name' => 'required|max:255',
-            backpack_authentication_column() => 'required|' . $email_validation . 'max:255|unique:' . $users_table
+            backpack_authentication_column() => 'required|' . $email_validation . 'max:255|unique:' . $users_table,
+            'phone' => 'digits:8'
         ]);
     }
 

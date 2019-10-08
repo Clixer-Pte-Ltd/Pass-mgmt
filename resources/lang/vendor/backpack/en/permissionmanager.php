@@ -21,7 +21,7 @@ return [
     'email'                 => 'Email',
     'extra_permissions'     => 'Extra Permissions',
     'password'              => 'Password',
-    'password_confirmation' => 'Password Confirmation',
+    'password_confirmation' => 'Retype New Password',
     'user_role_permission'  => 'User Role Permissions',
     'user'                  => 'User',
     'users'                 => 'Users',

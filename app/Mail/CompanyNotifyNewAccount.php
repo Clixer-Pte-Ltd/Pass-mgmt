@@ -30,13 +30,19 @@ class CompanyNotifyNewAccount extends Mailable
     public function build()
     {
         $link = route('backpack.auth.show.verify.question',['token' => urlencode($this->account->token)]);
+        $company = $this->account->getCompany();
+        $companyName = '';
+        if ($company) {
+            $companyName = $company->pluck('name')->implode(',');
+        }
         $emailViewRender = view('emails.create_user_account',
             [
                 'account' => $this->account,
-                'link' => $link
+                'link' => $link,
+                'companyName' => $companyName
             ])->render();
 
         app('logService')->logAction($this->account, null, $emailViewRender, 'Company Notify New Account');
-        return $this->view('emails.create_user_account', ['link' => $link]);
+        return $this->view('emails.create_user_account', ['link' => $link, 'companyName' => $companyName]);
     }
 }

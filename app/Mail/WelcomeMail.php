@@ -29,13 +29,17 @@ class WelcomeMail extends Mailable
      */
     public function build()
     {
-        $company = $this->account->tenant ?: $this->account->subConstructor;
+        $company = $this->account->getCompany();
+        $companyName = '';
+        if ($company) {
+            $companyName = $company->pluck('name')->implode(',');
+        }
         $emailViewRender = view('emails.new_account_welcome',
             [
                 'account' => $this->account,
-                'company' => $company
+                'companyName' => $companyName
             ])->render();
         app('logService')->logAction($this->account, null, $emailViewRender, 'WelcomeMail');
-        return $this->view('emails.new_account_welcome', ['company' => $company]);
+        return $this->view('emails.new_account_welcome', ['companyName' => $companyName]);
     }
 }
