@@ -112,8 +112,8 @@ class ResetPasswordController extends Controller
     protected function validationErrorMessages()
     {
         return [
-            'password.regex' => 'New password must minimum 8 characters with 1 uppercase and lowercase, 1 symbol, 1 number',
-            'password_confirmation.regex' => 'New password must minimum 8 characters with 1 uppercase and lowercase, 1 symbol, 1 number'
+            'password.regex' => 'New password must contain minimum 8 characters with 1 uppercase and lowercase, 1 symbol and 1 number',
+            'password_confirmation.regex' => 'New password must contain minimum 8 characters with 1 uppercase and lowercase, 1 symbol and 1 number'
         ];
     }
 

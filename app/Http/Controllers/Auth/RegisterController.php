@@ -113,8 +113,8 @@ class RegisterController extends Controller
             'password_confirmation' => 'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
             'phone' => 'required|digits:8'
         ], [
-            'password.regex' => 'New password must minimum 8 characters with 1 uppercase and lowercase, 1 symbol, 1 number',
-            'password_confirmation.regex' => 'New password must minimum 8 characters with 1 uppercase and lowercase, 1 symbol, 1 number'
+            'password.regex' => 'New password must contain minimum 8 characters with 1 uppercase and lowercase, 1 symbol and 1 number',
+            'password_confirmation.regex' => 'New password must contain minimum 8 characters with 1 uppercase and lowercase, 1 symbol and 1 number'
         ]);
     }
 
