@@ -26,14 +26,19 @@ class SubContructorsImport implements ToModel, WithHeadingRow, WithValidation, S
     public function model(array $row)
     {
         try {
-            $tenancyStartDate = Carbon::createFromFormat('d/m/Y', $row['tenancy_start_date']);
-            $tenancyEndDate = Carbon::createFromFormat('d/m/Y', $row['tenancy_end_date']);
-            if ($tenancyEndDate < $tenancyStartDate) {
-                throw new \Exception("Tenant <b>{$row['name']}</b> has tenancy end date must after tenancy start date");
-            };
-            if ($tenancyEndDate < Carbon::now()) {
-                throw new \Exception("Tenant <b>{$row['name']}</b> has tenancy end date must after now");
-            };
+            if (isset($row['tenancy_end_date'])) {
+                $tenancyEndDate = Carbon::createFromFormat('d/m/Y', $row['tenancy_end_date']);
+                if ($tenancyEndDate < Carbon::now()) {
+                    throw new \Exception("Tenant <b>{$row['name']}</b> has tenancy end date must after now");
+                };
+                if (isset($row['tenancy_start_date'])) {
+                    $tenancyStartDate = Carbon::createFromFormat('d/m/Y', $row['tenancy_start_date']);
+                    if ($tenancyEndDate < $tenancyStartDate) {
+                        throw new \Exception("Tenant <b>{$row['name']}</b> has tenancy end date must after tenancy start date");
+                    };
+                }
+            }
+
             $teCompany = Tenant::where('uen', $row['tenant_company_code'])->first();
             if (is_null($teCompany)) {
                 throw new \Exception('Tenant Company code <b>' . @$row['tenant_company_code'] . '</b> not found');
@@ -43,8 +48,8 @@ class SubContructorsImport implements ToModel, WithHeadingRow, WithValidation, S
             return new SubConstructor([
                 'name' => $row['name'],
                 'uen' => $row['company_code'],
-                'tenancy_start_date' => Carbon::createFromFormat(DATE_FORMAT, $row['tenancy_start_date']),
-                'tenancy_end_date' => Carbon::createFromFormat(DATE_FORMAT, $row['tenancy_end_date']),
+                'tenancy_start_date' => @$tenancyStartDate,
+                'tenancy_end_date' => @$tenancyEndDate,
                 'tenant_id' => $tenant_id,
             ]);
         } catch (\Exception $ex) {
@@ -58,8 +63,8 @@ class SubContructorsImport implements ToModel, WithHeadingRow, WithValidation, S
         return [
             'name' => 'required',
             'company_code' => 'required|unique:tenants,uen|unique:sub_constructors,uen|max:150',
-            'tenancy_start_date' => 'nullable',
-            'tenancy_end_date' => 'nullable',
+//            'tenancy_start_date' => 'nullable',
+//            'tenancy_end_date' => 'nullable',
             'tenant_company_code' => 'required'
         ];
     }

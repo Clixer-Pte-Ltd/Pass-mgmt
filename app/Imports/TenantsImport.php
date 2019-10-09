@@ -26,19 +26,24 @@ class TenantsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnE
     public function model(array $row)
     {
         try {
-            $tenancyStartDate = Carbon::createFromFormat('d/m/Y', $row['tenancy_start_date']);
-            $tenancyEndDate = Carbon::createFromFormat('d/m/Y', $row['tenancy_end_date']);
-            if ($tenancyEndDate < $tenancyStartDate) {
-                throw new \Exception("Tenant <b>{$row['name']}</b> has tenancy end date must after tenancy start date");
-            };
-            if ($tenancyEndDate < Carbon::now()) {
-                throw new \Exception("Tenant <b>{$row['name']}</b> has tenancy end date must after now");
-            };
+            if (isset($row['tenancy_end_date'])) {
+                $tenancyEndDate = Carbon::createFromFormat('d/m/Y', $row['tenancy_end_date']);
+                if ($tenancyEndDate < Carbon::now()) {
+                    throw new \Exception("Tenant <b>{$row['name']}</b> has tenancy end date must after now");
+                };
+                if (isset($row['tenancy_start_date'])) {
+                    $tenancyStartDate = Carbon::createFromFormat('d/m/Y', $row['tenancy_start_date']);
+                    if ($tenancyEndDate < $tenancyStartDate) {
+                        throw new \Exception("Tenant <b>{$row['name']}</b> has tenancy end date must after tenancy start date");
+                    };
+                }
+            }
+
             return new Tenant([
                 'name' => $row['name'],
                 'uen' => $row['company_code'],
-                'tenancy_start_date' => Carbon::createFromFormat(DATE_FORMAT, $row['tenancy_start_date']),
-                'tenancy_end_date' => Carbon::createFromFormat(DATE_FORMAT, $row['tenancy_end_date'])
+                'tenancy_start_date' => @$tenancyStartDate,
+                'tenancy_end_date' => @$tenancyEndDate
             ]);
         } catch (\Exception $ex) {
             $this->error[] = $ex->getMessage();
@@ -51,8 +56,8 @@ class TenantsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnE
         return [
             'name' => 'required',
             'company_code' => 'required|unique:tenants,uen|unique:sub_constructors,uen|max:150',
-            'tenancy_start_date' => 'nullable',
-            'tenancy_end_date' => 'nullable',
+//            'tenancy_start_date' => 'nullable',
+//            'tenancy_end_date' => 'nullable',
         ];
     }
 
