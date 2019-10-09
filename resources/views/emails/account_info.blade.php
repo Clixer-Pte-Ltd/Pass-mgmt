@@ -13,7 +13,7 @@
         Password: {{ $account->first_password }}
     </li>
     <li>
-        Google Authenticator Key:
+        Google Authenticator Key:{{ $account->google2fa_secret}}
         <div><img src="{{ $message->embed($qrCode) }}"></div>
     </li>
     @endif
