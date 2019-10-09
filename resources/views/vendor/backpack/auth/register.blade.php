@@ -111,8 +111,11 @@
                             @endif
 
                             <div class="form-group">
-                                <div class="button_register">
-                                    <button type="submit" class="btn btn-block btn-primary">
+                                <div class="col-md-8" style="color:red">
+                                    <b>New password must minimum 8 characters with 1 uppercase and lowercase, 1 symbol, 1 number</b>
+                                </div>
+                                <div class="button_register col-md-4">
+                                    <button type="submit" class="btn btn-block btn-primary" style="width: 100%">
                                         {{ trans('backpack::base.register') }}
                                     </button>
                                 </div>
