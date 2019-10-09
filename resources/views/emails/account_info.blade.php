@@ -14,7 +14,7 @@
     </li>
     <li>
         Google Authenticator Key:
-        <div><img src="{{ $qrCode }}"></div>
+        <div><img src="{{ $message->embed($qrCode) }}"></div>
     </li>
     @endif
 </ul>
