@@ -26,6 +26,7 @@ class PassHolderCrudController extends BasePassHolderCrudController
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/pass-holder');
         $this->crud->setEntityNameStrings('Valid Pass Holder', 'Valid Pass Holders');
         $this->crud->addClause('whereStatus', PASS_STATUS_VALID);
+        $this->crud->addButtonFromView('top', 'show_errors_import', 'show_errors_import', 'end');
         if (!backpack_user()->hasRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE])) {
             $this->crud->addButtonFromView('line', 'blacklist', 'blacklist', 'end');
         }

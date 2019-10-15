@@ -11,8 +11,6 @@ Route::group([
     'middleware' => ['web', config('backpack.base.middleware_key', 'admin'), '2fa', 'checkChangePasswordFirst'],
     'namespace' => 'App\Http\Controllers\Admin',
 ], function () {
-    Route::get('import/progress', 'ImportController@getProgress')->name('crud.import.progress');
-
     //Download
     Route::get('download-guide', function() {
         if (backpack_user()->hasAnyRole([CAG_ADMIN_ROLE, CAG_STAFF_ROLE])) {

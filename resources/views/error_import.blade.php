@@ -16,7 +16,7 @@
                     $time = $first->time;
                     $errorRow = $error->pluck('errors');
                 @endphp
-                <tr style="display:block;">
+                <tr>
                     <th scope="col">Time import</th>
                     <th scope="col">File Name</th>
                     @foreach($headers as $header)
@@ -33,8 +33,11 @@
                         <tr>
                             <td>{{ $time }}</td>
                             <td>{{ $fileName }}</td>
-                            @foreach($row as $cell)
-                                <td>{{ $cell }}</td>
+                            @php
+                                $len = count($row);
+                            @endphp
+                            @foreach($row as $key => $cell)
+                                <td>{{ strlen($cell) > 15 && ($key + 1) != $len ? substr($cell,0,12).'...' : $cell }}</td>
                             @endforeach
                         </tr>
                     @endforeach
@@ -54,22 +57,20 @@
             border-collapse: collapse;
         }
         .fixed_header tbody{
-            display:block;
             width: 100%;
             overflow: auto;
             height: 500px;
         }
         .fixed_header thead tr {
-            display: block;
+            width: 100%;
         }
         .fixed_header thead {
             background: #a30d0d;
             color:#fff;
         }
-        .fixed_header th, .fixed_header td {
-            padding: 5px;
+        .fixed_header tr th{
             text-align: left;
-            width: 200px;
+            width: 100px;
         }
 
     </style>
