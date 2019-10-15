@@ -11,6 +11,8 @@ Route::group([
     'middleware' => ['web', config('backpack.base.middleware_key', 'admin'), '2fa', 'checkChangePasswordFirst'],
     'namespace' => 'App\Http\Controllers\Admin',
 ], function () {
+    Route::get('import/progress', 'ImportController@getProgress')->name('crud.import.progress');
+
     //Download
     Route::get('download-guide', function() {
         if (backpack_user()->hasAnyRole([CAG_ADMIN_ROLE, CAG_STAFF_ROLE])) {
@@ -21,6 +23,8 @@ Route::group([
         }
         abort(403);
     })->name('admin.download.guide');
+    //Import
+    Route::get('import/errors', 'ImportController@listErrors')->name('admin.import.errors');
     //Export
     Route::get('pass-holder/export-excel', 'PassHolderCrudController@exportExcel')->name('admin.pass-holder.export-excel');
     Route::get('pass-holder/export-pdf', 'PassHolderCrudController@exportPdf')->name('admin.pass-holder.export-pdf');

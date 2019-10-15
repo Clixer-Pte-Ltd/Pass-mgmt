@@ -6,7 +6,7 @@ use App\Mail\AccountInfo;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class AccountInfoNotification implements ShouldQueue
+class AccountInfoNotification
 {
     /**
      * Create the event listener.
@@ -26,6 +26,7 @@ class AccountInfoNotification implements ShouldQueue
      */
     public function handle($event)
     {
+
         $account = $event->model;
 
         Mail::to($account)->send(new AccountInfo($account));
