@@ -1,7 +1,7 @@
 @extends('backpack::layout_guest')
 
 @section('content')
-    <div class="row" style="padding: 10px">
+    <div class="row" style="padding: 10px;overflow-y: scroll; height:500px;">
         @php
             $errorsData = $errors->groupBy('code')
         @endphp
@@ -51,27 +51,9 @@
 
 @push('after_styles')
     <style>
-        .fixed_header{
-            width: 100%;
-            table-layout: fixed;
-            border-collapse: collapse;
-        }
-        .fixed_header tbody{
-            width: 100%;
-            overflow: auto;
-            height: 500px;
-        }
-        .fixed_header thead tr {
-            width: 100%;
-        }
         .fixed_header thead {
             background: #a30d0d;
             color:#fff;
         }
-        .fixed_header tr th{
-            text-align: left;
-            width: 100px;
-        }
-
     </style>
 @endpush
