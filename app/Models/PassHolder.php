@@ -29,9 +29,9 @@ class PassHolder extends Model
     // protected $hidden = [];
     // protected $dates = [];
 
-    protected $dispatchesEvents = [
-        'created' => PassHolderCreated::class,
-    ];
+//    protected $dispatchesEvents = [
+//        'created' => PassHolderCreated::class,
+//    ];
 
     /*
     |--------------------------------------------------------------------------

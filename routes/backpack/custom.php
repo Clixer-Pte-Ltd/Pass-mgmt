@@ -21,6 +21,8 @@ Route::group([
         }
         abort(403);
     })->name('admin.download.guide');
+    //Import
+    Route::get('import/errors', 'ImportController@listErrors')->name('admin.import.errors');
     //Export
     Route::get('pass-holder/export-excel', 'PassHolderCrudController@exportExcel')->name('admin.pass-holder.export-excel');
     Route::get('pass-holder/export-pdf', 'PassHolderCrudController@exportPdf')->name('admin.pass-holder.export-pdf');

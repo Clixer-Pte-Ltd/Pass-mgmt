@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\PassHolderCreated;
+use App\Jobs\RunImport;
+use App\Models\PassHolder;
+use Backpack\CRUD\CrudPanel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 // VALIDATION: change the requests to match your own file names if you need form validation
 use Maatwebsite\Excel\Excel;
@@ -21,6 +26,7 @@ class PassHolderCrudController extends BasePassHolderCrudController
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/pass-holder');
         $this->crud->setEntityNameStrings('Valid Pass Holder', 'Valid Pass Holders');
         $this->crud->addClause('whereStatus', PASS_STATUS_VALID);
+        $this->crud->addButtonFromView('top', 'show_errors_import', 'show_errors_import', 'end');
         if (!backpack_user()->hasRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE])) {
             $this->crud->addButtonFromView('line', 'blacklist', 'blacklist', 'end');
         }
@@ -79,7 +85,6 @@ class PassHolderCrudController extends BasePassHolderCrudController
             \Alert::error('You must choose file')->flash();
             return redirect()->back()->with('not_have_file', 1);
         }
-
         $extensions = array("xls","xlsx","xlm","xla","xlc","xlt","xlw");
         $result = array($request->file('import_file')->getClientOriginalExtension());
 
@@ -87,16 +92,13 @@ class PassHolderCrudController extends BasePassHolderCrudController
             \Alert::error('You must choose excel file')->flash();
             return redirect()->back()->with('not_have_file', 1);
         }
-//        $excel->import(new PassHoldersImport, $request->file('import_file'));
-
         $import = new PassHoldersImport();
-        $import->import($request->file('import_file'));
-        if ($import->failures()->count() || count($import->error)) {
-            return view('errors.error_import', ['failures' => $import->failures(), 'errors' => $import->error]);
-        }
+        $import->nameFile = $request->file('import_file')->getClientOriginalName();
+        $import->time = Carbon::now();
+        $request->file('import_file')->storeAs('public', $request->file('import_file')->getClientOriginalName());
+        dispatch(new RunImport($import, 'public\\'.$request->file('import_file')->getClientOriginalName()));
 
-        \Alert::success('Import successful.')->flash();
-
+        \Alert::success('Importing..., reload browser to view new record.')->flash();
         return redirect()->route('crud.pass-holder.index');
     }
 
@@ -115,5 +117,4 @@ class PassHolderCrudController extends BasePassHolderCrudController
         \Alert::info('De-List done.')->flash();
         return redirect()->back();
     }
-
 }
