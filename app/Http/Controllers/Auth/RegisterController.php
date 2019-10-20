@@ -298,7 +298,11 @@ class RegisterController extends Controller
             abort(404);
         }
         $role = $user->roles->first();
-        $roleName = $role ? str_replace(' ', '_', $role->name) : 'no_role';
+        $roleName = $role ? $role->name : 'no_role';
+        if ($roleName == COMPANY_VIEWER_ROLE) {
+            return redirect()->route('backpack.auth.register', ['token' => $token]);
+        }
+        $roleName = str_replace(' ', '_', $roleName);
         $questions = config("backpack.company.verify_questions.{$roleName}", []);
         return view('vendor.backpack.auth.verify_questions', compact('token', 'questions'));
     }

@@ -7,6 +7,7 @@ return [
     ],
     'verify_questions' => [
         'company_coordinator' => [
+            'Role, Responsibilities and Obligations of Airport Pass Coordinators (COs)',
             'To, upon request by the Airport Pass Office, produce all relevant documents to support that my Company has legitimate business within Changi Airport’s Restricted Area(s);',
             'That the Authorized Signatory(ies) (AS) created by me and the Registered Users (RU) created by my AS are legitimate staff of the company and appointed vendors/contractors respectively, and that they require these accounts for the purpose of applying for Airport Passes;',
             "To retrieve, within my means, all Airport Passes sponsored by me and surrender them to the Airport Pass Office promptly; <ol type='I'><li>When the Pass holder(s) no longer require(s) the Airport Pass(es); and</li><li>Upon expiry of the Airport Pass(es).</li></ol>",
@@ -17,6 +18,7 @@ return [
             'I have read and understood the above clauses, failing which my APCS account may be subjected for revocation or blacklisting by the Issuing Authority.'
         ],
         'company_as' => [
+            'Role, Responsibilities and Obligations of Airport Pass Authorised Signatory (ASs)',
             'To, upon request by the Airport Pass Office, produce all relevant documents to support that my Company has legitimate business within Changi Airport’s Restricted Area(s);',
             'That the Registered Users (RU) created by me are legitimate staff of the company and appointed vendors/contractors respectively, and that they require these accounts for the purpose of applying for Airport Passes;',
             'To track, monitor and maintain a record of all approved applications of Airport Pass holders sponsored by my company;',

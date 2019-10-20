@@ -12,13 +12,18 @@
         <div class="col-md-6">
             <!--CSS list style with number cicles background -->
             <div class="numberlist">
-                <ol style="padding: 10px;overflow-y: scroll; height:500px;">
-                    @php
-                        $confirm = end($questions);
-                        unset($questions[-1]);
-                    @endphp
+                @php
+                    $confirm = end($questions);
+                    $first = $questions[0];
+                    array_pop($questions);
+                    array_shift($questions);
+                @endphp
+                <h1 style="text-align: center">Letter of Undertaking</h1>
+                <h4 style="padding-left: 10px">{{ $first }}</h4>
+                <ol style="padding: 10px;overflow-y: scroll; height:400px;">
+
                     @foreach($questions as $question)
-                        <li class="verify_question_li"><input type="checkbox" class="verify_question"><span>{!! $question !!}</span></li>
+                        <li class="verify_question_li"><input type="checkbox" class="verify_question" style="display: none"><span>{!! $question !!}</span></li>
                     @endforeach
                 </ol>
                 <div>
@@ -52,18 +57,18 @@
     <script>
         $(function () {
             $(`input[type='checkbox']`).prop('checked', false);
-            $(document).on('click', `input[name='verify_questions_value']`, function (e) {
-                let aggree = $(this);
-                if ($(this).is(':checked')) {
-                    $(`.verify_question`).each(function (index) {
-                        if (!$(this).is(':checked')) {
-                            alert('You must undertake all above clauses!');
-                            aggree.prop('checked', false);
-                            return false;
-                        }
-                    })
-                }
-            });
+            // $(document).on('click', `input[name='verify_questions_value']`, function (e) {
+            //     let aggree = $(this);
+            //     if ($(this).is(':checked')) {
+            //         $(`.verify_question`).each(function (index) {
+            //             if (!$(this).is(':checked')) {
+            //                 alert('You must undertake all above clauses!');
+            //                 aggree.prop('checked', false);
+            //                 return false;
+            //             }
+            //         })
+            //     }
+            // });
             $("#verify_form").submit(function(e) {
                 if (!$(`input[name='verify_questions_value']`).is(':checked')) {
                     alert('You must undertake all above clauses!');
