@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Events\UserCreated;
 use Backpack\Base\app\Http\Controllers\Controller;
+use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Validator;
@@ -283,7 +284,7 @@ class RegisterController extends Controller
     /**
      * Get the guard to be used during registration.
      *
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     * @return StatefulGuard
      */
     protected function guard()
     {
@@ -296,7 +297,10 @@ class RegisterController extends Controller
         if (is_null($user)) {
             abort(404);
         }
-        return view('vendor.backpack.auth.verify_questions', ['token' => $token]);
+        $role = $user->roles->first();
+        $roleName = $role ? str_replace(' ', '_', $role->name) : 'no_role';
+        $questions = config("backpack.company.verify_questions.{$roleName}", []);
+        return view('vendor.backpack.auth.verify_questions', compact('token', 'questions'));
     }
 
     public function verifyQuestions(Request $request)
