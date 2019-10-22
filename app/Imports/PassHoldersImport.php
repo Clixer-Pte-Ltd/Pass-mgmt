@@ -50,6 +50,7 @@ class PassHoldersImport implements ToCollection, WithHeadingRow, WithChunkReadin
         foreach ($rows as $row) {
             $row = $row->toArray();
             $this->row++;
+            $row['passexpirydate'] = convertDateExcel($row['passexpirydate']);
             $this->dataRow = [$this->row];
             $this->dataRow = array_merge($this->dataRow, array_values($row));
             $this->currentErrors = [];
@@ -58,7 +59,9 @@ class PassHoldersImport implements ToCollection, WithHeadingRow, WithChunkReadin
                 $company_uen_in = strtolower($row['company']);
                 $company = Company::whereRaw('lower(name) = ?', [$company_uen_in])->first();
                 $zones = explode(',', $row['zone']);
-                $passExpiryDate = $row['passexpirydate'] ? Carbon::createFromFormat('m/d/Y', $row['passexpirydate']) : $row['passexpirydate'];
+                $passExpiryDate = $row['passexpirydate'] ?
+                    Carbon::createFromFormat(DATE_FORMAT, $row['passexpirydate']) :
+                    $row['passexpirydate'];
 
                 $this->currentData = [
                     'applicant_name' => $row['passholder_name'],
@@ -73,7 +76,7 @@ class PassHoldersImport implements ToCollection, WithHeadingRow, WithChunkReadin
                 ];
                 $this->customValidate();
                 if (count($this->currentErrors)) {
-                    throw new \Exception('Error validate');
+                    throw new \Exception('');
                 }
                 $this->currentData['pass_expiry_date'] = $this->currentData['pass_expiry_date']->format('Y-m-d') . " 00:00:00";
                 $this->currentData['country_id'] = $this->currentData['country']->id;
@@ -95,6 +98,7 @@ class PassHoldersImport implements ToCollection, WithHeadingRow, WithChunkReadin
                 '{$this->currentData['as_email']}')";
             } catch (\Exception $ex) {
                 dump($ex->getMessage());
+                $this->currentErrors[] = $ex->getMessage();
                 $this->dataRow[] = implode('; ', $this->currentErrors);
                 $this->errors[] = $this->dataRow;
             }
