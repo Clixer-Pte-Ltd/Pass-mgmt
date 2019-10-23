@@ -113,9 +113,9 @@ function getObjectType($object = null)
 }
 function convertDateExcel($value, $format = DATE_FORMAT)
 {
-    if ($value) {
+    if (is_numeric($value)) {
         $unix = ($value - 25569) * 86400;
         return gmdate($format, $unix);
     }
-    return null;
+    return $value;
 }
