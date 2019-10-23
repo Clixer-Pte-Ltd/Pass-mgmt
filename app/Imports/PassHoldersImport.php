@@ -44,6 +44,7 @@ class PassHoldersImport implements ToCollection, WithHeadingRow, WithChunkReadin
 
     /**
      * @param Collection $rows
+     * @throws \Exception
      */
     public function collection(Collection $rows)
     {
@@ -107,8 +108,8 @@ class PassHoldersImport implements ToCollection, WithHeadingRow, WithChunkReadin
             $sql = trim(preg_replace(
                 '/\s\s+/',
                 ' ',
-                "INSERT INTO pass_holders 
-                        (`applicant_name`, `nric`, `pass_expiry_date`,`country_id`, `company_uen`,`ru_name`, `ru_email`, `as_name`, `as_email`) 
+                "INSERT INTO pass_holders
+                        (`applicant_name`, `nric`, `pass_expiry_date`,`country_id`, `company_uen`,`ru_name`, `ru_email`, `as_name`, `as_email`)
                         VALUES " . implode(',', $this->dataSql) . ";"));
             \DB::insert($sql);
             foreach ($this->data as $data) {
@@ -132,7 +133,7 @@ class PassHoldersImport implements ToCollection, WithHeadingRow, WithChunkReadin
     public function customValidate()
     {
         if (!$this->currentData['pass_expiry_date'] || $this->currentData['pass_expiry_date'] < Carbon::now()) {
-            $this->currentErrors[] = 'Passholder ' . $this->currentData['passholder_name']. 'has pass expiry date must after now';
+            $this->currentErrors[] = 'Passholder ' . $this->currentData['applicant_name']. ' has pass expiry date must after now';
         };
 
         if (!$this->currentData['country']) {
