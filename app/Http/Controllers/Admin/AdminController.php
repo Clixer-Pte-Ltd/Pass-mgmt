@@ -30,10 +30,10 @@ class AdminController extends Controller
     {
         $this->data['title'] = trans('backpack::base.dashboard'); // set the page title
         if(backpack_user()->hasAnyRole(config('backpack.cag.roles'))) {
-            $pass_holders = PassHolder::all();
+            $pass_holders = PassHolder::orderBy('id', 'desc')->take(25)->get();
         } else {
             $uens = backpack_user()->getCompany()->pluck('uen')->toArray();
-            $pass_holders = PassHolder::whereIn('company_uen', $uens)->get();
+            $pass_holders = PassHolder::whereIn('company_uen', $uens)->orderBy('id', 'desc')->take(25)->get();
         }
         $this->data['pass_holders'] = $pass_holders;
 
@@ -54,8 +54,8 @@ class AdminController extends Controller
         $this->data['pass_holders_active'] = $pass_holders->where('status', PASS_STATUS_VALID);
         $this->data['pass_pending_return'] = $pass_holders->whereIn('status', [PASS_STATUS_BLACKLISTED, PASS_STATUS_WAITING_CONFIRM_RETURN]);
 
-        $this->data['companies'] = Company::getAllCompanies();
-        $expiring_tenants_within_4_weeks = backpack_user()->hasAnyRole(config('backpack.cag.roles')) ? Company::getAllCompaniesWithin4Weeks() : null;
+        $this->data['companies'] = Company::getAllCompanies()->limit(25);
+        $expiring_tenants_within_4_weeks = backpack_user()->hasAnyRole(config('backpack.cag.roles')) ? Company::getAllCompaniesWithin4Weeks()->limit(25) : null;
         $this->data['expiring_tenants_within_4_weeks'] = $expiring_tenants_within_4_weeks;
         return view('dashboard.dashboard', $this->data);
     }
