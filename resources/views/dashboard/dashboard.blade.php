@@ -46,144 +46,144 @@
 
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="table_listDashboard">
-                <div class="col-md-12">
-                    {{--Expiring Pass Within 4 Weeks--}}
-                    <div class="box dashboard">
-                        <div class="box-header text-center">
-                            <h2>Expiring Pass Within 4 Weeks</h2>
-                        </div>
-                        <div class="box-body dashboard">
-                            <div class="table-responsive">
-                                <table class="table no-margin table-striped table-hover dashboard">
-                                    <thead class="bg-primary">
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Pass Number</th>
-                                        <th>Issue Date</th>
-                                        <th>Expiry Date</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($pass_holders_expireIn4Weeks as $pass)
-                                        <tr>
-                                            <td>{{ $pass->applicant_name }}</td>
-                                            <td>{{ $pass->nric }}</td>
-                                            <td>{{ custom_date_format($pass->created_at) }}</td>
-                                            <td>{{ custom_date_format($pass->pass_expiry_date) }}</td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
+{{--        <div class="col-md-6">--}}
+{{--            <div class="table_listDashboard">--}}
+{{--                <div class="col-md-12">--}}
+{{--                    --}}{{--Expiring Pass Within 4 Weeks--}}
+{{--                    <div class="box dashboard">--}}
+{{--                        <div class="box-header text-center">--}}
+{{--                            <h2>Expiring Pass Within 4 Weeks</h2>--}}
+{{--                        </div>--}}
+{{--                        <div class="box-body dashboard">--}}
+{{--                            <div class="table-responsive">--}}
+{{--                                <table class="table no-margin table-striped table-hover dashboard">--}}
+{{--                                    <thead class="bg-primary">--}}
+{{--                                    <tr>--}}
+{{--                                        <th>Name</th>--}}
+{{--                                        <th>Pass Number</th>--}}
+{{--                                        <th>Issue Date</th>--}}
+{{--                                        <th>Expiry Date</th>--}}
+{{--                                    </tr>--}}
+{{--                                    </thead>--}}
+{{--                                    <tbody>--}}
+{{--                                    @foreach($pass_holders_expireIn4Weeks as $pass)--}}
+{{--                                        <tr>--}}
+{{--                                            <td>{{ $pass->applicant_name }}</td>--}}
+{{--                                            <td>{{ $pass->nric }}</td>--}}
+{{--                                            <td>{{ custom_date_format($pass->created_at) }}</td>--}}
+{{--                                            <td>{{ custom_date_format($pass->pass_expiry_date) }}</td>--}}
+{{--                                        </tr>--}}
+{{--                                    @endforeach--}}
+{{--                                    </tbody>--}}
+{{--                                </table>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="col-md-12">--}}
 
-                    {{--Sub-Contractor Expiring Pass--}}
-                    <div class="box dashboard">
-                        <div class="box-header text-center">
-                            <h2>Sub-Contractor Expiring Pass</h2>
-                        </div>
-                        <div class="box-body dashboard">
-                            <div class="table-responsive">
-                                <table class="table no-margin table-striped table-hover dashboard">
-                                    <thead class="bg-primary">
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Tenant/Sub-Contractor</th>
-                                        <th>Contac</th>
-                                        <th>Expiry Date</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($pass_holders_expireIn4Weeks as $pass)
-                                        <tr>
-                                            <td>{{ $pass->applicant_name }}</td>
-                                            <td>{{ isset($pass->company) ? $pass->company->name : '' }}</td>
-                                            <td>{{ custom_date_format($pass->created_at) }}</td>
-                                            <td>{{ custom_date_format($pass->pass_expiry_date) }}</td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+{{--                    --}}{{--Sub-Contractor Expiring Pass--}}
+{{--                    <div class="box dashboard">--}}
+{{--                        <div class="box-header text-center">--}}
+{{--                            <h2>Sub-Contractor Expiring Pass</h2>--}}
+{{--                        </div>--}}
+{{--                        <div class="box-body dashboard">--}}
+{{--                            <div class="table-responsive">--}}
+{{--                                <table class="table no-margin table-striped table-hover dashboard">--}}
+{{--                                    <thead class="bg-primary">--}}
+{{--                                    <tr>--}}
+{{--                                        <th>Name</th>--}}
+{{--                                        <th>Tenant/Sub-Contractor</th>--}}
+{{--                                        <th>Contac</th>--}}
+{{--                                        <th>Expiry Date</th>--}}
+{{--                                    </tr>--}}
+{{--                                    </thead>--}}
+{{--                                    <tbody>--}}
+{{--                                    @foreach($pass_holders_expireIn4Weeks as $pass)--}}
+{{--                                        <tr>--}}
+{{--                                            <td>{{ $pass->applicant_name }}</td>--}}
+{{--                                            <td>{{ isset($pass->company) ? $pass->company->name : '' }}</td>--}}
+{{--                                            <td>{{ custom_date_format($pass->created_at) }}</td>--}}
+{{--                                            <td>{{ custom_date_format($pass->pass_expiry_date) }}</td>--}}
+{{--                                        </tr>--}}
+{{--                                    @endforeach--}}
+{{--                                    </tbody>--}}
+{{--                                </table>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    {{--Black listed Pass--}}
-                    <div class="box dashboard">
-                        <div class="box-header text-center">
-                            <h2>De-List Pass</h2>
-                        </div>
-                        <div class="box-body dashboard">
-                            <div class="table-responsive">
-                                <table class="table no-margin table-striped table-hover dashboard">
-                                    <thead class="bg-primary">
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Pass Number</th>
-                                        <th>Issue Date</th>
-                                        <th>Expiry Date</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($pass_holders->where('status', PASS_STATUS_BLACKLISTED) as $pass)
-                                        <tr>
-                                            <td>{{ $pass->applicant_name }}</td>
-                                            <td>{{ $pass->nric }}</td>
-                                            <td>{{ custom_date_format($pass->created_at) }}</td>
-                                            <td>{{ custom_date_format($pass->pass_expiry_date) }}</td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @if (backpack_user()->hasAnyRole(config('backpack.cag.roles')))
-                    <div class="col-md-12">
-                        {{--Expiring Company Within 4 Weeks--}}
-                        <div class="box dashboard">
-                            <div class="box-header text-center">
-                                <h2>Expiring tenants within 4 weeks</h2>
-                            </div>
-                            <div class="box-body dashboard">
-                                <div class="table-responsive">
-                                    <table class="table no-margin table-striped table-hover dashboard">
-                                        <thead class="bg-primary">
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Uen</th>
-                                            <th>Type</th>
-                                            <th>Tenancy Start Date</th>
-                                            <th>Tenancy End Date</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($expiring_tenants_within_4_weeks as $company)
-                                            <tr>
-                                                <td>{{ $company->name }}</td>
-                                                <td>{{ $company->uen }}</td>
-                                                <td>{{ getTypeAttribute(get_class($company)) }}</td>
-                                                <td>{{ custom_date_format($company->tenancy_start_date) }}</td>
-                                                <td>{{ custom_date_format($company->tenancy_end_date) }}</td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endif
-            </div>
-        </div>
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="col-md-12">--}}
+{{--                    --}}{{--Black listed Pass--}}
+{{--                    <div class="box dashboard">--}}
+{{--                        <div class="box-header text-center">--}}
+{{--                            <h2>De-List Pass</h2>--}}
+{{--                        </div>--}}
+{{--                        <div class="box-body dashboard">--}}
+{{--                            <div class="table-responsive">--}}
+{{--                                <table class="table no-margin table-striped table-hover dashboard">--}}
+{{--                                    <thead class="bg-primary">--}}
+{{--                                    <tr>--}}
+{{--                                        <th>Name</th>--}}
+{{--                                        <th>Pass Number</th>--}}
+{{--                                        <th>Issue Date</th>--}}
+{{--                                        <th>Expiry Date</th>--}}
+{{--                                    </tr>--}}
+{{--                                    </thead>--}}
+{{--                                    <tbody>--}}
+{{--                                    @foreach($pass_holders->where('status', PASS_STATUS_BLACKLISTED) as $pass)--}}
+{{--                                        <tr>--}}
+{{--                                            <td>{{ $pass->applicant_name }}</td>--}}
+{{--                                            <td>{{ $pass->nric }}</td>--}}
+{{--                                            <td>{{ custom_date_format($pass->created_at) }}</td>--}}
+{{--                                            <td>{{ custom_date_format($pass->pass_expiry_date) }}</td>--}}
+{{--                                        </tr>--}}
+{{--                                    @endforeach--}}
+{{--                                    </tbody>--}}
+{{--                                </table>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                @if (backpack_user()->hasAnyRole(config('backpack.cag.roles')))--}}
+{{--                    <div class="col-md-12">--}}
+{{--                        --}}{{--Expiring Company Within 4 Weeks--}}
+{{--                        <div class="box dashboard">--}}
+{{--                            <div class="box-header text-center">--}}
+{{--                                <h2>Expiring tenants within 4 weeks</h2>--}}
+{{--                            </div>--}}
+{{--                            <div class="box-body dashboard">--}}
+{{--                                <div class="table-responsive">--}}
+{{--                                    <table class="table no-margin table-striped table-hover dashboard">--}}
+{{--                                        <thead class="bg-primary">--}}
+{{--                                        <tr>--}}
+{{--                                            <th>Name</th>--}}
+{{--                                            <th>Uen</th>--}}
+{{--                                            <th>Type</th>--}}
+{{--                                            <th>Tenancy Start Date</th>--}}
+{{--                                            <th>Tenancy End Date</th>--}}
+{{--                                        </tr>--}}
+{{--                                        </thead>--}}
+{{--                                        <tbody>--}}
+{{--                                        @foreach($expiring_tenants_within_4_weeks as $company)--}}
+{{--                                            <tr>--}}
+{{--                                                <td>{{ $company->name }}</td>--}}
+{{--                                                <td>{{ $company->uen }}</td>--}}
+{{--                                                <td>{{ getTypeAttribute(get_class($company)) }}</td>--}}
+{{--                                                <td>{{ custom_date_format($company->tenancy_start_date) }}</td>--}}
+{{--                                                <td>{{ custom_date_format($company->tenancy_end_date) }}</td>--}}
+{{--                                            </tr>--}}
+{{--                                        @endforeach--}}
+{{--                                        </tbody>--}}
+{{--                                    </table>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                @endif--}}
+{{--            </div>--}}
+{{--        </div>--}}
     </div>
 @endsection
 @section('after_scripts')
