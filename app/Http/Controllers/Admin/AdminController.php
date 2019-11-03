@@ -54,8 +54,8 @@ class AdminController extends Controller
         $this->data['pass_holders_active'] = $pass_holders->where('status', PASS_STATUS_VALID);
         $this->data['pass_pending_return'] = $pass_holders->whereIn('status', [PASS_STATUS_BLACKLISTED, PASS_STATUS_WAITING_CONFIRM_RETURN]);
 
-        $this->data['companies'] = Company::getAllCompanies()->limit(25);
-        $expiring_tenants_within_4_weeks = backpack_user()->hasAnyRole(config('backpack.cag.roles')) ? Company::getAllCompaniesWithin4Weeks()->limit(25) : null;
+        $this->data['companies'] = Company::getAllCompanies()->slice(0, 25);
+        $expiring_tenants_within_4_weeks = backpack_user()->hasAnyRole(config('backpack.cag.roles')) ? Company::getAllCompaniesWithin4Weeks()->slice(0, 25) : null;
         $this->data['expiring_tenants_within_4_weeks'] = $expiring_tenants_within_4_weeks;
         return view('dashboard.dashboard', $this->data);
     }
