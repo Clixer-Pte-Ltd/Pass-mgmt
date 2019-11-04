@@ -1,6 +1,6 @@
 <p>Dear Airport Pass Coordinator/Authorized Signatory</p>
 
-<div>This company is going to expire in the next 4 week.</div>
+<div>The contract of the following company is expiring in 4 weeks.</div>
 <br>
 <table style="font-family: arial, sans-serif; border-collapse: collapse; width: 100%; ">
     <tr style="background: #1975dc; color: #ffffff">
