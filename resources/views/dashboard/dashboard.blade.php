@@ -31,11 +31,11 @@
         <div class="col-md-6">
             {{--    number  --}}
             <div class="box dashboard dashboardChart">
-                @include('dashboard.includes.panel', ['id' => 'pass_holders_active', 'num' => $pass_holders_active->count(), 'total' => $total_pass, 'label' => 'Active Passes'])
+                @include('dashboard.includes.panel', ['id' => 'pass_holders_active', 'num' => $active_count, 'total' => $total_pass, 'label' => 'Active Passes'])
                 @include('dashboard.includes.panel', ['id' => 'pass_holders_expireIn4Weeks', 'num' => $pass_holders_expireIn4Weeks->count(), 'total' => $total_pass, 'label' => 'Expired within 4 weeks'])
-                @include('dashboard.includes.panel', ['id' => 'pass_pending_return', 'num' => $pass_pending_return->count(), 'total' => $total_pass, 'label' => 'Pass pending Return'])
+                @include('dashboard.includes.panel', ['id' => 'pass_pending_return', 'num' => $pass_pending_return_count, 'total' => $total_pass, 'label' => 'Pass pending Return'])
                 @if (backpack_user()->hasAnyRole(config('backpack.cag.roles')))
-                    @include('dashboard.includes.panel', ['id' => 'expiring_tenants_within_4_weeks', 'num' => $expiring_tenants_within_4_weeks->count(), 'total' => $total_company, 'label' => 'Expiring tenants within 4 weeks'])
+                    @include('dashboard.includes.panel', ['id' => 'expiring_tenants_within_4_weeks', 'num' => $expiring_tenants_within_4_weeks_count, 'total' => $total_company, 'label' => 'Expiring tenants within 4 weeks'])
                 @endif
                 <div class="col-md-12">
                     <div class="wrapper">
@@ -213,14 +213,14 @@
                 enabled: false,
             }
         };
-        var data1 = [{{ $pass_holders_active->count() }}, {{ $total_pass }}]
+        var data1 = [{{ $active_count }}, {{ $total_pass }}]
         newPanel(options, 'pass_holders_active', data1, ["#aee0f9", "#13a7fd"], ["#aee0f9", "#13a7fd"])
         var data2 = [{{ $pass_holders_expireIn4Weeks->count() }}, {{ $total_pass }}]
         newPanel(options, 'pass_holders_expireIn4Weeks', data2, ["#febf72", "#fb9e1b"], ["#febf72", "#fb9e1b"])
-        var data3 = [{{ $pass_pending_return->count() }}, {{ $total_pass }}]
+        var data3 = [{{ $pass_pending_return_count }}, {{ $total_pass }}]
         newPanel(options, 'pass_pending_return', data3, ["#7cd5bf", "#00bc8c"], ["#7cd5bf", "#00bc8c"])
         @if (backpack_user()->hasAnyRole(config('backpack.cag.roles')))
-        var data4 = [{{ $expiring_tenants_within_4_weeks->count() }}, {{ $total_company  }}]
+        var data4 = [{{ $expiring_tenants_within_4_weeks_count }}, {{ $total_company  }}]
         newPanel(options, 'expiring_tenants_within_4_weeks', data4, ["#dd8f8f", "#d75c5c"], ["#dd8f8f", "#d75c5c"])
         @endif
 
