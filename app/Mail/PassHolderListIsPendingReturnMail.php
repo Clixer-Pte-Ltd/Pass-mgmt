@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class PassHolderListPendingReturnMail extends Mailable
+class PassHolderListIsPendingReturnMail extends Mailable
 {
     use Queueable, SerializesModels;
     public $passHolders;
@@ -24,7 +24,7 @@ class PassHolderListPendingReturnMail extends Mailable
     }
 
     /**
-     * @return PassHolderListPendingReturnMail
+     * @return PassHolderListIsPendingReturnMail
      * @throws \Throwable
      */
     public function build()
@@ -35,7 +35,7 @@ class PassHolderListPendingReturnMail extends Mailable
                 'passHolders' => $this->passHolders
             ])->render();
 
-        app('logService')->logAction($this->account, null, $emailViewRender, 'Pass Holder List Pending Return Mail');
+        app('logService')->logAction($this->account, null, $emailViewRender, 'Pass Holder List Is Pending Return Mail');
         return $this->view('emails.pedding_return_pass_holder');
     }
 }
