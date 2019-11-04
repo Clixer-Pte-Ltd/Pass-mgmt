@@ -30,7 +30,7 @@ class AdminController extends Controller
     {
         $this->data['title'] = trans('backpack::base.dashboard'); // set the page title
         if(backpack_user()->hasAnyRole(config('backpack.cag.roles'))) {
-            $pass_holders = PassHolder::orderBy('id', 'desc')->take(25)->get();
+            $pass_holders = PassHolder::all();
             $this->data['pass_holders'] = PassHolder::orderBy('id', 'desc')->take(25)->get();
         } else {
             $uens = backpack_user()->getCompany()->pluck('uen')->toArray();
@@ -62,8 +62,8 @@ class AdminController extends Controller
         $this->data['companies'] = Company::getAllCompanies()->slice(0, 25);
         $expiring_tenants_within_4_weeks = backpack_user()->hasAnyRole(config('backpack.cag.roles')) ? Company::getAllCompaniesWithin4Weeks()->slice(0, 25) : null;
         $this->data['expiring_tenants_within_4_weeks'] = $expiring_tenants_within_4_weeks;
-        $this->data['total_pass'] = PassHolder::all()->count();
-        $this->data['total_company'] = PassHolder::all()->count();
+        $this->data['total_pass'] = $pass_holders->count();
+        $this->data['total_company'] = $pass_holders->count();
         return view('dashboard.dashboard', $this->data);
     }
 
