@@ -31,7 +31,7 @@ class PassHolderListPendingReturnNotification
         $passholders = $event->pass_holders;
         if ($passholders) {
             $accountService = new AccountService();
-            $mailService = new MailService('PassHolderListPendingReturnMail', null);
+            $mailService = new MailService('PassHolderListIsPendingReturnMail', null);
 
             //send cag admin
             $adminsCag = $accountService->allAirportAccounts();

@@ -4,7 +4,7 @@
     filter-type="{{ $filter->type }}"
     class="dropdown {{ Request::get($filter->name)?'active':'' }}">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ $filter->label }} <span class="caret"></span></a>
-    <ul class="dropdown-menu" style="overflow: scroll; height: 500px;left: -10px">
+    <ul class="dropdown-menu" style="overflow: scroll; height: 500px;left: -160px">
         <li><a parameter="{{ $filter->name }}" dropdownkey="" href="">-</a></li>
         <li role="separator" class="divider"></li>
         @if (is_array($filter->values) && count($filter->values))
