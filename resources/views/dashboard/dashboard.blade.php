@@ -94,7 +94,7 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Tenant/Sub-Contractor</th>
-                                        <th>Contac</th>
+                                        <th>Contact</th>
                                         <th>Expiry Date</th>
                                     </tr>
                                     </thead>
