@@ -6,6 +6,6 @@ return [
     'google2fa_secret' => 'Google 2FA',
     'phone' => 'Phone',
     'tenant_id' => 'Tenant',
-    'sub_constructor_id' => 'Sub Constructor',
+    'sub_constructor_id' => 'Sub Contractor',
     'is_imported' => 'Import Status',
 ];

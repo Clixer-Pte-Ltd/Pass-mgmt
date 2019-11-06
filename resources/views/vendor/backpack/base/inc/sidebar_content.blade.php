@@ -7,7 +7,7 @@
     <a href="#"><i class="fa fa-university"></i> <span>Companies</span> <i class="fa fa-angle-left pull-right"></i></a>
     <ul class="treeview-menu">
       <li><a href='{{ backpack_url('tenant') }}'><i class='fa fa-list'></i> <span>Tenants</span></a></li>
-      <li><a href='{{ backpack_url('sub-constructor') }}'><i class='fa fa-building'></i> <span>Sub Constructors</span></a></li>
+      <li><a href='{{ backpack_url('sub-constructor') }}'><i class='fa fa-building'></i> <span>Sub Contractors</span></a></li>
       <li><a href='{{ backpack_url('expired-company') }}'><i class='fa fa-bell-slash'></i> <span>Expired Companies</span></a></li>
     </ul>
 </li>
