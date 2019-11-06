@@ -32,7 +32,7 @@
             {{--    number  --}}
             <div class="box dashboard dashboardChart">
                 @include('dashboard.includes.panel', ['id' => 'pass_holders_active', 'num' => $active_count, 'total' => $total_pass, 'label' => 'Active Passes'])
-                @include('dashboard.includes.panel', ['id' => 'pass_holders_expireIn4Weeks', 'num' => $pass_holders_expireIn4Weeks->count(), 'total' => $total_pass, 'label' => 'Expired within 4 weeks'])
+                @include('dashboard.includes.panel', ['id' => 'pass_holders_expireIn4Weeks', 'num' => $count_pass_holders_expireIn4Weeks, 'total' => $total_pass, 'label' => 'Expired within 4 weeks'])
                 @include('dashboard.includes.panel', ['id' => 'pass_pending_return', 'num' => $pass_pending_return_count, 'total' => $total_pass, 'label' => 'Pass pending Return'])
                 @if (backpack_user()->hasAnyRole(config('backpack.cag.roles')))
                     @include('dashboard.includes.panel', ['id' => 'expiring_tenants_within_4_weeks', 'num' => $expiring_tenants_within_4_weeks_count, 'total' => $total_company, 'label' => 'Expiring tenants within 4 weeks'])
