@@ -170,7 +170,11 @@
                                             <tr>
                                                 <td>{{ $company->name }}</td>
                                                 <td>{{ $company->uen }}</td>
-                                                <td>{{ getTypeAttribute(get_class($company)) }}</td>
+                                                @if (getTypeAttribute(get_class($company)) == 'SubConstructor')
+                                                    <td>SubContractor</td>
+                                                @else
+                                                    <td>{{ getTypeAttribute(get_class($company)) }}</td>
+                                                @endif
                                                 <td>{{ custom_date_format($company->tenancy_start_date) }}</td>
                                                 <td>{{ custom_date_format($company->tenancy_end_date) }}</td>
                                             </tr>

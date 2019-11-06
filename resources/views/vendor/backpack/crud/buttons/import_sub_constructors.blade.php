@@ -1,6 +1,6 @@
 <button class="btn btn-primary grad-primary" data-toggle="modal" data-target="#modal-sub-constructor">
     <span class="ladda-label">
-        <i class="fa fa-plus"></i> Bulk Import Sub Constructors
+        <i class="fa fa-plus"></i> Bulk Import Sub Contractors
     </span>
 </button>
 
@@ -11,12 +11,12 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">Import Sub Constructors</h4>
+                    <h4 class="modal-title">Import Sub Contractors</h4>
                 </div>
                 <div class="modal-body">
                     {{ csrf_field() }}
                     <p><input type="file" name="import_file" /></p>
-                    <p>Note: 
+                    <p>Note:
                         <ul>
                             <li>
                                 Make sure your excel file contains header in first row (Name, Uen, Tenancy Start Date, Tenancy End Date, Tenant UEN)

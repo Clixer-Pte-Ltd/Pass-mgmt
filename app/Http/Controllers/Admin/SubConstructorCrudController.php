@@ -34,7 +34,7 @@ class SubConstructorCrudController extends CrudController
         */
         $this->crud->setModel('App\Models\SubConstructor');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/sub-constructor');
-        $this->crud->setEntityNameStrings('Sub Constructor', 'Sub Constructors');
+        $this->crud->setEntityNameStrings('Sub Contractor', 'Sub Contractors');
         $this->crud->allowAccess('show');
         $this->crud->addButtonFromView('line', 'show', 'manage', 'beginning');
         if (backpack_user()->hasAnyRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE])) {
@@ -166,7 +166,7 @@ class SubConstructorCrudController extends CrudController
         $this->crud->addFilter([ // daterange filter
             'type' => 'date_range',
             'name' => 'date_end_range',
-            'label'=> 'Sub Constructor End Date Range'
+            'label'=> 'Sub Contractor End Date Range'
         ],
             false,
             function ($value) {
@@ -178,7 +178,7 @@ class SubConstructorCrudController extends CrudController
         $this->crud->addFilter([ // date filter
             'type' => 'date',
             'name' => 'date',
-            'label'=> 'Sub Constructor End Date Pickup'
+            'label'=> 'Sub Contractor End Date Pickup'
         ],
             false,
             function($value) {
