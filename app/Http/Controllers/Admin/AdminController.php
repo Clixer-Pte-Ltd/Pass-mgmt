@@ -70,6 +70,7 @@ class AdminController extends Controller
         $this->data['total_pass'] = $pass_holders->count();
         $this->data['total_company'] = Company::getAllCompanies()->count();
 
+        $this->data['count_pass_holders_expireIn4Weeks'] = $this->data['pass_holders_expireIn4Weeks']->count();
         $this->data['pass_holders_expireIn4Weeks'] = $this->data['pass_holders_expireIn4Weeks']->slice(0, 25);
         $this->data['active_count'] = $this->data['pass_holders_active']->count();
         $this->data['pass_pending_return_count'] = $this->data['pass_pending_return']->count();
