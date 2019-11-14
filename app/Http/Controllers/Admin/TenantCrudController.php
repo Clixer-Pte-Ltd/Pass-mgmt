@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Jobs\RunImport;
 use App\Models\BackpackUser as User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 // VALIDATION: change the requests to match your own file names if you need form validation
 use Maatwebsite\Excel\Excel;
@@ -186,6 +188,7 @@ class TenantCrudController extends CrudController
         if (!backpack_user()->hasAnyRole([CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE])) {
             $this->crud->addButtonFromView('top', 'import_tenants', 'import_tenants', 'end');
             $this->crud->addButtonFromView('top', 'import_tenant_accounts', 'import_tenant_accounts', 'end');
+            $this->crud->addButtonFromView('top', 'show_errors_import', 'show_errors_import', 'end');
         }
         return $content;
     }
@@ -316,16 +319,14 @@ class TenantCrudController extends CrudController
             \Alert::error('You must choose excel file')->flash();
             return redirect()->back()->with('not_have_file', 1);
         }
-//        $excel->import(new TenantAccountsImport, $request->file('import_file'));
 
         $import = new TenantAccountsImport();
-        $import->import($request->file('import_file'));
-        if ($import->failures()->count() || count($import->error)) {
-            return view('errors.error_import', ['failures' => $import->failures(), 'errors' => $import->error]);
-        }
+        $import->nameFile = $request->file('import_file')->getClientOriginalName();
+        $import->time = Carbon::now();
+        $request->file('import_file')->storeAs('public', $request->file('import_file')->getClientOriginalName());
+        dispatch(new RunImport($import, 'public\\'.$request->file('import_file')->getClientOriginalName()));
 
-        \Alert::success('Import successful. Email will be sent out to imported accounts soon...')->flash();
-
+        \Alert::success('Importing..., reload browser to view new record.')->flash();
         return redirect()->route('crud.tenant.index');
     }
 

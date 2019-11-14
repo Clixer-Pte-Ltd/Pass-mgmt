@@ -3,59 +3,156 @@
 namespace App\Imports;
 
 use App\Events\AccountImported;
+use App\Models\ErrorImport;
 use App\Models\Tenant;
 use App\Models\BackpackUser;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
 
 
-class TenantAccountsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnError, SkipsOnFailure
+class TenantAccountsImport implements ToCollection, WithHeadingRow, WithChunkReading
 {
     use Importable, SkipsFailures;
 
-    public $error = [];
-    /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
-    public function model(array $row)
-    {
-        try {
-            $password = uniqid() . str_random(10);
-            $google2fa_secret = app('pragmarx.google2fa')->generateSecretKey();
-            $uen = $row['company_code'];
+    use Importable;
 
-            $teCompany = Tenant::where('uen', $uen)->first();
-            if (is_null($teCompany)) {
-                throw new \Exception( 'Company code <b>' . @$uen . '</b> not found');
-            } else {
-                $id = $teCompany->id;
+    public $errors = []; // lưu kết quả errors cuối
+    public $success = []; // lưu kết quả thành công cuối
+    public $data = []; // lưu data import và check validate
+    public $dataRow; // lưu data row ban đầu
+    public $currentErrors = []; // lưu các lỗi trong quá trình validate
+    public $currentData = [];
+    public $count = 1;
+    public $header = [
+        'Row', 'Name', 'Email', 'Phone', 'Company', 'Role', 'Errors'
+    ];
+    public $nameFile = '';
+    public $code;
+    public $row = 1;
+    public $time;
+
+    public function __construct()
+    {
+        $lastRecord = ErrorImport::orderBy('id', 'desc')->first();
+        $this->code = $lastRecord ? $lastRecord->code + 1 : 1;
+    }
+
+    /**
+     * @param Collection $rows
+     */
+    public function collection(Collection $rows)
+    {
+        foreach ($rows as $row) {
+            $row = $row->toArray();
+            $this->row++;
+            $this->dataRow = [$this->row];
+            $this->dataRow = array_merge($this->dataRow, array_values($row));
+            $this->currentErrors = [];
+
+            try {
+                $password = uniqid() . str_random(10);
+                $google2fa_secret = app('pragmarx.google2fa')->generateSecretKey();
+                $tenant = null;
+                if (isset($row['company_code'])) $tenant = Tenant::where('uen', $row['company_code'])->first();
+                if (isset($row['company_name'])) $tenant = Tenant::where('name', $row['company_name'])->first();
+                $this->currentData = [
+                    'name' => $row['name'],
+                    'email' => $row['email'],
+                    'phone' => $row['phone'],
+                    'role' => $row['role'],
+                    'tenant' => $tenant,
+                    'password' => $password,
+                    'google2fa_secret' => $google2fa_secret,
+                ];
+
+                $this->customValidate();
+                if (count($this->currentErrors)) {
+                    throw new \Exception('');
+                }
+                $this->currentData['tenant_id'] = $this->currentData['tenant']->id;
+                $this->currentData['is_imported'] = true;
+                $this->currentData['first_password'] = $password;
+                $role = $this->getRole($this->currentData['role']);
+                unset($this->currentData['role']);
+                unset($this->currentData['company_code']);
+                unset($this->currentData['tenant']);
+
+                $user = BackpackUser::create($this->currentData)->refresh();
+                if ($role) $user->assignRole($role);
+                dump($this->row);
+                event(new AccountImported($user));
+            } catch (\Exception $ex) {
+                dump($ex->getMessage());
+                $this->currentErrors[] = $ex->getMessage();
+                $this->dataRow[] = implode('; ', $this->currentErrors);
+                $this->errors[] = $this->dataRow;
             }
-            $user = BackpackUser::create([
-                'name' => $row['name'],
-                'email' => $row['email'],
-                'phone' => $row['phone'],
-                'password' => $password,
-                'google2fa_secret' => $google2fa_secret,
-                'tenant_id' => $id,
-                'is_imported' => true,
-                'first_password' => $password
-            ])->refresh();
-            $user->assignRole($row['role']);
-            event(new AccountImported($user));
-            return $user;
-        } catch (\Exception $ex) {
-            $this->error[] = $ex->getMessage();
-            return null;
+        }
+        if (count($this->errors)) {
+            ErrorImport::create([
+                'time' => $this->time,
+                'code' => $this->code,
+                'name' => $this->nameFile,
+                'header' => json_encode($this->header),
+                'errors' => json_encode($this->errors)
+            ]);
+            $this->errors = [];
         }
     }
 
+    /**
+     * @param $role
+     * @return string|null
+     */
+    private function getRole($role)
+    {
+        if ($role == 'CO') return 'company coordinator';
+        if ($role == 'AS') return 'company as';
+        if ($role == 'VIEWER') return 'company viewer';
+        return null;
+    }
+    /**
+     *
+     */
+    public function customValidate()
+    {
+        if (!$this->currentData['tenant']) {
+            $this->currentErrors[] = 'Company not found';
+        };
+
+        $validator = Validator::make(
+            $this->currentData,
+            [
+                'name' => 'required|max:255',
+                'email' => 'required|email|max:255|unique:users',
+                'phone' => 'required|digits:8',
+                'role' => 'required'
+            ],
+            );
+
+        if ($validator->fails()) {
+            $message = collect($validator->errors()->messages())->map(function ($error, $key) {
+                return implode('; ', $error);
+            })->implode('; ');
+
+            $this->currentErrors[] = $message;
+        }
+    }
+
+    /**
+     * @return array
+     */
     public function rules(): array
     {
         return [
@@ -66,17 +163,11 @@ class TenantAccountsImport implements ToModel, WithHeadingRow, WithValidation, S
         ];
     }
 
-//    public function sheets(): array
-//    {
-//        return [
-//            // Select by sheet index
-//            0 => new TenantAccountsImport(),
-//        ];
-//    }
-
-    public function onError(\Throwable $e)
+    /**
+     * @return int
+     */
+    public function chunkSize(): int
     {
-
+        return 1000;
     }
-
 }

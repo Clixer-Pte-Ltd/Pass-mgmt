@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Jobs\ProcessSendMail;
 use App\Mail\AccountInfo;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -28,7 +29,7 @@ class AccountInfoNotification
     {
 
         $account = $event->model;
-
-        Mail::to($account)->send(new AccountInfo($account));
+        dispatch(new ProcessSendMail($account, new AccountInfo($account)));
+//        Mail::to($account)->send(new AccountInfo($account));
     }
 }

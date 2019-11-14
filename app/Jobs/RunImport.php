@@ -8,7 +8,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Excel;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 
 class RunImport implements ShouldQueue
@@ -36,7 +36,13 @@ class RunImport implements ShouldQueue
      */
     public function handle()
     {
-        Excel::import($this->import, $this->file);
-        Storage::delete($this->file);
+        try {
+            Excel::import($this->import, $this->file);
+            Storage::delete($this->file);
+        } catch (\Exception $e) {
+//            dump([$e->getLine() => $e->getMessage()]);
+            logger([$e->getLine() => $e->getMessage()]);
+        }
+
     }
 }
