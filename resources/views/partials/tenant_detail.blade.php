@@ -21,7 +21,7 @@
 																	<span class="info-box-number">Name: {{ $account->name }}</span>
 																	<span class="info-box-text">Contact: {{ $account->phone }}</span>
 																	<span class="info-box-text">Email: {{ $account->email }}</span>
-                                                                    <span class="info-box-text">Role: <b>{{ getUserRole($account) }}</b>}</span>
+                                                                    <span class="info-box-text">Role: <b>{{ getUserRole($account) }}</b></span>
 																	<span class="text-right info-box-text">
 																		<a href="{{ route('admin.tenant.account.2fa', [$entry->id, $account->id]) }}" class="btn btn-xs btn-default"><i class="fa fa-google-plus-square"></i> Config 2FA</a>
 																		@if($account->id !== auth()->user()->id && !backpack_user()->hasAnyRole([COMPANY_CO_ROLE, COMPANY_AS_ROLE, CAG_VIEWER_ROLE, COMPANY_VIEWER_ROLE]))
