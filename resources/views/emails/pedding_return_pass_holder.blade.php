@@ -1,6 +1,6 @@
-<p>Dear Airport Pass Coordinator/Authorized Signatory</p>
+<p>Dear Airport Pass Coordinator/Authorized Signatory,</p>
 
-<div>List pass holder is pending return</div>
+<div>This is the list of pass holder(s) that is/are pending for return</div>
 <br>
 <table style="font-family: arial, sans-serif; border-collapse: collapse; width: 100%; ">
     <tr style="background: #1975dc; color: #ffffff">

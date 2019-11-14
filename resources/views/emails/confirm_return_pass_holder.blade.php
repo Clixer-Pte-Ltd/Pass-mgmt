@@ -1,7 +1,7 @@
 <p>Dear Airport Pass Coordinator/Authorized Signatory</p>
 
 
-<div>Pass holder need confirm return</div>
+<div>Need your confirmation on the below passholder pass:has </div>
 <ul>
     @if (@$isListPass)
         <li>

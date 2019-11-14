@@ -2,8 +2,8 @@
 
 
 <div>We've just created new account for you.</div>
-<div>Copy and Paste the password for first login.</div>
-<div>Please check login info as below:</div>
+<div>Copy and paste the password for your first login.</div>
+<div>Please refer to the login information below:</div>
 <ul>
     <li>
         Email: {{ $account->email }}
@@ -20,7 +20,7 @@
 </ul>
 
 <p>
-    Please change password after first login.
+    Please change password after your first login.
 </p>
 
 @include('emails.signature')

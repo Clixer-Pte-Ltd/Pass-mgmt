@@ -1,6 +1,6 @@
-<p>Dear Airport Pass Coordinator/Authorized Signatory</p>
+<p>Dear Airport Pass Coordinator/Authorized Signatory,</p>
 @if ($companies->count() > 0)
-    <div>List of company that was not validated</div>
+    <div>This is the list of company(ies) that is/are not validated.</div>
     <br>
     <table style="font-family: arial, sans-serif; border-collapse: collapse; width: 100%; ">
         <tr style="background: #1975dc; color: #ffffff">

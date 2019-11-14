@@ -1,6 +1,6 @@
-<p>Dear Airport Pass Coordinator/Authorized Signatory</p>
+<p>Dear Airport Pass Coordinator/Authorized Signatory,</p>
 
-<div>These are pass holders that were expired</div>
+<div>This is the list of pass holder(s) that has/have expired.</div>
 <br>
 <table style="font-family: arial, sans-serif; border-collapse: collapse; width: 100%; ">
     <tr style="background: #1975dc; color: #ffffff">

@@ -1,6 +1,6 @@
-<p>Dear Airport Pass Coordinator/Authorized Signatory</p>
+<p>Dear Airport Pass Coordinator/Authorized Signatory,</p>
 
-<div>This company has been expired.</div>
+<div>This is the list of company(ies) that has/have expired.</div>
 <br>
 <table style="font-family: arial, sans-serif; border-collapse: collapse; width: 100%; ">
     <tr style="background: #1975dc; color: #ffffff">
