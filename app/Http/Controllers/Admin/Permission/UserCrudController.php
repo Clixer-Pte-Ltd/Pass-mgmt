@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin\Permission;
 
+use App\Jobs\ProcessSendMail;
+use App\Mail\AccountInfo;
 use App\Models\BackpackUser;
 use Backpack\PermissionManager\app\Http\Controllers\UserCrudController as BaseUserCrudController;
 use Backpack\PermissionManager\app\Http\Requests\UserStoreCrudRequest as StoreRequest;
@@ -124,6 +126,24 @@ class UserCrudController extends BaseUserCrudController
             'name' => 'phone',
             'label'=> 'Phone'
         ]);
+
+        $this->crud->addFilter([
+            'label' => 'Send Mail Account Info',
+            'name' => 'send_mail_infor',
+            'type' => 'select2',
+        ], function () {
+            return [
+                1 => 'Done',
+                0 => 'No Send'
+            ];
+        }, function ($value) {
+            if ($value == 0) {
+                $this->crud->addClause('whereNull', 'send_info_email_log');
+            } else {
+                $this->crud->addClause('whereNotNull', 'send_info_email_log');
+            }
+        });
+
         $this->crud->setListView('crud::customize.list');
         $this->crud->removeButtonFromStack('create', 'top');
         $this->crud->addButtonFromView('line', 'show_config_2fa', 'show_config_2fa', 'end');
@@ -131,6 +151,9 @@ class UserCrudController extends BaseUserCrudController
             $this->crud->denyAccess('update');
             $this->crud->denyAccess('delete');
         }
+        $this->crud->enableBulkActions();
+//        $this->crud->addBulkDeleteButton();
+        $this->crud->addButtonFromView('top', 'bulk_send_email_info', 'bulk_send_email_info', 'start');
     }
 
     public function store(StoreRequest $request)
@@ -227,5 +250,14 @@ class UserCrudController extends BaseUserCrudController
             'last_modify_password_at', 'change_first_pass_done', 'first_password']);
         $this->crud->removeAllButtons();
         return $response;
+    }
+
+    public function bulkSendMailInfo()
+    {
+        $entries = $this->request->entries;
+        $accounts = BackpackUser::whereIn('id', $entries)->get();
+        foreach ($accounts as $account) {
+            dispatch(new ProcessSendMail($account, new AccountInfo($account)));
+        }
     }
 }

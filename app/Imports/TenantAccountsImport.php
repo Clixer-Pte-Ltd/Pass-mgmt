@@ -3,12 +3,14 @@
 namespace App\Imports;
 
 use App\Events\AccountImported;
+use App\Mail\AccountInfo;
 use App\Models\ErrorImport;
 use App\Models\Tenant;
 use App\Models\BackpackUser;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -41,6 +43,7 @@ class TenantAccountsImport implements ToCollection, WithHeadingRow, WithChunkRea
     public $code;
     public $row = 1;
     public $time;
+    public $user;
 
     public function __construct()
     {
@@ -88,11 +91,17 @@ class TenantAccountsImport implements ToCollection, WithHeadingRow, WithChunkRea
                 unset($this->currentData['company_code']);
                 unset($this->currentData['tenant']);
 
-                $user = BackpackUser::create($this->currentData)->refresh();
-                if ($role) $user->assignRole($role);
+                $this->user = BackpackUser::create($this->currentData)->refresh();
+                if ($role) $this->user->assignRole($role);
                 dump($this->row);
-                event(new AccountImported($user));
+                Mail::to($this->user)->send(new AccountInfo($this->user));
+                //event(new AccountImported($user));
             } catch (\Exception $ex) {
+                if ($ex instanceof \Swift_TransportException) {
+                    $this->user->update([
+                        'send_info_email_log' => $ex->getMessage()
+                    ]);
+                }
                 dump($ex->getMessage());
                 $this->currentErrors[] = $ex->getMessage();
                 $this->dataRow[] = implode('; ', $this->currentErrors);
@@ -168,6 +177,6 @@ class TenantAccountsImport implements ToCollection, WithHeadingRow, WithChunkRea
      */
     public function chunkSize(): int
     {
-        return 1000;
+        return 50;
     }
 }
