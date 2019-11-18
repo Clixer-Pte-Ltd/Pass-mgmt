@@ -14,7 +14,7 @@ class AddDoneSendInforEmailUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('send_info_email_log')->nullable();
+            $table->longText('send_info_email_log')->nullable();
         });
     }
 
