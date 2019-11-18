@@ -60,6 +60,7 @@ Route::group([
     'namespace' => 'Admin',
 ], function () { // custom admin routes
     // User
+    Route::post('user/bulk-send-email-info', 'Permission\UserCrudController@bulkSendMailInfo')->name('crud.user.bulk-send-email-info');
     CRUD::resource('user', 'Permission\UserCrudController');
     CRUD::resource('role', 'Permission\RoleCrudController');
 }); // this should be the absolute last line of this file
