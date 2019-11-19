@@ -50,6 +50,16 @@ class UserCrudController extends BaseUserCrudController
                     return $name;
                 }
             ]);
+        $this->crud->addColumn([
+            'name' => 'status',
+            'label' => 'Send Mail Info',
+            'type' => 'closure',
+            'function' => function($entry) {
+                return is_null($entry->send_info_email_log) ?
+                    "<span style='color: blue'>Done</span>" : "<span style='color: blue'>Not Send</span>";
+
+            }
+        ]);
         $this->crud->removeColumn('permissions');
         $this->crud->addColumn('phone');
         $this->crud->removeField('roles_and_permissions');
