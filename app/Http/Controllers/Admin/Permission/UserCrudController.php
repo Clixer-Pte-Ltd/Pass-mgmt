@@ -137,7 +137,7 @@ class UserCrudController extends BaseUserCrudController
                 0 => 'No Send'
             ];
         }, function ($value) {
-            if ($value == 0) {
+            if ($value == 1) {
                 $this->crud->addClause('whereNull', 'send_info_email_log');
             } else {
                 $this->crud->addClause('whereNotNull', 'send_info_email_log');
