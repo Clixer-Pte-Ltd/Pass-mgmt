@@ -36,14 +36,16 @@ class ProcessSendMail implements ShouldQueue
      */
     public function handle()
     {
+        $logSenMail = null;
         try {
             Mail::to($this->mailSend)->send($this->mailForm);
         } catch (\Exception $e) {
-            if ($this->mailForm instanceof AccountInfo) {
-                $this->mailSend->update([
-                    'send_info_email_log' => $e->getMessage()
-                ]);
-            }
+            $logSenMail = $e->getMessage();
+        }
+        if ($this->mailForm instanceof AccountInfo) {
+            $this->mailSend->update([
+                'send_info_email_log' => $logSenMail
+            ]);
         }
     }
 }
