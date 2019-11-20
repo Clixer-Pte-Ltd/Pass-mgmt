@@ -33,23 +33,21 @@ class UserCrudController extends BaseUserCrudController
         }
         $this->crud->allowAccess('show');
         $this->crud->addColumn([
-                'name' => 'company',
-                'label' => 'Company',
-                'type' => 'closure',
-                'function' => function($entry) {
-                    if ($entry->hasCompany()) {
-                        if ($entry->getCompany() instanceof Collection) {
-                            $name = implode(' ; ', $entry->getCompany()->pluck('name')->toArray());
-                        } else {
-                            $name = $entry->getCompany()->name;
-                        }
-                    } else {
-
-                        $name = null;
-                    }
-                    return $name;
+            'name' => 'company',
+            'label' => 'Company',
+            'type' => 'closure',
+            'function' => function($entry) {
+                $name = '';
+                $companies = $entry->getCompany();
+                if (!($companies instanceof Collection)) {
+                    $companies = collect([$companies]);
                 }
-            ]);
+                foreach ($companies->chunk(2) as $company) {
+                    $name .= $company->pluck('name')->implode(', ') . '<br>';
+                }
+                return $name;
+            }
+        ]);
         $this->crud->addColumn([
             'name' => 'status',
             'label' => 'Send Mail Info',
