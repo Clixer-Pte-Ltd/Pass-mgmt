@@ -62,6 +62,7 @@ class TenantAccountsImport implements ToCollection, WithHeadingRow, WithChunkRea
             $this->dataRow = [$this->row];
             $this->dataRow = array_merge($this->dataRow, array_values($row));
             $this->currentErrors = [];
+            $this->currentData = [];
 
             try {
                 $password = uniqid() . str_random(10);
@@ -94,8 +95,8 @@ class TenantAccountsImport implements ToCollection, WithHeadingRow, WithChunkRea
                 $this->user = BackpackUser::create($this->currentData)->refresh();
                 if ($role) $this->user->assignRole($role);
                 dump($this->row);
-                Mail::to($this->user)->send(new AccountInfo($this->user));
-                //event(new AccountImported($user));
+                //Mail::to($this->user)->send(new AccountInfo($this->user));
+                event(new AccountImported($this->user));
             } catch (\Exception $ex) {
                 if ($ex instanceof \Swift_TransportException) {
                     $this->user->update([
