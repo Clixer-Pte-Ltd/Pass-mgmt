@@ -77,6 +77,16 @@ class BackpackUser extends User
         return isset($companies) ? $companies : null;
     }
 
+    public function tenants()
+    {
+        $companies = collect([$this->tenant]);
+        $tenantsOfAss= $this->tenantsOfAs;
+        foreach ($tenantsOfAss as $tenant) {
+            $companies->push($tenant);
+        }
+        return $companies->unique()->filter();
+    }
+
     public function getAllTenants()
     {
         $companies = $this->getCompany();
