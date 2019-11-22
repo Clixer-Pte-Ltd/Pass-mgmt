@@ -38,10 +38,7 @@ class UserCrudController extends BaseUserCrudController
             'type' => 'closure',
             'function' => function($entry) {
                 $name = '';
-                $companies = $entry->getCompany();
-                if (!($companies instanceof Collection)) {
-                    $companies = collect([$companies]);
-                }
+                $companies = $entry->tenants();
                 foreach ($companies->chunk(2) as $company) {
                     $name .= $company->pluck('name')->implode(', ') . '<br>';
                 }

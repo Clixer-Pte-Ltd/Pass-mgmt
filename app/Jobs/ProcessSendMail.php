@@ -38,6 +38,7 @@ class ProcessSendMail implements ShouldQueue
     {
         $logSenMail = null;
         try {
+            sleep(5);
             Mail::to($this->mailSend)->send($this->mailForm);
         } catch (\Exception $e) {
             $logSenMail = $e->getMessage();
