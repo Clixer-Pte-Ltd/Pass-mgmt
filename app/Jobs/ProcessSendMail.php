@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Mail\AccountInfo;
+use App\Mail\WelcomeMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -39,14 +40,17 @@ class ProcessSendMail implements ShouldQueue
         $logSenMail = null;
         try {
             sleep(5);
-            Mail::to($this->mailSend)->send($this->mailForm);
+            if ($this->mailForm instanceof WelcomeMail) {
+                Mail::to($this->mailSend)->send($this->mailForm);
+            }
         } catch (\Exception $e) {
-            $logSenMail = $e->getMessage();
+//            $logSenMail = $e->getMessage();
+            logger([$e->getLine() => $e->getMessage()]);
         }
-        if ($this->mailForm instanceof AccountInfo) {
-            $this->mailSend->update([
-                'send_info_email_log' => $logSenMail
-            ]);
-        }
+//        if ($this->mailForm instanceof AccountInfo) {
+//            $this->mailSend->update([
+//                'send_info_email_log' => $logSenMail
+//            ]);
+//        }
     }
 }
