@@ -41,7 +41,7 @@ class PassHolderExpireChecking extends Command
      */
     public function handle()
     {
-        $this->handlePassHolderExpireSoon();
+        //$this->handlePassHolderExpireSoon();
         $this->handlePassExpired();
     }
 
