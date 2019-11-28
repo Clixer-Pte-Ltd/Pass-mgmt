@@ -17,7 +17,7 @@
         <div><img src="{{ $message->embed($qrCode) }}"></div>
     </li>
     @endif
-    <li>Please login to {{ route('backpack.dashboard') }}</li>
+    <li>Please login to {{ url('/') }}</li>
 </ul>
 
 <p>
