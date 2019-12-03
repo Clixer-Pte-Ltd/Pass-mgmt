@@ -18,7 +18,7 @@
                                     </ul>
                                 </div>
                                 <div class="content_title">
-                                    To keep connected with us, please login with your personal info by email address and password
+                                    Please download Google Authenticator before logging in with your registered email address and password. Should you encounter any technical issues, please contact us at "CAS_APO_General@certisgroup.com".
                                 </div>
                             </div>
                         </div>
