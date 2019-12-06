@@ -3,6 +3,8 @@
 namespace App\Listeners;
 
 use App\Events\CompanyNeedValidate;
+use App\Services\AccountService;
+use App\Services\MailService;
 
 class CompaniesNeedValidateNotification extends BaseListener
 {
@@ -24,6 +26,10 @@ class CompaniesNeedValidateNotification extends BaseListener
      */
     public function handle(CompanyNeedValidate $event)
     {
-        $this->handldeCompany($event->companies, 'CompanyNeedValidateMail', false);
+        $accountService = new AccountService();
+        $admins = $accountService->getAccountRelateCompany($event->companies, false, true);
+        $mailService = new MailService('CompanyNeedValidateMail', $admins);
+        $mailService->sendMailToMutilAccounts(null, $event->companies);
+
     }
 }

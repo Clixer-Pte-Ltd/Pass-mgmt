@@ -11,6 +11,7 @@ Route::group([
     'middleware' => ['web', config('backpack.base.middleware_key', 'admin'), '2fa', 'checkChangePasswordFirst'],
     'namespace' => 'App\Http\Controllers\Admin',
 ], function () {
+
     //Download
     Route::get('download-guide', function() {
         if (backpack_user()->hasAnyRole([CAG_ADMIN_ROLE, CAG_STAFF_ROLE])) {
@@ -53,6 +54,7 @@ Route::group([
         //Company
         Route::get('expired-company/{uen}/renew', 'ExpiredCompanyCrudController@renew')->name('admin.expired-company.renew');
         Route::post('expired-company/renew', 'ExpiredCompanyCrudController@updateExpiry')->name('admin.expired-company.updateExpiry');
+        Route::get('tenant/validate-all-company', 'TenantCrudController@validateAll')->name('admin.tenant.validate-all-company');
 
         //Expired Company
         CRUD::resource('expired-company', 'ExpiredCompanyCrudController');

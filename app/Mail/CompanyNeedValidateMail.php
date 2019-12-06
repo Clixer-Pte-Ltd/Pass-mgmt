@@ -30,9 +30,7 @@ class CompanyNeedValidateMail extends Mailable
      */
     public function build()
     {
-        $link = ($this->company instanceof Tenant) ?
-            route('admin.tenant.validate-company',['id' => $this->company->id]) :
-            route('admin.sub-constructor.validate-company', ['id' => $this->company->id]);
+        $link = route('admin.tenant.validate-all-company');
         $emailViewRender = view('emails.validate_company',
             [
                 'account' => $this->account,

@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Jobs\RunImport;
 use App\Models\BackpackUser as User;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 // VALIDATION: change the requests to match your own file names if you need form validation
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Excel;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Http\Requests\StoreTenantRequest as StoreRequest;
@@ -374,5 +376,24 @@ class TenantCrudController extends CrudController
             session()->put(SESS_NEW_ACC_FROM_TENANT, $tenant->id);
             return view('partials.company_detail_content', ["entry" => $tenant])->render();
         }
+    }
+
+    /**
+     * @return RedirectResponse|void
+     */
+    public function validateAll()
+    {
+        if (backpack_user()->hasAnyRole([COMPANY_CO_ROLE, COMPANY_AS_ROLE])) {
+            $companies = backpack_user()->getCompany();
+            if (!($companies instanceof Collection)) {
+                $companies = collect([$companies]);
+            }
+            foreach ($companies as $company) {
+                $company->update(['status' => COMPANY_STATUS_WORKING]);
+            }
+            \Alert::success('Validate done')->flash();
+            return redirect()->route('admin.tenant.my-company');
+        }
+        return abort(403);
     }
 }
