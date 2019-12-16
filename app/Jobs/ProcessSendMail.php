@@ -39,13 +39,16 @@ class ProcessSendMail implements ShouldQueue
     {
         $logSenMail = null;
         try {
-            sleep(5);
-            Mail::to($this->mailSend)->send($this->mailForm);
+            $setting = strtolower(str_replace('\\', '_', get_class($this->mailForm)));
+            if (getSettingValueByKey($setting)) {
+                sleep(5);
+                Mail::to($this->mailSend)->send($this->mailForm);
+            }
         } catch (\Exception $e) {
             $logSenMail = $e->getMessage();
             logger([$e->getLine() => $e->getMessage()]);
         }
-        if ($this->mailForm instanceof AccountInfo) {
+        if ($this->mailForm instanceof AccountInfo && getSettingValueByKey(ALLOW_MAIL['APP_MAIL_ACCOUNTINFO'])) {
             $this->mailSend->update([
                 'send_info_email_log' => $logSenMail
             ]);

@@ -121,6 +121,7 @@ Route::group([
         Route::post('settings/frequency-email/renew-pass-holder-alert', 'SettingsController@updateRenewPassHolderAlert')->name('admin.setting.frequency-email.renew-pass-holder-alert');
         Route::get('settings/adhoc-email', 'SettingsController@adhocEmail')->name('admin.setting.adhoc-email');
         Route::post('settings/adhoc-email/retentation-rate', 'SettingsController@updateAdhocRetentationRate')->name('admin.setting.adhoc-email.retentation-rate');
+        Route::post('settings/allow-send-mail', 'SettingsController@allowSendMail')->name('admin.setting.allow-send-mail');
     });
 
     Route::group(['middleware' => ['role:' . implodeCag(config('backpack.cag.roles'))]], function () {

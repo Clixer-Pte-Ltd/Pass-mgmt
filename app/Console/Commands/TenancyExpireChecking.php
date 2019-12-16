@@ -69,13 +69,13 @@ class TenancyExpireChecking extends Command
     private function checkingTenants()
     {
         $this->checkingCompany(Tenant::query());
-        //$this->checkCompanyExpireSoon(Tenant::query());
+        $this->checkCompanyExpireSoon(Tenant::query());
     }
 
     private function checkingSubContructors()
     {
         $this->checkingCompany(SubConstructor::query());
-        //$this->checkCompanyExpireSoon(SubConstructor::query());
+        $this->checkCompanyExpireSoon(SubConstructor::query());
     }
 
     private function checkCompanyExpireSoon($companyType)
