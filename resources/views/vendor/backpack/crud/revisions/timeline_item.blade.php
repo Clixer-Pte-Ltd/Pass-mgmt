@@ -303,7 +303,7 @@
                 @php
                     $dataHistory = $history->properties->toArray();
                 @endphp
-                <b>Name:</b>:&emsp; <span>&emsp;'{{ $dataHistory['applicant_name'] }}'</span><br>
+                <b>Name:</b>:&emsp; <span>&emsp;'{{ @$dataHistory['applicant_name'] }}'</span><br>
             </div>
         </div>
     </div>
