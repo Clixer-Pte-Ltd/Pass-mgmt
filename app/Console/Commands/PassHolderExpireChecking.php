@@ -75,7 +75,7 @@ class PassHolderExpireChecking extends Command
     {
         $pass_expired_query = $this->getPassHolderExpired();
         $pass_expired = $pass_expired_query->get();
-        $pass_expired_query->update(['status' => PASS_STATUS_BLACKLISTED, 'blacklist_reason' => 'Expired! De-Listed automatically by system']);
+        $pass_expired_query->update(['status' => PASS_STATUS_BLACKLISTED]);
         event(new PassHolderExpired($pass_expired));
     }
 

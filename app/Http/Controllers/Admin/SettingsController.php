@@ -54,6 +54,23 @@ class SettingsController extends Controller
         return redirect()->back();
     }
 
+    public function allowSendMail(Request $request)
+    {
+        $data = $request->except('_token');
+        $allMail = array_values(ALLOW_MAIL);
+        $allowMaill = array_keys($data);
+        $denyMail = array_diff($allMail, $allowMaill);
+        foreach ($allowMaill as $mail) {
+            updateSetting($mail, 1);
+        }
+        foreach ($denyMail as $mail) {
+            updateSetting($mail, 0);
+        }
+        \Alert::success('Update successful.')->flash();
+        \Artisan::call('config:cache');
+        return redirect()->back();
+    }
+
     public function frequencyEmail()
     {
         return view('crud::settings.frequency-email');

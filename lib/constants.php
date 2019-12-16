@@ -49,6 +49,44 @@ define('SMTP_PORT', 'smtp_port');
 define('SMTP_USERNAME', 'smtp_username');
 define('SMTP_PASSWORD', 'smtp_password');
 define('SMTP_ENCRYPTION', 'smtp_encryption');
+define('ALLOW_MAIL', [
+    'APP_MAIL_ACCOUNTINFO' => 'app_mail_accountinfo',
+    'APP_MAIL_ADHOCMAIL' => 'app_mail_adhocmail',
+    'APP_MAIL_BIANNUALMAIL' => 'app_mail_biannualmail',
+    'APP_MAIL_COMPANIESLISTNOTVALIDATE' => 'app_mail_companieslistnotvalidate',
+    'APP_MAIL_COMPANYEXPIREDMAIL' => 'app_mail_companyexpiredmail',
+    'APP_MAIL_COMPANYEXPIRESOONMAIL' => 'app_mail_companyexpiresoonmail',
+    'APP_MAIL_COMPANYNEEDVALIDATEMAIL' => 'app_mail_companyneedvalidatemail',
+    'APP_MAIL_COMPANYNOTIFYNEWACCOUNT' => 'app_mail_companynotifynewaccount',
+    'APP_MAIL_CREATEPASSHOLDERSUCCESSMAIL' => 'app_mail_createpassholdersuccessmail',
+    'APP_MAIL_PASSHOLDEREXPIREDMAIL' => 'app_mail_passholderexpiredmail',
+    'APP_MAIL_PASSHOLDEREXPIRESOONMAIL' => 'app_mail_passholderexpiresoonmail',
+    'APP_MAIL_PASSHOLDERLISTISPENDINGRETURNMAIL' => 'app_mail_passholderlistispendingreturnmail',
+    'APP_MAIL_PASSHOLDERNEEDCONFIRMRETURNMAIL' => 'app_mail_passholderneedconfirmreturnmail',
+    'APP_MAIL_PASSHOLDERRENEWMAIL' => 'app_mail_passholderrenewmail',
+    'APP_MAIL_PASSHOLDERVALIDDAILYMAIL' => 'app_mail_passholdervaliddailymail',
+    'APP_MAIL_WELCOMEMAIL' => 'app_mail_welcomemail'
+]);
+
+define('ALLOW_MAIL_NAME', [
+    'APP_MAIL_ACCOUNTINFO' => 'Account Info',
+    'APP_MAIL_ADHOCMAIL' => 'Adhoc Mail',
+    'APP_MAIL_BIANNUALMAIL' => 'Bi Annual Mail',
+    'APP_MAIL_COMPANIESLISTNOTVALIDATE' => 'Companies List Not Validate',
+    'APP_MAIL_COMPANYEXPIREDMAIL' => 'Company Expired Mail',
+    'APP_MAIL_COMPANYEXPIRESOONMAIL' => 'Company Expire Soon Mail',
+    'APP_MAIL_COMPANYNEEDVALIDATEMAIL' => 'Company Need Validate Mail',
+    'APP_MAIL_COMPANYNOTIFYNEWACCOUNT' => 'Company Notify New Account',
+    'APP_MAIL_CREATEPASSHOLDERSUCCESSMAIL' => 'Create Pass Holder Success Mail',
+    'APP_MAIL_PASSHOLDEREXPIREDMAIL' => 'Pass Holder Expired Mail',
+    'APP_MAIL_PASSHOLDEREXPIRESOONMAIL' => 'Pass Holder Expire Soon Mail',
+    'APP_MAIL_PASSHOLDERLISTISPENDINGRETURNMAIL' => 'Pass Holder List Is Pending Return Mail',
+    'APP_MAIL_PASSHOLDERNEEDCONFIRMRETURNMAIL' => 'Pass Holder Need Confirm Return Mail',
+    'APP_MAIL_PASSHOLDERRENEWMAIL' => 'Pass Holder Renew Mail',
+    'APP_MAIL_PASSHOLDERVALIDDAILYMAIL' => 'Pass Holder Valid Daily Mail',
+    'APP_MAIL_WELCOMEMAIL' => 'Welcome Mail'
+]);
+
 
 //after update action here, must update action in function.php in getLogActions()
 //action must folow form revision_action_actionname
