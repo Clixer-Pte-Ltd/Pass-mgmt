@@ -18,7 +18,7 @@ class BlacklistHoldersController extends BasePassHolderCrudController
     public function setup()
     {
         parent::setup();
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/blacklist-pass-holder');
+        $this->crud->setRoute(config('backpack.base.route_prefix') . '/de-list-pass-holder');
         $this->crud->setEntityNameStrings('De-List Pass Holder', 'De-List Pass Holders');
         $this->crud->addClause('whereIn', 'status', [PASS_STATUS_BLACKLISTED, PASS_STATUS_WAITING_CONFIRM_RETURN]);
         $this->crud->addButtonFromView('line', 'renew', 'renew');

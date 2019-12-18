@@ -31,8 +31,8 @@ Route::group([
     Route::get('expire-pass-holder/export-excel', 'ExpireIn4WeekPassHolderCrudController@exportExcel')->name('admin.expire-pass-holder.export-excel');
     Route::get('expire-pass-holder/export-pdf', 'ExpireIn4WeekPassHolderCrudController@exportPdf')->name('admin.expire-pass-holder.export-pdf');
 
-    Route::get('blacklist-pass-holder/export-excel', 'BlacklistHoldersController@exportExcel')->name('admin.blacklist-pass-holder.export-excel');
-    Route::get('blacklist-pass-holder/export-pdf', 'BlacklistHoldersController@exportPdf')->name('admin.blacklist-pass-holder.export-pdf');
+    Route::get('de-list-pass-holder/export-excel', 'BlacklistHoldersController@exportExcel')->name('admin.blacklist-pass-holder.export-excel');
+    Route::get('de-list-pass-holder/export-pdf', 'BlacklistHoldersController@exportPdf')->name('admin.blacklist-pass-holder.export-pdf');
 
     Route::get('return-pass-holder/export-excel', 'ReturnHoldersController@exportExcel')->name('admin.return-pass-holder.export-excel');
     Route::get('return-pass-holder/export-pdf', 'ReturnHoldersController@exportPdf')->name('admin.return-pass-holder.export-pdf');
@@ -43,8 +43,8 @@ Route::group([
     Route::get('tenant-expire-pass-holder/export-excel', 'Tenants\TenantExpireIn4WeekPassHolderCrudController@exportExcel')->name('admin.tenant-expire-pass-holder.export-excel');
     Route::get('tenant-expire-pass-holder/export-pdf', 'Tenants\TenantExpireIn4WeekPassHolderCrudController@exportPdf')->name('admin.tenant-expire-pass-holder.export-pdf');
 
-    Route::get('tenant-blacklist-pass-holder/export-excel', 'Tenants\TenantBlacklistHoldersController@exportExcel')->name('admin.tenant-blacklist-pass-holder.export-excel');
-    Route::get('tenant-blacklist-pass-holder/export-pdf', 'Tenants\TenantBlacklistHoldersController@exportPdf')->name('admin.tenant-blacklist-pass-holder.export-pdf');
+    Route::get('tenant-de-list-pass-holder/export-excel', 'Tenants\TenantBlacklistHoldersController@exportExcel')->name('admin.tenant-blacklist-pass-holder.export-excel');
+    Route::get('tenant-de-list-pass-holder/export-pdf', 'Tenants\TenantBlacklistHoldersController@exportPdf')->name('admin.tenant-blacklist-pass-holder.export-pdf');
 
     Route::get('tenant-return-pass-holder/export-excel', 'Tenants\TenantReturnHoldersController@exportExcel')->name('admin.tenant-return-pass-holder.export-excel');
     Route::get('tenant-return-pass-holder/export-pdf', 'Tenants\TenantReturnHoldersController@exportPdf')->name('admin.tenant-return-pass-holder.export-pdf');
@@ -93,7 +93,7 @@ Route::group([
         Route::get('pass-holder/import/demo', 'PassHolderCrudController@importDemo')->name('admin.pass-holder.import.demo');
 
         //Pass Holder Blacklist
-        CRUD::resource('blacklist-pass-holder', 'BlacklistHoldersController');
+        CRUD::resource('de-list-pass-holder', 'BlacklistHoldersController');
 
         //Pass Holder Expire
         CRUD::resource('expire-pass-holder', 'ExpireIn4WeekPassHolderCrudController');
@@ -130,7 +130,7 @@ Route::group([
         CRUD::resource('sub-constructor', 'SubConstructorCrudController', ['only' => ['show','index']]);
         CRUD::resource('zone', 'ZoneCrudController', ['only' => ['show','index']]);
         CRUD::resource('pass-holder', 'PassHolderCrudController', ['only' => ['show','index']]);
-        CRUD::resource('blacklist-pass-holder', 'BlacklistHoldersController', ['only' => ['show','index']]);
+        CRUD::resource('de-list-pass-holder', 'BlacklistHoldersController', ['only' => ['show','index']]);
         CRUD::resource('expire-pass-holder', 'ExpireIn4WeekPassHolderCrudController', ['only' => ['show','index']]);
         CRUD::resource('return-pass-holder', 'ReturnHoldersController', ['only' => ['show','index']]);
         CRUD::resource('adhoc-email', 'AdhocEmailCrudController', ['only' => ['show','index']]);
@@ -141,7 +141,7 @@ Route::group([
         CRUD::resource('tenant-pass-holder', 'Tenants\TenantPassHolderCrudController');
         Route::post('tenant-pass-holder/import', 'Tenants\TenantPassHolderCrudController@import')->name('admin.tenant-pass-holder.import');
         Route::get('tenant-pass-holder/import/demo', 'Tenants\TenantPassHolderCrudController@importDemo')->name('admin.tenant-pass-holder.import.demo');
-        CRUD::resource('tenant-blacklist-pass-holder', 'Tenants\TenantBlacklistHoldersController');
+        CRUD::resource('tenant-de-list-pass-holder', 'Tenants\TenantBlacklistHoldersController');
         CRUD::resource('tenant-return-pass-holder', 'Tenants\TenantReturnHoldersController');
         CRUD::resource('tenant-expire-pass-holder', 'Tenants\TenantExpireIn4WeekPassHolderCrudController');
         Route::get('/tenant/{id}/validate', 'TenantCrudController@validateCompany')->name('admin.tenant.validate-company');
@@ -150,16 +150,16 @@ Route::group([
     Route::group(['middleware' => ['role:' . implodeCag(config('backpack.company.roles'))]], function () {
         Route::get('profile/t/my-company', 'Tenants\TenantPortalController@my_company')->name('admin.tenant.my-company');
         CRUD::resource('tenant-pass-holder', 'Tenants\TenantPassHolderCrudController', ['only' => ['show','index']]);
-        CRUD::resource('tenant-blacklist-pass-holder', 'Tenants\TenantBlacklistHoldersController', ['only' => ['show','index']]);
+        CRUD::resource('tenant-de-list-pass-holder', 'Tenants\TenantBlacklistHoldersController', ['only' => ['show','index']]);
         CRUD::resource('tenant-return-pass-holder', 'Tenants\TenantReturnHoldersController', ['only' => ['show','index']]);
         CRUD::resource('tenant-expire-pass-holder', 'Tenants\TenantExpireIn4WeekPassHolderCrudController', ['only' => ['show','index']]);
     });
 
     Route::group(['middleware' => ['role:' . CAG_ADMIN_ROLE . '|' . CAG_STAFF_ROLE . '|'. COMPANY_CO_ROLE . '|' . COMPANY_AS_ROLE]], function () {
-        Route::post('pass-holder/{id}/blacklist', 'PassHolderCrudController@blacklist')->name('admin.pass-holder.blacklist');
-        Route::get('blacklist-pass-holder/{id}/renew', 'BlacklistHoldersController@renew')->name('admin.blacklist-pass-holder.renew');
-        Route::post('blacklist-pass-holder/renew', 'BlacklistHoldersController@updateExpiry')->name('admin.blacklist-pass-holder.updateExpiry');
-        Route::post('blacklist-pass-holder/{id}/return', 'BlacklistHoldersController@returnPass')->name('admin.blacklist-pass-holder.return');
+        Route::post('pass-holder/{id}/de-list', 'PassHolderCrudController@blacklist')->name('admin.pass-holder.blacklist');
+        Route::get('de-list-pass-holder/{id}/renew', 'BlacklistHoldersController@renew')->name('admin.blacklist-pass-holder.renew');
+        Route::post('de-list-pass-holder/renew', 'BlacklistHoldersController@updateExpiry')->name('admin.blacklist-pass-holder.updateExpiry');
+        Route::post('de-list-pass-holder/{id}/return', 'BlacklistHoldersController@returnPass')->name('admin.blacklist-pass-holder.return');
     });
 
     //Revisions
