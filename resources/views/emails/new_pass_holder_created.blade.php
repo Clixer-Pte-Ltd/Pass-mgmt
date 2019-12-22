@@ -1,6 +1,6 @@
-<p>Dear Airport Pass Coordinator/Authorized Signatory,</p>
+<p>Dear Airport Pass Coordinator/Authorized Staff,</p>
 
-<div>A new pass holder has been created.</div>
+<div>A new pass holder has been successfully created.</div>
 <br>
 <table style="font-family: arial, sans-serif; border-collapse: collapse; width: 100%; ">
     <tr style="background: #1975dc; color: #ffffff">

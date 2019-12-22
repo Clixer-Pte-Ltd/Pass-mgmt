@@ -41,7 +41,7 @@ class PassHolderExpireChecking extends Command
      */
     public function handle()
     {
-        //$this->handlePassHolderExpireSoon();
+        $this->handlePassHolderExpireSoon();
         $this->handlePassExpired();
     }
 
@@ -76,12 +76,16 @@ class PassHolderExpireChecking extends Command
         $pass_expired_query = $this->getPassHolderExpired();
         $pass_expired = $pass_expired_query->get();
         $pass_expired_query->update(['status' => PASS_STATUS_BLACKLISTED]);
-        event(new PassHolderExpired($pass_expired));
+        if ($pass_expired->count()) {
+            event(new PassHolderExpired($pass_expired));
+        }
     }
 
     private function handlePassHolderExpireSoon()
     {
         $pass_expire_soon = $this->getPassHolderExpireSoon();
-        event(new PassHolderExpireSoon($pass_expire_soon));
+        if ($pass_expire_soon->count()) {
+            event(new PassHolderExpireSoon($pass_expire_soon));
+        }
     }
 }

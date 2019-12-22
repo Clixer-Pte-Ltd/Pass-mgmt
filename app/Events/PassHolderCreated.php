@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -18,7 +19,8 @@ class PassHolderCreated implements ShouldQueue
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param $model
+     * @param $zones
      */
     public function __construct($model, $zones)
     {
@@ -30,7 +32,7 @@ class PassHolderCreated implements ShouldQueue
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return \Illuminate\Broadcasting\Channel|array
+     * @return Channel|array
      */
     public function broadcastOn()
     {

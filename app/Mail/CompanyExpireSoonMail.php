@@ -11,16 +11,18 @@ class CompanyExpireSoonMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $company;
+    public $companies;
     public $account;
+
     /**
      * Create a new message instance.
      *
-     * @return void
+     * @param $account
+     * @param $companies
      */
-    public function __construct($company, $account)
+    public function __construct($account, $companies)
     {
-        $this->company = $company;
+        $this->companies = $companies;
         $this->account = $account;
     }
 
@@ -30,15 +32,13 @@ class CompanyExpireSoonMail extends Mailable
      */
     public function build()
     {
-        $dayRest = Carbon::now()
-            ->diffInDays(Carbon::parse($this->company->tenancy_end_date));
         $emailViewRender = view('emails.expire_soon_company',
             [
-                'company' => $this->company,
+                'companies' => $this->companies,
                 'account' => $this->account,
-                'dayRest' => $dayRest
             ])->render();
         app('logService')->logAction($this->account, null, $emailViewRender, 'Send Mail Company Expire Soon');
-        return $this->view('emails.expire_soon_company', ['dayRest' => $dayRest]);
+        return $this->view('emails.expire_soon_company')
+            ->subject('CAG Airport Pass Tracking Portal (APTP) : Tenancy contract expiring in 4 weeks\' time');
     }
 }

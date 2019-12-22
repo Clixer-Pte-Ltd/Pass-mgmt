@@ -14,7 +14,7 @@ class PassHolderCreatedListener extends BaseListener
      */
     public function __construct()
     {
-        
+
     }
 
     /**
@@ -31,7 +31,7 @@ class PassHolderCreatedListener extends BaseListener
             $mailService = new MailService('CreatePassHolderSuccessMail', null);
 
             //send company admin
-            $admins = $accountService->getCompanyAccountRelatedToPassHolder($passholder, $roles = [COMPANY_CO_ROLE, COMPANY_AS_ROLE]);
+            $admins = $accountService->getCompanyAccountRelatedToPassHolder($passholder, [COMPANY_CO_ROLE, COMPANY_AS_ROLE]);
             $mailService->sendMailToMutilAccounts(null, $passholder, null, $admins);
         }
 //        $this->handlePassHolder($event->model, 'CreatePassHolderSuccessMail');

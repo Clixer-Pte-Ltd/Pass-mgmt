@@ -37,6 +37,7 @@ class CreatePassHolderSuccessMail extends Mailable
             ])->render();
 
         app('logService')->logAction($this->account, null, $emailViewRender, 'Create Pass Holder Success Mail');
-        return $this->view('emails.new_pass_holder_created');
+        return $this->view('emails.new_pass_holder_created')
+            ->subject('CAG Airport Pass Tracking Portal (APTP) : Pass holder has been created successfully');
     }
 }

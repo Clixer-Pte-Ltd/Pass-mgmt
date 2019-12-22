@@ -10,16 +10,18 @@ class CompanyExpiredMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $company;
+    public $companies;
     public $account;
+
     /**
      * Create a new message instance.
      *
-     * @return void
+     * @param $companies
+     * @param $account
      */
-    public function __construct($company, $account)
+    public function __construct($account, $companies)
     {
-        $this->company = $company;
+        $this->companies = $companies;
         $this->account = $account;
     }
 
@@ -32,9 +34,9 @@ class CompanyExpiredMail extends Mailable
         $emailViewRender = view('emails.expired_company',
             [
                 'account' => $this->account,
-                'company' => $this->company
+                'companies' => $this->companies
             ])->render();
         app('logService')->logAction($this->account, null, $emailViewRender, 'Send Mail Company Expired Mail');
-        return $this->view('emails.expired_company');
+        return $this->view('emails.expired_company')->subject('CAG Airport Pass Tracking Portal (APTP) : Tenancy contract expired');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Events\PassHolderCreated;
+use App\Http\Requests\StorePassHolderRequest as StoreRequest;
 use App\Jobs\RunImport;
 use App\Models\PassHolder;
 use Backpack\CRUD\CrudPanel;
@@ -116,5 +117,12 @@ class PassHolderCrudController extends BasePassHolderCrudController
         $entry->save();
         \Alert::info('De-List done.')->flash();
         return redirect()->back();
+    }
+
+    public function store(StoreRequest $request)
+    {
+        $response = parent::store($request);
+        event(new PassHolderCreated($this->crud->entry, []));
+        return $response;
     }
 }

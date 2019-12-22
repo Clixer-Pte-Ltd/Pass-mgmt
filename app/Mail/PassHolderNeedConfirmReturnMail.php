@@ -41,6 +41,7 @@ class PassHolderNeedConfirmReturnMail extends Mailable
             $link = route('crud.pass-holder.show',['id' => urlencode($this->passHolder->id)]);
         }
         app('logService')->logAction($this->account, null, $this->passHolder->toArray(), 'Pass Holder Need Confirm Return Mail');
-        return $this->view('emails.confirm_return_pass_holder', ['link' => $link]);
+        return $this->view('emails.confirm_return_pass_holder', ['link' => $link])
+            ->subject('CAG Airport Pass Tracking Portal (APTP) : Pass Returned');
     }
 }

@@ -35,6 +35,7 @@ class PassHolderRenewMail extends Mailable
                 'passHolder' => $this->passHolder
             ])->render();
         app('logService')->logAction($this->account, null, $emailViewRender, 'Pass Holder Renew Mail');
-        return $this->view('emails.renew_pass_holder');
+        return $this->view('emails.renew_pass_holder')
+            ->subject('CAG Airport Pass Tracking Portal (APTP) : Pass/Passes Renewed');
     }
 }

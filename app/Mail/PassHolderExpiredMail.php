@@ -35,6 +35,7 @@ class PassHolderExpiredMail extends Mailable
                 'passHolders' => $this->passHolders
             ])->render();
         app('logService')->logAction($this->account, null, $emailViewRender, 'Pass Holder Expired Mail');
-        return $this->view('emails.expired_pass_holder');
+        return $this->view('emails.expired_pass_holder')
+            ->subject('CAG Airport Pass Tracking Portal (APTP) :  Pass/Passes Expired');
     }
 }
