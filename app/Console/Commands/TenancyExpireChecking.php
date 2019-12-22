@@ -63,7 +63,9 @@ class TenancyExpireChecking extends Command
         $companies->each(function($company, $key) {
             $company->passHolders()->update(['status' => PASS_STATUS_BLACKLISTED]);
         });
-        event(new CompanyExpired($companies));
+        if ($companies->count()) {
+            event(new CompanyExpired($companies));
+        }
     }
 
     private function checkingTenants()
@@ -83,7 +85,7 @@ class TenancyExpireChecking extends Command
         $query = $companyType->orWhere(function ($query) {
             $query->where('tenancy_end_date', '<=', Carbon::now()->addWeeks(4))
                 ->where('tenancy_end_date', '>', Carbon::now()->addWeeks(4)->subDay());
-        })
+            })
             ->orWhere(function ($query) {
                 $query->where('tenancy_end_date', '<=', Carbon::now()->addWeeks(3))
                     ->where('tenancy_end_date', '>', Carbon::now()->addWeeks(3)->subDay());
@@ -98,6 +100,8 @@ class TenancyExpireChecking extends Command
             });
 
         $companies = $query->get();
-        event(new CompanyExpireSoon($companies));
+        if ($companies->count()) {
+            event(new CompanyExpireSoon($companies));
+        }
     }
 }

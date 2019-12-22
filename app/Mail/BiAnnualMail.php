@@ -37,6 +37,7 @@ class BiAnnualMail extends Mailable
             ])->render();
 
         app('logService')->logAction($this->account, null, $emailViewRender, 'Send Mail Bi Annual Mail');
-        return $this->view('emails.bi_annual_mail');
+        return $this->view('emails.bi_annual_mail')
+            ->subject('CAG Airport Pass Tracking Portal (APTP) : Announcement');
     }
 }

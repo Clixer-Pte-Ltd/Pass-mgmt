@@ -1,7 +1,7 @@
-<p>Dear Airport Pass Coordinator/Authorized Signatory</p>
+<p>Dear CAG Admin,</p>
 
 
-<div>Need your confirmation on the below passholder pass:has </div>
+<div>Seek your confirmation on the return of the airport pass below: </div>
 <ul>
     @if (@$isListPass)
         <li>

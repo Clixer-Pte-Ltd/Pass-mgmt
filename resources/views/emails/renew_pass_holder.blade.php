@@ -1,6 +1,6 @@
-<p>Dear Airport Pass Coordinator/Authorized Signatory,</p>
+<p>Dear Airport Pass Coordinator/Authorized Staff,</p>
 
-<div>Pass(es) has/have been returned.</div>
+<div>The is the list of airport pass/passes that has/have been renewed.</div>
 <br>
 <table style="font-family: arial, sans-serif; border-collapse: collapse; width: 100%; ">
     <tr style="background: #1975dc; color: #ffffff">

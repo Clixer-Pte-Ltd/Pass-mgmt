@@ -1,6 +1,6 @@
-<p>Dear Airport Pass Coordinator/Authorized Signatory,</p>
+<p>Dear Airport Pass Coordinator/Authorized Staff,</p>
 
-<div>Please note that the following Seasonal Airport Pass sponsored by your company will be expiring in 4 weeks' time.</div>
+<div>Please note that the following airport pass/passes sponsored by your company will be expiring in 4 weeks' time.</div>
 <br>
 <table style="font-family: arial, sans-serif; border-collapse: collapse; width: 100%; ">
     <tr style="background: #1975dc; color: #ffffff">

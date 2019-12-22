@@ -29,7 +29,7 @@ class MailWasSentBiAnnualNotification
     public function handle(MailWasSentBiAnnual $event)
     {
         $accountService = new AccountService();
-        $admins = $accountService->allCompanyAccountHasRoles(true, false, [COMPANY_CO_ROLE]);
+        $admins = $accountService->allCompanyAccountHasRoles(true, false, [COMPANY_CO_ROLE, COMPANY_AS_ROLE]);
 
         $mailService = new MailService('BiAnnualMail', $admins);
         $mailService->sendMailToMutilAccounts();

@@ -1,6 +1,6 @@
-<p>Dear Airport Pass Coordinator/Authorized Signatory,</p>
+<p>Dear Airport Pass Coordinator/Authorized Staff,</p>
 
-<div>This is the list of pass holder(s) that has/have expired.</div>
+<div>Please note that the following airport pass/passes sponsored by your company has/have expired.</div>
 <br>
 <table style="font-family: arial, sans-serif; border-collapse: collapse; width: 100%; ">
     <tr style="background: #1975dc; color: #ffffff">
