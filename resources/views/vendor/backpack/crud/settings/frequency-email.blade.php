@@ -34,7 +34,7 @@
                     <li class="active"><a data-toggle="tab" href="#expiring-pass-holder-alert">Expiring Pass Holder Alert</a></li>
                     <li><a data-toggle="tab" href="#delist-pass-alert">De-Listed Pass Alert</a>
                     <li><a data-toggle="tab" href="#renew-pass-alert ">Renew Pass Alert </a></li>
-                    <li><a data-toggle="tab" href="#terminated-pass-alert">Terminated Pass Alert</a></li>
+{{--                    <li><a data-toggle="tab" href="#terminated-pass-alert">Terminated Pass Alert</a></li>--}}
                 </ul>
                 <div class="tab-content">
                     <div id="expiring-pass-holder-alert" class="tab-pane fade in active">
@@ -54,12 +54,12 @@
                             'value' =>  getSettingValueByKey(FREQUENCY_RENEWED_PASS_EMAIL)])
                         ])
                     </div><!-- /.box -->
-                    <div id="terminated-pass-alert" class="tab-pane fade">
-                        @include('vendor.backpack.crud.settings.cron_setting_form', ['route' => route('admin.setting.frequency-email.terminated-pass-alert'),
-                            'type' => 'terminated-pass-alert',
-                            'value' =>  getSettingValueByKey(FREQUENCY_TERMINATED_PASS_EMAIL)])
-                        ])
-                    </div><!-- /.box -->
+{{--                    <div id="terminated-pass-alert" class="tab-pane fade">--}}
+{{--                        @include('vendor.backpack.crud.settings.cron_setting_form', ['route' => route('admin.setting.frequency-email.terminated-pass-alert'),--}}
+{{--                            'type' => 'terminated-pass-alert',--}}
+{{--                            'value' =>  getSettingValueByKey(FREQUENCY_TERMINATED_PASS_EMAIL)])--}}
+{{--                        ])--}}
+{{--                    </div><!-- /.box -->--}}
                 </div>
             </div>
         </div>
