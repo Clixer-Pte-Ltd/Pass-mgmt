@@ -1,6 +1,16 @@
 @extends('backpack::layout_guest')
 
 @section('content')
+    <div id='note_login' >
+        <i class="fa fa-warning" style=""></i>
+        <h3 style="width: 100%; text-align: center">
+            <b>Dear CO and AS</b></h3>
+        <b>
+            Our Application Pass Tracking Portal are having maintenance on 27th December 2019, 8.30AM to 11AM. <br> Within these period of time, portal will not be accessible.<br>
+
+            Apologize for the inconveniences and thank you for your understanding.
+        </b>
+    </div>
     <div class="login_content">
         <div class="row m-t-40">
             <div class="col-md-6 col-md-offset-3">
