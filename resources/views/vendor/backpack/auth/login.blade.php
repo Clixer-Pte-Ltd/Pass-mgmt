@@ -1,8 +1,23 @@
 @extends('backpack::layout_guest')
 
 @section('content')
-    <div id='note_login' >
-        <i class="fa fa-warning" style=""></i>
+    <div id='note_login'
+         style="
+            position: relative;
+            left: 25%;
+            color: #fff;
+            background: rgba(255, 0, 0, 0.99);
+            width: 50%;
+            padding: 5px;
+            border-radius: 5px;
+    ">
+        <i class="fa fa-warning"
+           style="
+            font-size:48px;
+            color:#ffffff; position: absolute;
+            top: 3px;
+            left: 3px">
+        </i>
         <h3 style="width: 100%; text-align: center">
             <b>Dear CO and AS</b></h3>
         <b>
