@@ -38,20 +38,22 @@
                 </ul>
                 <div class="tab-content">
                     <div id="expiring-pass-holder-alert" class="tab-pane fade in active">
-                        @include('vendor.backpack.crud.settings.cron_setting_form', ['route' => route('admin.setting.frequency-email.expiring-pass-holder-alert'),
+                        @include('vendor.backpack.crud.settings.cron_setting_form', [
+                            'route' => route('admin.setting.frequency-email.expiring-pass-holder-alert'),
                             'type' => 'expiring-pass-holder-alert',
-                            'value' =>  getSettingValueByKey(FREQUENCY_EXPIRING_PASS_EMAIL)])
+                            'value' =>  getSettingValueByKey(FREQUENCY_EXPIRING_PASS_EMAIL)
+                            ])
                     </div><!-- /.box -->
                     <div id="delist-pass-alert" class="tab-pane fade">
                         @include('vendor.backpack.crud.settings.cron_setting_form', ['route' => route('admin.setting.frequency-email.expiring-pass-holder-alert'),
                             'type' => 'blacklisted-pass-alert',
-                            'value' =>  getSettingValueByKey(FREQUENCY_BLACKLISTED_PASS_EMAIL)])
+                            'value' =>  getSettingValueByKey(FREQUENCY_BLACKLISTED_PASS_EMAIL)
                         ])
                     </div><!-- /.box -->
                     <div id="renew-pass-alert" class="tab-pane fade">
                         @include('vendor.backpack.crud.settings.cron_setting_form', ['route' => route('admin.setting.frequency-email.renew-pass-holder-alert'),
                             'type' => 'renew-pass-alert',
-                            'value' =>  getSettingValueByKey(FREQUENCY_RENEWED_PASS_EMAIL)])
+                            'value' =>  getSettingValueByKey(FREQUENCY_RENEWED_PASS_EMAIL)
                         ])
                     </div><!-- /.box -->
 {{--                    <div id="terminated-pass-alert" class="tab-pane fade">--}}
@@ -171,7 +173,7 @@
 
             $(document).on('change', '.input-day-of-week-picker', function (event) {
                 var daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-                $('#time-value-dayOfWeek').text(daysOfWeek[$(this).val()])
+                $('#time-value-dayOfWeek').text(daysOfWeek[$(this).val()]);
                 $("select[name='day-of-week']").val($(this).val());
             })
 
