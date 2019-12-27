@@ -1,13 +1,13 @@
 <form method="post" action="{{ $route }}">
     @csrf
-    <input type="hidden" value="every-minutes" name="type-cron">
+    <input type="hidden" name="type-cron">
     <div class="row display-flex-wrap">
         <div class="box col-md-12 padding-10 p-t-20">
             <div class="form-group col-xs-12 required" id="time-show-box">
                 <p><b>Current Frequency:  &nbsp;&nbsp;&nbsp;</b><span style="color: #189eff" class="old_value" value="{{ $value }}"></span></p>
                 <label>Frequency Send Email : </label>
                 &emsp;
-                <span style="color: red" id="time-lable">Every Minutes&emsp;</span>
+                <span style="color: red" id="time-lable">Daily At: </span>
                 &emsp;
                 <span style="color: red" id="time-value-dayOfWeek" class="time-lable-span">&emsp;</span>
                 &emsp;
@@ -19,12 +19,12 @@
                 {{--<input type="text" name="frequency-email-expiring-pass-holder-alert"--}}
                 {{--value="{{ old('frequency-email-expiring-pass-holder-alert') ?: getSettingValueByKey(FREQUENCY_EXPIRING_PASS_EMAIL) }}"--}}
                 {{--class="form-control">--}}
-                <div class="col-md-12">
-                    <button class="button-time-picker btn btn-danger" type="button" id="every-minutes-btn">Every Minutes</button>
-                    <div class="cron-setting">
-                        <input type="hidden" value="1" name="every-minutes">
-                    </div>
-                </div>
+{{--                <div class="col-md-12">--}}
+{{--                    <button class="button-time-picker btn btn-danger" type="button" id="every-minutes-btn">Every Minutes</button>--}}
+{{--                    <div class="cron-setting">--}}
+{{--                        <input type="hidden" value="1" name="every-minutes">--}}
+{{--                    </div>--}}
+{{--                </div>--}}
                 <div class="col-md-12">
                     <div class="time-picker-box">
                         <div class="time-picker">
