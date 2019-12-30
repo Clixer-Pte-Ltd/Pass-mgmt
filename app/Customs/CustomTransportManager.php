@@ -23,7 +23,7 @@ class CustomTransportManager extends TransportManager
             'host' => getSettingValueByKey(SMTP_HOST),
             'port' => getSettingValueByKey(SMTP_PORT),
             'from' => [
-                'address' => 'cag@example.com',
+                'address' => getSettingValueByKey(SMTP_USERNAME),
                 'name' => 'CAG Pass Management Notification'
             ],
             'encryption' => getSettingValueByKey(SMTP_ENCRYPTION),
