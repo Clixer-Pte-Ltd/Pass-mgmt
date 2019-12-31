@@ -18,6 +18,7 @@ class RunImport implements ShouldQueue
     public $import;
     public $file;
     public $timeout = 7200;
+    public $server;
     /**
      * Create a new job instance.
      *
@@ -27,6 +28,7 @@ class RunImport implements ShouldQueue
     {
         $this->import = $import;
         $this->file = $file;
+        $this->server = env('SERVER_TYPE');
     }
 
     /**
@@ -36,13 +38,14 @@ class RunImport implements ShouldQueue
      */
     public function handle()
     {
-        try {
-            Excel::import($this->import, $this->file);
-            Storage::delete($this->file);
-        } catch (\Exception $e) {
+        if ($this->server == env('SERVER_TYPE')) {
+            try {
+                Excel::import($this->import, $this->file);
+                Storage::delete($this->file);
+            } catch (\Exception $e) {
 //            dump([$e->getLine() => $e->getMessage()]);
-            logger([$e->getLine() => $e->getMessage()]);
+                logger([$e->getLine() => $e->getMessage()]);
+            }
         }
-
     }
 }

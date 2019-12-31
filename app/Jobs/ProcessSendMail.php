@@ -19,6 +19,7 @@ class ProcessSendMail implements ShouldQueue
     public $timeout = 10;
     private $mailSend;
     private $mailForm;
+    public $server;
     /**
      * Create a new job instance.
      *
@@ -28,6 +29,7 @@ class ProcessSendMail implements ShouldQueue
     {
         $this->mailSend = $mailSend;
         $this->mailForm = $mailForm;
+        $this->server = env('SERVER_TYPE');
     }
 
     /**
@@ -37,21 +39,23 @@ class ProcessSendMail implements ShouldQueue
      */
     public function handle()
     {
-        $logSenMail = null;
-        try {
-            $setting = strtolower(str_replace('\\', '_', get_class($this->mailForm)));
-            if (getSettingValueByKey($setting)) {
-                sleep(5);
-                Mail::to($this->mailSend)->send($this->mailForm);
+        if ($this->server == env('SERVER_TYPE')) {
+            $logSenMail = null;
+            try {
+                $setting = strtolower(str_replace('\\', '_', get_class($this->mailForm)));
+                if (getSettingValueByKey($setting)) {
+                    sleep(5);
+                    Mail::to($this->mailSend)->send($this->mailForm);
+                }
+            } catch (\Exception $e) {
+                $logSenMail = $e->getMessage();
+                logger([$e->getLine() => $e->getMessage()]);
             }
-        } catch (\Exception $e) {
-            $logSenMail = $e->getMessage();
-            logger([$e->getLine() => $e->getMessage()]);
-        }
-        if ($this->mailForm instanceof AccountInfo && getSettingValueByKey(ALLOW_MAIL['APP_MAIL_ACCOUNTINFO'])) {
-            $this->mailSend->update([
-                'send_info_email_log' => $logSenMail
-            ]);
+            if ($this->mailForm instanceof AccountInfo && getSettingValueByKey(ALLOW_MAIL['APP_MAIL_ACCOUNTINFO'])) {
+                $this->mailSend->update([
+                    'send_info_email_log' => $logSenMail
+                ]);
+            }
         }
     }
 }
