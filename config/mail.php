@@ -56,7 +56,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'aptp@pass-mgmt.changiairport.com'),
-        'name' => env('MAIL_FROM_NAME', 'CAG Pass Management Notification'),
+        'name' => env('MAIL_FROM_NAME', 'CAG Pass Tracking Portal Notification'),
     ],
 
     /*
@@ -70,7 +70,7 @@ return [
     |
     */
 
-    'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+    'encryption' => env('MAIL_ENCRYPTION', 'ssl'),
 
     /*
     |--------------------------------------------------------------------------
