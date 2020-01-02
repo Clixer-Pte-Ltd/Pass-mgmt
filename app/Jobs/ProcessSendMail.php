@@ -45,6 +45,7 @@ class ProcessSendMail implements ShouldQueue
             try {
                 $setting = strtolower(str_replace('\\', '_', get_class($this->mailForm)));
                 if (getSettingValueByKey($setting)) {
+                    sleep(5);
                     Mail::to($this->mailSend)->send($this->mailForm);
                 }
             } catch (\Exception $e) {
