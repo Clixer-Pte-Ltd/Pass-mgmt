@@ -79,7 +79,6 @@ class TenantAccountsImport implements ToCollection, WithHeadingRow, WithChunkRea
                     'password' => $password,
                     'google2fa_secret' => $google2fa_secret,
                 ];
-
                 $this->customValidate();
                 if (count($this->currentErrors)) {
                     throw new \Exception('');
@@ -87,15 +86,15 @@ class TenantAccountsImport implements ToCollection, WithHeadingRow, WithChunkRea
                 $this->currentData['tenant_id'] = $this->currentData['tenant']->id;
                 $this->currentData['is_imported'] = true;
                 $this->currentData['first_password'] = $password;
-                $role = $this->getRole($this->currentData['role']);
+
                 unset($this->currentData['role']);
                 unset($this->currentData['company_code']);
                 unset($this->currentData['tenant']);
 
                 $this->user = BackpackUser::create($this->currentData)->refresh();
-                if ($role) $this->user->assignRole($role);
-                dump($this->row);
-                //Mail::to($this->user)->send(new AccountInfo($this->user));
+                $this->user->assignRole($row['role']);
+
+//                Mail::to($this->user)->send(new AccountInfo($this->user));
                 event(new AccountImported($this->user));
             } catch (\Exception $ex) {
                 if ($this->user && $ex instanceof \Swift_TransportException) {
