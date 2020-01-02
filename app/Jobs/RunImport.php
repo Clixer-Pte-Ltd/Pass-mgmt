@@ -43,7 +43,6 @@ class RunImport implements ShouldQueue
                 Excel::import($this->import, $this->file);
                 Storage::delete($this->file);
             } catch (\Exception $e) {
-//            dump([$e->getLine() => $e->getMessage()]);
                 logger([$e->getLine() => $e->getMessage()]);
             }
         }

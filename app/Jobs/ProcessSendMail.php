@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Mail\AccountInfo;
 use App\Mail\WelcomeMail;
+use App\Models\BackpackUser;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -51,8 +52,9 @@ class ProcessSendMail implements ShouldQueue
                 $logSenMail = $e->getMessage();
                 logger([$e->getLine() => $e->getMessage()]);
             }
-            if ($this->mailForm instanceof AccountInfo && getSettingValueByKey(ALLOW_MAIL['APP_MAIL_ACCOUNTINFO'])) {
-                $this->mailSend->update([
+            $user = BackpackUser::where('email', $this->mailSend)->first();
+            if ($user && $this->mailForm instanceof AccountInfo && getSettingValueByKey(ALLOW_MAIL['APP_MAIL_ACCOUNTINFO'])) {
+                $user->update([
                     'send_info_email_log' => $logSenMail
                 ]);
             }
