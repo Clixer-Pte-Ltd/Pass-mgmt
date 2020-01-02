@@ -94,7 +94,7 @@ class TenantAccountsImport implements ToCollection, WithHeadingRow, WithChunkRea
                 $this->user = BackpackUser::create($this->currentData)->refresh();
                 $this->user->assignRole($row['role']);
 
-//                Mail::to($this->user)->send(new AccountInfo($this->user));
+                Mail::to($this->user)->send(new AccountInfo($this->user));
                 event(new AccountImported($this->user));
             } catch (\Exception $ex) {
                 if ($this->user && $ex instanceof \Swift_TransportException) {
