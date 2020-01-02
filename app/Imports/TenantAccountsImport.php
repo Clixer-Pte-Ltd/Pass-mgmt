@@ -98,12 +98,11 @@ class TenantAccountsImport implements ToCollection, WithHeadingRow, WithChunkRea
                 //Mail::to($this->user)->send(new AccountInfo($this->user));
                 event(new AccountImported($this->user));
             } catch (\Exception $ex) {
-                if ($ex instanceof \Swift_TransportException) {
+                if ($this->user && $ex instanceof \Swift_TransportException) {
                     $this->user->update([
                         'send_info_email_log' => $ex->getMessage()
                     ]);
                 }
-                dump($ex->getMessage());
                 $this->currentErrors[] = $ex->getMessage();
                 $this->dataRow[] = implode('; ', $this->currentErrors);
                 $this->errors[] = $this->dataRow;
