@@ -29,7 +29,7 @@ class AccountInfoNotification
     {
 
         $account = $event->model;
-        dispatch(new ProcessSendMail($account, new AccountInfo($account), env('SERVER_TYPE')));
+        dispatch(new ProcessSendMail($account, new AccountInfo($account)));
 //        Mail::to($account)->send(new AccountInfo($account));
     }
 }

@@ -25,13 +25,12 @@ class RunImport implements ShouldQueue
      *
      * @param $import
      * @param $file
-     * @param $server
      */
-    public function __construct($import, $file, $server)
+    public function __construct($import, $file)
     {
         $this->import = $import;
         $this->file = $file;
-        $this->server = $server;
+        $this->server = config('app.server_type');
     }
 
     /**
@@ -41,7 +40,7 @@ class RunImport implements ShouldQueue
      */
     public function handle()
     {
-        if ($this->server == env('SERVER_TYPE')) {
+        if ($this->server == config('app.server_type')) {
             try {
                 Excel::import($this->import, $this->file);
                 Storage::delete($this->file);

@@ -262,7 +262,7 @@ class UserCrudController extends BaseUserCrudController
         $entries = $this->request->entries;
         $accounts = BackpackUser::whereIn('id', $entries)->get();
         foreach ($accounts as $account) {
-            dispatch(new ProcessSendMail($account, new AccountInfo($account), env('SERVER_TYPE')));
+            dispatch(new ProcessSendMail($account, new AccountInfo($account)));
         }
     }
 }

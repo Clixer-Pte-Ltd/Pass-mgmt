@@ -27,13 +27,12 @@ class ProcessSendMail implements ShouldQueue
      *
      * @param $mailSend
      * @param $mailForm
-     * @param $server
      */
-    public function __construct($mailSend, $mailForm, $server)
+    public function __construct($mailSend, $mailForm)
     {
         $this->mailSend = $mailSend;
         $this->mailForm = $mailForm;
-        $this->server = $server;
+        $this->server = config('app.server_type');
     }
 
     /**
@@ -43,7 +42,7 @@ class ProcessSendMail implements ShouldQueue
      */
     public function handle()
     {
-        if ($this->server == env('SERVER_TYPE')) {
+        if ($this->server == config('app.server_type')) {
             $logSenMail = null;
             try {
                 $setting = strtolower(str_replace('\\', '_', get_class($this->mailForm)));
