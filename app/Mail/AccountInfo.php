@@ -36,6 +36,11 @@ class AccountInfo extends Mailable
             $this->account->email,
             $this->account->google2fa_secret
         );
+
+        $image = \Image::make($qrCode)->encode('jpg', 90);
+        $filename = strtotime('now') . '.jpg';
+        \Storage::disk('local')->put("images/{$filename}",  $image->stream());
+
         $emailViewRender = view('emails.account_info',
             [
                 'account' => $this->account,
