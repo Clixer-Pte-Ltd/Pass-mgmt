@@ -42,6 +42,7 @@ class ProcessSendMail implements ShouldQueue
      */
     public function handle()
     {
+        sleep(5);
         if ($this->server == config('app.server_type')) {
             $logSenMail = null;
             try {
