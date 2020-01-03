@@ -21,16 +21,19 @@ class ProcessSendMail implements ShouldQueue
     private $mailSend;
     private $mailForm;
     public $server;
+
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param $mailSend
+     * @param $mailForm
+     * @param $server
      */
-    public function __construct($mailSend, $mailForm)
+    public function __construct($mailSend, $mailForm, $server)
     {
         $this->mailSend = $mailSend;
         $this->mailForm = $mailForm;
-        $this->server = env('SERVER_TYPE');
+        $this->server = $server;
     }
 
     /**

@@ -19,16 +19,19 @@ class RunImport implements ShouldQueue
     public $file;
     public $timeout = 7200;
     public $server;
+
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param $import
+     * @param $file
+     * @param $server
      */
-    public function __construct($import, $file)
+    public function __construct($import, $file, $server)
     {
         $this->import = $import;
         $this->file = $file;
-        $this->server = env('SERVER_TYPE');
+        $this->server = $server;
     }
 
     /**
