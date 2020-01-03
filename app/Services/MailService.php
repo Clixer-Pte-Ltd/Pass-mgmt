@@ -27,7 +27,7 @@ class MailService
         foreach ($passHolders as $passHolder) {
             $accounts = $accountService->getAllAccountRelatedToPassHolder($passHolder);
             $accounts->map(function($account, $index) use ($passHolder, $extraData) {
-                ProcessSendMail::dispatch($account->email, new $this->mailForm($passHolder, $account, $extraData));
+                ProcessSendMail::dispatch($account->email, new $this->mailForm($passHolder, $account, $extraData), env('SERVER_TYPE'));
             });
         }
 	}
@@ -42,7 +42,7 @@ class MailService
             $this->accounts->map(function($account, $index) use ($company, $content){
                 if ($company->hasAccount($account) || !$account->hasCompany())
                 {
-                    ProcessSendMail::dispatch($account->email, new $this->mailForm($company, $account, $content));
+                    ProcessSendMail::dispatch($account->email, new $this->mailForm($company, $account, $content), env('SERVER_TYPE'));
                 }
             });
         }
@@ -51,7 +51,7 @@ class MailService
     public function sendMailToAccount($account = null, $content = null)
     {
         if (!is_null($account)) {
-            ProcessSendMail::dispatch($account->email, new $this->mailForm($account, $content));
+            ProcessSendMail::dispatch($account->email, new $this->mailForm($account, $content), env('SERVER_TYPE'));
         }
     }
 
@@ -59,7 +59,7 @@ class MailService
     {
         $accounts = is_null($accountsParam) ? $this->accounts : $accountsParam;
         foreach ($accounts as $account) {
-            ProcessSendMail::dispatch($account->email, new $this->mailForm ($objectContent, $account, $extraData, $content));
+            ProcessSendMail::dispatch($account->email, new $this->mailForm ($objectContent, $account, $extraData, $content), env('SERVER_TYPE'));
         }
     }
 

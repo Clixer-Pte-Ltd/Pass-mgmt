@@ -97,7 +97,11 @@ class PassHolderCrudController extends BasePassHolderCrudController
         $import->nameFile = $request->file('import_file')->getClientOriginalName();
         $import->time = Carbon::now();
         $request->file('import_file')->storeAs('public', $request->file('import_file')->getClientOriginalName());
-        dispatch(new RunImport($import, 'public\\'.$request->file('import_file')->getClientOriginalName()));
+        dispatch(new RunImport(
+            $import,
+            'public\\'.$request->file('import_file')->getClientOriginalName(),
+            env('SERVER_TYPE')
+        ));
 
         \Alert::success('Importing..., reload browser to view new record.')->flash();
         return redirect()->route('crud.pass-holder.index');

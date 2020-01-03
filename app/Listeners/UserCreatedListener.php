@@ -28,6 +28,6 @@ class UserCreatedListener
     public function handle($event)
     {
         $user = $event->model;
-        ProcessSendMail::dispatch($user->email, new WelcomeMail($user));
+        ProcessSendMail::dispatch($user->email, new WelcomeMail($user), env('SERVER_TYPE'));
     }
 }
