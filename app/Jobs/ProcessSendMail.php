@@ -62,6 +62,7 @@ class ProcessSendMail implements ShouldQueue
                 ]);
             }
             updateSetting(ALLOW_RUN_JOB, 1);
+            break;
         }
     }
 }
