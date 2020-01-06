@@ -20,6 +20,7 @@ class SettingsTableSeeder extends Seeder
             ['key' => SMTP_USERNAME, 'value' => 'fff7ae77763fc6', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
             ['key' => SMTP_PASSWORD, 'value' => 'bce275caa272a8', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
             ['key' => SMTP_ENCRYPTION, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['key' => ALLOW_RUN_JOB, 'value' => '1', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
         ];
         foreach ($data as $item) {
             \DB::table('settings')->insert($item);

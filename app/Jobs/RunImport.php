@@ -40,14 +40,16 @@ class RunImport implements ShouldQueue
      */
     public function handle()
     {
-        //sleep(5);
-        //if ($this->server == config('app.server_type')) {
+        sleep(5);
+        while ($this->server == config('app.server_type') && getSettingValueByKey(ALLOW_RUN_JOB) == 1) {
+            updateSetting(ALLOW_RUN_JOB, 0);
             try {
                 Excel::import($this->import, $this->file);
                 Storage::delete($this->file);
             } catch (\Exception $e) {
                 logger([$e->getLine() => $e->getMessage()]);
             }
-        //}
+            updateSetting(ALLOW_RUN_JOB, 1);
+        }
     }
 }
