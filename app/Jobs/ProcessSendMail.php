@@ -46,7 +46,7 @@ class ProcessSendMail implements ShouldQueue
             updateSetting(ALLOW_RUN_JOB, 0);
             $logSenMail = null;
             try {
-                $setting = strtolower(str_replace('\\', '_', get_class($this->mailForm)));
+                $setting = getSettingMail(get_class($this->mailForm));
                 if (getSettingValueByKey($setting)) {
                     sleep(3);
                     Mail::to($this->mailSend)->send($this->mailForm);
