@@ -15,7 +15,14 @@
 @endsection
 
 @section('content')
-<!-- Default box -->
+    <div id="fade_overlay"></div>
+    <div class="progress_parent">
+        <label>Process: </label>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped" style="width:0%">0%</div>
+        </div>
+    </div>
+    <!-- Default box -->
   <div class="row">
 
     <!-- THE ACTUAL CONTENT -->
@@ -79,10 +86,10 @@
                                 <h4>Manage {{ $crud->entity_name_plural }}</h4>
                             </div>
                             <div class="col-xs-4 col-sm-5 col-md-5">
-                                <div id="datatable_search_stack" class="pull-right"></div>              
+                                <div id="datatable_search_stack" class="pull-right"></div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
                 <div class="panel-body">
@@ -157,6 +164,42 @@
   <link rel="stylesheet" href="{{ asset('vendor/backpack/crud/css/crud.css') }}">
   <link rel="stylesheet" href="{{ asset('vendor/backpack/crud/css/form.css') }}">
   <link rel="stylesheet" href="{{ asset('vendor/backpack/crud/css/list.css') }}">
+  <style>
+      #fade_overlay {
+          background-color: #666;
+          bottom: 0;
+          display: none;
+          left: 0;
+          min-height: 800px;
+          opacity: 0.5;
+          position: fixed !important;
+          right: 0;
+          top: 0;
+          z-index: 9998;
+      }
+
+      #fade_loading {
+          position: absolute;
+          top: 35%;
+          left: 46%;
+      }
+
+      .progress_parent{
+          top: 5%;
+          position: fixed;
+          left: 30%;
+          width: 50%;
+          margin: 0 auto;
+          height: 80px;
+          display: none;
+          padding: 10px;
+          background-color: #ffffff;
+          z-index: 9999;
+      }
+      .progress_parent label{
+          margin-bottom: 10px;
+      }
+  </style>
 
   <!-- CRUD LIST CONTENT - crud_list_styles stack -->
   @stack('crud_list_styles')
