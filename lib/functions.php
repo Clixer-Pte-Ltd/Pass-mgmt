@@ -119,3 +119,7 @@ function convertDateExcel($value, $format = DATE_FORMAT)
     }
     return $value;
 }
+function getSettingMail($mailClass)
+{
+    return strtolower(str_replace('\\', '_', $mailClass));
+}
