@@ -24,6 +24,8 @@
           $("#fade_overlay").hide();
           $(".progress_parent").fadeOut();
       }
+
+      let curPercent = 0;
       function setProcessBarPercent() {
           curPercent = getRndInteger(curPercent + 1, curPercent + 10);
           if (curPercent > 89) clearInterval(processExport);
