@@ -8,6 +8,9 @@
   <script src="//cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js" type="text/javascript"></script>
   <script src="//cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js" type="text/javascript"></script>
   <script>
+      function getRndInteger(min, max) {
+          return Math.floor(Math.random() * (max - min)) + min;
+      }
       //show image loading
       function showLoading(){
           let xPos = $(window).width() / 2;
