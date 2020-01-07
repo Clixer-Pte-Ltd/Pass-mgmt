@@ -8,6 +8,72 @@
   <script src="//cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js" type="text/javascript"></script>
   <script src="//cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js" type="text/javascript"></script>
   <script>
+      //show image loading
+      function showLoading(){
+          let xPos = $(window).width() / 2;
+          xPos -= 45;
+          $('#fade_loading').css('left', xPos + 'px');
+          $("#fade_overlay").show();
+          $(".progress_parent").fadeIn();
+      }
+      // hidden image loading
+      function hideLoading(){
+          $("#fade_overlay").hide();
+          $(".progress_parent").fadeOut();
+      }
+      function setProcessBarPercent() {
+          curPercent = getRndInteger(curPercent + 1, curPercent + 10);
+          if (curPercent > 89) clearInterval(processExport);
+          $(`.progress-bar`).css('width', `${curPercent}%`).text(`${curPercent}%`);
+      }
+
+      function newexportaction(e, dt, button, config) {
+          $(`.progress-bar`).css('width', `0%`).text(`0%`);
+          showLoading();
+          let processExport = setInterval(setProcessBarPercent, 3000);
+          var self = this;
+          var oldStart = dt.settings()[0]._iDisplayStart;
+          dt.one('preXhr', function (e, s, data) {
+              // Just this once, load all data from the server...
+              data.start = 0;
+              data.length = 2147483647;
+              dt.one('preDraw', function (e, settings) {
+                  // Call the original action function
+                  if (button[0].className.indexOf('buttons-copy') >= 0) {
+                      $.fn.dataTable.ext.buttons.copyHtml5.action.call(self, e, dt, button, config);
+                  } else if (button[0].className.indexOf('buttons-excel') >= 0) {
+                      $.fn.dataTable.ext.buttons.excelHtml5.available(dt, config) ?
+                          $.fn.dataTable.ext.buttons.excelHtml5.action.call(self, e, dt, button, config) :
+                          $.fn.dataTable.ext.buttons.excelFlash.action.call(self, e, dt, button, config);
+                  } else if (button[0].className.indexOf('buttons-csv') >= 0) {
+                      $.fn.dataTable.ext.buttons.csvHtml5.available(dt, config) ?
+                          $.fn.dataTable.ext.buttons.csvHtml5.action.call(self, e, dt, button, config) :
+                          $.fn.dataTable.ext.buttons.csvFlash.action.call(self, e, dt, button, config);
+                  } else if (button[0].className.indexOf('buttons-pdf') >= 0) {
+                      $.fn.dataTable.ext.buttons.pdfHtml5.available(dt, config) ?
+                          $.fn.dataTable.ext.buttons.pdfHtml5.action.call(self, e, dt, button, config) :
+                          $.fn.dataTable.ext.buttons.pdfFlash.action.call(self, e, dt, button, config);
+                  } else if (button[0].className.indexOf('buttons-print') >= 0) {
+                      $.fn.dataTable.ext.buttons.print.action(e, dt, button, config);
+                  }
+                  dt.one('preXhr', function (e, s, data) {
+                      // DataTables thinks the first item displayed is index 0, but we're not drawing that.
+                      // Set the property to what it was before exporting.
+                      settings._iDisplayStart = oldStart;
+                      data.start = oldStart;
+                  });
+                  // Reload the grid with the original page. Otherwise, API functions like table.cell(this) don't work properly.
+                  setTimeout(dt.ajax.reload, 0);
+                  clearInterval(processExport);
+                  hideLoading();
+                  // Prevent rendering of the full data to the DOM
+                  return false;
+              });
+          });
+          // Requery the server with the new one-time export settings
+          dt.ajax.reload();
+      };
+
     crud.dataTableConfiguration.buttons = [
         {
             extend: 'collection',
@@ -17,26 +83,21 @@
                     name: 'excelHtml5',
                     extend: 'excelHtml5',
                     exportOptions: {
-                       columns: [':visible:not(.not-export-col):not(.hidden):not([data-visible-in-export=false])'],
+                        columns: [':visible:not(.not-export-col):not(.hidden):not([data-visible-in-export=false])'],
                     },
-                    action: function(e, dt, button, config) {
-                        crud.responsiveToggle(dt);
-                        $.fn.DataTable.ext.buttons.excelHtml5.action.call(this, e, dt, button, config);
-                        crud.responsiveToggle(dt);
-                    }
+                    action: newexportaction
                 },
                 {
                     name: 'pdfHtml5',
                     extend: 'pdfHtml5',
                     exportOptions: {
-                       columns: [':visible:not(.not-export-col):not(.hidden):not([data-visible-in-export=false])'],
+                        columns: [':visible:not(.not-export-col):not(.hidden):not([data-visible-in-export=false])'],
+                        modifier : {
+                            page : 'all',
+                        }
                     },
                     orientation: 'landscape',
-                    action: function(e, dt, button, config) {
-                        crud.responsiveToggle(dt);
-                        $.fn.DataTable.ext.buttons.pdfHtml5.action.call(this, e, dt, button, config);
-                        crud.responsiveToggle(dt);
-                    }
+                    action: newexportaction
                 },
             ]
         },
