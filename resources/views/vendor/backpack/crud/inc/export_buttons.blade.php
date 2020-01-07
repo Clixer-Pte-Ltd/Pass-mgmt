@@ -67,6 +67,7 @@
                   });
                   // Reload the grid with the original page. Otherwise, API functions like table.cell(this) don't work properly.
                   setTimeout(dt.ajax.reload, 0);
+                  $(`.progress-bar`).css('width', `100%`).text(`100%`);
                   clearInterval(processExport);
                   hideLoading();
                   // Prevent rendering of the full data to the DOM
