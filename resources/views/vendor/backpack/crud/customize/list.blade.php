@@ -17,7 +17,7 @@
 @section('content')
     <div id="fade_overlay"></div>
     <div class="progress_parent">
-        <label>Process: </label>
+        <label>Processing: </label>
         <div class="progress">
             <div class="progress-bar progress-bar-striped" style="width:0%">0%</div>
         </div>

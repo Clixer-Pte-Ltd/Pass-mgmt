@@ -8,6 +8,9 @@
   <script src="//cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js" type="text/javascript"></script>
   <script src="//cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js" type="text/javascript"></script>
   <script>
+      function getRndInteger(min, max) {
+          return Math.floor(Math.random() * (max - min)) + min;
+      }
       //show image loading
       function showLoading(){
           let xPos = $(window).width() / 2;
@@ -64,6 +67,7 @@
                   });
                   // Reload the grid with the original page. Otherwise, API functions like table.cell(this) don't work properly.
                   setTimeout(dt.ajax.reload, 0);
+                  $(`.progress-bar`).css('width', `100%`).text(`100%`);
                   clearInterval(processExport);
                   hideLoading();
                   // Prevent rendering of the full data to the DOM
