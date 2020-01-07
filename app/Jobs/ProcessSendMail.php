@@ -42,13 +42,13 @@ class ProcessSendMail implements ShouldQueue
      */
     public function handle()
     {
-        sleep(5);
         while ($this->server == config('app.server_type') && getSettingValueByKey(ALLOW_RUN_JOB) == 1) {
             updateSetting(ALLOW_RUN_JOB, 0);
             $logSenMail = null;
             try {
                 $setting = strtolower(str_replace('\\', '_', get_class($this->mailForm)));
                 if (getSettingValueByKey($setting)) {
+                    sleep(3);
                     Mail::to($this->mailSend)->send($this->mailForm);
                 }
             } catch (\Exception $e) {
