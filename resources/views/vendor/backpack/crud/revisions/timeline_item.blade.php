@@ -141,7 +141,7 @@
     <div class="timeline-item"  id="timeline-send-mail-account-info">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            System sended notify imported account infor mail
+            System sent notify imported account infor mail
             <br>
             Account :
             @include('crud::revisions.subject_mail_log', ['history' => $history])
@@ -155,7 +155,7 @@
     <div class="timeline-item"  id="timeline-send-mail-adhoc">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            New adhoc mail sended to
+            New adhoc mail sent to
             @include('crud::revisions.subject_mail_log', ['history' => $history])
         </h3>
         @include('crud::revisions.mail_log', ['history' => $history])
@@ -167,7 +167,7 @@
     <div class="timeline-item"  id="timeline-send-mail-bi-annual">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            System sended bi annual mail to
+            System sent bi annual mail to
             @include('crud::revisions.subject_mail_log', ['history' => $history])
         </h3>
         @include('crud::revisions.mail_log', ['history' => $history])
@@ -179,7 +179,7 @@
     <div class="timeline-item"  id="timeline-send-mail-bi-annual">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            System sended mail to
+            System sent mail to
             <a href="{{ route('crud.user.show', $history->subject->id ?? 0) }}">{{ @$history->subject->name }} ({{ $history->subject ? getUserRole($history->subject) : '' }})</a>
             list company not validate
         </h3>
@@ -192,7 +192,7 @@
     <div class="timeline-item"  id="timeline-send-mail-bi-annual">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            System sended mail to
+            System sent mail to
             @include('crud::revisions.subject_mail_log', ['history' => $history])
             notify company was expired
         </h3>
@@ -205,7 +205,7 @@
     <div class="timeline-item"  id="timeline-send-mail-bi-annual">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            System sended mail to
+            System sent mail to
             @include('crud::revisions.subject_mail_log', ['history' => $history])
             notify company expire soon
         </h3>
@@ -218,7 +218,7 @@
     <div class="timeline-item"  id="timeline-send-mail-bi-annual">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            System sended mail to
+            System sent mail to
             @include('crud::revisions.subject_mail_log', ['history' => $history])
             notify company need validate
         </h3>
@@ -231,7 +231,7 @@
     <div class="timeline-item"  id="timeline-send-mail-account-info">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            System sended mail notify
+            System sent mail notify
             @include('crud::revisions.subject_mail_log', ['history' => $history])
             add account
         </h3>
@@ -244,7 +244,7 @@
     <div class="timeline-item"  id="timeline-send-mail-account-info">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            System sended mail notify
+            System sent mail notify
             @include('crud::revisions.subject_mail_log', ['history' => $history])
             create new pass holder:
         </h3>
@@ -257,7 +257,7 @@
     <div class="timeline-item"  id="timeline-send-mail-account-info">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            System sended mail notify
+            System sent mail notify
             @include('crud::revisions.subject_mail_log', ['history' => $history])
             list pass holder expired:
         </h3>
@@ -270,7 +270,7 @@
     <div class="timeline-item"  id="timeline-send-mail-account-info">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            System sended mail notify
+            System sent mail notify
             @include('crud::revisions.subject_mail_log', ['history' => $history])
             list pass holder expire soon:
         </h3>
@@ -283,7 +283,7 @@
     <div class="timeline-item"  id="timeline-send-mail-account-info">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            System sended mail notify
+            System sent mail notify
             @include('crud::revisions.subject_mail_log', ['history' => $history])
             list pass holder pendding return:
         </h3>
@@ -296,7 +296,7 @@
     <div class="timeline-item"  id="timeline-send-mail-account-info">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            System sended mail notify {{ @$history->causer->name }} need confirm return passholder:
+            System sent mail notify {{ @$history->causer->name }} need confirm return passholder:
         </h3>
         <div style="padding: 10px">
             <div class="timeline-body p-b-0">
@@ -314,7 +314,7 @@
     <div class="timeline-item"  id="timeline-send-mail-account-info">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            System sended mail notify
+            System sent mail notify
             @include('crud::revisions.subject_mail_log', ['history' => $history])
             pass holder was renewed
         </h3>
@@ -327,7 +327,7 @@
     <div class="timeline-item"  id="timeline-send-mail-account-info">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            System sended mail notify
+            System sent mail notify
             @include('crud::revisions.subject_mail_log', ['history' => $history])
             pass holder was terminated
         </h3>
@@ -340,7 +340,7 @@
     <div class="timeline-item"  id="timeline-send-mail-account-info">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            System sended mail notify
+            System sent mail notify
             @include('crud::revisions.subject_mail_log', ['history' => $history])
             list pass holder valid daily
         </h3>
@@ -353,7 +353,7 @@
     <div class="timeline-item"  id="timeline-send-mail-account-info">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            System sended welcome mail
+            System sent welcome mail
         </h3>
         @include('crud::revisions.mail_log', ['history' => $history])
     </div>
