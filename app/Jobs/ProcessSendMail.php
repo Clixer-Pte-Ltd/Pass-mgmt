@@ -42,7 +42,10 @@ class ProcessSendMail implements ShouldQueue
      */
     public function handle()
     {
-        while ($this->server == config('app.server_type') && getSettingValueByKey(ALLOW_RUN_JOB) == 1) {
+        if ($this->server == config('app.server_type')) {
+            while (getSettingValueByKey(ALLOW_RUN_JOB) == 0) {
+                dump('Not Allow');
+            }
             updateSetting(ALLOW_RUN_JOB, 0);
             $logSenMail = null;
             try {
@@ -61,7 +64,6 @@ class ProcessSendMail implements ShouldQueue
                     'send_info_email_log' => $logSenMail
                 ]);
             }
-            break;
         }
         updateSetting(ALLOW_RUN_JOB, 1);
     }
