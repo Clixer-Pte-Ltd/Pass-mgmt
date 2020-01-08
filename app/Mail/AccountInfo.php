@@ -2,11 +2,10 @@
 
 namespace App\Mail;
 
+use App\Services\ImageService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Services\LogService;
-use App\Models\BackpackUser;
 
 class AccountInfo extends Mailable
 {
@@ -21,7 +20,6 @@ class AccountInfo extends Mailable
      */
     public function __construct($account)
     {
-        //
         $this->account = $account;
     }
 
@@ -36,19 +34,17 @@ class AccountInfo extends Mailable
             $this->account->email,
             $this->account->google2fa_secret
         );
-
-        $image = \Image::make($qrCode)->encode('jpg', 90);
-        $filename = strtotime('now') . '.jpg';
-        \Storage::disk('local')->put("images/{$filename}",  $image->stream());
-
+        $imageService = new ImageService();
+        array_map('unlink', glob(storage_path('app/public/images/qr') . "/*.*"));
+        $url = $imageService->convertBase64ToFile(str_replace('data:image/png;base64,','', $qrCode), 'qr')['url'];
         $emailViewRender = view('emails.account_info',
             [
                 'account' => $this->account,
-                'qrCode' => $qrCode,
+                'qrCode' => $url,
                 'showPass' => false
             ])->render();
         app('logService')->logAction($this->account, null, $emailViewRender, 'Send Mail Account Info');
-        return $this->view('emails.account_info', ['qrCode' => $qrCode, 'showPass' => true])
+        return $this->view('emails.account_info', ['qrCode' => $url, 'showPass' => true])
             ->subject('CAG Airport Pass Tracking Portal (APTP) : Your account has been created');
     }
 }
