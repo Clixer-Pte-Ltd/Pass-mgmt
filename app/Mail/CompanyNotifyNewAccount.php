@@ -39,10 +39,12 @@ class CompanyNotifyNewAccount extends Mailable
             [
                 'account' => $this->account,
                 'link' => $link,
-                'companyName' => $companyName
+                'companyName' => $companyName,
+                'showPass' => false
             ])->render();
 
         app('logService')->logAction($this->account, null, $emailViewRender, 'Company Notify New Account');
-        return $this->view('emails.create_user_account', ['link' => $link, 'companyName' => $companyName]);
+        return $this->view('emails.create_user_account', ['link' => $link, 'companyName' => $companyName, 'showPass' => true])
+            ->subject('CAG Airport Pass Tracking Portal (APTP) : Your account has been created');
     }
 }
