@@ -38,12 +38,18 @@ class ProcessSendMail implements ShouldQueue
     /**
      * Execute the job.
      *
-     * @return void
+     * @return bool
+     * @throws \Exception
      */
     public function handle()
     {
         if ($this->server == config('app.server_type')) {
+            $timeCount = strtotime('now');
             while (getSettingValueByKey(ALLOW_RUN_JOB) == 0) {
+                if ((strtotime('now') - $timeCount) >= 10) {
+                    throw new \Exception('Not allow timeout');
+                    return false;
+                }
                 dump('Not Allow');
             }
             updateSetting(ALLOW_RUN_JOB, 0);
