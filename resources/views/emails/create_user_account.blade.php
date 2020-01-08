@@ -22,6 +22,9 @@
         <p>
             Email: <a href="{{ $account->email }}">{{ $account->email }}</a><br>
         </p>
+        <p>
+            Please change your password after your first login.
+        </p>
     </li>
     <li>
         <h4>Step 3:</h4>
@@ -35,8 +38,6 @@
     </li>
 </ul>
 
-<p>
-    Please change your password after your first login.
-</p>
+
 
 @include('emails.signature')

@@ -21,6 +21,7 @@
                 Password: {{ $account->first_password }}
             @endif
         </p>
+        <div>You may wish to copy and paste the password above to facilitate your first log-in. Please change your password after the first log-in.</div>
     </li>
     <li>
         <h4>Step 3:</h4>
@@ -33,5 +34,4 @@
         @endif
     </li>
 </ul>
-<div>You may wish to copy and paste the password above to facilitate your first log-in. Please change your password after the first log-in.</div>
 @include('emails.signature')
