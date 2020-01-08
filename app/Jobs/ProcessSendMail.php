@@ -44,15 +44,6 @@ class ProcessSendMail implements ShouldQueue
     public function handle()
     {
         if ($this->server == config('app.server_type')) {
-            $timeCount = strtotime('now');
-            while (getSettingValueByKey(ALLOW_RUN_JOB) == 0) {
-                if ((strtotime('now') - $timeCount) >= 10) {
-                    throw new \Exception('Not allow timeout');
-                    return false;
-                }
-                dump('Not Allow');
-            }
-            updateSetting(ALLOW_RUN_JOB, 0);
             $logSenMail = null;
             try {
                 $setting = getSettingMail(get_class($this->mailForm));
@@ -71,6 +62,5 @@ class ProcessSendMail implements ShouldQueue
                 ]);
             }
         }
-        updateSetting(ALLOW_RUN_JOB, 1);
     }
 }
