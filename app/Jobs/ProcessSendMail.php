@@ -61,8 +61,8 @@ class ProcessSendMail implements ShouldQueue
                     'send_info_email_log' => $logSenMail
                 ]);
             }
-            updateSetting(ALLOW_RUN_JOB, 1);
             break;
         }
+        updateSetting(ALLOW_RUN_JOB, 1);
     }
 }
