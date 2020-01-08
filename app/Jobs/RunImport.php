@@ -41,7 +41,10 @@ class RunImport implements ShouldQueue
     public function handle()
     {
         sleep(5);
-        while ($this->server == config('app.server_type') && getSettingValueByKey(ALLOW_RUN_JOB) == 1) {
+        if ($this->server == config('app.server_type')) {
+            while (getSettingValueByKey(ALLOW_RUN_JOB) == 0) {
+                dump('Not Allow');
+            }
             updateSetting(ALLOW_RUN_JOB, 0);
             try {
                 Excel::import($this->import, $this->file);
@@ -49,7 +52,6 @@ class RunImport implements ShouldQueue
             } catch (\Exception $e) {
                 logger([$e->getLine() => $e->getMessage()]);
             }
-            break;
         }
         updateSetting(ALLOW_RUN_JOB, 1);
     }
