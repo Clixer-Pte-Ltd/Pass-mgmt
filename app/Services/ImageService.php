@@ -15,7 +15,7 @@ class ImageService
         $src = $srcFolder . '/' . $filename;
         return [
             'url' => url($src),
-            'path' => storage_path($destination_path .'/'. $filename)
+            'path' => storage_path('app/' . $destination_path .'/'. $filename)
         ];
     }
 }
