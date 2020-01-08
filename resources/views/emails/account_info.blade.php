@@ -13,7 +13,7 @@
     </li>
     <li>
         Google Authenticator Key:{{ $account->google2fa_secret}}
-        <div><img src="{{ $qrCode }}"></div>
+        <div><img src="{{ $message->embed($qrCode) }}"></div>
     </li>
     @endif
 </ul>

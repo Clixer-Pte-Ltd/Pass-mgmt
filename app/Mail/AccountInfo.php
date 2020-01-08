@@ -36,7 +36,7 @@ class AccountInfo extends Mailable
         );
         $imageService = new ImageService();
         array_map('unlink', glob(storage_path('app/public/images/qr') . "/*.*"));
-        $url = $imageService->convertBase64ToFile(str_replace('data:image/png;base64,','', $qrCode), 'qr')['url'];
+        $url = $imageService->convertBase64ToFile(str_replace('data:image/png;base64,','', $qrCode), 'qr')['path'];
         $emailViewRender = view('emails.account_info',
             [
                 'account' => $this->account,
