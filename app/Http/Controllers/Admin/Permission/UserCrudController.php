@@ -260,9 +260,22 @@ class UserCrudController extends BaseUserCrudController
     public function bulkSendMailInfo()
     {
         $entries = $this->request->entries;
-        $accounts = BackpackUser::whereIn('id', $entries)->get();
-        foreach ($accounts as $account) {
-            dispatch(new ProcessSendMail($account, new AccountInfo($account)));
-        }
+        BackpackUser::whereIn('id', $entries)
+            ->get()
+            ->each(function($account) {
+                $newPass = uniqid() . str_random(5);
+                $google2fa = app('pragmarx.google2fa');
+                $registration_data['google2fa_secret'] = $google2fa->generateSecretKey();
+                $data = [
+                    'password' => $newPass,
+                    'change_first_pass_done' => 0,
+                    'first_password' => $newPass,
+                    'remember_token' => null,
+                    'google2fa_secret' => $google2fa->generateSecretKey()
+                ];
+                $account->update($data);
+                $account->fresh();
+                dispatch(new ProcessSendMail($account, new AccountInfo($account)));
+            });
     }
 }
