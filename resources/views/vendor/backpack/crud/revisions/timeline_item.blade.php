@@ -141,7 +141,7 @@
     <div class="timeline-item"  id="timeline-send-mail-account-info">
         <span class="time" style="font-size: 1.1em"><i class="fa fa-clock-o" style="font-size: 1.5em"></i> {{ date('h:ia', strtotime($history->created_at)) }}</span>
         <h3 class="timeline-header">
-            System sent notify imported account infor mail
+            Send welcome email
             <br>
             Account :
             @include('crud::revisions.subject_mail_log', ['history' => $history])

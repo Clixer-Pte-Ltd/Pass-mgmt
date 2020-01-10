@@ -45,6 +45,7 @@ class AccountInfo extends Mailable
             ])->render();
         app('logService')->logAction($this->account, null, $emailViewRender, 'Send Mail Account Info');
         return $this->view('emails.account_info', ['qrCode' => $url, 'showPass' => true])
-            ->subject('CAG Airport Pass Tracking Portal (APTP) : Your account has been created');
+            ->subject('CAG Airport Pass Tracking Portal (APTP) : Your account has been created')
+            ->attach(storage_path('app/CAG_Pass_Portal_User_Guide_CO_AS.pdf'));
     }
 }

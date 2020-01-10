@@ -69,7 +69,7 @@ define('ALLOW_MAIL', [
 ]);
 
 define('ALLOW_MAIL_NAME', [
-    'APP_MAIL_ACCOUNTINFO' => 'Account Info',
+    'APP_MAIL_ACCOUNTINFO' => 'Account Welcome Email',
     'APP_MAIL_ADHOCMAIL' => 'Adhoc Mail',
     'APP_MAIL_BIANNUALMAIL' => 'Bi Annual Mail',
     'APP_MAIL_COMPANIESLISTNOTVALIDATE' => 'Companies List Not Validate',
