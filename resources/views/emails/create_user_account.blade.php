@@ -1,5 +1,5 @@
 <p>Dear Airport Pass Coordinator/Authorized Signatory,</p>
-<div>You have been added into your company's list {{ $companyName }}.</div>
+<div>Your Airport Pass Tracking Portal (APTP) account has been created. Please see attachments for the user guide on how to use the portal. Do note that this portal is a stand-alone pass management portal which is meant to help you track airport passes that are sponsored by your company. The APTP is not linked to the airport pass application portal. For airport pass application, please proceed to "http://www.changiairport.com/corporate/e-services/airport-pass-application.html" as per current practice.</div>
 <div>Please create an account using the link below: </div>
 <ul>
     <li>
