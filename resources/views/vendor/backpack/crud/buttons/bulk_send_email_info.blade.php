@@ -1,5 +1,5 @@
 @if ($crud->bulk_actions)
-	<a href="javascript:void(0)" onclick="bulkSendInfoEntries(this)" class="btn btn-default btn-sm bulk-button"><i class="fa fa-mail-forward"></i>Send Mail Account Info</a>
+	<a href="javascript:void(0)" onclick="bulkSendInfoEntries(this)" class="btn btn-default btn-sm bulk-button"><i class="fa fa-mail-forward"></i>Send welcome email</a>
 @endif
 
 @push('after_scripts')
