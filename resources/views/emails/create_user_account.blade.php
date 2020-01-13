@@ -10,20 +10,26 @@
 <ul>
     <li>
         <h4>Step 1:</h4>
-        Using your Authenticator Tool Scan this code. Example:
-        @if ($showPass)
-            <div><img src="{{ $message->embed(public_path('images/qr_example.png')) }}"></div>
-        @endif
-        **We recommend Google Authenticator, it can be downloaded on Google Play Store or Apple App Store**
+        <p>Click on the "Create Account" Link shown above.<br>
+
+        You will reach https://pass-mgmt.changiairport.com, accept terms and conditions.<br>
+
+        Create your account with the below email address:<br>
+        Email: <a href="{{ $account->email }}">{{ $account->email }}</a><br>
+
+        Insert your own desired password .<br>
+
+        *New password must contain minimum 8 characters with 1 uppercase and lowercase, 1 symbol and 1 number*<br>
+        </p>
     </li>
     <li>
         <h4>Step 2:</h4>
-        <p>Visit <a href="https://pass-mgmt.changiairport.com">https://pass-mgmt.changiairport.com</a> and log in using this credentials:</p>
+        <p>Using your Authenticator Tool, scan the QR Code on the web browser after you have successfully created the account. <b>Example is as below (below QR Code is a SAMPLE ONLY)</b>:</p>
+        @if ($showPass)
+            <div><img src="{{ $message->embed(public_path('images/qr_example.png')) }}"></div>
+        @endif
         <p>
-            Email: <a href="{{ $account->email }}">{{ $account->email }}</a><br>
-        </p>
-        <p>
-            Please change your password after your first login.
+            **We recommend Google Authenticator, it can be downloaded on Google Play Store or Apple App Store**
         </p>
     </li>
     <li>
@@ -32,12 +38,7 @@
             You will be prompted to key in “One Time Password”.<br>
             To get the “One Time Password”, open up your authenticator tool on your mobile device to get the 6-digit “One Time Password” displayed.
         </p>
-        @if ($showPass)
-            <div><img src="{{ $message->embed(public_path('images/one_time_pass.jpg')) }}"></div>
-        @endif
     </li>
 </ul>
-
-
 
 @include('emails.signature')
