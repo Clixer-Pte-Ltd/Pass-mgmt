@@ -14,6 +14,10 @@
 Route::get('/', function () {
     return redirect()->route('backpack.dashboard');
 });
+Route::get('home', function () {
+    return redirect()->route('backpack.dashboard');
+});
+
 
 Route::get('/complete-registration', 'Auth\RegisterController@completeRegistration');
 
