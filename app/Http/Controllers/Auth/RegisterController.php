@@ -247,38 +247,42 @@ class RegisterController extends Controller
      */
     public function completeRegistration(Request $request)
     {
-        // add the session data back to the request input
-        $request->merge(session('registration_data'));
+        try {
+            // add the session data back to the request input
+            $request->merge(session('registration_data'));
 
-        $user = $this->create($request->all());
+            $user = $this->create($request->all());
 
-        if (!$user) {
-            \Alert::error('Create account error')->flash();
-            return redirect()->back();
-        }
-
-        if (session()->has(SESS_NEW_ACC_FROM_TENANT)) {
-            $id = session()->get(SESS_NEW_ACC_FROM_TENANT);
-            session()->forget(SESS_NEW_ACC_FROM_TENANT);
-
-            if (session()->has(SESS_TENANT_MY_COMPANY)) {
-                return redirect()->route('admin.tenant.my-company');
+            if (!$user) {
+                \Alert::error('Create account error')->flash();
+                return redirect()->back();
             }
-            return redirect()->route('crud.tenant.show', [$id]);
-        }
 
-        if (session()->has(SESS_NEW_ACC_FROM_SUB_CONSTRUCTOR)) {
-            if (!backpack_user()->hasAnyRole(config('backpack.cag.roles'))) {
-                return redirect()->route('admin.tenant.my-company');
+            if (session()->has(SESS_NEW_ACC_FROM_TENANT)) {
+                $id = session()->get(SESS_NEW_ACC_FROM_TENANT);
+                session()->forget(SESS_NEW_ACC_FROM_TENANT);
+
+                if (session()->has(SESS_TENANT_MY_COMPANY)) {
+                    return redirect()->route('admin.tenant.my-company');
+                }
+                return redirect()->route('crud.tenant.show', [$id]);
             }
-            $id = session()->get(SESS_NEW_ACC_FROM_SUB_CONSTRUCTOR);
-            session()->forget(SESS_NEW_ACC_FROM_SUB_CONSTRUCTOR);
-            return redirect()->route('crud.sub-constructor.show', [$id]);
-        }
-        $user->update(['token' => uniqid() . str_random(40)]);
-        $this->guard()->login($user);
 
-        return redirect($this->redirectPath());
+            if (session()->has(SESS_NEW_ACC_FROM_SUB_CONSTRUCTOR)) {
+                if (!backpack_user()->hasAnyRole(config('backpack.cag.roles'))) {
+                    return redirect()->route('admin.tenant.my-company');
+                }
+                $id = session()->get(SESS_NEW_ACC_FROM_SUB_CONSTRUCTOR);
+                session()->forget(SESS_NEW_ACC_FROM_SUB_CONSTRUCTOR);
+                return redirect()->route('crud.sub-constructor.show', [$id]);
+            }
+            $user->update(['token' => uniqid() . str_random(40)]);
+            $this->guard()->login($user);
+
+            return redirect($this->redirectPath());
+        } catch (\Exception $e) {
+            return abort(404);
+        }
     }
 
     /**
