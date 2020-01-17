@@ -2,19 +2,20 @@
 
 <div>Your Airport Pass Tracking Portal (APTP) account has been created. Please see attachments for the user guide on how to use the portal. Do note that this portal is a stand-alone pass management portal which is meant to help you track airport passes that are sponsored by your company. The APTP is not linked to the airport pass application portal. For airport pass application, please proceed to "https://www.changiairport.com/corporate/e-services/airport-pass-application.html" as per current practice.
 </div>
-<div>Follow the 3-steps below to successfully login to the portal.</div>
+<div>Follow the 3-steps below to successfully login to the portal.
+</div>
 <ul>
     <li>
         <h4>Step 1:</h4>
-        Using your Authenticator Tool Scan this code:
+        Use your Authenticator Tool to scan this code:
         @if ($showPass)
             <div><img src="{{ $message->embed($qrCode) }}"></div>
         @endif
-        **We recommend Google Authenticator, it can be downloaded on Google Play Store or Apple App Store**
+        **We recommend Google Authenticator, it can be downloaded on Google Play Store or Apple App Store*
     </li>
     <li>
         <h4>Step 2:</h4>
-        <p>Visit <a href="https://pass-mgmt.changiairport.com">https://pass-mgmt.changiairport.com</a> and log in using this credentials:</p>
+        <p>Visit https://pass-mgmt.changiairport.com and log in using this credentials:</p>
         <p>
             Email: <a href="{{ $account->email }}">{{ $account->email }}</a><br>
             @if ($showPass)

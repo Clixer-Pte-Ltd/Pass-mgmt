@@ -26,8 +26,6 @@
         @endphp
     @endforeach
 </table>
-<p>As the sponsor of this/these Airport Pass/es, you are required to retrieve the pass/es from the passholder upon expiry of the pass and/or when the pass is no longer needed for the purpose it was issued for.<br>
-    Failure to return the expired airport pass constitutes a breach of the Letter of Undertaking which you signed on behalf of the company.  CAG as the Issuing Authority for airport pass reserves the rights to take necessary actions it deems fit which includes, but not limited to cancellation of your airport pass account and withdrawal of all airport pass sponsored by your company. <br>
-    ManagerAviation Security ManagerChangi Airport Group (S) Pte Ltd
+<p>As the sponsor of this/these Airport Pass/Passes, you are required to retrieve the pass/passes from the passholder upon expiry of the pass and/or when the pass is no longer needed for work reasons. CAG as the Issuing Authority for airport passes reserves the rights to take the necessary actions that it deems fit which includes, but are not limited to, the cancellation of your airport pass account and withdrawal of all airport pass sponsored by your company.
 </p>
 @include('emails.signature')
