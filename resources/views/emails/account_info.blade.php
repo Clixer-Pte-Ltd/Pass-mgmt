@@ -1,6 +1,6 @@
 <p>Dear Airport Pass Coordinator/Authorized Staff,</p>
 
-<div>Your Airport Pass Tracking Portal (APTP) account has been created. Please see attachments for the user guide on how to use the portal. Do note that this portal is a stand-alone pass management portal which is meant to help you track airport passes that are sponsored by your company. The APTP is not linked to the airport pass application portal. For airport pass application, please proceed to "<a href="http://www.changiairport.com/corporate/e-services/airport-pass-application.html">http://www.changiairport.com/corporate/e-services/airport-pass-application.html</a>" as per current practice.
+<div>Your Airport Pass Tracking Portal (APTP) account has been created. Please see attachments for the user guide on how to use the portal. Do note that this portal is a stand-alone pass management portal which is meant to help you track airport passes that are sponsored by your company. The APTP is not linked to the airport pass application portal. For airport pass application, please proceed to "https://www.changiairport.com/corporate/e-services/airport-pass-application.html" as per current practice.
 </div>
 <div>Follow the 3-steps below to successfully login to the portal.</div>
 <ul>

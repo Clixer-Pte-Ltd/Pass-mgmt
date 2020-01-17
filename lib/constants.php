@@ -65,7 +65,8 @@ define('ALLOW_MAIL', [
     'APP_MAIL_PASSHOLDERNEEDCONFIRMRETURNMAIL' => 'app_mail_passholderneedconfirmreturnmail',
     'APP_MAIL_PASSHOLDERRENEWMAIL' => 'app_mail_passholderrenewmail',
     'APP_MAIL_PASSHOLDERVALIDDAILYMAIL' => 'app_mail_passholdervaliddailymail',
-    'APP_MAIL_WELCOMEMAIL' => 'app_mail_welcomemail'
+    'APP_MAIL_WELCOMEMAIL' => 'app_mail_welcomemail',
+    'APP_MAIL_RESET_PASSWORD' => 'app_mail_reset_password'
 ]);
 
 define('ALLOW_MAIL_NAME', [
