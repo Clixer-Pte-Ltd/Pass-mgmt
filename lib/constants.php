@@ -85,7 +85,8 @@ define('ALLOW_MAIL_NAME', [
     'APP_MAIL_PASSHOLDERNEEDCONFIRMRETURNMAIL' => 'Pass Holder Need Confirm Return Mail',
     'APP_MAIL_PASSHOLDERRENEWMAIL' => 'Pass Holder Renew Mail',
     'APP_MAIL_PASSHOLDERVALIDDAILYMAIL' => 'Pass Holder Valid Daily Mail',
-    'APP_MAIL_WELCOMEMAIL' => 'Welcome Mail'
+    'APP_MAIL_WELCOMEMAIL' => 'Welcome Mail',
+    'APP_MAIL_RESET_PASSWORD' => 'Reset password'
 ]);
 
 
