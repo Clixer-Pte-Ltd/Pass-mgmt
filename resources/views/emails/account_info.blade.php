@@ -11,7 +11,7 @@
         @if ($showPass)
             <div><img src="{{ $message->embed($qrCode) }}"></div>
         @endif
-        **We recommend Google Authenticator, it can be downloaded on Google Play Store or Apple App Store*
+        **We recommend Google Authenticator, it can be downloaded on Google Play Store or Apple App Store**
     </li>
     <li>
         <h4>Step 2:</h4>
