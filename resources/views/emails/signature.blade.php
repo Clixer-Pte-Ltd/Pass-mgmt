@@ -3,8 +3,7 @@
 <div>Regards,</div>
 <div>CAG Airport Pass Tracking Portal (APTP)</div>
 <div>
-    From: CAS_APO_General@certisgroup.com<br>
-    To: CAS_APO_APTP@certisgroup.com
+    This is an auto-generated email. Please do not reply, for all enquiries please contact us at "CAS_APO_APTP@certisgroup.com"
 </div>
 <p>
     <b>CONFIDENTIALITY NOTE</b> – This message and any attachments are confidential. If you have received this message in error, please delete it from your system. If you require any assistance, please notify the sender. <br>
