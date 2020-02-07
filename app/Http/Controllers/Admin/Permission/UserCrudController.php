@@ -13,7 +13,6 @@ use App\User;
 use Carbon\Carbon;
 use App\Models\Company;
 use App\Events\CompanyAddAccount;
-use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
 
 class UserCrudController extends BaseUserCrudController
@@ -57,6 +56,14 @@ class UserCrudController extends BaseUserCrudController
         ]);
         $this->crud->removeColumn('permissions');
         $this->crud->addColumn('phone');
+        $this->crud->addColumn([
+            'name' => 'created_at',
+            'label' => 'User Registered At',
+            'type' => 'closure',
+            'function' => function($entry) {
+                return custom_date_time_format($entry->created_at);
+            }
+        ]);
         $this->crud->removeField('roles_and_permissions');
         $this->crud->addField([
             'label' => 'Phone',
@@ -148,6 +155,20 @@ class UserCrudController extends BaseUserCrudController
                 $this->crud->addClause('whereNotNull', 'send_info_email_log');
             }
         });
+
+        $this->crud->addFilter(
+            [ // daterange filter
+                'type' => 'date_range',
+                'name' => 'date_end_range',
+                'label' => 'User registered at'
+            ],
+            false,
+            function ($value) {
+                $dates = json_decode($value);
+                $this->crud->addClause('where', 'created_at', '>=', $dates->from);
+                $this->crud->addClause('where', 'created_at', '<=', $dates->to . ' 23:59:59');
+            }
+        );
 
         $this->crud->setListView('crud::customize.list');
         $this->crud->removeButtonFromStack('create', 'top');
