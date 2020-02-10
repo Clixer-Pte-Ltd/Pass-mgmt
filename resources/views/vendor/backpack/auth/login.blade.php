@@ -1,31 +1,31 @@
 @extends('backpack::layout_guest')
 
 @section('content')
-{{--    <div id='note_login'--}}
-{{--         style="--}}
-{{--            position: relative;--}}
-{{--            left: 25%;--}}
-{{--            color: #fff;--}}
-{{--            background: rgba(255, 0, 0, 0.99);--}}
-{{--            width: 50%;--}}
-{{--            padding: 5px;--}}
-{{--            border-radius: 5px;--}}
-{{--    ">--}}
-{{--        <i class="fa fa-warning"--}}
-{{--           style="--}}
-{{--            font-size:48px;--}}
-{{--            color:#ffffff; position: absolute;--}}
-{{--            top: 3px;--}}
-{{--            left: 3px">--}}
-{{--        </i>--}}
-{{--        <h3 style="width: 100%; text-align: center">--}}
-{{--            <b>Dear CO and AS</b></h3>--}}
-{{--        <b>--}}
-{{--            Our Application Pass Tracking Portal are having urgent maintenance on 4th Feb 2020 from 7PM to 12MN. Within these period of time, portal will not be accessible.<br>--}}
+    <div id='note_login'
+         style="
+            position: relative;
+            left: 25%;
+            color: #fff;
+            background: rgba(255, 0, 0, 0.99);
+            width: 50%;
+            padding: 5px;
+            border-radius: 5px;
+    ">
+        <i class="fa fa-warning"
+           style="
+            font-size:48px;
+            color:#ffffff; position: absolute;
+            top: 3px;
+            left: 3px">
+        </i>
+        <h3 style="width: 100%; text-align: center">
+            <b>Dear CO and AS</b></h3>
+        <b>
+            our Application Pass Tracking Portal are having urgent maintenance on 10th Feb 2020 from 6.30PM to 8PM. Within these period of time, portal will not be accessible. <br>
 
-{{--            Apologize for the inconveniences and thank you for your understanding.--}}
-{{--        </b>--}}
-{{--    </div>--}}
+            Apologize for the inconveniences and thank you for your understanding.
+        </b>
+    </div>
     <div class="login_content">
         <div class="row m-t-40">
             <div class="col-md-6 col-md-offset-3">
