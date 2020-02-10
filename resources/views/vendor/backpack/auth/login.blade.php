@@ -21,7 +21,7 @@
         <h3 style="width: 100%; text-align: center">
             <b>Dear CO and AS</b></h3>
         <b>
-            our Application Pass Tracking Portal are having urgent maintenance on 10th Feb 2020 from 6.30PM to 8PM. Within these period of time, portal will not be accessible. <br>
+            Our Application Pass Tracking Portal are having urgent maintenance on 10th Feb 2020 from 6.30PM to 8PM. Within these period of time, portal will not be accessible. <br>
 
             Apologize for the inconveniences and thank you for your understanding.
         </b>
