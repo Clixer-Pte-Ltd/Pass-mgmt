@@ -9,6 +9,7 @@
         <th style=" border: 1px solid #dddddd; text-align: left; padding: 8px;">Pass#</th>
         <th style=" border: 1px solid #dddddd; text-align: left; padding: 8px;">Expiry Date</th>
         <th style=" border: 1px solid #dddddd; text-align: left; padding: 8px;">Last Update</th>
+        <th style=" border: 1px solid #dddddd; text-align: left; padding: 8px;">Company</th>
     </tr>
     @php
         $i = 0;
@@ -20,6 +21,7 @@
             <td style=" border: 1px solid #dddddd; text-align: left; padding: 8px;">{{ $passHolder->nric }}</td>
             <td style=" border: 1px solid #dddddd; text-align: left; padding: 8px;">{{ $passHolder->pass_expiry_date }}</td>
             <td style=" border: 1px solid #dddddd; text-align: left; padding: 8px;">{{ $passHolder->updated_at }}</td>
+            <td style=" border: 1px solid #dddddd; text-align: left; padding: 8px;">{{ @$passHolder->company->companyable->name }}</td>
         </tr>
         @php
             $i++;
