@@ -22,7 +22,7 @@ class CompanyExpiredNotification extends BaseListener
     /**
      * Handle the event.
      *
-     * @param  CompanyExpired  $event
+     * @param CompanyExpired $event
      * @return void
      */
     public function handle(CompanyExpired $event)
@@ -30,9 +30,11 @@ class CompanyExpiredNotification extends BaseListener
         $accountService = new AccountService();
         $admins = $accountService->getAccountRelateCompany($event->companies, true, true);
         $mailService = new MailService('CompanyExpiredMail', $admins);
-        $admins->each(function($admin, $index) use ($event, $mailService) {
+        $admins->each(function ($admin, $index) use ($event, $mailService) {
             if ($admin->hasCompany()) {
-                $companies = $event->companies->whereIn('id', $admin->getCompany()->pluck('id')->toArray());
+                $ids = $event->type == TENANT ? $admin->getAllTenants()->pluck('id')->toArray()
+                    : $admin->getSubConstructors()->pluck('id')->toArray();
+                $companies = $event->companies->whereIn('id', $ids);
                 if ($companies->count()) {
                     $mailService->sendMailToAccount($admin, $companies);
                 }

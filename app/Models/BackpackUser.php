@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\User;
+use Illuminate\Support\Collection;
 use Tightenco\Parental\HasParentModel;
 use App\Traits\LogsActivity;
 use Carbon\Carbon;
@@ -98,6 +99,23 @@ class BackpackUser extends User
                 }
             });
             return $tenants;
+        }
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getSubConstructors()
+    {
+        $companies = $this->getCompany();
+        if ($companies) {
+            $subs = collect([]);
+            $companies->each(function($item, $key) use ($subs) {
+                if ($item instanceof SubConstructor) {
+                    $subs->push($item);
+                }
+            });
+            return $subs;
         }
     }
 

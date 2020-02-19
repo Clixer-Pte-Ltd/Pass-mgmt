@@ -54,33 +54,33 @@ class TenancyExpireChecking extends Command
         ];
     }
 
-    private function checkingCompany($companyType)
+    private function checkingCompany($companyType, $type)
     {
         $query = $companyType->with('passHolders')->whereIn('status', $this->checkingStatusCondition())
                                     ->where('tenancy_end_date', '<', Carbon::now());
         $companies = $query->get();
-        $query->update(['status' => COMPANY_STATUS_EXPIRED]);
-        $companies->each(function($company, $key) {
-            $company->passHolders()->update(['status' => PASS_STATUS_BLACKLISTED]);
-        });
+//        $query->update(['status' => COMPANY_STATUS_EXPIRED]);
+//        $companies->each(function($company, $key) {
+//            $company->passHolders()->update(['status' => PASS_STATUS_BLACKLISTED]);
+//        });
         if ($companies->count()) {
-            event(new CompanyExpired($companies));
+            event(new CompanyExpired($companies, $type));
         }
     }
 
     private function checkingTenants()
     {
-        $this->checkingCompany(Tenant::query());
-        $this->checkCompanyExpireSoon(Tenant::query());
+        $this->checkingCompany(Tenant::query(), TENANT);
+        $this->checkCompanyExpireSoon(Tenant::query(), TENANT);
     }
 
     private function checkingSubContructors()
     {
-        $this->checkingCompany(SubConstructor::query());
-        $this->checkCompanyExpireSoon(SubConstructor::query());
+        $this->checkingCompany(SubConstructor::query(), SUB_CONSTRUCTOR);
+        $this->checkCompanyExpireSoon(SubConstructor::query(), SUB_CONSTRUCTOR);
     }
 
-    private function checkCompanyExpireSoon($companyType)
+    private function checkCompanyExpireSoon($companyType, $type)
     {
         $query = $companyType->orWhere(function ($query) {
             $query->where('tenancy_end_date', '<=', Carbon::now()->addWeeks(4))
@@ -101,7 +101,7 @@ class TenancyExpireChecking extends Command
 
         $companies = $query->get();
         if ($companies->count()) {
-            event(new CompanyExpireSoon($companies));
+            event(new CompanyExpireSoon($companies, $type));
         }
     }
 }

@@ -121,3 +121,7 @@ define('ARCHIVE_ADHOC_EMAIL', 1);
 //activity log status
 define('ACTIVE_ACTIVITY_LOG', 0);
 define('ARCHIVE_ACTIVITY_LOG', 1);
+
+// type company
+define('TENANT', 1);
+define('SUB_CONSTRUCTOR', 2);
