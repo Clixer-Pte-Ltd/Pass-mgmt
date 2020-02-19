@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -13,21 +14,24 @@ class CompanyExpired
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $companies;
+    public $type;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param Collection $companies
+     * @param $type
      */
-    public function __construct(Collection $companies)
+    public function __construct(Collection $companies, $type)
     {
         $this->companies = $companies;
+        $this->type = $type;
     }
 
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return \Illuminate\Broadcasting\Channel|array
+     * @return Channel|array
      */
     public function broadcastOn()
     {
