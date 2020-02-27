@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RemindChangePasswordSeeder::class);
         $this->call(AdhocMailSettingSeeder::class);
         $this->call(UserTableSeeder::class);
+        $this->call(AllowSendMailSeeder::class);
     }
 }
